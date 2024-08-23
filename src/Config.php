@@ -29,7 +29,7 @@ class Config
             'webhook' => $cfg['api_url'] ?? self::webhook($cfg['token']),
             'dev' => $cfg['dev'] ?? false,
             'logs' => self::logging($cfg['logs'] ?? ''),
-            'parse_mode' > $cfg['parse_mode']??'MarkdownV2'
+            'parse_mode' => $cfg['parse_mode']??'MarkdownV2'
         ];
     }
 
