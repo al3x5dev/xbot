@@ -3,7 +3,6 @@
 namespace Al3x5\xBot;
 
 use Al3x5\xBot\Exceptions\xBotException;
-use InvalidArgumentException;
 
 /**
  * Config class
@@ -23,13 +22,17 @@ class Config
         self::$cfg = [
             'token' => self::validateToken($cfg['token']),
             'name' => $cfg['name'] ?? '',
-            'admins'=>$cfg['admins']??[],
+            'admins' => $cfg['admins'] ?? [],
             //'async' => $cfg['async'] ?? false,
-            //'storage' => $cfg['storage'] ?? \WeStacks\TeleBot\Storage\JsonStorage::class,
-            'webhook' => $cfg['api_url'] ?? self::webhook($cfg['token']),
+            'storage' => $cfg['storage'] ?? \Mk4U\Cache\CacheFactory::create('file', [
+                'dir' => 'cache',
+                'ttl' => 600
+            ]),
+            'webhook' => $cfg['webhook'] ?? self::webhook($cfg['token']),
+            'handler' => $cfg['handler'] ?? [],
             'dev' => $cfg['dev'] ?? false,
             'logs' => self::logging($cfg['logs'] ?? ''),
-            'parse_mode' => $cfg['parse_mode']??'MarkdownV2'
+            'parse_mode' => $cfg['parse_mode'] ?? 'MarkdownV2'
         ];
     }
 
@@ -54,10 +57,10 @@ class Config
      */
     public static function set(string $name, mixed $value): void
     {
-        if(self::has($name)){
+        if (self::has($name)) {
             self::$cfg[$name] = $value;
         }
-        throw new InvalidArgumentException("Parameter not found: $name");
+        throw new \InvalidArgumentException("Parameter not found: $name");
     }
 
     /**
@@ -73,7 +76,7 @@ class Config
     /**
      * Valida el token del bot
      */
-    private static function validateToken(string $token) : string
+    private static function validateToken(string $token): string
     {
         if (!preg_match('/(\d+):[\w\-]+/', $token)) {
             throw new xBotException("Invalid Token!");
