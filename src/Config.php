@@ -25,7 +25,7 @@ class Config
             'admins' => $cfg['admins'] ?? [],
             //'async' => $cfg['async'] ?? false,
             'storage' => $cfg['storage'] ?? \Mk4U\Cache\CacheFactory::create('file', [
-                'dir' => 'cache',
+                'dir' => 'storage',
                 'ttl' => 600
             ]),
             'webhook' => $cfg['webhook'] ?? self::webhook($cfg['token']),
