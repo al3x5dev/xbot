@@ -15,6 +15,10 @@ use Mk4U\Http\Request;
 
 class xBot
 {
+    public const NAME = 'xBot';
+
+    public const VERSION = '0.1';
+
     use CommandHandlers,
         ConversationHandlers,
         MessageHandlers;
