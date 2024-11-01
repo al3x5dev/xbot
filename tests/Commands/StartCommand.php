@@ -13,6 +13,11 @@ class StartCommand extends Commands
 {
     public function execute(): Telegram
     {
+        $this->bot->getChatMember([
+            'chat_id' => -1002340379263,
+            'user_id' => $this->bot->getChatId(),
+        ]);
+
         $cnv = new HelloConversation($this->bot);
         //$this->bot->startConversation(new HelloConversation($this->bot));
         $this->bot->reply('Start command executed');

@@ -13,22 +13,9 @@ class HelloCommand extends Commands
 {
     public function execute(): Telegram
     {
-        return $this->bot->sendPhoto([
-            'chat_id' => $this->bot->getChatId(),
-            'photo' => 'https://i.pinimg.com/736x/8c/1c/2e/8c1c2ec143a3ab9229014479fd83c437.jpg',
-            'caption' => '¡Bienvenido *'. $this->bot->getFirstName() .'* al Bot de Apuestas de Telegram\! 🎉'.PHP_EOL.PHP_EOL.
-            'Este bot te permitirá realizar apuestas en diferentes eventos 🃏🎰🎯🎱⚽️',
-            'reply_markup' => Keyboard::inline([
-                [
-                    ['text' => '🎮 Jugar', 'callback_data' => 'GameCommand']
-                ],
-                [
-                    ['text' => '💵 Banca', 'callback_data' => 'hello']
-                ],
-                [
-                    ['text' => '🛟 Ayuda', 'callback_data' => 'hello']
-                ]
-            ])
+        return $this->bot->reply('Hola 👋 ['.$this->message->get('from')->first_name.'](tg://user?id='.$this->message->get('from')->id.')',[
+            'reply_to_message_id' => 11, // Responde al mensaje original
+        'message_thread_id' => 11 // Especifica el ID del hilo
         ]);
     }
 }
