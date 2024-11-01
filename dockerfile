@@ -15,4 +15,4 @@ RUN apt-get update && apt-get install -y \
     && composer install
 
 # Comando para ejecutar tu bot
-CMD ["php", "-S", "0.0.0.0:8080", "bot.php"]
+CMD ["php", "-S", "0.0.0.0:8080", "xbot.php"]
