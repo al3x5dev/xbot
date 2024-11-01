@@ -38,6 +38,16 @@ trait ConversationHandlers
      */
     private function getConversation(): mixed
     {
+        $expired = Config::get('storage')->isExpired(
+            $this->getConversationIdentifier()
+        );
+        if ($expired) {
+            Config::get('storage')->delete(
+                $this->getConversationIdentifier()
+            );
+
+            return $this->executeCommand('/game');
+        }
         $data = Config::get('storage')->get(
             $this->getConversationIdentifier()
         );

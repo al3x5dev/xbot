@@ -19,6 +19,13 @@ class Telegram
         'setWebhook',
         'deleteWebhook',
         'getWebhookInfo', //Informativos
+        'getChatMember', //Usuarios miembros
+        'getChatAdministrators', //Administradores
+        'getChatMembersCount', //Conteo de usuarios
+        'getChat', //Información de chat
+        'getChatHistory', //Historial de chat
+        'getChatMembers', //Lista de usuarios
+
         'sendMessage',
         'forwardMessage',
         'forwardMessages',
@@ -45,7 +52,7 @@ class Telegram
 
         $this->client = new Client();
 
-        $params['parse_mode']=Config::get('parse_mode');
+        $params['parse_mode'] = Config::get('parse_mode');
 
         $this->method = $method;
         $this->params = $params;

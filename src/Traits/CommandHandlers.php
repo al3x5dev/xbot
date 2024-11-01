@@ -78,4 +78,14 @@ trait CommandHandlers
 
         return $this->reply('Mensaje generico');
     }
+
+    public function executeCommand(string $command): Telegram
+    {
+        return (
+            new $this->commands[$command](
+                $this,
+                $this->update->get('message')
+            )
+        )->execute();
+    }
 }
