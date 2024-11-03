@@ -1,7 +1,8 @@
-/cache/
-/logs/
+cache/
+logs/
+storage/
 tests/
-/vendor/
+vendor/
 composer.lock
 xbot.php
 xconfig.php
