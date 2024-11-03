@@ -1,0 +1,8 @@
+/cache/
+/logs/
+/tests/
+/vendor/
+composer.lock
+xbot.php
+xconfig.php
+cli.php

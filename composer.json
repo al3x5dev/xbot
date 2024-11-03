@@ -1,0 +1,43 @@
+{
+    "name": "al3x5/xbot",
+    "description": "telegram bot",
+    "type": "library",
+    "require": {
+        "php": ">=8.2",
+        "guzzlehttp/guzzle": "^7.8",
+        "mk4u/http": "^0.2.1",
+        "monolog/monolog": "^3.6",
+        "mk4u/cache": "^0.2.0"
+    },
+    "require-dev": {
+        "symfony/var-dumper": "^7.0"
+    },
+    "license": "MIT",
+    "autoload": {
+        "psr-4": {
+            "Al3x5\\xBot\\": "src/"
+        },
+        "files": [
+            "src/helpers.php"
+        ]
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Al3x5\\Tests\\": "tests/"
+        }
+    },
+    "authors": [
+        {
+            "name": "alexsandrov16",
+            "email": "al3x5.dev@gmail.com"
+        }
+    ],
+    "scripts": {
+        "post-install-cmd": [
+            "php post-install.php"
+        ],
+        "post-update-cmd": [
+            "php post-install.php"
+        ]
+    }
+}
