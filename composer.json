@@ -34,10 +34,10 @@
     ],
     "scripts": {
         "post-install-cmd": [
-            "php post-install.php"
+            "cp -r vendor/al3x5/xbot/xbot $(pwd)/xbot"
         ],
         "post-update-cmd": [
-            "php post-install.php"
+            "cp -r vendor/al3x5/xbot/xbot $(pwd)/xbot"
         ]
     }
 }
