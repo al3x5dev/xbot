@@ -1,6 +1,6 @@
 /cache/
 /logs/
-/tests/
+tests/
 /vendor/
 composer.lock
 xbot.php
