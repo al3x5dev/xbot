@@ -24,13 +24,17 @@ class Events
         string $name,
         string $file,
         string $message,
-        array $context=[],
+        array $context = [],
         string $level = 'debug'
     ): void {
 
         //$file = ($file==='Ymd') ? date($file).'log' : $file ;
 
         $filename = Config::get('logs') . $file;
+
+        if (!is_dir(Config::get('logs'))) {
+            mkdir(Config::get('logs'), 0775, true);
+        }
 
         $logger = new Logger($name);
         $stream_handler = new StreamHandler($filename);
@@ -61,7 +65,7 @@ class Events
         ];
 
         foreach ($levels as $level) {
-            if ($lv===$level) {
+            if ($lv === $level) {
                 return $lv;
             }
         }
