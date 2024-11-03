@@ -3,22 +3,22 @@
 use Al3x5\xBot\xBot;
 
 require_once 'vendor/autoload.php';
-$config = require_once "config.php";
+$config = require_once "xconfig.php";
 
 $xbot = new  Al3x5\xBot\xBot($config);
 
 if ($argc > 1) {
-    echo match ($argv[1]) {
-        'getMe' => getMe($xbot),
-        'setWebhook' => setWebhook($xbot, $argv[2]),
-        'deleteWebhook' => deleteWebhook($xbot),
-        'getWebhookInfo' => getWebhookInfo($xbot),
-        default => "ERROR  Command 'upanganastart' is not defined."
+    echo match ($option = $argv[1]) {
+        'getMe' => $xbot->getMe(),
+        'setWebhook' => $xbot->setWebhook(['url' => $argv[2]]),
+        'deleteWebhook' => $xbot->deleteWebhook(),
+        'getWebhookInfo' => $xbot->getWebhookInfo(),
+        default => "ERROR  Command '$option' is not defined." . PHP_EOL
     };
     return;
 }
 
-echo help();
+echo help($xbot);
 
 
 /**
@@ -26,42 +26,21 @@ echo help();
  */
 function help(xBot $xbot): string
 {
-    //render($xbot::NAME);
-/*
+    $name = $xbot::NAME;
+    $version = $xbot::VERSION;
+    return <<<CMD
+    Welcome to $name v$version
 
+    Usage:
+        php xbot [options] [arguments]
 
-    Laravel Framework 11.29.0
-
-Usage:
-  command [options] [arguments]
-
-Options:
-  -h, --help            Display help for the given command. When no command is given display help for the list command
-  -q, --quiet           Do not output any message
-  -V, --version         Display this application version
-      --ansi|--no-ansi  Force (or disable --no-ansi) ANSI output
-  -n, --no-interaction  Do not ask any interactive question
-      --env[=ENV]       The environment the command should run under
-  -v|vv|vvv, --verbose  Increase the verbosity of messages: 1 for normal output, 2 for more verbose output and 3 for debug*/
+    Options:
+        help              Show this screen.
+        version           Show version.
+        getMe             Get the bot's information.
+        setWebhook        Set the webhook.
+                            Example: php xbot setwebhook https://example.com/bot/AlxHfi6y7L.php
+        deleteWebhook     Delete the webhook.
+        getWebhookInfo    Get the webhook information.\n
+    CMD;
 }
-
-function getMe(xBot $xbot): void
-{
-    echo $xbot->getMe();
-}
-
-function setWebhook(xBot $xbot, $url): void
-{
-    echo $xbot->setWebhook();
-}
-
-function deleteWebhook(xBot $xbot): void
-{
-    echo $xbot->deleteWebhook();
-}
-
-function getWebhookInfo(xBot $xbot): void
-{
-    echo $xbot->getWebhookInfo();
-}
-
