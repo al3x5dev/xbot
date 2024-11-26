@@ -8,15 +8,16 @@ $xbot = new xBot([
     'token' => '1234567890:ABCDEFGHIJKLMNOQRSTZ', //YOUR BOT TOKEN
     'name' => 'MyBot', //BOT NAME
     'admins' => [123456789,985632147], //ID's ADMINS
-    //'storage'=> CacheFactory::create('apcu'),
+    //''storage' => \Mk4U\Cache\CacheFactory::create('file', ['dir' => 'storage', 'ttl' => 5]),
     //'webhook'=>'https://YOUR_WEBHOOK_URL,
     //'webhook_secret' => 'YOUR_WEBHOOK_SECRET',
     //'db'=>'sqlite:xbot.db',
     'dev' => true, //ENVIRONMENT
-    'logs' => __DIR__ . '/logs', //LOGS DIR
+    'logs' => 'storage/logs', //LOGS DIR
     //'parse_mode'=>'HTML'
-    //'handler'=>[] //NAMESPACES COMMANDS
-
+    'handler' => [                       //NAMESPACES COMMANDS
+        '/start' => \App\Commands\StartCommand::class,
+    ]
 ]);
 
 $xbot->addCommands([

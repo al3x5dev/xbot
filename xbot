@@ -3,7 +3,7 @@
 use Al3x5\xBot\xBot;
 
 require_once 'vendor/autoload.php';
-$config = require_once "xconfig.php";
+$config = require_once "config.php";
 
 $xbot = new  Al3x5\xBot\xBot($config);
 
