@@ -1,7 +1,6 @@
 cache/
 logs/
 storage/
-app/
 vendor/
 composer.lock
 xbot.php
