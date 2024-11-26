@@ -1,9 +1,10 @@
 cache/
 logs/
 storage/
-tests/
+app/
 vendor/
 composer.lock
 xbot.php
-xconfig.php
+config.php
 cli.php
+index.php
