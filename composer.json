@@ -15,7 +15,8 @@
     "license": "MIT",
     "autoload": {
         "psr-4": {
-            "Al3x5\\xBot\\": "src/"
+            "Al3x5\\xBot\\": "src/",
+            "App\\": "src/app/"
         },
         "files": [
             "src/helpers.php"
