@@ -1,46 +1,6 @@
 <?php
 
-use Al3x5\xBot\xBot;
-
 require_once 'vendor/autoload.php';
-$config = require_once "config.php";
 
-$xbot = new  Al3x5\xBot\xBot($config);
-
-if ($argc > 1) {
-    echo match ($option = $argv[1]) {
-        'getMe' => $xbot->getMe(),
-        'setWebhook' => $xbot->setWebhook(['url' => $argv[2]]),
-        'deleteWebhook' => $xbot->deleteWebhook(),
-        'getWebhookInfo' => $xbot->getWebhookInfo(),
-        default => "ERROR  Command '$option' is not defined." . PHP_EOL
-    };
-    return;
-}
-
-echo help($xbot);
-
-
-/**
- * Functions
- */
-function help(xBot $xbot): string
-{
-    $name = $xbot::NAME;
-    $version = $xbot::VERSION;
-    return <<<CMD
-    Welcome to $name v$version
-
-    Usage:
-        php xbot [options] [arguments]
-
-    Options:
-        help              Show this screen.
-        version           Show version.
-        getMe             Get the bot's information.
-        setWebhook        Set the webhook.
-                            Example: php xbot setwebhook https://example.com/bot/AlxHfi6y7L.php
-        deleteWebhook     Delete the webhook.
-        getWebhookInfo    Get the webhook information.\n
-    CMD;
-}
+$cli = new \Al3x5\xBot\Cli\App($argc, $argv);
+$cli->run();
