@@ -8,7 +8,7 @@ namespace Al3x5\xBot\Cli;
 abstract class Cmd
 {
     public const NAME = 'xBot CLI';
-    public const VERSION = '0.0.1';
+    public const VERSION = '0.1';
 
     abstract public static function execute(array $argv = []);
 
