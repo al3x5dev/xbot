@@ -27,7 +27,7 @@ class Style
     public const BgRed = "\033[41;1;37m%s\033[0m";
     public const BgGreen = "\033[42;1;37m%s\033[0m";
     public const BgYellow = "\033[43;1;37m%s\033[0m";
-    public const BgBlue = "\033[44;1;37m%s\033[0m";
+    public const BgOrange = "\033[44;1;37m%s\033[0m";
     public const BgPurple = "\033[45;1;37m%s\033[0m";
     public const BgCyan = "\033[46;1;37m%s\033[0m";
     public const BgGray = "\033[47;1;37m%s\033[0m";
@@ -57,14 +57,14 @@ class Style
         $text = " $text ";
 
         return match ($color) {
-            'black' => self::format($text, self::BgBlack),
-            'red' => self::format($text, self::BgRed),
-            'green' => self::format($text, self::BgGreen),
-            'yellow' => self::format($text, self::BgYellow),
-            'blue' => self::format($text, self::BgBlue),
-            'purple' => self::format($text, self::BgPurple),
-            'cyan' => self::format($text, self::BgCyan),
-            'gray' => self::format($text, self::BgGray),
+            'black' => self::format(PHP_EOL.$text, self::BgBlack),
+            'red' => self::format(PHP_EOL.$text, self::BgRed),
+            'green' => self::format(PHP_EOL.$text, self::BgGreen),
+            'yellow' => self::format(PHP_EOL.$text, self::BgYellow),
+            'orange' => self::format(PHP_EOL.$text, self::BgOrange),
+            'purple' => self::format(PHP_EOL.$text, self::BgPurple),
+            'cyan' => self::format(PHP_EOL.$text, self::BgCyan),
+            'gray' => self::format(PHP_EOL.$text, self::BgGray),
         };
     }
 
