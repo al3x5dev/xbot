@@ -32,9 +32,9 @@ class Events
 
         $filename = Config::get('logs') . $file;
 
-        if (!is_dir(Config::get('logs'))) {
+        /*if (!is_dir(Config::get('logs'))) {
             mkdir(Config::get('logs'), 0775, true);
-        }
+        }*/
 
         $logger = new Logger($name);
         $stream_handler = new StreamHandler($filename);
