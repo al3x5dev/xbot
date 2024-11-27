@@ -2,9 +2,7 @@
 
 namespace Al3x5\xBot\Cli\Commands;
 
-use Al3x5\xBot\Cli\App;
 use Al3x5\xBot\Cli\Cmd;
-use Al3x5\xBot\Cli\Render;
 use Al3x5\xBot\Cli\Style;
 
 /**
@@ -39,7 +37,7 @@ final class Help extends Cmd
         };
 
         $banner = <<<CMD
-        $app v$version
+        $app {$color('v'.$version,'green')}
         
         {$color('Usage:', 'yellow')}
            php xbot [commands] [options]
