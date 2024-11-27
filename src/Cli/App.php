@@ -7,7 +7,13 @@ namespace Al3x5\xBot\Cli;
  */
 class App
 {
-    private array $commands = [];
+    /** @param array commands Comandos CLI*/
+    private array $commands = [
+        'help' => \Al3x5\xBot\Cli\Commands\Help::class,
+        'install' => \Al3x5\xBot\Cli\Commands\Install::class,
+        'hook' => \Al3x5\xBot\Cli\Commands\Hook::class,
+
+    ];
 
     /**
      * Punto de entrada
@@ -16,14 +22,6 @@ class App
     {
         $this->argc = $argc;
         $this->argv = $argv;
-
-        //Comandos
-        $this->commands = [
-            'help' => \Al3x5\xBot\Cli\Commands\Help::class,
-            'install' => \Al3x5\xBot\Cli\Commands\Install::class,
-            'hook' => \Al3x5\xBot\Cli\Commands\Hook::class,
-
-        ];
     }
 
     /**
