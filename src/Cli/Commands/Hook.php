@@ -4,6 +4,7 @@ namespace Al3x5\xBot\Cli\Commands;
 
 use Al3x5\xBot\Cli\Cmd;
 use Al3x5\xBot\Cli\Style;
+use Al3x5\xBot\xBot;
 
 /**
  * Hook Command class
@@ -19,8 +20,33 @@ final class Hook extends Cmd
 
     public static function execute(array $argv = []): string
     {
+        //chequea si el usuario ha proporcionado algún argumento
+        $ck = self::checkArguments($argv, 3);
+        if (!is_null($ck)) return $ck;
+
+        if (count($argv) === 3) {
+            if (file_exists('config.php')) {
+                $cfg = require 'config.php';
+
+                $xbot = new xBot($cfg);
+
+                return match ($argv[2]) {
+                    'set' => $xbot->setWebhook(['url' => $argv[2]]),
+                    'get' => $xbot->getWebhookInfo(),
+                    'delete' => $xbot->deleteWebhook(),
+                    'about' => $xbot->getMe(),
+                    default => self::help()
+                };
+            }
+        }
+
+        return self::help();
+    }
+
+    public static function help(): string
+    {
         self::println(
-            Style::bgColor("Manages the webhook settings of your Telegram bot", "purple",false) .PHP_EOL .PHP_EOL .
+            self::NAME . Style::color(' v' . self::VERSION, 'green') . PHP_EOL . PHP_EOL .
                 Style::color('Usage:', 'yellow') . PHP_EOL .
                 "php xbot hook [options]"
         );
