@@ -20,7 +20,7 @@ final class Hook extends Cmd
     public static function execute(array $argv = []): string
     {
         self::println(
-            Style::bgColor("Manages the webhook settings of your Telegram bot", "cyan",false) .PHP_EOL .PHP_EOL .
+            Style::bgColor("Manages the webhook settings of your Telegram bot", "purple",false) .PHP_EOL .PHP_EOL .
                 Style::color('Usage:', 'yellow') . PHP_EOL .
                 "php xbot hook [options]"
         );

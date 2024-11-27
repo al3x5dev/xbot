@@ -15,6 +15,6 @@ final class Install extends Cmd
         $ck=self::checkArguments($argv);
         if (!is_null($ck)) return $ck;
 
-        return self::println(Style::bgColor('Install','orange'));
+        return self::println(Style::bgColor('Install','blue'));
     }
 }
