@@ -15,10 +15,12 @@ class Telegram
     private ?Client $client = null;
     private ?ResponseInterface $response = null;
     private const METHODS = [
+        //cli commands
         'getMe',
         'setWebhook',
         'deleteWebhook',
-        'getWebhookInfo', //Informativos
+        'getWebhookInfo', 
+        //Informativos
         'getChatMember', //Usuarios miembros
         'getChatAdministrators', //Administradores
         'getChatMembersCount', //Conteo de usuarios
