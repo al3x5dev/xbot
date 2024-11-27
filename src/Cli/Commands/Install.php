@@ -12,6 +12,9 @@ final class Install extends Cmd
 {
     public static function execute(array $argv = []): string
     {
-        return self::println(Style::bgColor('Install','blue'));
+        $ck=self::checkArguments($argv);
+        if (!is_null($ck)) return $ck;
+
+        return self::println(Style::bgColor('Install','orange'));
     }
 }
