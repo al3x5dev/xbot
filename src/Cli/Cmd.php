@@ -17,15 +17,7 @@ abstract class Cmd
      */
     public static function println(string $text): string
     {
-        return self::printl(PHP_EOL . $text . PHP_EOL);
-    }
-
-    /**
-     * Imprime en consola
-     */
-    public static function printl(string $text): string
-    {
-        return print($text);
+        return print($text . PHP_EOL);
     }
 
     /**
@@ -35,9 +27,8 @@ abstract class Cmd
     {
         echo $message . PHP_EOL;
         // Lee la entrada del usuario
-        $input = fgets(STDIN);
         // Elimina el salto de línea al final
-        return trim($input);
+        return trim(fgets(STDIN));
     }
 
     /**
@@ -46,5 +37,16 @@ abstract class Cmd
     public static function noFound(string $command): string
     {
         return self::println(Style::bgColor('error', 'red') . " Command '$command' is not defined.");
+    }
+
+    /**
+     * Argumento no esperado
+     */
+    public static function checkArguments(array $argv, int $arg = 2): ?string
+    {
+        if (count($argv) > $arg) {
+            return self::println(Style::bgColor('error', 'red') . " No arguments expected for '$argv[1]' command, got '$argv[$arg]'");
+        }
+        return null;
     }
 }
