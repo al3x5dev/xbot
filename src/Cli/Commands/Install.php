@@ -31,26 +31,26 @@ final class Install extends Cmd
 
         $dev = self::input("Is it development environment [yes/no]?");
         $dev = ($dev === 'yes') ? 'true' : 'false';
-        $parseMode = self::input("Enter the parsing mode [HTML, Markdown or MarkdownV2]");
+        //$parseMode = self::input("Enter the parsing mode [HTML, Markdown or MarkdownV2]");
 
         $data = <<<PHP
         <?php
         return [
-                'token' => '$token',
-                'name' => '$name',
-                'admins' => [$admins],
-                //'storage' => INSTANCE_OF_YOUR_CACHE_LIBRARY,
-                //'webhook'=> 'https://YOUR_WEBHOOK_URL,
-                //'webhook_secret' => 'YOUR_WEBHOOK_SECRET',
-                //'db'=>'sqlite:xbot.db',
-                'dev' => $dev,
-                'logs' => 'storage/logs', //LOGS DIR
-                'parse_mode'=>'HTML',
-                'handler' => [
-                    //NAMESPACES COMMANDS
-                    //'/start' => \App\Commands\StartCommand::class,
-                ]
-            ];
+            'token' => '$token',
+            'name' => '$name',
+            'admins' => [$admins],
+            'storage' => \Mk4U\Cache\CacheFactory::create('file', ['dir' => 'storage/cache', 'ttl' => 5]),
+            //'webhook'=> 'https://YOUR_WEBHOOK_URL,
+            //'webhook_secret' => 'YOUR_WEBHOOK_SECRET',
+            //'db'=>'sqlite:xbot.db',
+            'dev' => $dev,
+            'logs' => 'storage/logs', //LOGS DIR
+            'parse_mode'=>'MarkdownV2',
+            'handler' => [
+                //NAMESPACES COMMANDS
+                //'/start' => \App\Commands\StartCommand::class,
+            ]
+        ];
         PHP;
 
         static::make($data);
