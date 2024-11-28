@@ -22,14 +22,14 @@ final class Install extends Cmd
 
         $data = '';
 
-        $token = self::input("Enter your bot token");
-        $name = self::input("Enter your bot name");
+        $token = self::input("Enter your bot token:");
+        $name = self::input("Enter your bot name [optional]:");
 
-        $admins = self::input("Enter the IDs of the administrators (separated by commas)");
+        $admins = self::input("Enter the IDs of the administrators (separated by commas) [optional]:");
         /*$adminsInput = self::input("Enter the IDs of the administrators (separated by commas)");
         $admins = array_map('trim', explode(',', $adminsInput));*/
 
-        $dev = self::input("Is it development environment [yes/no]?");
+        $dev = self::input("Is it development environment [yes/no]?:");
         $dev = ($dev === 'yes') ? 'true' : 'false';
         //$parseMode = self::input("Enter the parsing mode [HTML, Markdown or MarkdownV2]");
 
@@ -63,6 +63,8 @@ final class Install extends Cmd
         if (!file_exists('storage')) {
             mkdir('storage/logs',recursive:true);
             mkdir('storage/cache',recursive:true);
+            mkdir('bot/Commands',recursive:true);
+            //mkdir('bot/Conversations',recursive:true);
         }
 
         file_put_contents('config.php', $content);
