@@ -21,32 +21,9 @@ final class Hook extends Cmd
     public static function execute(array $argv = []): string
     {
         //chequea si el usuario ha proporcionado algún argumento
-        $ck = self::checkArguments($argv, 3);
+        $ck = self::checkArguments($argv);
         if (!is_null($ck)) return $ck;
 
-        if (count($argv) === 3) {
-            if (file_exists('config.php')) {
-                $cfg = require 'config.php';
-
-                $xbot = new xBot($cfg);
-
-                $output= match ($argv[2]) {
-                    'set' => $xbot->setWebhook(['url' => $argv[2]]),
-                    'get' => $xbot->getWebhookInfo(),
-                    'delete' => $xbot->deleteWebhook(),
-                    'about' => $xbot->getMe(),
-                    default => self::help()
-                };
-
-                return self::format($output);
-            }
-        }
-
-        return self::help();
-    }
-
-    public static function help(): string
-    {
         self::println(
             self::NAME . Style::color(' v' . self::VERSION, 'green') . PHP_EOL . PHP_EOL .
                 Style::color('Usage:', 'yellow') . PHP_EOL .
@@ -61,14 +38,5 @@ final class Hook extends Cmd
             }
         }
         return '';
-    }
-
-    public static function format($string) : string
-    {
-        if (strpos($string, ':') !== false) {
-            echo "La cadena contiene ':'\n";
-        } else {
-            return Style::bgColor($string, 'green');
-        }
     }
 }
