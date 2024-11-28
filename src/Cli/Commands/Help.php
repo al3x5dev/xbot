@@ -13,14 +13,12 @@ final class Help extends Cmd
     private static array $commands = [
         'help    ' => "Show this screen.\n",
         'install ' => "Create bot configuration files\n",
-        'hook    ' => "Manages the webhook settings of your Telegram bot (see options)",
-    ];
-
-    private static array $options = [
-        'set     ' => "Set the webhook\n",
-        'get     ' => "Get the webhook information\n",
-        'delete  ' => "Delete the webhook\n",
-        'about   ' => "Get the bot's information\n",
+        'hook' =>  [
+            'set    ' => "Set the webhook\n",
+            'get    ' => "Get the webhook information\n",
+            'delete ' => "Delete the webhook\n",
+            'about  ' => "Get the bot's information\n",
+        ]
     ];
 
     public static function execute(array $argv = []): string
@@ -37,7 +35,7 @@ final class Help extends Cmd
         };
 
         $banner = <<<CMD
-        $app {$color('v'.$version,'green')}
+        $app {$color('v' .$version, 'green')}
         
         {$color('Usage:', 'yellow')}
            php xbot [commands] [options]
@@ -49,16 +47,14 @@ final class Help extends Cmd
         //Comandos
         foreach (static::$commands as $key => $value) {
             if (is_string($value)) {
-                print($color("   $key      ", 'green') . $value);
+                print($color("  $key      ", 'green') . $value);
             }
-        }
-
-        // Opciones
-        self::println(PHP_EOL.PHP_EOL.$color('Options:', 'yellow'));
-        //self::println($color('   hook', 'green'));
-
-        foreach (static::$options as $k => $v) {
-            print($color("     $k    ", 'green') . $v);
+            if (is_array($value)) {
+                self::println(Style::color($key, 'yellow'));
+                foreach ($value as $k => $v) {
+                    print($color("  $key:$k  ", 'green') . $v);
+                }
+            }
         }
         return '';
     }
