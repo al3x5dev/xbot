@@ -23,11 +23,13 @@ final class HookSet extends Cmd
         if (!file_exists($config)) {
             return self::println(Style::bgColor("Run the 'install' command first.", 'red', false));
         }
+        self::println("Use an empty string to remove the webhook integration\n");
+
         $xbot = new xBot(require $config);
 
         $arg='';
         if (empty($argv[2])) {
-            self::input('entra url');
+            $arg=self::input('HTTPS URL to send updates:');
         } else {
             $arg= $argv[2];
         }

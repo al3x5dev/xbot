@@ -38,7 +38,7 @@ final class Help extends Cmd
         $app {$color('v' .$version, 'green')}
         
         {$color('Usage:', 'yellow')}
-           php vendor/bin/xbot [commands] [options]
+           php vendor/bin/xbot [commands]:[options]
         
         {$color('Commands:', 'yellow')}
         CMD;

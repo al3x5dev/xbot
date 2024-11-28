@@ -27,10 +27,13 @@ final class Hook extends Cmd
         self::println(
             self::NAME . Style::color(' v' . self::VERSION, 'green') . PHP_EOL . PHP_EOL .
                 Style::color('Usage:', 'yellow') . PHP_EOL .
-                "php xbot hook [options]"
+                "php vendor/bin/xbot hook:[options]"
         );
 
-        print(PHP_EOL . Style::color('Options:', 'yellow') . "\n");
+        print(PHP_EOL . Style::color(
+            'Available commands for the "hook" namespace:',
+            'yellow'
+        ) . "\n");
 
         foreach (static::$options as $key => $value) {
             if (is_string($value)) {

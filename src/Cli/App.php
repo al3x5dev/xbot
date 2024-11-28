@@ -11,6 +11,7 @@ class App
     private array $commands = [
         'help' => \Al3x5\xBot\Cli\Commands\Help::class,
         'install' => \Al3x5\xBot\Cli\Commands\Install::class,
+        'hook' => \Al3x5\xBot\Cli\Commands\Hook::class,
         'hook:set' => \Al3x5\xBot\Cli\Commands\HookSet::class,
         'hook:info' => \Al3x5\xBot\Cli\Commands\HookInfo::class,
         'hook:delete' => \Al3x5\xBot\Cli\Commands\HookDelete::class,
