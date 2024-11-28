@@ -30,13 +30,15 @@ final class Hook extends Cmd
 
                 $xbot = new xBot($cfg);
 
-                return match ($argv[2]) {
+                $output= match ($argv[2]) {
                     'set' => $xbot->setWebhook(['url' => $argv[2]]),
                     'get' => $xbot->getWebhookInfo(),
                     'delete' => $xbot->deleteWebhook(),
                     'about' => $xbot->getMe(),
                     default => self::help()
                 };
+
+                return self::format($output);
             }
         }
 
@@ -59,5 +61,14 @@ final class Hook extends Cmd
             }
         }
         return '';
+    }
+
+    public static function format($string) : string
+    {
+        if (strpos($string, ':') !== false) {
+            echo "La cadena contiene ':'\n";
+        } else {
+            return Style::bgColor($string, 'green');
+        }
     }
 }
