@@ -36,7 +36,7 @@ trait CommandHandlers
         $key = rtrim($message->get('text'), '/');
 
         if (!$this->hasCommand($key)) {
-            return $this->sendPhoto([
+            /*return $this->sendPhoto([
                 'chat_id' => $this->getChatId(),
                 'photo' => 'https://plus.unsplash.com/premium_photo-1677094310919-d0361465d3be?q=80&w=1632&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D', // Puede ser un file_id, una URL o un archivo local
                 'caption' => 'Mensaje de ayuda ya que no se que comando estas precionando',
@@ -63,10 +63,12 @@ trait CommandHandlers
                     ]
                 ])
 
-            ]);
+            ]);*/
+            $cmd = \Al3x5\xBot\Commands\Help::class;
+        } else {
+            $cmd = $this->commands[$key];
         }
 
-        $cmd = $this->commands[$key];
         return (new $cmd($this, $message))->execute();
     }
 
