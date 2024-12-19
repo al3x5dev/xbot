@@ -16,7 +16,7 @@
     "autoload": {
         "psr-4": {
             "Al3x5\\xBot\\": "src/",
-            "App\\": "src/app/"
+            "App\\": "app/"
         },
         "files": [
             "src/helpers.php"
