@@ -1,5 +1,5 @@
 <?php
-namespace Al3x5\xBot\Cmd;
+namespace Al3x5\xBot\Commands;
 
 use Al3x5\xBot\Commands;
 use Al3x5\xBot\Telegram;
