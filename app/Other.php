@@ -1,5 +1,5 @@
 <?php
-namespace App\Commands;
+namespace App;
 
 use Al3x5\xBot\Commands;
 use Al3x5\xBot\Telegram;
@@ -7,10 +7,10 @@ use Al3x5\xBot\Telegram;
 /**
  * undocumented class
  */
-final class StartCommand extends Commands
+final class Other extends Commands
 {
     public function execute(): Telegram
     {
-        return $this->bot->reply('Start command executed');
+        return $this->bot->reply('Other command executed');
     }
 }
