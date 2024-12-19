@@ -30,6 +30,8 @@ class xBot
     {
         Config::init($cfg);
         ExceptionHandler::start();
+
+        $this->addCommands(Config::get('handler'));
     }
 
     /**
