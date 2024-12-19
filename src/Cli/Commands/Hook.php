@@ -13,7 +13,7 @@ final class Hook extends Cmd
 {
     private static array $options = [
         'set    ' => "Set the webhook\n",                 // setWebhook
-        'get    ' => "Get the webhook information\n",     // getWebhookInfo
+        'info   ' => "Get the webhook information\n",     // getWebhookInfo
         'delete ' => "Delete the webhook\n",           // deleteWebhook
         'about  ' => "Get the bot's information\n",     // getMe
     ];

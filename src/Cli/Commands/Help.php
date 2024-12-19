@@ -15,7 +15,7 @@ final class Help extends Cmd
         'install ' => "Create bot configuration files\n",
         'hook' =>  [
             'set    ' => "Set the webhook\n",
-            'get    ' => "Get the webhook information\n",
+            'info   ' => "Get the webhook information\n",
             'delete ' => "Delete the webhook\n",
             'about  ' => "Get the bot's information\n",
         ]
