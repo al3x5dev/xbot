@@ -37,7 +37,7 @@ abstract class Cmd
      */
     public static function noFound(string $command): string
     {
-        return self::println(Style::bgColor('error', 'red') . " Command '$command' is not defined.\n");
+        return self::println(Style::bgColor('error', 'red') . " Command '$command' is not defined.");
     }
 
     /**
@@ -46,7 +46,7 @@ abstract class Cmd
     public static function checkArguments(array $argv, int $arg = 2): ?string
     {
         if (count($argv) > $arg) {
-            return self::println(Style::bgColor('error', 'red') . " No arguments expected for '$argv[1]' command, got '$argv[$arg]'\n");
+            return self::println(Style::bgColor('error', 'red') . " No arguments expected for '$argv[1]' command, got '$argv[$arg]'");
         }
         return null;
     }
