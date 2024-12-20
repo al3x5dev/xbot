@@ -4,6 +4,6 @@ storage/
 vendor/
 composer.lock
 xbot.php
-config.php
+/config.php
 cli.php
 index.php
