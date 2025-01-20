@@ -6,9 +6,9 @@ use Al3x5\xBot\Cli\Cmd;
 use Al3x5\xBot\Cli\Style;
 
 /**
- * Config Command class
+ * Install Command class
  */
-final class Config extends Cmd
+final class Install extends Cmd
 {
     public static function execute(array $argv = []): string
     {
@@ -64,7 +64,7 @@ final class Config extends Cmd
             mkdir('storage/logs',recursive:true);
             mkdir('storage/cache',recursive:true);
             mkdir('bot/Commands',recursive:true);
-            //mkdir('bot/Conversations',recursive:true);
+            mkdir('bot/Conversations',recursive:true);
         }
 
         file_put_contents('config.php', $content);

@@ -12,7 +12,7 @@ final class Help extends Cmd
 {
     private static array $commands = [
         'help    ' => "Show this screen.\n",
-        'config ' => "Create bot configuration files\n",
+        'install ' => "Create bot configuration files\n",
         'hook' =>  [
             'set    ' => "Set the webhook\n",
             'info   ' => "Get the webhook information\n",
