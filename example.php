@@ -20,9 +20,6 @@ $xbot = new xBot([
     ]
 ]);
 
-$xbot->addCommands([
-    'Foo\Commands\StartCommands'
-]);
 
 $xbot->run();
 
