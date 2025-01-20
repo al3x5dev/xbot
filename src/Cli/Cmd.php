@@ -9,7 +9,6 @@ abstract class Cmd
 {
     public const NAME = 'xBot CLI';
     public const VERSION = '0.1';
-    public const DS = DIRECTORY_SEPARATOR;
 
     abstract public static function execute(array $argv = []);
 
