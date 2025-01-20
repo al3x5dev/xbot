@@ -3,6 +3,7 @@
 namespace Al3x5\xBot\Cli\Commands;
 
 use Al3x5\xBot\Cli\Cmd;
+use Al3x5\xBot\Cli\Commands\Traits\HookTrait;
 use Al3x5\xBot\Cli\Style;
 use Al3x5\xBot\xBot;
 
@@ -11,29 +12,21 @@ use Al3x5\xBot\xBot;
  */
 final class HookAbout extends Cmd
 {
+    use HookTrait;
+
     public static function execute(array $argv = []): string
     {
         //chequea si el usuario ha proporcionado algún argumento
         $ck = self::checkArguments($argv);
         if (!is_null($ck)) return $ck;
 
-        $config = getcwd() . static::DS . 'config.php';
+        $config = getcwd() . DIRECTORY_SEPARATOR . 'config.php';
 
+        self::isConfig($config);
 
-        if (!file_exists($config)) {
-            return self::println(Style::bgColor("Run the 'install' command first.", 'red', false));
-        }
         $xbot = new xBot(require $config);
         $data = $xbot->getMe();
 
-        $lines = explode("\n", $data);
-        foreach ($lines as $line) {
-            // Dividimos la línea en la parte antes de los dos puntos y el resto
-            list($key, $value) = explode(":", $line, 2);
-            // Imprimimos la parte clave en verde y el valor en el color por defecto
-            print(Style::color(trim($key),'green') . ": " . trim($value) . "\n");
-        }
-
-        return '';
+        return self::display($data);
     }
 }
