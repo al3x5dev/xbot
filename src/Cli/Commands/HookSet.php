@@ -3,6 +3,7 @@
 namespace Al3x5\xBot\Cli\Commands;
 
 use Al3x5\xBot\Cli\Cmd;
+use Al3x5\xBot\Cli\Commands\Traits\HookTrait;
 use Al3x5\xBot\Cli\Style;
 use Al3x5\xBot\xBot;
 
@@ -11,27 +12,27 @@ use Al3x5\xBot\xBot;
  */
 final class HookSet extends Cmd
 {
+    use HookTrait;
+
     public static function execute(array $argv = []): string
     {
         //chequea si el usuario ha proporcionado algún argumento
         $ck = self::checkArguments($argv, 3);
         if (!is_null($ck)) return $ck;
 
-        $config = getcwd() . static::DS . 'config.php';
+        $config = getcwd() . DIRECTORY_SEPARATOR . 'config.php';
 
+        self::isConfig($config);
 
-        if (!file_exists($config)) {
-            return self::println(Style::bgColor("Run the 'install' command first.", 'red', false));
-        }
         self::println("Use an empty string to remove the webhook integration\n");
 
         $xbot = new xBot(require $config);
 
-        $arg='';
+        $arg = '';
         if (empty($argv[2])) {
-            $arg=self::input('HTTPS URL to send updates:');
+            $arg = self::input('HTTPS URL to send updates:');
         } else {
-            $arg= $argv[2];
+            $arg = $argv[2];
         }
 
 
@@ -39,6 +40,6 @@ final class HookSet extends Cmd
         $data = $xbot->setWebhook([
             'url' => $arg,
         ]);
-        return self::println(Style::bgColor($data,'green'));
+        return self::println(Style::bgColor($data, 'green'));
     }
 }
