@@ -46,7 +46,8 @@ trait ConversationHandlers
                 $this->getConversationIdentifier()
             );
 
-            return $this->executeCommand('/game');
+            return null;
+           // return $this->executeCommand('/game');
         }
         $data = Config::get('storage')->get(
             $this->getConversationIdentifier()
