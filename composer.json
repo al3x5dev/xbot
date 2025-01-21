@@ -9,13 +9,11 @@
         "monolog/monolog": "^3.6",
         "mk4u/cache": "^0.2.0"
     },
-    "require-dev": {
-        "symfony/var-dumper": "^7.0"
-    },
     "license": "MIT",
     "autoload": {
         "psr-4": {
-            "Al3x5\\xBot\\": "src/"
+            "Al3x5\\xBot\\": "src/",
+            "App\\": "app/"
         },
         "files": [
             "src/helpers.php"
