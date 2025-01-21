@@ -39,7 +39,7 @@ final class Install extends Cmd
             'token' => '$token',
             'name' => '$name',
             'admins' => [$admins],
-            'storage' => \Mk4U\Cache\CacheFactory::create('file', ['dir' => 'storage/cache', 'ttl' => 5]),
+            'storage' => \Mk4U\Cache\CacheFactory::create('file', ['dir' => 'storage/cache', 'ttl' => 300]),
             //'webhook'=> 'https://YOUR_WEBHOOK_URL,
             //'webhook_secret' => 'YOUR_WEBHOOK_SECRET',
             //'db'=>'sqlite:xbot.db',
