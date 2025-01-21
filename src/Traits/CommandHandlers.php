@@ -26,11 +26,17 @@ trait CommandHandlers
         return $this;
     }
 
+    /**
+     * Verifica si esta definido el comando
+     */
     private function hasCommand(string $name): bool
     {
         return key_exists($name, $this->commands);
     }
 
+    /**
+     * Manejador de comandos
+     */
     private function handleCommand(Message $message): Telegram
     {
         $key = rtrim($message->get('text'), '/');
@@ -72,6 +78,9 @@ trait CommandHandlers
         return (new $cmd($this, $message))->execute();
     }
 
+    /**
+     * Manejador de mensajes
+     */
     private function handleGenericMessage(Message $message): Telegram
     {
         if ($this->isTalking()) {
@@ -81,6 +90,9 @@ trait CommandHandlers
         return $this->reply('Mensaje generico');
     }
 
+    /**
+     * Ejecuta el comando
+     */
     public function executeCommand(string $command): Telegram
     {
         return (
