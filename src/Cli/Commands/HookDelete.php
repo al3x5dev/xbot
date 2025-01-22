@@ -23,9 +23,7 @@ final class HookDelete extends Cmd
         $config = getcwd() . DIRECTORY_SEPARATOR . 'config.php';
 
         self::isConfig($config);
-
-        $xbot = new xBot(require $config);
-        $data = $xbot->deleteWebhook();
+        $data = (new xBot(require $config))->deleteWebhook();
         return self::println(Style::bgColor($data,'green'));
     }
 }

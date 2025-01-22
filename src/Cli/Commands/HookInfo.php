@@ -23,10 +23,7 @@ final class HookInfo extends Cmd
         $config = getcwd() . DIRECTORY_SEPARATOR . 'config.php';
         
         self::isConfig($config);
-        
-        $xbot = new xBot(require $config);
-        $data = $xbot->getWebhookInfo();
-
+        $data = (new xBot(require $config))->getWebhookInfo();
         return self::display($data);
     }
 }

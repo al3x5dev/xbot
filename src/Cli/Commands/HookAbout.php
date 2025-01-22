@@ -23,10 +23,7 @@ final class HookAbout extends Cmd
         $config = getcwd() . DIRECTORY_SEPARATOR . 'config.php';
 
         self::isConfig($config);
-
-        $xbot = new xBot(require $config);
-        $data = $xbot->getMe();
-
+        $data = (new xBot(require $config))->getMe();
         return self::display($data);
     }
 }
