@@ -9,6 +9,11 @@ use Al3x5\xBot\Cli\Style;
  */
 trait HookTrait
 {
+    /**
+     * Muestra en pantalla los datos pasados en un array
+     * 
+     * Este metodo es muy util con los datos devueltos por hook:info y hook:about
+     */
     private static function display(string $data): string
     {
         $lines = explode("\n", $data);
@@ -27,11 +32,14 @@ trait HookTrait
         return '';
     }
 
-    private static function isConfig(string $config): string
+    /**
+     * Verifica si existe el archivo de configuracion del bot
+     */
+    private static function isConfig(string $config): ?string
     {
         if (!file_exists($config)) {
             return self::println(Style::bgColor("Run the 'install' command first.", 'red', false));
         }
-        return '';
+        return null;
     }
 }
