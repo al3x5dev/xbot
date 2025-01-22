@@ -20,9 +20,16 @@ final class Hook extends Cmd
 
     public static function execute(array $argv = []): string
     {
-        //chequea si el usuario ha proporcionado algún argumento
-        $ck = self::checkArguments($argv);
-        if (!is_null($ck)) return $ck;
+        if (count($argv)>2) {
+            $keys = array_map('rtrim', array_keys(self::$options));
+            // Crear un nuevo array con las claves recortadas
+            $clearOpt = array_combine($keys, self::$options);
+            if (isset($clearOpt[$argv[2]])) {
+                return print(Style::bgColor("$argv[2]", 'green') . " {$clearOpt[$argv[2]]}\n");
+            } else {
+                return self::println("eror");
+            }
+        }
 
         self::println(
             self::NAME . Style::color(' v' . self::VERSION, 'green') . PHP_EOL . PHP_EOL .
