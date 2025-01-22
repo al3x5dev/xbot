@@ -3,17 +3,14 @@
 namespace Al3x5\xBot;
 
 use Al3x5\xBot\Exceptions\xBotException;
-use GuzzleHttp\Client;
-use GuzzleHttp\Exception\ClientException;
-use Psr\Http\Message\ResponseInterface;
 
 /**
  * Telegram class
  */
 class Telegram
 {
-    private ?Client $client = null;
-    private ?ResponseInterface $response = null;
+    private ?object $client = null;
+    private ?object $response = null;
     private const METHODS = [
         //cli commands
         'getMe',
@@ -52,7 +49,7 @@ class Telegram
             throw new xBotException("Method '$method' not found");
         }
 
-        $this->client = new Client();
+        $this->client = Config::get('client');
 
         $params['parse_mode'] = Config::get('parse_mode');
 
@@ -102,10 +99,10 @@ class Telegram
             );
 
             if ($this->response->getStatusCode() !== 200) {
-                throw new xBotException("Server response error");
+                throw new xBotException("Server response error: " . $this->response->getStatusCode());
             }
             return $this;
-        } catch (ClientException $e) {
+        } catch (\ErrorException $e) {
             Events::logger(
                 'TelegramApi',
                 date('Ymd') . '.log',

@@ -24,6 +24,7 @@ class Config
             'name' => $cfg['name'] ?? '',
             'admins' => $cfg['admins'] ?? [],
             //'async' => $cfg['async'] ?? false,
+            'client' => $cfg['client'] ?? new \Mk4U\Http\Client(),
             'storage' => $cfg['storage'] ?? \Mk4U\Cache\CacheFactory::create('file', [
                 'dir' => 'storage',
                 'ttl' => 600
