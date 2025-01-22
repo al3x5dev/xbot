@@ -26,11 +26,12 @@ class App
     {
         if ($this->argc > 1) {
             $command = $this->argv[1];
+            //busca el comando en el enum Commands
             if (Commands::tryFrom($command) != null) {
-                return Commands::from($command)->execute();
+                return Commands::from($command)->execute($this->argv);
             }
             return Cmd::noFound($command);
         }
-        return Commands::Help->execute();
+        return Commands::Help->execute($this->argv);
     }
 }
