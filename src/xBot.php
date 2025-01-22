@@ -45,7 +45,7 @@ class xBot
 
     private function getUpdate(): void
     {
-        $data = (new Request)->jsonData(true);
+        $data = (Request::create())->jsonData(true);
 
         if (empty($data)) {
             throw new xBotException("Update empty! The webhook should not be called manually, only by Telegram.");
