@@ -9,7 +9,7 @@ use Al3x5\xBot\Telegram;
  */
 final class Start extends Commands
 {
-    public function execute(): Telegram
+    public function execute(array $params=[]): Telegram
     {
         return $this->bot->reply('Start command executed');
     }

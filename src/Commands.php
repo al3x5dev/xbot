@@ -24,5 +24,5 @@ abstract class Commands
     /**
      * Ejecuta el comando
      */
-    abstract public function execute(): Telegram;
+    abstract public function execute(array $params=[]): Telegram;
 }

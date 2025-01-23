@@ -39,43 +39,37 @@ trait CommandHandlers
      */
     private function handleCommand(Message $message): Telegram
     {
-        $key = rtrim($message->get('text'), '/');
+        /*$key = rtrim($message->get('text'), '/');
 
         if (!$this->hasCommand($key)) {
-            /*return $this->sendPhoto([
-                'chat_id' => $this->getChatId(),
-                'photo' => 'https://plus.unsplash.com/premium_photo-1677094310919-d0361465d3be?q=80&w=1632&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D', // Puede ser un file_id, una URL o un archivo local
-                'caption' => 'Mensaje de ayuda ya que no se que comando estas precionando',
-
-                'reply_markup' => Keyboard::inline([
-                    [
-                        ['text' => 'Hello', 'callback_data' => 'hello'],
-                        ['text' => 'World', 'callback_data' => 'world']
-                    ],
-                    [
-                        ['text' => 'Hello', 'callback_data' => 'hello'],
-                        ['text' => 'World', 'callback_data' => 'world']
-                    ],
-                    [
-                        ['text' => 'Hello', 'callback_data' => 'hello'],
-                        ['text' => 'World', 'callback_data' => 'world']
-                    ],
-                    [
-                        ['text' => 'Hello', 'callback_data' => 'hello'],
-                        ['text' => 'World', 'callback_data' => 'world']
-                    ],
-                    [
-                        ['text' => 'Hello', 'callback_data' => 'hello']
-                    ]
-                ])
-
-            ]);*/
             $cmd = \Al3x5\xBot\Commands\Help::class;
         } else {
             $cmd = $this->commands[$key];
         }
 
-        return (new $cmd($this, $message))->execute();
+        return (new $cmd($this, $message))->execute();*/
+
+        // Obtener el texto del mensaje
+        $text = $message->get('text');
+
+        // Eliminar la barra inicial y cualquier mención al bot
+        $text = preg_replace('/^\/([a-zA-Z0-9_]+)(@[\w]+)?/', '$1', $text);
+        $text = rtrim($text, '/');
+
+        // Separar el comando de los parámetros
+        $parts = explode(' ', $text);
+        $key = $parts[0]; // El primer elemento es el comando
+        $params = array_slice($parts, 1); // El resto son los parámetros
+
+        // Verificar si el comando existe
+        if (!$this->hasCommand($key)) {
+            $cmd = \Al3x5\xBot\Commands\Help::class;
+        } else {
+            $cmd = $this->commands[$key];
+        }
+
+        // Pasar los parámetros al comando si es necesario
+        return (new $cmd($this, $message))->execute($params);
     }
 
     /**
@@ -95,8 +89,7 @@ trait CommandHandlers
      */
     public function executeCommand(string $command): Telegram
     {
-        return (
-            new $this->commands[$command](
+        return (new $this->commands[$command](
                 $this,
                 $this->update->get('message')
             )
