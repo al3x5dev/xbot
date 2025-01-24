@@ -19,7 +19,7 @@ trait CommandHandlers
     {
         foreach ($commands as $key => $value) {
             if ($this->hasCommand($key)) {
-                throw new xBotException('Exist');
+                throw new xBotException("The command '$key' already exists.");
             }
             $this->commands = array_merge($this->commands, [$key => $value]);
         }
@@ -39,21 +39,8 @@ trait CommandHandlers
      */
     private function handleCommand(Message $message): Telegram
     {
-        /*$key = rtrim($message->get('text'), '/');
-
-        if (!$this->hasCommand($key)) {
-            $cmd = \Al3x5\xBot\Commands\Help::class;
-        } else {
-            $cmd = $this->commands[$key];
-        }
-
-        return (new $cmd($this, $message))->execute();*/
-
-        // Obtener el texto del mensaje
-        $text = $message->get('text');
-
         // Eliminar la barra inicial y cualquier mención al bot
-        $text = preg_replace('/^\/([a-zA-Z0-9_]+)(@[\w]+)?/', '$1', $text);
+        $text = preg_replace('/^([a-zA-Z0-9_]+)(@[\w]+)?/', '$1', $message->get('text'));
         $text = rtrim($text, '/');
 
         // Separar el comando de los parámetros
