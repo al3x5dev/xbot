@@ -67,7 +67,8 @@ trait CommandHandlers
         if ($this->isTalking()) {
             return $this->getConversation();
         }
-
+        // Agregar un hook para los mensajes normales
+        // caso de que no se resuelva mostrar este mensaje
         return $this->reply('Mensaje generico');
     }
 
