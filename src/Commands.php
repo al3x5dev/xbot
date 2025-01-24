@@ -15,7 +15,7 @@ abstract class Commands
     /** @param string $description descricion del comando */
     protected string $description = 'Command description';
 
-    public function __construct(protected xBot $bot, protected Message $message)
+    public function __construct(protected Bot $bot, protected Message $message)
     {
         $this->bot = $bot;
         $this->message = $message;

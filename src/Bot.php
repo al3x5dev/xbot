@@ -9,15 +9,14 @@ use Al3x5\xBot\Exceptions\ExceptionHandler;
 use Al3x5\xBot\Exceptions\xBotException;
 use Al3x5\xBot\Traits\CommandHandlers;
 use Al3x5\xBot\Traits\ConversationHandlers;
-use Al3x5\xBot\Keyboard;
 use Al3x5\xBot\Traits\MessageHandlers;
 use Mk4U\Http\Request;
 
-class xBot
+class Bot
 {
     public const NAME = 'xBot';
 
-    public const VERSION = '0.1';
+    public const VERSION = '1.x.x';
 
     use CommandHandlers,
         ConversationHandlers,

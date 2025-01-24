@@ -5,7 +5,7 @@ namespace Al3x5\xBot\Cli\Commands;
 use Al3x5\xBot\Cli\Cmd;
 use Al3x5\xBot\Cli\Commands\Traits\HookTrait;
 use Al3x5\xBot\Cli\Style;
-use Al3x5\xBot\xBot;
+use Al3x5\xBot\Bot;
 use Mk4U\Http\Uri;
 
 /**
@@ -39,7 +39,7 @@ final class HookSet extends Cmd
         }
         
         //Enviar peticion a telegram
-        $data = (new xBot(require $config))->setWebhook([
+        $data = (new Bot(require $config))->setWebhook([
             'url' => $arg,
         ]);
         return self::println(Style::bgColor($data, 'green'));

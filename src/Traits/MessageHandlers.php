@@ -4,8 +4,6 @@ namespace Al3x5\xBot\Traits;
 
 use Al3x5\xBot\Config;
 use Al3x5\xBot\Entities\Update;
-use Al3x5\xBot\Events;
-use Al3x5\xBot\Exceptions\xBotException;
 use Al3x5\xBot\Telegram;
 
 trait MessageHandlers

@@ -4,8 +4,7 @@ namespace Al3x5\xBot\Cli\Commands;
 
 use Al3x5\xBot\Cli\Cmd;
 use Al3x5\xBot\Cli\Commands\Traits\HookTrait;
-use Al3x5\xBot\Cli\Style;
-use Al3x5\xBot\xBot;
+use Al3x5\xBot\Bot;
 
 /**
  * Info Webhook Bot class
@@ -23,7 +22,7 @@ final class HookInfo extends Cmd
         $config = getcwd() . DIRECTORY_SEPARATOR . 'config.php';
         
         self::isConfig($config);
-        $data = (new xBot(require $config))->getWebhookInfo();
+        $data = (new Bot(require $config))->getWebhookInfo();
         return self::display($data);
     }
 }
