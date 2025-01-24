@@ -3,7 +3,6 @@
 namespace Al3x5\xBot\Traits;
 
 use Al3x5\xBot\Config;
-use Al3x5\xBot\Conversation;
 use Al3x5\xBot\Exceptions\xBotException;
 
 trait ConversationHandlers

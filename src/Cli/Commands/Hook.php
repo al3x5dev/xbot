@@ -4,7 +4,6 @@ namespace Al3x5\xBot\Cli\Commands;
 
 use Al3x5\xBot\Cli\Cmd;
 use Al3x5\xBot\Cli\Style;
-use Al3x5\xBot\xBot;
 
 /**
  * Hook Command class
