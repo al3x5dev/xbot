@@ -7,7 +7,7 @@ namespace Al3x5\xBot;
  */
 abstract class Conversation
 {
-    public function __construct(protected xBot $bot)
+    public function __construct(protected Bot $bot)
     {
         $this->bot = $bot;
     }
