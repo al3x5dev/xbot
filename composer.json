@@ -6,7 +6,8 @@
         "php": ">=8.2",
         "mk4u/http": "^1.2",
         "monolog/monolog": "^3.6",
-        "mk4u/cache": "^0.2.0"
+        "mk4u/cache": "^0.2.0",
+        "symfony/console": "^7.2"
     },
     "license": "MIT",
     "autoload": {
