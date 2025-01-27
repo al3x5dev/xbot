@@ -2,18 +2,22 @@
 
 namespace Al3x5\xBot\Cli\Commands;
 
+use Al3x5\xBot\Exceptions\xBotException;
 use Symfony\Component\Console\Command\Command;
+use Symfony\Component\Console\Helper\HelperInterface;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Question\Question;
 use Symfony\Component\Console\Style\SymfonyStyle;
 
 /**
- * undocumented class
+ * Install cli command
  */
 final class InstallCommand extends Command
 {
     protected const CFG = 'config.php';
+
+    protected SymfonyStyle $style;
 
     public function configure(): void
     {
@@ -25,58 +29,83 @@ final class InstallCommand extends Command
 
     public function execute(InputInterface $input, OutputInterface $output): int
     {
-        $style= new SymfonyStyle($input,$output);
+        $this->style = new SymfonyStyle($input, $output);
 
         if (file_exists(self::CFG)) {
-            $style->success('The bot is already configured.');
+            $this->style->success('The bot is already configured.');
         } else {
-            $output->writeln('Installing bot configuration files...');
-
-            $helper = $this->getHelper('question');
+            $this->style->title('Bot configuration process starting...');
 
             // Solicitar el token del bot
-            $tokenQuestion = new Question('Enter your bot token: ');
-            $token = $helper->ask($input, $output, $tokenQuestion);
+            $token = $this->style->ask(
+                'What is your bot token?',
+                null,
+                function (string $token): string {
+                    if (!preg_match('/(\d+):[\w\-]+/', $token)) {
+                        $this->style->error('Invalid token. Please verify that the token is correct and try again.');
+                        exit;
+                    }
+                    return $token;
+                }
+            );
+            $output->write("\033[2J\033[;H");
 
 
             // Solicitar el nombre del bot
-            $nameQuestion = new Question('Enter your bot name [optional]: ');
-            $name = $helper->ask($input, $output, $nameQuestion);
+            $name = $this->style->ask('What is your bot name?');
+            $output->write("\033[2J\033[;H");
 
 
             // Solicitar los IDs de los administradores
-            $adminsQuestion = new Question('Enter the IDs of the administrators (separated by commas) [optional]: ');
-            $adminsInput = $helper->ask($input, $output, $adminsQuestion);
-            $admins = $adminsInput;
+            $admins = $this->style->ask(
+                'Enter the IDs of the administrators (separated by commas)',
+                null,
+                function (string $ids): string {
+                    $adm = [];
+                    foreach (explode(',', $ids) as $value) {
+                        if (!is_numeric($value) || strlen((string)$value) < 6) {
+                            $this->style->error("'$value' is not a valid id");
+                            exit;
+                        }
+                        $adm[] = $value;
+                    }
+                    return implode(',', $adm);
+                }
+            );
+            $output->write("\033[2J\033[;H");
 
 
             // Solicitar si es un entorno de desarrollo
-            $devQuestion = new Question('Is it development environment [yes/no]?: ');
-            $dev = $helper->ask($input, $output, $devQuestion);
-            $dev = ($dev === 'yes') ? 'true' : 'false';
+            $debug = $this->style->confirm('Is it development environment?', false);
+            $output->write("\033[2J\033[;H");
+
 
 
             // Generar el contenido del archivo de configuración
             $data = <<<PHP
-        <?php
-        return [
-            'token' => '$token',
-            'name' => '$name',
-            'admins' => [$admins],
-            'dev' => $dev,
-            'logs' => 'storage/logs',
-            'parse_mode' => 'MarkdownV2',
-            'handler' => [
-                //NAMESPACES COMMANDS
-                //'/start' => \App\Commands\StartCommand::class,
-            ]
-        ];
-        PHP;
+            <?php
+
+            return [
+                'token' => '$token',
+                'name' => '$name',
+                'admins' => [$admins],
+                'dev' => $debug,
+                'logs' => 'storage/logs',
+                'parse_mode'=>'MarkdownV2',
+                'handler' => [
+                    //'/start' => \App\Commands\Start::class,
+                ]
+            ];
+
+            PHP;
 
             // Guardar el contenido en un archivo
-            file_put_contents('config.php', $data);
-
-            $style->success('Bot configuration has been saved successfully."');
+            if (file_put_contents('config.php', $data) != false) {
+                $this->style->success('Bot configuration has been saved successfully."');
+            } else {
+                $this->style->success('Bot configuration has been saved successfully."');
+                return Command::FAILURE;
+            }
         }
 
         return Command::SUCCESS;
