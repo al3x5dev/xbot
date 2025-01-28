@@ -31,18 +31,27 @@ php vendor/bin/xbot install
 2. Creando usted mismo el archivo de configuración.
 ```php
 return [
-    'token' => '1234567890:ABCDEFGHIJKLMNOQRSTZ', // YOUR BOT TOKEN
-    'name' => 'MyBot', //BOT NAME
-    'admins' => [123456789, 985632147], // ID's ADMINS
-    'client' => new \Mk4U\Http\Client(), // HTTP CLIENT
-    'storage' => \Mk4U\Cache\CacheFactory::create('file', ['dir' => 'storage/cache', 'ttl' => 300]), // MANAGER CACHE
-    'dev' => true, // ENVIRONMENT
-    'logs' => 'storage/logs', // LOGS DIR
-    'parse_mode'=>'MarkdownV2' // TELEGRAM PARSE MODE
-    'handler' => [                       //NAMESPACES COMMANDS
-        //'/start' => \App\Commands\Start::class,/
+    // your bot token
+    'token' => '1234567890:ABCDEFGHIJKLMNOQRSTZ',
+    // your bot name without @
+    'name' => 'MyBot',
+    // list of bot admin id's
+    'admins' => [123456789, 985632147],
+    // http client to use (By default \Mk4U\Http\Client is used)
+    'client' => new \Mk4U\Http\Client(),
+    // cache handling library used (default is mk4u/cache)
+    'storage' => \Mk4U\Cache\CacheFactory::create('file', ['dir' => 'storage', 'ttl' => 300]),
+    // activate dev environment (default is false)
+    'dev' => true,
+    // directory where logs are stored
+    'logs' => 'storage/logs',
+    // parsing mode for telegram messages
+    'parse_mode'=>'MarkdownV2',
+    // bot command manager
+    'handler' => [
+        //'/start' => \App\Commands\Start::class,
     ]
-]
+];
 ```
 
 ### Inicializar
