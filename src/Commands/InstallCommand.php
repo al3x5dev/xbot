@@ -3,19 +3,18 @@
 namespace Al3x5\xBot\Commands;
 
 use Al3x5\xBot\AppCli as App;
+use Al3x5\xBot\Commands\Traits\ConfigHandler;
+use Al3x5\xBot\Commands\Traits\Io;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
-use Symfony\Component\Console\Style\SymfonyStyle;
 
 /**
  * Install cli command
  */
 final class InstallCommand extends Command
 {
-    public const CFG = 'config.php';
-
-    protected SymfonyStyle $style;
+    use Io, ConfigHandler;
 
     public function configure(): void
     {
@@ -27,27 +26,27 @@ final class InstallCommand extends Command
 
     public function execute(InputInterface $input, OutputInterface $output): int
     {
-        $this->style = new SymfonyStyle($input, $output);
-        $this->clearCli($output);
+        $this->prepare($input, $output);
+        $this->clear();
 
-        $output->writeln(sprintf('%s <info>%s</info>', App::NAME,App::VERSION));
+        $output->writeln(sprintf('%s <info>%s</info>', App::NAME, App::VERSION));
         $this->style->title('Bot configuration process starting...');
 
         // Solicitar el token del bot
         $token = $this->askForToken();
-        $this->clearCli($output);
+        $this->clear();
 
         // Solicitar el nombre del bot
         $name = $this->style->ask('What is your bot name?');
-        $this->clearCli($output);
+        $this->clear();
 
         // Solicitar los IDs de los administradores
         $admins = $this->askForAdmins();
-        $this->clearCli($output);
+        $this->clear();
 
         // Solicitar si es un entorno de desarrollo
         $debug = $this->style->confirm('Is it development environment?', false) ? 'true' : 'false';
-        $this->clearCli($output);
+        $this->clear();
 
         // Generar el contenido del archivo de configuración
         $data = $this->generateConfigData($token, $name, $admins, $debug);
@@ -55,7 +54,7 @@ final class InstallCommand extends Command
         // Crear archivos de configuración
         try {
             $this->createDirectories();
-            writeContentToFile('config.php', $data);
+            writeContentToFile(self::configFile(), $data);
             $this->createCommandClasses(); // Crear las clases Start y Help
             $this->updateComposerAutoload(); // Actualizar composer.json y autoload
             $this->style->success('Bot configuration has been saved successfully.');
@@ -65,14 +64,6 @@ final class InstallCommand extends Command
         }
 
         return Command::SUCCESS;
-    }
-
-    /**
-     * Limpia la pantalla
-     */
-    protected function clearCli(OutputInterface $output): void
-    {
-        $output->write("\033[2J\033[;H");
     }
 
     /**
@@ -214,8 +205,12 @@ final class InstallCommand extends Command
     private function updateComposerAutoload(): void
     {
         $composerJsonPath = 'composer.json';
-        $composerJson = json_decode(file_get_contents($composerJsonPath), true);
 
+        if (!file_exists($composerJsonPath)) {
+            throw new \RuntimeException('composer.json file does not exist.');
+        }
+
+        $composerJson = json_decode(file_get_contents($composerJsonPath), true);
         // Asegurarse de que la sección de autoload existe
         if (!isset($composerJson['autoload'])) {
             $composerJson['autoload'] = [];
