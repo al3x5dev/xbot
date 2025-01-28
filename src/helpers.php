@@ -36,9 +36,27 @@ if (!function_exists('sanatizeMarkdown')) {
      * Las entidades emoji personalizadas solo pueden ser utilizadas por bots que 
      * compraron nombres de usuario adicionales en Fragment .
      */
-    function sanatizeMarkdown($text) {
+    function sanatizeMarkdown($text)
+    {
         $pattern = '/./';
         $replacement = '\\\$1'; // Escapa el carácter encontrado
         return preg_replace($pattern, $replacement, $text);
+    }
+}
+
+if (!function_exists('writeContentToFile')) {
+    /**
+     * Gestiona posibles errores de de file_put_contents
+     */
+    function writeContentToFile($filePath, $content)
+    {
+        $dir=dirname($filePath);
+        if (!is_writable($dir)) {
+            throw new \ErrorException("Error: You do not have write permissions in the directory '$dir'.");
+        }
+
+        if (file_put_contents($filePath, $content) === false) {
+            throw new \ErrorException("Error: Could not write to the file '$filePath'.");
+        }
     }
 }
