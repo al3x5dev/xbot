@@ -8,6 +8,9 @@ if (file_exists(__DIR__ . '/../../autoload.php')) {
 }
 
 use Al3x5\xBot\AppCli;
+use Al3x5\xBot\Commands\HookAboutCommand;
+use Al3x5\xBot\Commands\HookDeleteCommand;
+use Al3x5\xBot\Commands\HookInfoCommand;
 use Al3x5\xBot\Commands\HookSetCommand;
 use Al3x5\xBot\Commands\InstallCommand;
 use Symfony\Component\Console\Application;
@@ -16,7 +19,11 @@ $app = new Application(AppCli::NAME, AppCli::VERSION);
 
 // ... register commands
 $app->add(new InstallCommand());
+//webhook
 $app->add(new HookSetCommand());
+$app->add(new HookDeleteCommand());
+$app->add(new HookInfoCommand());
+$app->add(new HookAboutCommand());
 
 if (!file_exists(InstallCommand::configFile())) {
     $app->setDefaultCommand('install');
