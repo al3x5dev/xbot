@@ -7,90 +7,441 @@ namespace Al3x5\xBot\Entities;
  */
 class Message extends Base
 {
+
+    /** 
+     * @var int Identificador único del mensaje dentro de este chat. 
+     * En casos específicos, este campo puede ser 0 y el mensaje relevante no será utilizable hasta que se envíe realmente.
+     */
+    public int $message_id;
+
+    /** 
+     * @var int Identificador único de un hilo de mensajes al que pertenece el mensaje; solo para supergrupos. 
+     */
+    public int $message_thread_id;
+
+    /** 
+     * @var User Enviador del mensaje; puede estar vacío para mensajes enviados a canales. 
+     */
+    public User  $from;
+
+    /** 
+     * @var Chat Enviador del mensaje cuando se envía en nombre de un chat. 
+     */
+    public Chat $sender_chat;
+
+    /** 
+     * @var int Número de impulsos añadidos por el usuario si el remitente del mensaje impulsó el chat. 
+     */
+    public int $sender_boost_count;
+
+    /** 
+     * @var User Bot que realmente envió el mensaje en nombre de la cuenta comercial. 
+     */
+    public User  $sender_business_bot;
+
+    /** 
+     * @var int Fecha en que se envió el mensaje en tiempo Unix. 
+     */
+    public int $date;
+
+    /** 
+     * @var string Identificador único de la conexión comercial de la que se recibió el mensaje. 
+     */
+    public string $business_connection_id;
+
+    /** 
+     * @var Chat Chat al que pertenece el mensaje. 
+     */
+    public Chat $chat;
+
+    /** 
+     * @var MessageOrigin Información sobre el mensaje original para mensajes reenviados. 
+     */
+    //public MessageOrigin $forward_origin;
+
+    /** 
+     * @var bool Verdadero si el mensaje se envió a un tema de foro. 
+     */
+    public bool $is_topic_message;
+
+    /** 
+     * @var bool Verdadero si el mensaje es una publicación de canal que se reenvió automáticamente al grupo de discusión conectado. 
+     */
+    public bool $is_automatic_forward;
+
+    /** 
+     * @var Message Mensaje original para respuestas en el mismo chat y hilo de mensajes. 
+     */
+    public Message $reply_to_message;
+
+    /** 
+     * @var ExternalReplyInfo Información sobre el mensaje al que se está respondiendo, que puede provenir de otro chat o tema de foro. 
+     */
+    //public ExternalReplyInfo $external_reply;
+
+    /** 
+     * @var TextQuote Parte del mensaje original que se cita en respuestas. 
+     */
+    //public TextQuote $quote;
+
+    /** 
+     * @var Story Historia original para respuestas a una historia. 
+     */
+    //public Story $reply_to_story;
+
+    /** 
+     * @var User Bot a través del cual se envió el mensaje. 
+     */
+    public User  $via_bot;
+
+    /** 
+     * @var int Fecha en que se editó por última vez el mensaje en tiempo Unix. 
+     */
+    public int $edit_date;
+
+    /** 
+     * @var bool Verdadero si el mensaje no se puede reenviar. 
+     */
+    public bool $has_protected_content;
+
+    /** 
+     * @var bool Verdadero si el mensaje fue enviado por una acción implícita. 
+     */
+    public bool $is_from_offline;
+
+    /** 
+     * @var string Identificador único del grupo de mensajes multimedia al que pertenece este mensaje. 
+     */
+    public string $media_group_id;
+
+    /** 
+     * @var string Firma del autor de la publicación para mensajes en canales. 
+     */
+    public string $author_signature;
+
+    /** 
+     * @var string Texto real del mensaje en UTF-8 para mensajes de texto. 
+     */
+    public string $text;
+
+    /** 
+     * @var array Array de MessageEntity para mensajes de texto, entidades especiales como nombres de usuario, URLs, comandos de bot, etc. 
+     */
+    public array|MessageEntity $entities;
+
+    /** 
+     * @var LinkPreviewOptions Opciones utilizadas para la generación de vista previa de enlaces para el mensaje. 
+     */
+    //public LinkPreviewOptions $link_preview_options;
+
+    /** 
+     * @var string Identificador único del efecto del mensaje añadido al mensaje. 
+     */
+    public string $effect_id;
+
+    /** 
+     * @var Animation Información sobre la animación si el mensaje es una animación. 
+     */
+    //public Animation $animation;
+
+    /** 
+     * @var Audio Información sobre el archivo de audio si el mensaje es un archivo de audio. 
+     */
+    //public Audio $audio;
+
+    /** 
+     * @var Document Información sobre el archivo general si el mensaje es un archivo. 
+     */
+    //public Document $document;
+
+    /** 
+     * @var PaidMediaInfo Información sobre los medios pagados si el mensaje contiene medios pagados. 
+     */
+    //public PaidMediaInfo $paid_media;
+
+    /** 
+     * @var array Array de PhotoSize Tamaños disponibles de la foto si el mensaje es una foto. 
+     */
+    //public array|PhotoSize $photo;
+
+    /** 
+     * @var Sticker Información sobre el sticker si el mensaje es un sticker. 
+     */
+    //public Sticker $sticker;
+
+    /** 
+     * @var Story Información sobre la historia si el mensaje es una historia reenviada. 
+     */
+    //public Story $story;
+
+    /** 
+     * @var Video Información sobre el video si el mensaje es un video. 
+     */
+    //public Video $video;
+
+    /** 
+     * @var VideoNote Información sobre el mensaje de video si el mensaje es una nota de video. 
+     */
+    //public VideoNote $video_note;
+
+    /** 
+     * @var Voice Información sobre el archivo de voz si el mensaje es un mensaje de voz. 
+     */
+    //public Voice $voice;
+
+    /** 
+     * @var string Leyenda para la animación, audio, documento, medios pagados, foto, video o voz. 
+     */
+    public string $caption;
+
+    /** 
+     * @var array Array de MessageEntity para mensajes con una leyenda, entidades especiales que aparecen en la leyenda. 
+     */
+    public array|MessageEntity $caption_entities;
+
+    /** 
+     * @var bool Verdadero si la leyenda debe mostrarse encima del medio del mensaje. 
+     */
+    public bool $show_caption_above_media;
+
+    /** 
+     * @var bool Verdadero si el medio del mensaje está cubierto por una animación de spoiler. 
+     */
+    public bool $has_media_spoiler;
+
+    /** 
+     * @var Contact Información sobre el contacto si el mensaje es un contacto compartido. 
+     */
+    //public Contact $contact;
+
+    /** 
+     * @var Dice Información sobre el dado si el mensaje es un dado con valor aleatorio. 
+     */
+    //public Dice $dice;
+
+    /** 
+     * @var Game Información sobre el juego si el mensaje es un juego. 
+     */
+    //public Game $game;
+
+    /** 
+     * @var Poll Información sobre la encuesta si el mensaje es una encuesta nativa. 
+     */
+    //public Poll $poll;
+
+    /** 
+     * @var Venue Información sobre el lugar si el mensaje es un lugar. 
+     */
+    //public Venue $venue;
+
+    /** 
+     * @var Location Información sobre la ubicación si el mensaje es una ubicación compartida. 
+     */
+    //public Location $location;
+
+    /** 
+     * @var array Array de User Nuevos miembros que fueron añadidos al grupo o supergrupo. 
+     */
+    public array|User $new_chat_members;
+
+    /** 
+     * @var User Información sobre un miembro que fue eliminado del grupo. 
+     */
+    public User  $left_chat_member;
+
+    /** 
+     * @var string Título del chat cambiado a este valor. 
+     */
+    public string $new_chat_title;
+
+    /** 
+     * @var array Array de PhotoSize Nueva foto de chat cambiada a este valor. 
+     */
+    //public array|PhotoSize $new_chat_photo;
+
+    /** 
+     * @var bool Verdadero si la foto del chat fue eliminada. 
+     */
+    public bool $delete_chat_photo;
+
+    /** 
+     * @var bool Verdadero si el grupo ha sido creado. 
+     */
+    public bool $group_chat_created;
+
+    /** 
+     * @var bool Verdadero si el supergrupo ha sido creado. 
+     */
+    public bool $supergroup_chat_created;
+
+    /** 
+     * @var bool Verdadero si el canal ha sido creado. 
+     */
+    public bool $channel_chat_created;
+
+    /** 
+     * @var MessageAutoDeleteTimerChanged Información sobre el cambio de configuración del temporizador de auto-eliminación en el chat. 
+     */
+    //public MessageAutoDeleteTimerChanged $message_auto_delete_timer_changed;
+
+    /** 
+     * @var int El grupo ha sido migrado a un supergrupo con el identificador especificado. 
+     */
+    public int $migrate_to_chat_id;
+
+    /** 
+     * @var int El supergrupo ha sido migrado desde un grupo con el identificador especificado. 
+     */
+    public int $migrate_from_chat_id;
+
+    /** 
+     * @var MaybeInaccessibleMessage Mensaje especificado que fue fijado. 
+     */
+    //public MaybeInaccessibleMessage $pinned_message;
+
+    /** 
+     * @var Invoice Información sobre la factura si el mensaje es una factura para un pago. 
+     */
+    //public Invoice $invoice;
+
+    /** 
+     * @var SuccessfulPayment Información sobre un mensaje de servicio sobre un pago exitoso. 
+     */
+    //public SuccessfulPayment $successful_payment;
+
+    /** 
+     * @var RefundedPayment Información sobre un mensaje de servicio sobre un pago reembolsado. 
+     */
+    //public RefundedPayment $refunded_payment;
+
+    /** 
+     * @var UsersShared Mensaje de servicio: usuarios fueron compartidos con el bot. 
+     */
+    //public UsersShared $users_shared;
+
+    /** 
+     * @var ChatShared Mensaje de servicio: un chat fue compartido con el bot. 
+     */
+    //public ChatShared $chat_shared;
+
+    /** 
+     * @var string Nombre de dominio del sitio web en el que el usuario ha iniciado sesión. 
+     */
+    public string $connected_website;
+
+    /** 
+     * @var WriteAccessAllowed Mensaje de servicio: el usuario permitió que el bot escribiera mensajes. 
+     */
+    //public WriteAccessAllowed $write_access_allowed;
+
+    /** 
+     * @var PassportData Datos de Telegram Passport. 
+     */
+    //public PassportData $passport_data;
+
+    /** 
+     * @var ProximityAlertTriggered Mensaje de servicio: un usuario en el chat activó la alerta de proximidad de otro usuario. 
+     */
+    //public ProximityAlertTriggered $proximity_alert_triggered;
+
+    /** 
+     * @var ChatBoostAdded Mensaje de servicio: el usuario impulsó el chat. 
+     */
+    //public ChatBoostAdded $boost_added;
+
+    /** 
+     * @var ChatBackground Mensaje de servicio: fondo de chat establecido. 
+     */
+    //public ChatBackground $chat_background_set;
+
+    /** 
+     * @var ForumTopicCreated Mensaje de servicio: tema de foro creado. 
+     */
+    //public ForumTopicCreated $forum_topic_created;
+
+    /** 
+     * @var ForumTopicEdited Mensaje de servicio: tema de foro editado. 
+     */
+    //public ForumTopicEdited $forum_topic_edited;
+
+    /** 
+     * @var ForumTopicClosed Mensaje de servicio: tema de foro cerrado. 
+     */
+    //public ForumTopicClosed $forum_topic_closed;
+
+    /** 
+     * @var ForumTopicReopened Mensaje de servicio: tema de foro reabierto. 
+     */
+    //public ForumTopicReopened $forum_topic_reopened;
+
+    /** 
+     * @var GeneralForumTopicHidden Mensaje de servicio: el tema 'General' del foro está oculto. 
+     */
+    //public GeneralForumTopicHidden $general_forum_topic_hidden;
+
+    /** 
+     * @var GeneralForumTopicUnhidden Mensaje de servicio: el tema 'General' del foro está visible. 
+     */
+    //public GeneralForumTopicUnhidden $general_forum_topic_unhidden;
+
+    /** 
+     * @var GiveawayCreated Mensaje de servicio: se creó un sorteo programado. 
+     */
+    //public GiveawayCreated $giveaway_created;
+
+    /** 
+     * @var Giveaway Mensaje de sorteo programado. 
+     */
+    //public Giveaway $giveaway;
+
+    /** 
+     * @var GiveawayWinners Mensaje de sorteo con ganadores públicos completado. 
+     */
+    //public GiveawayWinners $giveaway_winners;
+
+    /** 
+     * @var GiveawayCompleted Mensaje de servicio: un sorteo sin ganadores públicos fue completado. 
+     */
+    //public GiveawayCompleted $giveaway_completed;
+
+    /** 
+     * @var VideoChatScheduled Mensaje de servicio: video chat programado. 
+     */
+    //public VideoChatScheduled $video_chat_scheduled;
+
+    /** 
+     * @var VideoChatStarted Mensaje de servicio: video chat iniciado. 
+     */
+    //public VideoChatStarted $video_chat_started;
+
+    /** 
+     * @var VideoChatEnded Mensaje de servicio: video chat terminado. 
+     */
+    //public VideoChatEnded $video_chat_ended;
+
+    /** 
+     * @var VideoChatParticipantsInvited Mensaje de servicio: nuevos participantes invitados a un video chat. 
+     */
+    //public VideoChatParticipantsInvited $video_chat_participants_invited;
+
+    /** 
+     * @var WebAppData Mensaje de servicio: datos enviados por una Web App. 
+     */
+    //public WebAppData $web_app_data;
+
+    /** 
+     * @var InlineKeyboardMarkup Teclado en línea adjunto al mensaje. 
+     */
+    //public InlineKeyboardMarkup $reply_markup;
+
+
+
     protected function getEntities(): array
     {
         return [
             'from' => User::class,
             'chat' => Chat::class,
             'entities' => MessageEntity::class,
-            /*'sender_chat'=> Chat::class,
-            'sender_business_bot'=>User::class,
-            'forward_origin'=>MessageOrigin::class
-            
-
-            /*is_topic_message 	True 	Optional. True, if the message is sent to a forum topic
-is_automatic_forward 	True 	Optional. True, if the message is a channel post that was automatically forwarded to the connected discussion group
-reply_to_message 	Message 	Optional. For replies in the same chat and message thread, the original message. Note that the Message object in this field will not contain further reply_to_message fields even if it itself is a reply.
-external_reply 	ExternalReplyInfo 	Optional. Information about the message that is being replied to, which may come from another chat or forum topic
-quote 	TextQuote 	Optional. For replies that quote part of the original message, the quoted part of the message
-reply_to_story 	Story 	Optional. For replies to a story, the original story
-via_bot 	User 	Optional. Bot through which the message was sent
-edit_date 	Integer 	Optional. Date the message was last edited in Unix time
-has_protected_content 	True 	Optional. True, if the message can't be forwarded
-is_from_offline 	True 	Optional. True, if the message was sent by an implicit action, for example, as an away or a greeting business message, or as a scheduled message
-media_group_id 	String 	Optional. The unique identifier of a media message group this message belongs to
-author_signature 	String 	Optional. Signature of the post author for messages in channels, or the custom title of an anonymous group administrator
-text 	String 	Optional. For text messages, the actual UTF-8 text of the message
-entities 	Array of MessageEntity 	Optional. For text messages, special entities like usernames, URLs, bot commands, etc. that appear in the text
-link_preview_options 	LinkPreviewOptions 	Optional. Options used for link preview generation for the message, if it is a text message and link preview options were changed
-effect_id 	String 	Optional. Unique identifier of the message effect added to the message
-animation 	Animation 	Optional. Message is an animation, information about the animation. For backward compatibility, when this field is set, the document field will also be set
-audio 	Audio 	Optional. Message is an audio file, information about the file
-document 	Document 	Optional. Message is a general file, information about the file
-photo 	Array of PhotoSize 	Optional. Message is a photo, available sizes of the photo
-sticker 	Sticker 	Optional. Message is a sticker, information about the sticker
-story 	Story 	Optional. Message is a forwarded story
-video 	Video 	Optional. Message is a video, information about the video
-video_note 	VideoNote 	Optional. Message is a video note, information about the video message
-voice 	Voice 	Optional. Message is a voice message, information about the file
-caption 	String 	Optional. Caption for the animation, audio, document, photo, video or voice
-caption_entities 	Array of MessageEntity 	Optional. For messages with a caption, special entities like usernames, URLs, bot commands, etc. that appear in the caption
-show_caption_above_media 	True 	Optional. True, if the caption must be shown above the message media
-has_media_spoiler 	True 	Optional. True, if the message media is covered by a spoiler animation
-contact 	Contact 	Optional. Message is a shared contact, information about the contact
-dice 	Dice 	Optional. Message is a dice with random value
-game 	Game 	Optional. Message is a game, information about the game. More about games »
-poll 	Poll 	Optional. Message is a native poll, information about the poll
-venue 	Venue 	Optional. Message is a venue, information about the venue. For backward compatibility, when this field is set, the location field will also be set
-location 	Location 	Optional. Message is a shared location, information about the location
-new_chat_members 	Array of User 	Optional. New members that were added to the group or supergroup and information about them (the bot itself may be one of these members)
-left_chat_member 	User 	Optional. A member was removed from the group, information about them (this member may be the bot itself)
-new_chat_title 	String 	Optional. A chat title was changed to this value
-new_chat_photo 	Array of PhotoSize 	Optional. A chat photo was change to this value
-delete_chat_photo 	True 	Optional. Service message: the chat photo was deleted
-group_chat_created 	True 	Optional. Service message: the group has been created
-supergroup_chat_created 	True 	Optional. Service message: the supergroup has been created. This field can't be received in a message coming through updates, because bot can't be a member of a supergroup when it is created. It can only be found in reply_to_message if someone replies to a very first message in a directly created supergroup.
-channel_chat_created 	True 	Optional. Service message: the channel has been created. This field can't be received in a message coming through updates, because bot can't be a member of a channel when it is created. It can only be found in reply_to_message if someone replies to a very first message in a channel.
-message_auto_delete_timer_changed 	MessageAutoDeleteTimerChanged 	Optional. Service message: auto-delete timer settings changed in the chat
-migrate_to_chat_id 	Integer 	Optional. The group has been migrated to a supergroup with the specified identifier. This number may have more than 32 significant bits and some programming languages may have difficulty/silent defects in interpreting it. But it has at most 52 significant bits, so a signed 64-bit integer or double-precision float type are safe for storing this identifier.
-migrate_from_chat_id 	Integer 	Optional. The supergroup has been migrated from a group with the specified identifier. This number may have more than 32 significant bits and some programming languages may have difficulty/silent defects in interpreting it. But it has at most 52 significant bits, so a signed 64-bit integer or double-precision float type are safe for storing this identifier.
-pinned_message 	MaybeInaccessibleMessage 	Optional. Specified message was pinned. Note that the Message object in this field will not contain further reply_to_message fields even if it itself is a reply.
-invoice 	Invoice 	Optional. Message is an invoice for a payment, information about the invoice. More about payments »
-successful_payment 	SuccessfulPayment 	Optional. Message is a service message about a successful payment, information about the payment. More about payments »
-users_shared 	UsersShared 	Optional. Service message: users were shared with the bot
-chat_shared 	ChatShared 	Optional. Service message: a chat was shared with the bot
-connected_website 	String 	Optional. The domain name of the website on which the user has logged in. More about Telegram Login »
-write_access_allowed 	WriteAccessAllowed 	Optional. Service message: the user allowed the bot to write messages after adding it to the attachment or side menu, launching a Web App from a link, or accepting an explicit request from a Web App sent by the method requestWriteAccess
-passport_data 	PassportData 	Optional. Telegram Passport data
-proximity_alert_triggered 	ProximityAlertTriggered 	Optional. Service message. A user in the chat triggered another user's proximity alert while sharing Live Location.
-boost_added 	ChatBoostAdded 	Optional. Service message: user boosted the chat
-chat_background_set 	ChatBackground 	Optional. Service message: chat background set
-forum_topic_created 	ForumTopicCreated 	Optional. Service message: forum topic created
-forum_topic_edited 	ForumTopicEdited 	Optional. Service message: forum topic edited
-forum_topic_closed 	ForumTopicClosed 	Optional. Service message: forum topic closed
-forum_topic_reopened 	ForumTopicReopened 	Optional. Service message: forum topic reopened
-general_forum_topic_hidden 	GeneralForumTopicHidden 	Optional. Service message: the 'General' forum topic hidden
-general_forum_topic_unhidden 	GeneralForumTopicUnhidden 	Optional. Service message: the 'General' forum topic unhidden
-giveaway_created 	GiveawayCreated 	Optional. Service message: a scheduled giveaway was created
-giveaway 	Giveaway 	Optional. The message is a scheduled giveaway message
-giveaway_winners 	GiveawayWinners 	Optional. A giveaway with public winners was completed
-giveaway_completed 	GiveawayCompleted 	Optional. Service message: a giveaway without public winners was completed
-video_chat_scheduled 	VideoChatScheduled 	Optional. Service message: video chat scheduled
-video_chat_started 	VideoChatStarted 	Optional. Service message: video chat started
-video_chat_ended 	VideoChatEnded 	Optional. Service message: video chat ended
-video_chat_participants_invited 	VideoChatParticipantsInvited 	Optional. Service message: new participants invited to a video chat
-web_app_data 	WebAppData 	Optional. Service message: data sent by a Web App
-reply_markup 	InlineKeyboardMarkup 	Optional. Inline keyboard attached to the message. login_url buttons are represented as ordinary url buttons.*/
         ];
     }
 
