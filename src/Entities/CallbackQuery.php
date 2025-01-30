@@ -20,7 +20,8 @@ class CallbackQuery extends Base
     /**
      * Optional. Message sent by the bot with the callback button that originated the query
      */
-    public MaybeInaccessibleMessage $message;
+    //public MaybeInaccessibleMessage $message;
+    public Message $message;
 
     /**
      * Optional. Identifier of the message sent via the bot in inline mode, that originated the query.

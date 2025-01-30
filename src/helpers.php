@@ -38,9 +38,15 @@ if (!function_exists('sanatizeMarkdown')) {
      */
     function sanatizeMarkdown($text)
     {
-        $pattern = '/./';
-        $replacement = '\\\$1'; // Escapa el carácter encontrado
-        return preg_replace($pattern, $replacement, $text);
+        // Lista de caracteres que deben ser escapados
+        $specialChars = [/*'_', /*'*',*/ /*'[', ']', '(', ')', '~', '`', '>', '#', '+', '-', '=', '|', '{', '}', */'.', '!'];
+
+        // Escapa cada carácter especial
+        foreach ($specialChars as $char) {
+            $text = preg_replace('/(' . preg_quote($char, '/') . ')/', '\\\\$1', $text);
+        }
+
+        return $text;
     }
 }
 
@@ -50,7 +56,7 @@ if (!function_exists('writeContentToFile')) {
      */
     function writeContentToFile($filePath, $content)
     {
-        $dir=dirname($filePath);
+        $dir = dirname($filePath);
         if (!is_writable($dir)) {
             throw new \ErrorException("Error: You do not have write permissions in the directory '$dir'.");
         }
