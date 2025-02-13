@@ -2,9 +2,10 @@
 
 namespace Al3x5\xBot\Commands;
 
-use Al3x5\xBot\AppCli as App;
+use Al3x5\xBot\Bot;
 use Al3x5\xBot\Commands\Traits\ConfigHandler;
 use Al3x5\xBot\Commands\Traits\Io;
+use Al3x5\xBot\Commands\Traits\MakeClass;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
@@ -14,7 +15,7 @@ use Symfony\Component\Console\Output\OutputInterface;
  */
 final class InstallCommand extends Command
 {
-    use Io, ConfigHandler;
+    use Io, ConfigHandler, MakeClass;
 
     public function configure(): void
     {
@@ -29,7 +30,7 @@ final class InstallCommand extends Command
         $this->prepare($input, $output);
         $this->clear();
 
-        $output->writeln(sprintf('%s <info>%s</info>', App::NAME, App::VERSION));
+        $output->writeln(sprintf('%s <info>%s</info>', Bot::NAME, Bot::VERSION));
         $this->style->title('Bot configuration process starting...');
 
         // Solicitar el token del bot
@@ -55,7 +56,7 @@ final class InstallCommand extends Command
         try {
             $this->createDirectories();
             writeContentToFile(self::configFile(), $data);
-            $this->createCommandClasses(); // Crear las clases Start y Help
+            $this->makeCommandClasses(); // Crear las clases Start y Help
             $this->updateComposerAutoload(); // Actualizar composer.json y autoload
             $this->style->success('Bot configuration has been saved successfully.');
         } catch (\Throwable $th) {
@@ -121,10 +122,7 @@ final class InstallCommand extends Command
                 'admins' => [$admins],
                 'dev' => $debug,
                 'logs' => 'storage/logs',
-                'parse_mode' => 'MarkdownV2',
-                'handler' => [
-                    '/start' => \MyBot\Commands\Start::class,
-                ]
+                'parse_mode' => 'MarkdownV2'
             ];
             PHP;
     }
@@ -134,14 +132,9 @@ final class InstallCommand extends Command
      */
     private function createDirectories(): void
     {
-        $directories = [
-            'storage/logs',
-            'storage/cache',
-            'bot/Commands',
-            'bot/Conversations'
-        ];
+        
 
-        foreach ($directories as $directory) {
+        foreach (self::directories as $directory) {
             if (!is_dir($directory)) {
                 if (!mkdir($directory, 0755, true) && !is_dir($directory)) {
                     throw new \RuntimeException(sprintf('Directory "%s" was not created', $directory));
@@ -153,50 +146,10 @@ final class InstallCommand extends Command
     /**
      * Crea comandos del bot
      */
-    private function createCommandClasses(): void
+    private function makeCommandClasses(): void
     {
-        $commands = [
-            'Start' => <<<PHP
-            <?php
-            namespace MyBot\Commands;
-
-            use Al3x5\\xBot\Commands;
-            use Al3x5\\xBot\Telegram;
-
-            /**
-             * Start command class
-             */
-            final class Start extends Commands
-            {
-                public function execute(array \$params=[]): Telegram
-                {
-                    return \$this->bot->reply('Start command executed');
-                }
-            }
-            PHP,
-            'Help' => <<<PHP
-            <?php
-            namespace MyBot\Commands;
-
-            use Al3x5\\xBot\Commands;
-            use Al3x5\\xBot\Telegram;
-
-            /**
-             * Help class
-             */
-            final class Help extends Commands
-            {
-                public function execute(array \$params=[]): Telegram
-                {
-                    return \$this->bot->reply('Help message');
-                }
-            }
-            PHP
-        ];
-
-        foreach ($commands as $className => $classContent) {
-            writeContentToFile("bot/Commands/{$className}.php", $classContent);
-        }
+        $this->makeTelegramCommand('Start','/start');
+        $this->makeTelegramCommand('Help','/help');
     }
 
     /**
