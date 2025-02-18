@@ -30,7 +30,6 @@ class Config
                 'ttl' => 600
             ]),
             'webhook' => $cfg['webhook'] ?? self::webhook($cfg['token']),
-            'handler' => $cfg['handler'] ?? [],
             'dev' => $cfg['dev'] ?? false,
             'logs' => self::logging($cfg['logs'] ?? ''),
             'parse_mode' => $cfg['parse_mode'] ?? 'MarkdownV2'

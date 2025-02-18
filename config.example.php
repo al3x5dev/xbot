@@ -28,8 +28,4 @@ return [
     'logs' => 'storage/logs',
     // parsing mode for telegram messages
     'parse_mode'=>'MarkdownV2',
-    // bot command manager
-    'handler' => [
-        //'/start' => \App\Commands\Start::class,
-    ]
 ];
