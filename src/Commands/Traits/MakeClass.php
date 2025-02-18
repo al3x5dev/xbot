@@ -9,6 +9,7 @@ trait MakeClass
         // Crear el contenido de la clase
         $content = <<<PHP
         <?php
+
         namespace Al3x5\\xBot\Commands;
 
         use Symfony\Component\Console\Command\Command;
@@ -16,25 +17,26 @@ trait MakeClass
         use Symfony\Component\Console\Output\OutputInterface;
 
         /**
-         * $name command class
-         */
+        * $name command class
+        */
         final class {$name}Command extends Command
         {
             public function configure(): void
-                {
-                    \$this
+            {
+                \$this
                     ->setName('$command')
                     ->setDescription('')
                     ->setHelp('');
-                }
+            }
+        
             public function execute(InputInterface \$input, OutputInterface \$output): int
-                {
-                    # code...
-                }
+            {
+                return Command::SUCCESS;
+            }
         }
         PHP;
 
-        writeContentToFile("/{$name}Command.php", $content);
+        writeContentToFile("src/Commands/{$name}Command.php", $content);
     }
 
     /**
@@ -58,6 +60,12 @@ trait MakeClass
             public function execute(array \$params=[]): Telegram
             {
                 return \$this->bot->reply('$command command executed');
+            }
+            
+            public function help(): void
+            {
+                \$this->name = '$command';
+                \$this->description = 'Command description';
             }
         }
         PHP;
