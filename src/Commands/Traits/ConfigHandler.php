@@ -7,6 +7,14 @@ use Symfony\Component\Console\Output\ConsoleOutput;
 
 trait ConfigHandler
 {
+    protected const directories = [
+        'storage/logs',
+        'storage/cache',
+        'bot/Callbacks',
+        'bot/Commands',
+        'bot/Conversations',
+    ];
+
     /**
      * Retorna ubicacion del archivo de configuracion
      */
