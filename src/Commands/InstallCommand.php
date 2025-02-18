@@ -6,6 +6,7 @@ use Al3x5\xBot\Bot;
 use Al3x5\xBot\Commands\Traits\ConfigHandler;
 use Al3x5\xBot\Commands\Traits\Io;
 use Al3x5\xBot\Commands\Traits\MakeClass;
+use Al3x5\xBot\Events;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
@@ -58,8 +59,16 @@ final class InstallCommand extends Command
             writeContentToFile(self::configFile(), $data);
             $this->makeCommandClasses(); // Crear las clases Start y Help
             $this->updateComposerAutoload(); // Actualizar composer.json y autoload
+            register('bot/Commands','commands.json'); //Registra los comandos
+            register('bot/Callbacks','callbacks.json'); //Registra los comandos
             $this->style->success('Bot configuration has been saved successfully.');
         } catch (\Throwable $th) {
+            Events::logger(
+                'cli',
+                'cli.log',
+                'Failed to save bot configuration: ' . $th->getMessage(),
+                $th->getTrace()
+            );
             $this->style->error('Failed to save bot configuration: ' . $th->getMessage());
             return Command::FAILURE;
         }
