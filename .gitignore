@@ -8,3 +8,5 @@ xbot.php
 cli.php
 index.php
 bot/
+callbacks.json
+commands.json
