@@ -33,7 +33,7 @@ final class RegisterCommand extends Command
         }
 
         register($command,'commands.json');
-        register($callback, 'callback.json');
+        register($callback, 'callbacks.json');
 
         $output->writeln("<info>Telegram commands successfully registered</info>");
 
