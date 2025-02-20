@@ -22,8 +22,8 @@ final class InstallCommand extends Command
     {
         $this
             ->setName('install')
-            ->setDescription('Create bot configuration files')
-            ->setHelp('This command will help you create the necessary configuration files for your bot');
+            ->setDescription('Create bot configuration files.')
+            ->setHelp('This command will help you create the necessary configuration files for your bot.');
     }
 
     public function execute(InputInterface $input, OutputInterface $output): int

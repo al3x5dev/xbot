@@ -13,23 +13,26 @@ use Al3x5\xBot\Commands\HookDeleteCommand;
 use Al3x5\xBot\Commands\HookInfoCommand;
 use Al3x5\xBot\Commands\HookSetCommand;
 use Al3x5\xBot\Commands\InstallCommand;
+use Al3x5\xBot\Commands\MakeCommandCommand;
+use Al3x5\xBot\Commands\RegisterCommand;
+use Al3x5\xBot\Commands\TelegramCommandCommand;
 use Symfony\Component\Console\Application;
 
 $app = new Application(Bot::NAME, 'v'.Bot::VERSION);
 
 // ... register commands
 $app->add(new InstallCommand());
+$app->add(new RegisterCommand());
 //webhook
 $app->add(new HookSetCommand());
 $app->add(new HookDeleteCommand());
 $app->add(new HookInfoCommand());
 $app->add(new HookAboutCommand());
 //make
-$app->add(new InstallCommand());
-$app->add(new InstallCommand());
-$app->add(new InstallCommand());
-$app->add(new InstallCommand());
-$app->add(new InstallCommand());
+if (!strpos(__DIR__, 'vendor')) $app->add(new MakeCommandCommand());
+//telegram
+$app->add(new TelegramCommandCommand());
+
 
 if (!file_exists(InstallCommand::configFile())) {
     $app->setDefaultCommand('install');

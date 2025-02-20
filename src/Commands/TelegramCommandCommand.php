@@ -20,8 +20,8 @@ final class TelegramCommandCommand extends Command
         $this
             ->setName('telegram:command')
             ->setDescription('Create a new Telegram command')
-            ->setHelp('This command allows you to create a new Telegram command for your bot')
-            ->addArgument('name', InputArgument::OPTIONAL, 'The name of the command');
+            ->setHelp('This command allows you to create a new Telegram command for your bot.')
+            ->addArgument('name', InputArgument::OPTIONAL, 'The name of the command.');
     }
 
     public function execute(InputInterface $input, OutputInterface $output): int
@@ -29,7 +29,7 @@ final class TelegramCommandCommand extends Command
         $this->prepare($input, $output);
 
         $name =  !is_null($input->getArgument('name'))
-            ? $input->getArgument('name')
+            ? $input->getArgument('url')
             : $this->style->ask(
                 'What should the Telegram command be named? [Eg. Start]',
                 null,
@@ -39,18 +39,18 @@ final class TelegramCommandCommand extends Command
             );
 
         if ($name == '') {
-            $this->style->error("The name cannot be empty");
+            $output->writeln("<error>Error: The name cannot be empty.</error>");
             return Command::FAILURE;
         }
 
         // Verificar si el archivo ya existe
         if (file_exists(__DIR__ . "/bot/Commands/$name")) {
-            $this->style->error("The command file already exists at {$name}.php");
+            $output->writeln("<error>Error: The command file already exists at {$name}.php</error>");
             return Command::FAILURE;
         }
 
         $this->makeTelegramCommand($name, '/'.strtolower($name));
-        $output->writeln("<info>Telegram command created successfully</info>");
+        $output->writeln("<info>Telegram command created successfully.</info>");
         return Command::SUCCESS;
     }
 }

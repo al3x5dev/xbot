@@ -20,7 +20,7 @@ final class HookInfoCommand extends Command
     {
         $this
             ->setName('hook:info')
-            ->setDescription("Gets information about the Telegram bot's webhook")
+            ->setDescription("Gets information about the Telegram bot's webhook.")
             ->setHelp(
                 "This command allows you to get information about the URL of your Telegram bot's webhook. "
                     . "Provides details about the status of the webhook, including whether it is configured, "
@@ -40,8 +40,7 @@ final class HookInfoCommand extends Command
             $data = (new Bot(require_once self::configFile()))->getWebhookInfo();
             return $this->displayInfo($data);
         } catch (\Throwable $th) {
-            $this->style->error($th->getMessage());
-            return Command::FAILURE;
+            throw new \ErrorException($th->getMessage());
         }
     }
 }

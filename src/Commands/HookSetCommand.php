@@ -21,13 +21,13 @@ final class HookSetCommand extends Command
     {
         $this
             ->setName('hook:set')
-            ->setDescription('Sets the webhook for the Telegram bot')
+            ->setDescription('Sets the webhook for the Telegram bot.')
             ->setHelp(
                 'This command allows you to set the webhook URL for your Telegram bot. '
                     . 'Make sure that the URL is publicly accessible and configured to receive '
-                    . 'HTTPS requests. You can use the --url option to specify the desired URL'
+                    . 'HTTPS requests. You can use the --url option to specify the desired URL.'
             )
-            ->addArgument('url', InputArgument::OPTIONAL, 'The URL to which Telegram will send updates');
+            ->addArgument('url', InputArgument::OPTIONAL, 'The URL to which Telegram will send updates.');
     }
 
     public function execute(InputInterface $input, OutputInterface $output): int
@@ -54,8 +54,7 @@ final class HookSetCommand extends Command
                 parse_url($url, PHP_URL_SCHEME) === 'https'
             ) === false
         ) {
-            $this->style->error("The URL you provided is not valid. Please check and try again");
-            return Command::FAILURE;
+            throw new \InvalidArgumentException("The URL you provided is not valid. Please check and try again.");
         }
 
         try {
@@ -65,8 +64,7 @@ final class HookSetCommand extends Command
             $this->style->success($data);
             return Command::SUCCESS;
         } catch (\Throwable $th) {
-            $this->style->error($th->getMessage());
-            return Command::FAILURE;
+            throw new \ErrorException($th->getMessage());
         }
     }
 }
