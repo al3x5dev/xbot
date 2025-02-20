@@ -15,7 +15,9 @@ use Al3x5\xBot\Commands\HookSetCommand;
 use Al3x5\xBot\Commands\InstallCommand;
 use Al3x5\xBot\Commands\MakeCommandCommand;
 use Al3x5\xBot\Commands\RegisterCommand;
+use Al3x5\xBot\Commands\TelegramCallbackCommand;
 use Al3x5\xBot\Commands\TelegramCommandCommand;
+use Al3x5\xBot\Commands\TelegramConversationCommand;
 use Symfony\Component\Console\Application;
 
 $app = new Application(Bot::NAME, 'v'.Bot::VERSION);
@@ -32,6 +34,8 @@ $app->add(new HookAboutCommand());
 if (!strpos(__DIR__, 'vendor')) $app->add(new MakeCommandCommand());
 //telegram
 $app->add(new TelegramCommandCommand());
+$app->add(new TelegramCallbackCommand());
+$app->add(new TelegramConversationCommand());
 
 
 if (!file_exists(InstallCommand::configFile())) {

@@ -20,8 +20,8 @@ final class TelegramCommandCommand extends Command
         $this
             ->setName('telegram:command')
             ->setDescription('Create a new Telegram command')
-            ->setHelp('This command allows you to create a new Telegram command for your bot.')
-            ->addArgument('name', InputArgument::OPTIONAL, 'The name of the command.');
+            ->setHelp('This command allows you to create a new Telegram command for your bot')
+            ->addArgument('name', InputArgument::OPTIONAL, 'The name of the command');
     }
 
     public function execute(InputInterface $input, OutputInterface $output): int
@@ -45,7 +45,7 @@ final class TelegramCommandCommand extends Command
 
         // Verificar si el archivo ya existe
         if (file_exists(__DIR__ . "/bot/Commands/$name")) {
-            $output->writeln("<error>Error: The command file already exists at {$name}.php</error>");
+            $output->writeln("<error>Error: The file already exists at {$name}.php</error>");
             return Command::FAILURE;
         }
 

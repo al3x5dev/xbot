@@ -39,7 +39,16 @@ final class InstallCommand extends Command
         $this->clear();
 
         // Solicitar el nombre del bot
-        $name = $this->style->ask('What is your bot name?');
+        $name = $this->style->ask(
+            'What is your bot name?',
+            null,
+            function (?string $name): string {
+                if (empty($name)) {
+                    throw new \InvalidArgumentException('You must specify a name for your bot');
+                }
+                return $name;
+            }
+        );
         $this->clear();
 
         // Solicitar los IDs de los administradores
@@ -59,8 +68,9 @@ final class InstallCommand extends Command
             writeContentToFile(self::configFile(), $data);
             $this->makeCommandClasses(); // Crear las clases Start y Help
             $this->updateComposerAutoload(); // Actualizar composer.json y autoload
-            register('bot/Commands','commands.json'); //Registra los comandos
-            register('bot/Callbacks','callbacks.json'); //Registra los comandos
+            #$this->style->info('Registering commands...');
+            register('bot/Commands', 'commands.json'); //Registra los comandos
+            register('bot/Callbacks', 'callbacks.json'); //Registra los comandos
             $this->style->success('Bot configuration has been saved successfully.');
         } catch (\Throwable $th) {
             Events::logger(
@@ -122,6 +132,7 @@ final class InstallCommand extends Command
      */
     private function generateConfigData(?string $token, ?string $name, ?string $admins, string $debug): string
     {
+        #$this->style->info('Creating config file...');
         return <<<PHP
             <?php
 
@@ -141,8 +152,7 @@ final class InstallCommand extends Command
      */
     private function createDirectories(): void
     {
-        
-
+        #$this->style->info('Creating directories...');
         foreach (self::directories as $directory) {
             if (!is_dir($directory)) {
                 if (!mkdir($directory, 0755, true) && !is_dir($directory)) {
@@ -157,8 +167,9 @@ final class InstallCommand extends Command
      */
     private function makeCommandClasses(): void
     {
-        $this->makeTelegramCommand('Start','/start');
-        $this->makeTelegramCommand('Help','/help');
+        #$this->style->info('Creating command classes...');
+        $this->makeTelegramCommand('Start', '/start');
+        $this->makeTelegramCommand('Help', '/help');
     }
 
     /**
@@ -166,6 +177,8 @@ final class InstallCommand extends Command
      */
     private function updateComposerAutoload(): void
     {
+        #$this->style->info('Updating composer autoload...');
+
         $composerJsonPath = 'composer.json';
 
         if (!file_exists($composerJsonPath)) {
