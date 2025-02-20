@@ -23,7 +23,7 @@ final class HookAboutCommand extends Command
             ->setDescription('Gets information about the Telegram bot')
             ->setHelp(
                 'This command allows you to get information about your Telegram bot, including its ID, username and other relevant details. '
-                    . 'Use this command to check the configuration and status of your bot.'
+                    . 'Use this command to check the configuration and status of your bot'
             );
     }
 
@@ -38,7 +38,8 @@ final class HookAboutCommand extends Command
             $data = (new Bot(require_once self::configFile()))->getMe();
             return $this->displayInfo($data);
         } catch (\Throwable $th) {
-            throw new \ErrorException($th->getMessage());
+            $this->style->error($th->getMessage());
+            return Command::FAILURE;
         }
     }
 }

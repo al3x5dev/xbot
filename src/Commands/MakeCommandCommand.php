@@ -20,7 +20,7 @@ final class MakeCommandCommand extends Command
         $this
             ->setName('make:command')
             ->setDescription('Create a new console command')
-            ->addArgument('name', InputArgument::OPTIONAL, 'The name of the command.');
+            ->addArgument('name', InputArgument::OPTIONAL, 'The name of the command');
     }
 
     public function execute(InputInterface $input, OutputInterface $output): int
@@ -38,9 +38,8 @@ final class MakeCommandCommand extends Command
             );
 
         if ($name == '') {
-            throw new \InvalidArgumentException("The name cannot be empty.");
-            #$output->writeln("<error>Error: The name cannot be empty.</error>");
-            #return Command::FAILURE;
+            $output->writeln("<error>Error: The name cannot be empty.</error>");
+            return Command::FAILURE;
         }
 
         // Usar una expresión regular para separar las palabras

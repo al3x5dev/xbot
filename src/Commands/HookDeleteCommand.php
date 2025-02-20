@@ -20,11 +20,11 @@ final class HookDeleteCommand extends Command
     {
         $this
             ->setName('hook:delete')
-            ->setDescription('Delete the webhook for the Telegram bot.')
+            ->setDescription('Delete the webhook for the Telegram bot')
             ->setHelp(
                 'This command allows you to delete the webhook URL for your Telegram bot. '
-                    . 'Once the webhook is deleted, your bot will no longer receive updates from Telegram. '
-                    . 'You can use this command when you want to stop receiving updates or when you want to set a new webhook.'
+                    . 'Once the webhook is deleted, your bot will no longer receive updates from Telegram.'
+                    . 'You can use this command when you want to stop receiving updates or when you want to set a new webhook'
             );
     }
 
@@ -40,8 +40,8 @@ final class HookDeleteCommand extends Command
             $this->style->success($data);
             return Command::SUCCESS;
         } catch (\Throwable $th) {
-            throw new \ErrorException($th->getMessage());
-            
+            $this->style->error($th->getMessage());
+            return Command::FAILURE;
         }
     }
 }
