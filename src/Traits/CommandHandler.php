@@ -28,7 +28,7 @@ trait CommandHandler
     /**
      * Devuelve commands especifico
      */
-    public function getCommands(string $name, ?string $default = null): string
+    public function getCommand(string $name, ?string $default = null): string
     {
         // Verificar si el comando existe
         if ($this->hasCommand($name)) {
@@ -78,13 +78,16 @@ trait CommandHandler
         }
 
         return $this->handle(
-            $this->getCommands($message->get('text')),
+            $this->getCommand(
+                $message->get('text'),
+                '/help'
+            ),
             $message
         );
     }
 
     /**
-     * 
+     *  Manejador de eventos
      */
     private function handle(string $key, Message $message, array $params = []): Telegram
     {
@@ -108,5 +111,22 @@ trait CommandHandler
             $this->update->get('message')
         )
         )->execute();
+    }
+
+    /**
+     * Devuelve lista de comandos
+     */
+    public function getCommandsList(): array
+    {
+        $commands = [];
+        foreach ($this->commands as $name => $className) {
+            $command = new $className($this, $this->getMessage());
+            $commands[$name] = $command->description;
+        }
+
+        // Ordenar los comandos alfabéticamente por nombre
+        ksort($commands);
+
+        return $commands;
     }
 }
