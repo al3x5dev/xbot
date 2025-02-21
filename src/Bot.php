@@ -7,9 +7,10 @@ use Al3x5\xBot\Entities\Message;
 use Al3x5\xBot\Entities\Update;
 use Al3x5\xBot\Exceptions\ExceptionHandler;
 use Al3x5\xBot\Exceptions\xBotException;
-use Al3x5\xBot\Traits\CommandHandlers;
-use Al3x5\xBot\Traits\ConversationHandlers;
-use Al3x5\xBot\Traits\MessageHandlers;
+use Al3x5\xBot\Traits\CallbackHandler;
+use Al3x5\xBot\Traits\CommandHandler;
+use Al3x5\xBot\Traits\ConversationHandler;
+use Al3x5\xBot\Traits\MessageHandler;
 use Mk4U\Http\Request;
 
 class Bot
@@ -18,9 +19,10 @@ class Bot
 
     public const VERSION = '1.x.x';
 
-    use CommandHandlers,
-        ConversationHandlers,
-        MessageHandlers;
+    use CallbackHandler,
+        CommandHandler,
+        ConversationHandler,
+        MessageHandler;
 
     /**
      * Inicializa el bot
@@ -29,8 +31,6 @@ class Bot
     {
         Config::init($cfg);
         ExceptionHandler::start();
-
-        $this->addCommands(Config::get('handler'));
     }
 
     /**
@@ -78,11 +78,13 @@ class Bot
      */
     private function resolveMessage(Message $message): Telegram
     {
+        $this->setCommands('../storage/commands.json');
+
         if ($message->isCommand()) {
             return $this->handleCommand($message);
         }
         //mensage generico 
-        return $this->handleGenericMessage($message);
+        return $this->handleMessage($message);
     }
 
     /**
@@ -90,7 +92,9 @@ class Bot
      */
     private function resolveCallback(CallbackQuery $callback): Telegram
     {
-        $obj='Al3x5\Tests\Commands\\'.$callback->get('data');
-        return (new $obj($this,$callback->get('message')))->executeCallback();
+        $this->setCallbacks('../storage/callbacks.json');
+
+        $obj = 'Al3x5\Tests\Commands\\' . $callback->get('data');
+        return (new $obj($this, $callback->get('message')))->executeCallback();
     }
 }
