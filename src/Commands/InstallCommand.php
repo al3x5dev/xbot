@@ -69,8 +69,8 @@ final class InstallCommand extends Command
             $this->makeCommandClasses(); // Crear las clases Start y Help
             $this->updateComposerAutoload(); // Actualizar composer.json y autoload
             #$this->style->info('Registering commands...');
-            register('bot/Commands', 'commands.json'); //Registra los comandos
-            register('bot/Callbacks', 'callbacks.json'); //Registra los comandos
+            register('bot/Commands', 'commands'); //Registra los comandos
+            register('bot/Callbacks', 'callbacks'); //Registra los comandos
             $this->style->success('Bot configuration has been saved successfully.');
         } catch (\Throwable $th) {
             Events::logger(

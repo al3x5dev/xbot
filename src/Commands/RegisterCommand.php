@@ -32,8 +32,8 @@ final class RegisterCommand extends Command
             return Command::FAILURE;
         }
 
-        register($command,'commands.json');
-        register($callback, 'callbacks.json');
+        register($command,'commands');
+        register($callback, 'callbacks');
 
         $output->writeln("<info>Telegram commands successfully registered</info>");
 
