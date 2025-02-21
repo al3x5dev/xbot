@@ -57,7 +57,7 @@ trait MakeClass
         #[Command('$command')]
         class $name extends Commands
         {
-            public function execute(array \$params=[]): Telegram
+            public function execute(...\$params): Telegram
             {
                 return \$this->bot->reply('$command command executed');
             }
