@@ -75,7 +75,7 @@ if (!function_exists('register')) {
     /**
      * Registra los comandos disponibles en un directorio y los guarda en un archivo JSON.
      */
-    function register(string $path, string $filename): void
+    function register(string $path, string $name): void
     {
         $commands = [];
 
@@ -105,6 +105,6 @@ if (!function_exists('register')) {
         }
 
         // Guarda los comandos en un archivo JSON
-        writeContentToFile($filename, json_encode($commands, JSON_PRETTY_PRINT));
+        writeContentToFile("storage/$name.json", json_encode($commands, JSON_PRETTY_PRINT));
     }
 }
