@@ -9,12 +9,6 @@ use Al3x5\xBot\Entities\Message;
  */
 abstract class Commands
 {
-    /** @param  string $name comando*/
-    protected string $name = '';
-
-    /** @param string $description descricion del comando */
-    protected string $description = 'Command description';
-
     public function __construct(protected Bot $bot, protected Message $message)
     {
         $this->bot = $bot;
@@ -29,5 +23,5 @@ abstract class Commands
     /**
      * Help command
      */
-    abstract public function help(): void;
+    abstract public function getDescription(): string;
 }

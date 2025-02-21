@@ -121,11 +121,8 @@ trait CommandHandler
         $commands = [];
         foreach ($this->commands as $name => $className) {
             $command = new $className($this, $this->getMessage());
-            $commands[$name] = $command->description;
+            $commands[$name] = $command->getDescription();
         }
-
-        // Ordenar los comandos alfabéticamente por nombre
-        ksort($commands);
 
         return $commands;
     }

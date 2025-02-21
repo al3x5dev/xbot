@@ -62,10 +62,9 @@ trait MakeClass
                 return \$this->bot->reply('$command command executed');
             }
             
-            public function help(): void
+            public function getDescription(): string
             {
-                \$this->name = '$command';
-                \$this->description = 'Command description';
+                return 'Command description';
             }
         }
         PHP;
