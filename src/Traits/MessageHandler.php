@@ -3,6 +3,7 @@
 namespace Al3x5\xBot\Traits;
 
 use Al3x5\xBot\Config;
+use Al3x5\xBot\Entities\Message;
 use Al3x5\xBot\Entities\Update;
 use Al3x5\xBot\Telegram;
 
@@ -11,11 +12,11 @@ trait MessageHandler
 
     public ?Update $update = null;
 
-    public function getChatId()//: int
+    public function getChatId() //: int
     {
         return match ($this->update->type()) {
-            'message' => $this->update->get('message')->get('chat')->id,
-            'callback_query' => $this->update->get('callback_query')->message->chat->id,
+            'message' => $this->getMessage()->get('chat')->id,
+            'callback_query' => $this->getMessage()->chat->id,
         };
     }
 
@@ -36,7 +37,7 @@ trait MessageHandler
         $data = array_merge(
             [
                 'chat_id' => $this->getChatId(),
-                'text' => $message,
+                'text' => sanatizeMarkdown($message),
             ],
             $optional_parameters
         );
@@ -46,8 +47,19 @@ trait MessageHandler
     /**
      * Verifica Si es un usuario con rivilegios de administrador
      */
-    private function isAdmin(): bool
+    public function isAdmin(): bool
     {
-        return in_array($this->update->get('message')->chat->id, Config::get('admins'));
+        return in_array($this->getChatId(), Config::get('admins'));
+    }
+
+    /**
+     * Obtiene instancia de Message
+     */
+    public function getMessage(): Message
+    {
+        return match ($this->update->type()) {
+            'message' => $this->update->get('message'),
+            'callback_query' => $this->update->get('callback_query')->get('message'),
+        };
     }
 }

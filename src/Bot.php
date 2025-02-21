@@ -65,7 +65,7 @@ class Bot
         $this->getUpdate();
 
         return match ($this->update->type()) {
-            'message' => $this->resolveMessage($this->update->get('message')),
+            'message' => $this->resolveMessage($this->getMessage()),
             'callback_query' => $this->resolveCallback($this->update->get('callback_query')),
             default => throw new xBotException(
                 sprintf('Unsupported update type: %s', $this->update->type())
@@ -78,7 +78,7 @@ class Bot
      */
     private function resolveMessage(Message $message): Telegram
     {
-        $this->setCommands('../storage/commands.json');
+        $this->setCommands('storage/commands.json');
 
         if ($message->isCommand()) {
             return $this->handleCommand($message);
