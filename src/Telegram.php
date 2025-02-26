@@ -51,7 +51,7 @@ class Telegram
 
         $this->client = Config::get('client');
 
-        $params['parse_mode'] = Config::get('parse_mode');
+        $params['parse_mode'] = 'HTML';
 
         $this->method = $method;
         $this->params = $params;
