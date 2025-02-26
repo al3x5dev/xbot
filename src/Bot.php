@@ -29,8 +29,8 @@ class Bot
      */
     public function __construct(array $cfg)
     {
-        Config::init($cfg);
         ExceptionHandler::start();
+        Config::init($cfg);
     }
 
     /**
