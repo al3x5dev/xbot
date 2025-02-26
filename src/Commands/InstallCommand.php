@@ -141,8 +141,6 @@ final class InstallCommand extends Command
                 'name' => '$name',
                 'admins' => [$admins],
                 'dev' => $debug,
-                'logs' => 'storage/logs',
-                'parse_mode' => 'MarkdownV2'
             ];
             PHP;
     }
