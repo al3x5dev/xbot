@@ -5,6 +5,7 @@ namespace Al3x5\xBot\Traits;
 use Al3x5\xBot\Config;
 use Al3x5\xBot\Entities\Message;
 use Al3x5\xBot\Entities\Update;
+use Al3x5\xBot\FormatHelper;
 use Al3x5\xBot\Telegram;
 
 trait MessageHandler
@@ -37,7 +38,7 @@ trait MessageHandler
         $data = array_merge(
             [
                 'chat_id' => $this->getChatId(),
-                'text' => sanatizeMarkdown($message),
+                'text' => $message,
             ],
             $optional_parameters
         );
