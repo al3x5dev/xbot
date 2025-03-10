@@ -57,7 +57,7 @@ trait CommandHandler
     private function handleCommand(Message $message): Telegram
     {
         // Eliminar la barra inicial y cualquier mención al bot
-        $text = preg_replace('/^([a-zA-Z0-9_]+)(@[\w]+)?/', '$1', $message->get('text'));
+        $text = preg_replace('/^([a-zA-Z0-9_]+)(@[\w]+)?/', '$1', $message->getText());
         $text = rtrim($text, '/');
 
         // Separar el comando de los parámetros
@@ -79,7 +79,7 @@ trait CommandHandler
 
         return $this->handle(
             $this->getCommand(
-                $message->get('text'),
+                $message->getText(),
                 '/help'
             ),
             $message
@@ -108,7 +108,7 @@ trait CommandHandler
     {
         return (new $this->commands[$command](
             $this,
-            $this->update->get('message')
+            $this->update->getMessage()
         )
         )->execute();
     }
@@ -120,7 +120,7 @@ trait CommandHandler
     {
         $commands = [];
         foreach ($this->commands as $name => $className) {
-            $command = new $className($this, $this->getMessage());
+            $command = new $className($this, $this->update->getMessage());
             $commands[$name] = $command->getDescription();
         }
 

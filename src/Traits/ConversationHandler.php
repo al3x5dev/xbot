@@ -18,7 +18,7 @@ trait ConversationHandler
             throw new xBotException(sprintf('Unsupported update type: %s', $type));
         }
 
-        $entity = $this->update->get($type);
+        $entity = $this->update->__get($type);
         return $entity->chat->id . $entity->from->id;
     }
 

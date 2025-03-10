@@ -13,18 +13,6 @@ trait MessageHandler
 
     public ?Update $update = null;
 
-    public function getChatId() //: int
-    {
-        return match ($this->update->type()) {
-            'message' => $this->getMessage()->get('chat')->id,
-            'callback_query' => $this->getMessage()->chat->id,
-        };
-    }
-
-    public function getFirstName(): string
-    {
-        return $this->update->get('message')->get('from')->first_name;
-    }
 
     /**
      * Responder mensajes
@@ -37,7 +25,7 @@ trait MessageHandler
     {
         $data = array_merge(
             [
-                'chat_id' => $this->getChatId(),
+                'chat_id' => $this->getActiveEntity()->getChat()->getId(),
                 'text' => $message,
             ],
             $optional_parameters
@@ -46,21 +34,21 @@ trait MessageHandler
     }
 
     /**
-     * Verifica Si es un usuario con rivilegios de administrador
+     * Verifica Si es un usuario con privilegios de administrador
      */
     public function isAdmin(): bool
     {
-        return in_array($this->getChatId(), Config::get('admins'));
+        return in_array(
+            $this->getActiveEntity()->getFrom()->getId(),
+            Config::get('admins')
+        );
     }
 
     /**
-     * Obtiene instancia de Message
+     * Obtiene entidades de Update
      */
-    public function getMessage(): Message
+    public function getActiveEntity(): mixed
     {
-        return match ($this->update->type()) {
-            'message' => $this->update->get('message'),
-            'callback_query' => $this->update->get('callback_query')->get('message'),
-        };
+        return $this->update->__get($this->update->type());
     }
 }

@@ -65,8 +65,8 @@ class Bot
         $this->getUpdate();
 
         return match ($this->update->type()) {
-            'message' => $this->resolveMessage($this->getMessage()),
-            'callback_query' => $this->resolveCallback($this->update->get('callback_query')),
+            'message' => $this->resolveMessage($this->update->getMessage()),
+            'callback_query' => $this->resolveCallback($this->update->getCallbackQuery()),
             default => throw new xBotException(
                 sprintf('Unsupported update type: %s', $this->update->type())
             )
