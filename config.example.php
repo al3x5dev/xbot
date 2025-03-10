@@ -24,8 +24,4 @@ return [
     'storage' => \Mk4U\Cache\CacheFactory::create('file', ['dir' => 'storage', 'ttl' => 300]),
     // activate dev environment (default is false)
     'dev' => true,
-    // directory where logs are stored
-    'logs' => 'storage/logs',
-    // parsing mode for telegram messages
-    'parse_mode'=>'MarkdownV2',
 ];
