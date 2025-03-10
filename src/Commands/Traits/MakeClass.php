@@ -44,10 +44,11 @@ trait MakeClass
      */
     protected function makeTelegramCommand(string $name, string $command): void
     {
+        $namespace=botNamespace();
         // Crear el contenido de la clase
         $content = <<<PHP
         <?php
-        namespace MyBot\Commands;
+        namespace $namespace\Commands;
         
         use Al3x5\\xBot\Commands;
         use Al3x5\\xBot\Telegram;
@@ -77,10 +78,11 @@ trait MakeClass
      */
     protected function makeCallback(string $name, string $action): void
     {
+        $namespace=botNamespace();
         // Crear el contenido de la clase
         $content = <<<PHP
         <?php
-        namespace MyBot\Callbacks;
+        namespace $namespace\Callbacks;
         
         use Al3x5\\xBot\Callbacks;
         use Al3x5\\xBot\Telegram;
@@ -102,10 +104,11 @@ trait MakeClass
 
     protected function makeConversation(string $name): void
     {
+        $namespace=botNamespace();
         // Crear el contenido de la clase
         $content = <<<PHP
         <?php
-        namespace MyBot\Conversations;
+        namespace $namespace\Conversations;
         
         use Al3x5\\xBot\Conversation;
         use Al3x5\\xBot\Telegram;

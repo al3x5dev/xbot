@@ -37,9 +37,10 @@ final class HookInfoCommand extends Command
         $this->runInstall();
 
         try {
-            $data = (new Bot(require_once self::configFile()))->getWebhookInfo();
+            $data = (new Bot(BOT_CFG))->getWebhookInfo();
             return $this->displayInfo($data);
         } catch (\Throwable $th) {
+            $this->style->note('Trace: ' . $th->getTraceAsString());
             throw new \ErrorException($th->getMessage());
         }
     }

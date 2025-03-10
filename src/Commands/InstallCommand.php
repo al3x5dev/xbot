@@ -59,18 +59,30 @@ final class InstallCommand extends Command
         $debug = $this->style->confirm('Is it development environment?', false) ? 'true' : 'false';
         $this->clear();
 
-        // Generar el contenido del archivo de configuración
-        $data = $this->generateConfigData($token, $name, $admins, $debug);
-
         // Crear archivos de configuración
         try {
+            // Generar el contenido del archivo de configuración
+            $output->writeln('<info>Creating config file...</info>');
+            $this->generateConfigData($token, $name, $admins, $debug);
+
+            $output->writeln('<info>Creating directories...</info>');
             $this->createDirectories();
-            writeContentToFile(self::configFile(), $data);
+
+            $output->writeln('<info>Loading bot configuration...</info>');
+            self::load(self::configFile());
+
+            $output->writeln('<info>Creating command classes...</info>');
             $this->makeCommandClasses(); // Crear las clases Start y Help
+
+            $output->writeln('<info>Updating composer.json...</info>');
             $this->updateComposerAutoload(); // Actualizar composer.json y autoload
-            #$this->style->info('Registering commands...');
+
+            $output->writeln('<info>Registering commands...</info>');
             register('bot/Commands', 'commands'); //Registra los comandos
             register('bot/Callbacks', 'callbacks'); //Registra los comandos
+
+            sleep(3);
+            $this->clear();
             $this->style->success('Bot configuration has been saved successfully.');
         } catch (\Throwable $th) {
             Events::logger(
@@ -130,10 +142,9 @@ final class InstallCommand extends Command
     /**
      * Archivo de configuracion a generar
      */
-    private function generateConfigData(?string $token, ?string $name, ?string $admins, string $debug): string
+    private function generateConfigData(?string $token, ?string $name, ?string $admins, string $debug): void
     {
-        #$this->style->info('Creating config file...');
-        return <<<PHP
+        $file = <<<PHP
             <?php
 
             return [
@@ -143,6 +154,8 @@ final class InstallCommand extends Command
                 'dev' => $debug,
             ];
             PHP;
+
+        writeContentToFile(self::configFile(), $file);
     }
 
     /**
@@ -150,7 +163,6 @@ final class InstallCommand extends Command
      */
     private function createDirectories(): void
     {
-        #$this->style->info('Creating directories...');
         foreach (self::directories as $directory) {
             if (!is_dir($directory)) {
                 if (!mkdir($directory, 0755, true) && !is_dir($directory)) {
@@ -165,7 +177,6 @@ final class InstallCommand extends Command
      */
     private function makeCommandClasses(): void
     {
-        #$this->style->info('Creating command classes...');
         $this->makeTelegramCommand('Start', '/start');
         $this->makeTelegramCommand('Help', '/help');
     }
@@ -175,8 +186,6 @@ final class InstallCommand extends Command
      */
     private function updateComposerAutoload(): void
     {
-        #$this->style->info('Updating composer autoload...');
-
         $composerJsonPath = 'composer.json';
 
         if (!file_exists($composerJsonPath)) {
@@ -190,7 +199,7 @@ final class InstallCommand extends Command
         }
 
         // Agregar o actualizar la sección de psr-4
-        $composerJson['autoload']['psr-4']['MyBot\\'] = 'bot/';
+        $composerJson['autoload']['psr-4'][botNamespace() . '\\'] = 'bot/';
 
         // Guardar los cambios en composer.json
         writeContentToFile($composerJsonPath, json_encode($composerJson, JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES) . PHP_EOL);

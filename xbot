@@ -1,10 +1,20 @@
 #!/usr/bin/env php
 <?php
 
-if (file_exists(__DIR__ . '/../../autoload.php')) {
-    require_once __DIR__ . '/../../autoload.php';
+use Al3x5\xBot\Config;
+use Al3x5\xBot\Exceptions\xBotException;
+
+if (file_exists(__DIR__ . '/../autoload.php')) {
+    require_once __DIR__ . '/../autoload.php';
 } else {
     require_once __DIR__ . '/vendor/autoload.php';
+}
+
+// Config
+if (file_exists(__DIR__ . '/../../config.php')) {
+    define('BOT_CFG', require_once __DIR__ . '/../../config.php');
+} elseif (file_exists(__DIR__ . '/config.php')) {
+    define('BOT_CFG', require_once __DIR__ . '/config.php');
 }
 
 use Al3x5\xBot\Bot;
@@ -20,7 +30,11 @@ use Al3x5\xBot\Commands\TelegramCommandCommand;
 use Al3x5\xBot\Commands\TelegramConversationCommand;
 use Symfony\Component\Console\Application;
 
-$app = new Application(Bot::NAME, 'v'.Bot::VERSION);
+if (defined('BOT_CFG')) {
+    Config::init(BOT_CFG);
+}
+
+$app = new Application(Bot::NAME, 'v' . Bot::VERSION);
 
 // ... register commands
 $app->add(new InstallCommand());

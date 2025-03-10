@@ -35,7 +35,7 @@ final class HookAboutCommand extends Command
         $this->runInstall();
 
         try {
-            $data = (new Bot(require_once self::configFile()))->getMe();
+            $data = (new Bot(BOT_CFG))->getMe();
             return $this->displayInfo($data);
         } catch (\Throwable $th) {
             throw new \ErrorException($th->getMessage());

@@ -2,6 +2,7 @@
 
 namespace Al3x5\xBot\Commands\Traits;
 
+use Al3x5\xBot\Config;
 use Symfony\Component\Console\Input\ArrayInput;
 use Symfony\Component\Console\Output\ConsoleOutput;
 
@@ -18,7 +19,7 @@ trait ConfigHandler
     /**
      * Retorna ubicacion del archivo de configuracion
      */
-    public static function configFile() : string
+    public static function configFile(): string
     {
         return getcwd() . DIRECTORY_SEPARATOR . 'config.php';
     }
@@ -26,7 +27,7 @@ trait ConfigHandler
     /**
      * Ejecuta comando install en caso de no encontrar el archivo config.php
      */
-    protected function runInstall() : int
+    protected function runInstall(): int
     {
         if (!file_exists(self::configFile())) {
             return $this
@@ -38,5 +39,16 @@ trait ConfigHandler
                 );
         }
         return 0;
+    }
+
+    /**
+     * Carga la configuracion
+     */
+    public static function load(string $file): void
+    {
+        if (!file_exists($file)) {
+            throw new \RuntimeException('Configuration file does not exist: ' . $file);
+        }
+        Config::init(require $file);
     }
 }

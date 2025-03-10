@@ -36,7 +36,7 @@ final class HookDeleteCommand extends Command
         $this->runInstall();
 
         try {
-            $data = (new Bot(require_once self::configFile()))->deleteWebhook();
+            $data = (new Bot(BOT_CFG))->deleteWebhook();
             $this->style->success($data);
             return Command::SUCCESS;
         } catch (\Throwable $th) {

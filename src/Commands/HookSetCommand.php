@@ -58,7 +58,7 @@ final class HookSetCommand extends Command
         }
 
         try {
-            $data = (new Bot(require_once self::configFile()))->setWebhook([
+            $data = (new Bot(BOT_CFG))->setWebhook([
                 'url' => $url,
             ]);
             $this->style->success($data);
