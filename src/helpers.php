@@ -1,6 +1,8 @@
 <?php
 
+use Al3x5\xBot\Attributes\Callback;
 use Al3x5\xBot\Attributes\Command;
+use Al3x5\xBot\Callbacks;
 use Al3x5\xBot\Commands;
 use Al3x5\xBot\Config;
 
@@ -27,7 +29,7 @@ if (!function_exists('register')) {
      */
     function register(string $path, string $name): void
     {
-        $commands = [];
+        $data = [];
 
         $files = scandir($path);
 
@@ -36,26 +38,31 @@ if (!function_exists('register')) {
                 $className = pathinfo($file, PATHINFO_FILENAME);
                 $fullClassName = botNamespace()."\\".basename($path)."\\$className";
 
-                // Verifica si la clase existe y es una instancia de Commands
-                if (
-                    class_exists($fullClassName)
-                    &&
-                    is_subclass_of($fullClassName, Commands::class)
-                    ) {
+                // Verifica si la clase existe
+                if (class_exists($fullClassName)) {
                     $reflection = new ReflectionClass($fullClassName);
-                    $attributes = $reflection->getAttributes(Command::class);
+
+                    //Instancia de Commands
+                    if (is_subclass_of($fullClassName, Commands::class)) {
+                        $attributes = $reflection->getAttributes(Command::class);
+                    }
+
+                    //Instancia de Callbacks
+                    if (is_subclass_of($fullClassName, Callbacks::class)) {
+                        $attributes = $reflection->getAttributes(Callback::class);
+                    }
 
                     if (!empty($attributes)) {
-                        $commandAttribute = $attributes[0]->newInstance();
-                        $commandName = $commandAttribute->getName();
-                        $commands[$commandName] = $fullClassName;
+                        $c_Attribute = $attributes[0]->newInstance();
+                        $c_Name = $c_Attribute->getName();
+                        $data[$c_Name] = $fullClassName;
                     }
                 }
             }
         }
 
         // Guarda los comandos en un archivo JSON
-        writeContentToFile("storage/$name.json", json_encode($commands, JSON_PRETTY_PRINT));
+        writeContentToFile("storage/$name.json", json_encode($data, JSON_PRETTY_PRINT));
     }
 }
 
