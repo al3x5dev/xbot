@@ -92,9 +92,7 @@ class Bot
      */
     private function resolveCallback(CallbackQuery $callback): Telegram
     {
-        $this->setCallbacks('../storage/callbacks.json');
-
-        $obj = 'Al3x5\Tests\Commands\\' . $callback->get('data');
-        return (new $obj($this, $callback->get('message')))->executeCallback();
+        $this->setCallbacks('storage/callbacks.json');
+        return $this->handleCallback($callback);
     }
 }

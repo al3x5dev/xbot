@@ -2,6 +2,9 @@
 
 namespace Al3x5\xBot\Traits;
 
+use Al3x5\xBot\Entities\CallbackQuery;
+use Al3x5\xBot\Telegram;
+
 trait CallbackHandler
 {
     private array $callbacks;
@@ -21,8 +24,21 @@ trait CallbackHandler
     /**
      * Devuelve callback especifico
      */
-    public function getCallback(string $action) : string
+    public function handleCallback(CallbackQuery $callback): Telegram
     {
-        return $this->callbacks[$action];
+        // Verifica si existe
+        if (!$this->hasCallback($action = $callback->getData())) {
+            throw new \RuntimeException("Error: Callback '$action' does not exist.");
+        }
+
+        return (new $this->callbacks[$action]($this,$callback))->execute();
+    }
+
+    /**
+     * Verifica si esta definido el callback
+     */
+    private function hasCallback(string $name): bool
+    {
+        return key_exists($name, $this->callbacks);
     }
 }

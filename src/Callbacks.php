@@ -2,21 +2,21 @@
 
 namespace Al3x5\xBot;
 
-use Al3x5\xBot\Entities\Message;
+use Al3x5\xBot\Entities\CallbackQuery;
 
 /**
  * Callbacks class
  */
 abstract class Callbacks
 {
-    public function __construct(protected Bot $bot, protected Message $message)
+    public function __construct(protected Bot $bot, protected CallbackQuery $callback)
     {
         $this->bot = $bot;
-        $this->message = $message;
+        $this->callback = $callback;
     }
 
     /**
      * Ejecuta callback
      */
-    abstract public function execute(array $params=[]): Telegram;
+    abstract public function execute(): Telegram;
 }
