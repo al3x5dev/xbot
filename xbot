@@ -1,22 +1,56 @@
 #!/usr/bin/env php
 <?php
 
-if (file_exists(__DIR__ . '/../../autoload.php')) {
-    require_once __DIR__ . '/../../autoload.php';
+use Al3x5\xBot\Config;
+use Al3x5\xBot\Exceptions\xBotException;
+
+if (file_exists(__DIR__ . '/../autoload.php')) {
+    require_once __DIR__ . '/../autoload.php';
 } else {
     require_once __DIR__ . '/vendor/autoload.php';
 }
 
-use Al3x5\xBot\AppCli;
+// Config
+if (file_exists(__DIR__ . '/../../config.php')) {
+    define('BOT_CFG', require_once __DIR__ . '/../../config.php');
+} elseif (file_exists(__DIR__ . '/config.php')) {
+    define('BOT_CFG', require_once __DIR__ . '/config.php');
+}
+
+use Al3x5\xBot\Bot;
+use Al3x5\xBot\Commands\HookAboutCommand;
+use Al3x5\xBot\Commands\HookDeleteCommand;
+use Al3x5\xBot\Commands\HookInfoCommand;
 use Al3x5\xBot\Commands\HookSetCommand;
 use Al3x5\xBot\Commands\InstallCommand;
+use Al3x5\xBot\Commands\MakeCommandCommand;
+use Al3x5\xBot\Commands\RegisterCommand;
+use Al3x5\xBot\Commands\TelegramCallbackCommand;
+use Al3x5\xBot\Commands\TelegramCommandCommand;
+use Al3x5\xBot\Commands\TelegramConversationCommand;
 use Symfony\Component\Console\Application;
 
-$app = new Application(AppCli::NAME, AppCli::VERSION);
+if (defined('BOT_CFG')) {
+    Config::init(BOT_CFG);
+}
+
+$app = new Application(Bot::NAME, 'v' . Bot::VERSION);
 
 // ... register commands
 $app->add(new InstallCommand());
+$app->add(new RegisterCommand());
+//webhook
 $app->add(new HookSetCommand());
+$app->add(new HookDeleteCommand());
+$app->add(new HookInfoCommand());
+$app->add(new HookAboutCommand());
+//make
+if (!strpos(__DIR__, 'vendor')) $app->add(new MakeCommandCommand());
+//telegram
+$app->add(new TelegramCommandCommand());
+$app->add(new TelegramCallbackCommand());
+$app->add(new TelegramConversationCommand());
+
 
 if (!file_exists(InstallCommand::configFile())) {
     $app->setDefaultCommand('install');

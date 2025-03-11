@@ -7,10 +7,25 @@ namespace Al3x5\xBot\Entities;
  */
 class InaccessibleMessage extends Base
 {
-    protected function getEntities() : array
+    /**
+     * Chat the message belonged to
+     */
+    public Chat $chat;
+
+    /**
+     * Unique message identifier inside the chat
+     */
+    public int $message_id;
+
+    /**
+     * Always 0. The field can be used to differentiate regular and inaccessible messages.
+     */
+    public int $date;
+
+    protected function getEntities(): array
     {
         return [
-            'chat'=> Chat::class
+            'chat' => Chat::class
         ];
     }
 }

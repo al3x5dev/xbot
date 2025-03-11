@@ -9,12 +9,6 @@ use Al3x5\xBot\Entities\Message;
  */
 abstract class Commands
 {
-    /** @param  string $name comando*/
-    protected string $name = '';
-
-    /** @param string $description descricion del comando */
-    protected string $description = 'Command description';
-
     public function __construct(protected Bot $bot, protected Message $message)
     {
         $this->bot = $bot;
@@ -24,5 +18,10 @@ abstract class Commands
     /**
      * Ejecuta el comando
      */
-    abstract public function execute(array $params=[]): Telegram;
+    abstract public function execute(...$params): Telegram;
+
+    /**
+     * Help command
+     */
+    abstract public function getDescription(): string;
 }
