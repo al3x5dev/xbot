@@ -4,6 +4,9 @@ namespace Al3x5\xBot\Commands\Traits;
 
 trait MakeClass
 {
+    /**
+     * Crear comandos de consola
+     */
     protected function makeCliCommand(string $name, string $command): void
     {
         // Crear el contenido de la clase
@@ -40,7 +43,7 @@ trait MakeClass
     }
 
     /**
-     * 
+     * Crear comandos de telegram
      */
     protected function makeTelegramCommand(string $name, string $command): void
     {
@@ -74,7 +77,7 @@ trait MakeClass
     }
 
     /**
-     * 
+     * Crear callback de telegram
      */
     protected function makeCallback(string $name, string $action): void
     {
@@ -102,6 +105,9 @@ trait MakeClass
         writeContentToFile("bot/Callbacks/{$name}.php", $content);
     }
 
+    /**
+     * Crear conversaciones de telegram
+     */
     protected function makeConversation(string $name): void
     {
         $namespace=botNamespace();
