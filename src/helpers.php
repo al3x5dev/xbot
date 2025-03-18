@@ -1,62 +1,93 @@
 <?php
-if (!function_exists('sanatizeMarkdown')) {
-    /**
-     * Tenga en cuenta:
-     * 
-     * Cualquier carácter con código entre 1 y 126 inclusive puede 
-     * tener un carácter de escape en cualquier lugar con un carácter '\' 
-     * precedente, en cuyo caso se trata como un carácter normal y no como 
-     * parte del marcado. Esto implica que el carácter '\' normalmente 
-     * debe ir precedido de un carácter '\'.
-     * 
-     * Adentro pre y code entidades, todos los caracteres '`' y '\' deben 
-     * ir precedidos de un carácter '\'.
-     * 
-     * Dentro del (...) Como parte del enlace en línea y la definición 
-     * de emoji personalizada, todos los ')' y '\' deben ir precedidos 
-     * por un carácter '\'.
-     * 
-     * En todos los demás lugares, los caracteres '_', '*', '[', ']', '(', ')', 
-     * '~', '`', '>', '#', '+', ' -', '=', '|', '{', '}', '.', '!' 
-     * debe tener como escape el carácter anterior '\'.
-     * 
-     * En caso de ambigüedad entre italic y underline entidades __ siempre se 
-     * trata con avidez de izquierda a derecha como el principio o el final 
-     * de una underline entidad, por lo que en lugar de ___italic underline___ 
-     * usar ___italic underline_**__, agregando una entidad vacía en negrita como 
-     * separador.
-     * 
-     * Se debe proporcionar un emoji válido como valor alternativo para el emoji 
-     * personalizado. El emoji se mostrará en lugar del emoji personalizado en 
-     * lugares donde no se puede mostrar un emoji personalizado (por ejemplo, 
-     * notificaciones del sistema) o si el mensaje lo reenvía un usuario no premium. 
-     * Se recomienda utilizar el emoji del campo emoji emoji personalizada de la 
-     * etiqueta .
-     * 
-     * Las entidades emoji personalizadas solo pueden ser utilizadas por bots que 
-     * compraron nombres de usuario adicionales en Fragment .
-     */
-    function sanatizeMarkdown($text)
-    {
-        $pattern = '/./';
-        $replacement = '\\\$1'; // Escapa el carácter encontrado
-        return preg_replace($pattern, $replacement, $text);
-    }
-}
+
+use Al3x5\xBot\Attributes\Callback;
+use Al3x5\xBot\Attributes\Command;
+use Al3x5\xBot\Callbacks;
+use Al3x5\xBot\Commands;
+use Al3x5\xBot\Config;
 
 if (!function_exists('writeContentToFile')) {
     /**
      * Gestiona posibles errores de de file_put_contents
      */
-    function writeContentToFile($filePath, $content)
+    function writeContentToFile(string $filePath, mixed $content, int $flags = 0): void
     {
-        $dir=dirname($filePath);
+        $dir = dirname($filePath);
         if (!is_writable($dir)) {
             throw new \ErrorException("Error: You do not have write permissions in the directory '$dir'.");
         }
 
-        if (file_put_contents($filePath, $content) === false) {
+        if (file_put_contents($filePath, $content, $flags) === false) {
             throw new \ErrorException("Error: Could not write to the file '$filePath'.");
         }
+    }
+}
+
+if (!function_exists('register')) {
+    /**
+     * Registra los comandos disponibles en un directorio y los guarda en un archivo JSON.
+     */
+    function register(string $path, string $name): void
+    {
+        $data = [];
+
+        $files = scandir($path);
+
+        foreach ($files as $file) {
+            if (pathinfo($file, PATHINFO_EXTENSION) === 'php') {
+                $className = pathinfo($file, PATHINFO_FILENAME);
+                $fullClassName = botNamespace()."\\".basename($path)."\\$className";
+
+                // Verifica si la clase existe
+                if (class_exists($fullClassName)) {
+                    $reflection = new ReflectionClass($fullClassName);
+
+                    //Instancia de Commands
+                    if (is_subclass_of($fullClassName, Commands::class)) {
+                        $attributes = $reflection->getAttributes(Command::class);
+                    }
+
+                    //Instancia de Callbacks
+                    if (is_subclass_of($fullClassName, Callbacks::class)) {
+                        $attributes = $reflection->getAttributes(Callback::class);
+                    }
+
+                    if (!empty($attributes)) {
+                        $c_Attribute = $attributes[0]->newInstance();
+                        $c_Name = $c_Attribute->getName();
+                        $data[$c_Name] = $fullClassName;
+                    }
+                }
+            }
+        }
+
+        // Guarda los comandos en un archivo JSON
+        writeContentToFile("storage/$name.json", json_encode($data, JSON_PRETTY_PRINT));
+    }
+}
+
+if (!function_exists('botNamespace')) {
+    /**
+     * Establece y devuelve el namespace para los archivos dentro de el directorio /bot
+     */
+    function botNamespace(): string
+    {
+        $name = Config::get('name');
+
+        if (empty($name)) {
+            throw new \RuntimeException('Bot name is not set in configuration.');
+        }
+
+        // Sanitizar el nombre del bot
+        $sanitizedName = preg_replace('/[^a-zA-Z0-9_]/', ' ', $name);
+        $sanitizedName = ucwords(strtolower($sanitizedName));
+        $sanitizedName = str_replace(' ', '', $sanitizedName);
+
+        // Validar que el nombre sea válido para un namespace
+        if (!preg_match('/^[a-zA-Z_\x80-\xff][a-zA-Z0-9_\x80-\xff]*$/', $sanitizedName)) {
+            throw new \InvalidArgumentException('Invalid bot name for namespace generation.');
+        }
+
+        return $sanitizedName;
     }
 }

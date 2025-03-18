@@ -7,30 +7,30 @@ use Al3x5\xBot\Entities\Message;
 use Al3x5\xBot\Entities\Update;
 use Al3x5\xBot\Exceptions\ExceptionHandler;
 use Al3x5\xBot\Exceptions\xBotException;
-use Al3x5\xBot\Traits\CommandHandlers;
-use Al3x5\xBot\Traits\ConversationHandlers;
-use Al3x5\xBot\Traits\MessageHandlers;
+use Al3x5\xBot\Traits\CallbackHandler;
+use Al3x5\xBot\Traits\CommandHandler;
+use Al3x5\xBot\Traits\ConversationHandler;
+use Al3x5\xBot\Traits\MessageHandler;
 use Mk4U\Http\Request;
 
 class Bot
 {
     public const NAME = 'xBot';
 
-    public const VERSION = '1.x.x';
+    public const VERSION = '1.0';
 
-    use CommandHandlers,
-        ConversationHandlers,
-        MessageHandlers;
+    use CallbackHandler,
+        CommandHandler,
+        ConversationHandler,
+        MessageHandler;
 
     /**
      * Inicializa el bot
      */
     public function __construct(array $cfg)
     {
-        Config::init($cfg);
         ExceptionHandler::start();
-
-        $this->addCommands(Config::get('handler'));
+        Config::init($cfg);
     }
 
     /**
@@ -65,8 +65,8 @@ class Bot
         $this->getUpdate();
 
         return match ($this->update->type()) {
-            'message' => $this->resolveMessage($this->update->get('message')),
-            'callback_query' => $this->resolveCallback($this->update->get('callback_query')),
+            'message' => $this->resolveMessage($this->update->getMessage()),
+            'callback_query' => $this->resolveCallback($this->update->getCallbackQuery()),
             default => throw new xBotException(
                 sprintf('Unsupported update type: %s', $this->update->type())
             )
@@ -78,11 +78,13 @@ class Bot
      */
     private function resolveMessage(Message $message): Telegram
     {
+        $this->setCommands('storage/commands.json');
+
         if ($message->isCommand()) {
             return $this->handleCommand($message);
         }
         //mensage generico 
-        return $this->handleGenericMessage($message);
+        return $this->handleMessage($message);
     }
 
     /**
@@ -90,7 +92,7 @@ class Bot
      */
     private function resolveCallback(CallbackQuery $callback): Telegram
     {
-        $obj='Al3x5\Tests\Commands\\'.$callback->get('data');
-        return (new $obj($this,$callback->get('message')))->executeCallback();
+        $this->setCallbacks('storage/callbacks.json');
+        return $this->handleCallback($callback);
     }
 }

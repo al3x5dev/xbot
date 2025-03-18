@@ -28,13 +28,7 @@ class Events
         string $level = 'debug'
     ): void {
 
-        //$file = ($file==='Ymd') ? date($file).'log' : $file ;
-
-        $filename = Config::get('logs') . $file;
-
-        /*if (!is_dir(Config::get('logs'))) {
-            mkdir(Config::get('logs'), 0775, true);
-        }*/
+        $filename = "storage/logs/$file";
 
         $logger = new Logger($name);
         $stream_handler = new StreamHandler($filename);

@@ -5,14 +5,13 @@ namespace Al3x5\xBot\Commands;
 use Al3x5\xBot\Bot;
 use Al3x5\xBot\Commands\Traits\ConfigHandler;
 use Al3x5\xBot\Commands\Traits\Io;
-use Mk4U\Http\Uri;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 
 /**
- * undocumented class
+ * Hook set command class
  */
 final class HookSetCommand extends Command
 {
@@ -58,17 +57,14 @@ final class HookSetCommand extends Command
             throw new \InvalidArgumentException("The URL you provided is not valid. Please check and try again.");
         }
 
-        $data = (new Bot(require_once self::configFile()))->setWebhook([
-            'url' => $url,
-        ]);
-
-        $this->style->success($data);
-
-        return Command::SUCCESS;
-    }
-
-    public static function isUrl(?string $url): bool
-    {
-        return 0;
+        try {
+            $data = (new Bot(BOT_CFG))->setWebhook([
+                'url' => $url,
+            ]);
+            $this->style->success($data);
+            return Command::SUCCESS;
+        } catch (\Throwable $th) {
+            throw new \ErrorException($th->getMessage());
+        }
     }
 }

@@ -30,10 +30,7 @@ class Config
                 'ttl' => 600
             ]),
             'webhook' => $cfg['webhook'] ?? self::webhook($cfg['token']),
-            'handler' => $cfg['handler'] ?? [],
             'dev' => $cfg['dev'] ?? false,
-            'logs' => self::logging($cfg['logs'] ?? ''),
-            'parse_mode' => $cfg['parse_mode'] ?? 'MarkdownV2'
         ];
     }
 
@@ -50,7 +47,7 @@ class Config
 
     public static function has(string $name): bool
     {
-        return isset(self::$cfg);
+        return isset(self::$cfg[$name]);
     }
 
     /**
@@ -58,10 +55,10 @@ class Config
      */
     public static function set(string $name, mixed $value): void
     {
-        if (self::has($name)) {
+        if (!self::has($name)) {
             self::$cfg[$name] = $value;
         }
-        throw new \InvalidArgumentException("Parameter not found: $name");
+        throw new xBotException("Parameter not found: $name");
     }
 
     /**
@@ -93,6 +90,9 @@ class Config
         return "https://api.telegram.org/bot$token/";
     }
 
+    /**
+     * Establece ruta absoluta para los logs
+     */
     private static function logging(string $path = ''): string
     {
         return empty($path) ? dirname(__DIR__, 4) . '/' : rtrim($path, '/') . '/';

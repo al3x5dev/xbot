@@ -5,7 +5,7 @@ namespace Al3x5\xBot\Traits;
 use Al3x5\xBot\Config;
 use Al3x5\xBot\Exceptions\xBotException;
 
-trait ConversationHandlers
+trait ConversationHandler
 {
     /**
      * Obtiene el identificador de la conversacion
@@ -18,7 +18,7 @@ trait ConversationHandlers
             throw new xBotException(sprintf('Unsupported update type: %s', $type));
         }
 
-        $entity = $this->update->get($type);
+        $entity = $this->update->__get($type);
         return $entity->chat->id . $entity->from->id;
     }
 

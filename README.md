@@ -1,6 +1,11 @@
 # xBot
 
-**xBot** es una librería en PHP diseñada para facilitar la creación y gestión de bots de Telegram. Con un enfoque en la simplicidad y la eficiencia, **xBot** te permite centrarte en lo que realmente importa: desarrollar funcionalidades innovadoras para tus bots.
+![GitHub Release](https://img.shields.io/github/v/release/alexsandrov16/xbot?include_prereleases&style=flat-square&color=blue)
+![GitHub code size in bytes](https://img.shields.io/github/languages/code-size/alexsandrov16/http?style=flat-square)
+![GitHub License](https://img.shields.io/github/license/alexsandrov16/xbot?style=flat-square)
+
+**xBot** es una librería en PHP diseñada específicamente para simplificar la creación y gestión de bots de Telegram. Con un enfoque en la facilidad de uso y la eficiencia, **xBot** te permite centrarte en lo que realmente importa: implementar funcionalidades innovadoras y personalizadas para sus bots.
+
 
 ## Estado de Desarrollo
 
@@ -12,46 +17,19 @@
 ## Instalación
 
 ```bash
-composer require al3x5/xbot:dev-main
+composer require al3x5/xbot
 ```
 
 ## Uso
 
-Antes de empezar a crear código, debes haber creado tu bot en Telegram. Puedes seguir las instrucciones en el siguiente enlace: [Instrucciones para crear y configurar un bot en BotFather](https://docs.radist.online/docs/espanol-1/productos-1/radist-web/conexiones/telegram-bot/instrucciones-para-crear-y-configurar-un-bot-en-botfather).
-
+Antes de empezar a crear código, debes haber creado tu bot en Telegram. 
+Puedes seguir las instrucciones en el siguiente enlace: [Instrucciones para crear y configurar un bot en Telegram](https://telegra.ph/Instrucciones-para-crear-y-configurar-un-bot-en-BotFather-03-18).
 
 ### Configurar
 
-Para configurar **xBot** puede hacerlo de dos maneras:
-
-1. Usando la  línea de comandos.
+Para configurar **xBot** puede hacerlo usando la línea de comandos.
 ```bash
-php vendor/bin/xbot install
-```
-2. Creando usted mismo el archivo de configuración.
-```php
-return [
-    // your bot token
-    'token' => '1234567890:ABCDEFGHIJKLMNOQRSTZ',
-    // your bot name without @
-    'name' => 'MyBot',
-    // list of bot admin id's
-    'admins' => [123456789, 985632147],
-    // http client to use (By default \Mk4U\Http\Client is used)
-    'client' => new \Mk4U\Http\Client(),
-    // cache handling library used (default is mk4u/cache)
-    'storage' => \Mk4U\Cache\CacheFactory::create('file', ['dir' => 'storage', 'ttl' => 300]),
-    // activate dev environment (default is false)
-    'dev' => true,
-    // directory where logs are stored
-    'logs' => 'storage/logs',
-    // parsing mode for telegram messages
-    'parse_mode'=>'MarkdownV2',
-    // bot command manager
-    'handler' => [
-        //'/start' => \App\Commands\Start::class,
-    ]
-];
+php vendor/bin/xbot
 ```
 
 ### Inicializar
@@ -61,7 +39,7 @@ Para inicializar su bot solo debe crear un archivo `.php`.
 require_once 'vendor/autoload.php';
 $config = require_once 'config.php';
 
-$xbot = new Al3x5\xBot\Bot();
+$xbot = new Al3x5\xBot\Bot($config);
 $xbot->run();
 ```
 
@@ -73,36 +51,37 @@ Para enlazar tu bot con la API de Telegram solo tiene que correr un comando y pr
 php vendor/bin/xbot hook:set
 ```
 
-### Crear comandos
+### Crear comandos, callback y conversaciones
 
-Para crear comandos personalizados, puedes definirlos en el archivo de configuración en la sección `handler`. Aquí tienes un ejemplo básico:
+Todos los comandos, callback y conversaciones son creados en el directorio `/myproyect/bot`
 
-```php
-'handler' => [
-    '/start' => \App\Commands\Start::class,
-    '/help' => \App\Commands\Help::class,
-],
+#### Commands
+Para crear comandos personalizados solo debe de ejecutar el siguiente comando en su consola.
+```bash
+php vendor/bin/xbot telegram:command
 ```
 
-Asegúrate de crear las clases correspondientes en el espacio de nombres `App\Commands`.
-```php
-namespace App\Commands;
+#### Callbacks
+Para la creacion de callbacks pegue la siguiente linea en su consola.
+```bash
+php vendor/bin/xbot telegram:callback
+```
 
-use Al3x5\xBot\Commands;
-use Al3x5\xBot\Telegram;
+#### Conversations
+Con este comando estaremos creando un nuevo flujo conversacional en nuestro bot
+```bash
+php vendor/bin/xbot telegram:conversation
+```
 
-final class Start extends Commands
-{
-    public function execute(array $params=[]): Telegram
-    {
-        return $this->bot->reply('Start command executed');
-    }
-}
+> [!IMPORTATN]
+> Siempre que cree un nuevo comando o callback debe de ejecutar el comando register
+```bash
+php vendor/bin/xbot register
 ```
 
 ## Contribuciones
 
-Si deseas contribuir al desarrollo de xBot, aquí hay algunas formas en las que puedes hacerlo:
+Si deseas contribuir al desarrollo de **xBot**, aquí hay algunas formas en las que puedes hacerlo:
 
 - Reporta errores o problemas que encuentres.
 - Comparte tus ideas y sugerencias.
@@ -117,4 +96,4 @@ Si tienes alguna pregunta o comentario, no dudes en contactarme a través de [Te
 
 ---
 
-Gracias por considerar **xBot** para tus proyectos de bots de Telegram. Estamos emocionados de tenerte a bordo y esperamos que disfrutes trabajando con esta librería. ¡Juntos podemos construir algo grande!
+Gracias por considerar **xBot** para tus proyectos de bots en Telegram. Estamos emocionados de tenerte a bordo y esperamos que disfrutes trabajando con esta librería. ¡Juntos podemos construir algo grande!

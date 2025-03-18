@@ -2,9 +2,11 @@
 
 namespace Al3x5\xBot\Commands;
 
-use Al3x5\xBot\AppCli as App;
+use Al3x5\xBot\Bot;
 use Al3x5\xBot\Commands\Traits\ConfigHandler;
 use Al3x5\xBot\Commands\Traits\Io;
+use Al3x5\xBot\Commands\Traits\MakeClass;
+use Al3x5\xBot\Events;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
@@ -14,7 +16,7 @@ use Symfony\Component\Console\Output\OutputInterface;
  */
 final class InstallCommand extends Command
 {
-    use Io, ConfigHandler;
+    use Io, ConfigHandler, MakeClass;
 
     public function configure(): void
     {
@@ -29,7 +31,7 @@ final class InstallCommand extends Command
         $this->prepare($input, $output);
         $this->clear();
 
-        $output->writeln(sprintf('%s <info>%s</info>', App::NAME, App::VERSION));
+        $output->writeln(sprintf('%s <info>%s</info>', Bot::NAME, Bot::VERSION));
         $this->style->title('Bot configuration process starting...');
 
         // Solicitar el token del bot
@@ -37,7 +39,16 @@ final class InstallCommand extends Command
         $this->clear();
 
         // Solicitar el nombre del bot
-        $name = $this->style->ask('What is your bot name?');
+        $name = $this->style->ask(
+            'What is your bot name?',
+            null,
+            function (?string $name): string {
+                if (empty($name)) {
+                    throw new \InvalidArgumentException('You must specify a name for your bot');
+                }
+                return $name;
+            }
+        );
         $this->clear();
 
         // Solicitar los IDs de los administradores
@@ -48,17 +59,38 @@ final class InstallCommand extends Command
         $debug = $this->style->confirm('Is it development environment?', false) ? 'true' : 'false';
         $this->clear();
 
-        // Generar el contenido del archivo de configuración
-        $data = $this->generateConfigData($token, $name, $admins, $debug);
-
         // Crear archivos de configuración
         try {
+            // Generar el contenido del archivo de configuración
+            $output->writeln('<info>Creating config file...</info>');
+            $this->generateConfigData($token, $name, $admins, $debug);
+
+            $output->writeln('<info>Creating directories...</info>');
             $this->createDirectories();
-            writeContentToFile(self::configFile(), $data);
-            $this->createCommandClasses(); // Crear las clases Start y Help
+
+            $output->writeln('<info>Loading bot configuration...</info>');
+            self::load(self::configFile());
+
+            $output->writeln('<info>Creating command classes...</info>');
+            $this->makeCommandClasses(); // Crear las clases Start y Help
+
+            $output->writeln('<info>Updating composer.json...</info>');
             $this->updateComposerAutoload(); // Actualizar composer.json y autoload
+
+            $output->writeln('<info>Registering commands...</info>');
+            register('bot/Commands', 'commands'); //Registra los comandos
+            register('bot/Callbacks', 'callbacks'); //Registra los comandos
+
+            sleep(3);
+            $this->clear();
             $this->style->success('Bot configuration has been saved successfully.');
         } catch (\Throwable $th) {
+            Events::logger(
+                'cli',
+                'cli.log',
+                'Failed to save bot configuration: ' . $th->getMessage(),
+                $th->getTrace()
+            );
             $this->style->error('Failed to save bot configuration: ' . $th->getMessage());
             return Command::FAILURE;
         }
@@ -110,9 +142,9 @@ final class InstallCommand extends Command
     /**
      * Archivo de configuracion a generar
      */
-    private function generateConfigData(?string $token, ?string $name, ?string $admins, string $debug): string
+    private function generateConfigData(?string $token, ?string $name, ?string $admins, string $debug): void
     {
-        return <<<PHP
+        $file = <<<PHP
             <?php
 
             return [
@@ -120,13 +152,10 @@ final class InstallCommand extends Command
                 'name' => '$name',
                 'admins' => [$admins],
                 'dev' => $debug,
-                'logs' => 'storage/logs',
-                'parse_mode' => 'MarkdownV2',
-                'handler' => [
-                    '/start' => \MyBot\Commands\Start::class,
-                ]
             ];
             PHP;
+
+        writeContentToFile(self::configFile(), $file);
     }
 
     /**
@@ -134,14 +163,7 @@ final class InstallCommand extends Command
      */
     private function createDirectories(): void
     {
-        $directories = [
-            'storage/logs',
-            'storage/cache',
-            'bot/Commands',
-            'bot/Conversations'
-        ];
-
-        foreach ($directories as $directory) {
+        foreach (self::directories as $directory) {
             if (!is_dir($directory)) {
                 if (!mkdir($directory, 0755, true) && !is_dir($directory)) {
                     throw new \RuntimeException(sprintf('Directory "%s" was not created', $directory));
@@ -153,50 +175,10 @@ final class InstallCommand extends Command
     /**
      * Crea comandos del bot
      */
-    private function createCommandClasses(): void
+    private function makeCommandClasses(): void
     {
-        $commands = [
-            'Start' => <<<PHP
-            <?php
-            namespace MyBot\Commands;
-
-            use Al3x5\\xBot\Commands;
-            use Al3x5\\xBot\Telegram;
-
-            /**
-             * Start command class
-             */
-            final class Start extends Commands
-            {
-                public function execute(array \$params=[]): Telegram
-                {
-                    return \$this->bot->reply('Start command executed');
-                }
-            }
-            PHP,
-            'Help' => <<<PHP
-            <?php
-            namespace MyBot\Commands;
-
-            use Al3x5\\xBot\Commands;
-            use Al3x5\\xBot\Telegram;
-
-            /**
-             * Help class
-             */
-            final class Help extends Commands
-            {
-                public function execute(array \$params=[]): Telegram
-                {
-                    return \$this->bot->reply('Help message');
-                }
-            }
-            PHP
-        ];
-
-        foreach ($commands as $className => $classContent) {
-            writeContentToFile("bot/Commands/{$className}.php", $classContent);
-        }
+        $this->makeTelegramCommand('Start', '/start');
+        $this->makeTelegramCommand('Help', '/help');
     }
 
     /**
@@ -217,7 +199,7 @@ final class InstallCommand extends Command
         }
 
         // Agregar o actualizar la sección de psr-4
-        $composerJson['autoload']['psr-4']['MyBot\\'] = 'bot/';
+        $composerJson['autoload']['psr-4'][botNamespace() . '\\'] = 'bot/';
 
         // Guardar los cambios en composer.json
         writeContentToFile($composerJsonPath, json_encode($composerJson, JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES) . PHP_EOL);
