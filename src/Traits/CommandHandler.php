@@ -57,8 +57,7 @@ trait CommandHandler
     private function handleCommand(Message $message): Telegram
     {
         // Eliminar la barra inicial y cualquier mención al bot
-        $text = preg_replace('/^([a-zA-Z0-9_]+)(@[\w]+)?/', '$1', $message->getText());
-        $text = rtrim($text, '/');
+        $text = preg_replace('/^\/([a-zA-Z0-9_]+)(@[\w]+)?/', '$1', $message->getText());
 
         // Separar el comando de los parámetros
         $parts = explode(' ', $text);
@@ -91,7 +90,7 @@ trait CommandHandler
      */
     private function handle(string $key, Message $message, array $params = []): Telegram
     {
-        $className = $this->getCommand($key, '/help');
+        $className = $this->getCommand("/$key", '/help');
 
         if (!class_exists($className)) {
             throw new \RuntimeException("Error: Class '$className' does not exist.");

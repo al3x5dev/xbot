@@ -42,7 +42,7 @@ final class TelegramConversationCommand extends Command
             return Command::FAILURE;
         }
 
-        $this->makeTelegramCommand($name, '/'.strtolower($name));
+        $this->makeConversation($name, '/'.strtolower($name));
         $output->writeln("<info>The new conversational flow has been created successfully.</info>");
         return Command::SUCCESS;
     }
