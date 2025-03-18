@@ -73,7 +73,7 @@ Con este comando estaremos creando un nuevo flujo conversacional en nuestro bot
 php vendor/bin/xbot telegram:conversation
 ```
 
-> [!IMPORTATN]
+> [!NOTE]
 > Siempre que cree un nuevo comando o callback debe de ejecutar el comando register
 ```bash
 php vendor/bin/xbot register
