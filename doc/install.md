@@ -40,15 +40,21 @@ return [
 ];
 ```
 
-### 2. Automatic Method (Commands)
+> [!IMPORTANT]
+> Use this method only to modify or add some necessary configuration parameters.
+> We do not recommend using this method for a clean installation of **xBot**.
 
-If you prefer not to create the file manually, **xBot** allows you to generate the configuration file automatically through the command line. To do this, run the following command in the terminal:
+### 2. Automatic Method (**_Recommended_**)
+
+**xBot** allows you to generate the configuration file automatically through the command line, in addition to generating the necessary directory structure and other configuration files for its first use.
+
+To do this, run the following command in the terminal:
 
 ```bash
-php vendor/bin/xbot config:create
+php vendor/bin/xbot
 ```
 
-This command will guide you through the configuration process and generate the directories and config.php file with the necessary structure. Be sure to follow the instructions that will appear in the console to complete the configuration.
+This command will guide you through the installation and initial configuration process. Be sure to follow the instructions that will appear in the console to complete the configuration.
 
 
 #### Obtain the API Key
@@ -79,6 +85,6 @@ Once you have configured your config.php file and set up the webhook, you can in
 require_once 'vendor/autoload.php';
 $config = require_once 'config.php';
 
-$xbot = new Al3x5Bot($config);
+$xbot = new \Al3x5\xBot\Bot($config);
 $xbot->run();
 ```
