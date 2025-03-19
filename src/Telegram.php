@@ -25,6 +25,8 @@ class Telegram
         'getChatHistory', //Historial de chat
         'getChatMembers', //Lista de usuarios
 
+        'sendDice', //Minijuegos
+
         'sendMessage',
         'forwardMessage',
         'forwardMessages',
@@ -40,6 +42,7 @@ class Telegram
         'editMessageText',
 
         'sendChatAction', //Estado
+        'answerCallbackQuery',
     ];
 
     public function __construct(private string $method, private array $params)
