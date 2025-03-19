@@ -4,96 +4,41 @@
 ![GitHub code size in bytes](https://img.shields.io/github/languages/code-size/alexsandrov16/http?style=flat-square)
 ![GitHub License](https://img.shields.io/github/license/alexsandrov16/xbot?style=flat-square)
 
-**xBot** es una librería en PHP diseñada específicamente para simplificar la creación y gestión de bots de Telegram. Con un enfoque en la facilidad de uso y la eficiencia, **xBot** te permite centrarte en lo que realmente importa: implementar funcionalidades innovadoras y personalizadas para sus bots.
+**xBot** is a PHP library designed specifically to simplify the creation and management of Telegram bots. With a focus on ease of use and efficiency, **xBot** lets you focus on what really matters: implementing innovative and custom functionality for your bots.
 
 
-## Estado de Desarrollo
+## Development Status
 
 > [!CAUTION]
-> Ten en cuenta que **xBot** se encuentra actualmente en una etapa de desarrollo. Esto significa que podrías encontrar algunos errores o comportamientos inesperados. Apreciamos tu comprensión y paciencia mientras trabajamos para mejorar la librería.
+> Please note that **xBot** is currently in a development stage. This means that you might encounter some bugs or unexpected behaviors. We appreciate your understanding and patience as we work to improve the library.
 >
-> Estamos comprometidos a lanzar una versión estable lo antes posible. Tu apoyo y *feedback* son esenciales en este proceso, y cada contribución ayuda a hacer de **xBot** una herramienta más robusta y confiable.
-
-## Instalación
-
-```bash
-composer require al3x5/xbot
-```
-
-## Uso
-
-Antes de empezar a crear código, debes haber creado tu bot en Telegram. 
-Puedes seguir las instrucciones en el siguiente enlace: [Instrucciones para crear y configurar un bot en Telegram](https://telegra.ph/Instrucciones-para-crear-y-configurar-un-bot-en-BotFather-03-18).
-
-### Configurar
-
-Para configurar **xBot** puede hacerlo usando la línea de comandos.
-```bash
-php vendor/bin/xbot
-```
-
-### Inicializar
-
-Para inicializar su bot solo debe crear un archivo `.php`.
-```php
-require_once 'vendor/autoload.php';
-$config = require_once 'config.php';
-
-$xbot = new Al3x5\xBot\Bot($config);
-$xbot->run();
-```
-
-### Enlazar mi bot con Telegram
-
-Ya para este paso debe de tener su bot creado en Telegram mediante [@BotFather](https://t.me/BotFather).
-Para enlazar tu bot con la API de Telegram solo tiene que correr un comando y proporcionar la url de tu bot:
-```bash
-php vendor/bin/xbot hook:set
-```
-
-### Crear comandos, callback y conversaciones
-
-Todos los comandos, callback y conversaciones son creados en el directorio `/myproyect/bot`
-
-#### Commands
-Para crear comandos personalizados solo debe de ejecutar el siguiente comando en su consola.
-```bash
-php vendor/bin/xbot telegram:command
-```
-
-#### Callbacks
-Para la creacion de callbacks pegue la siguiente linea en su consola.
-```bash
-php vendor/bin/xbot telegram:callback
-```
-
-#### Conversations
-Con este comando estaremos creando un nuevo flujo conversacional en nuestro bot
-```bash
-php vendor/bin/xbot telegram:conversation
-```
+> We are committed to release a stable version as soon as possible. Your support and *feedback* are essential in this process, and every contribution helps to make **xBot** a more robust and reliable tool.
 
 > [!NOTE]
-> Siempre que cree un nuevo comando o callback debe de ejecutar el comando register
-```bash
-php vendor/bin/xbot register
-```
-
-## Contribuciones
-
-Si deseas contribuir al desarrollo de **xBot**, aquí hay algunas formas en las que puedes hacerlo:
-
-- Reporta errores o problemas que encuentres.
-- Comparte tus ideas y sugerencias.
-- Contribuye con código o documentación.
+> Before you start creating code, you must have created your bot in Telegram.
+> If you don't know how to do it yet, don't worry! [Here's how to do it](https://telegra.ph/Instrucciones-para-crear-y-configurar-un-bot-en-BotFather-03-18).
 
 
-## Licencia
-Este proyecto está licenciado bajo la [Licencia MIT](https://github.com/alexsandrov16/xbot/blob/main/LICENSE).
+## Documentation
 
-## Contacto
-Si tienes alguna pregunta o comentario, no dudes en contactarme a través de [Telegram](http://t.me/alexsadrov16).
+- [Installation and configuration]()
+
+
+## Contributions
+
+If you want to contribute to the development of **xBot**, here are some ways you can do it:
+
+- Report bugs or problems you encounter.
+- Share your ideas and suggestions.
+- Contribute code or documentation.
+
+
+## License
+This project is licensed under the [MIT License](https://github.com/alexsandrov16/xbot/blob/main/LICENSE).
+
+## Contact.
+If you have any questions or comments, feel free to contact me via [Telegram](http://t.me/alexsadrov16).
 
 ---
 
-Gracias por considerar **xBot** para tus proyectos de bots en Telegram. Estamos emocionados de tenerte a bordo y esperamos que disfrutes trabajando con esta librería. ¡Juntos podemos construir algo grande!
+Thank you for considering **xBot** for your Telegram bot projects. We're excited to have you on board and hope you enjoy working with this library - together we can build something great!
