@@ -31,6 +31,9 @@ class Bot
     {
         ExceptionHandler::start();
         Config::init($cfg);
+        //
+        $this->setCommands('storage/commands.json');
+        $this->setCallbacks('storage/callbacks.json');
     }
 
     /**
@@ -78,8 +81,6 @@ class Bot
      */
     private function resolveMessage(Message $message): Telegram
     {
-        $this->setCommands('storage/commands.json');
-
         if ($message->isCommand()) {
             return $this->handleCommand($message);
         }
@@ -92,7 +93,6 @@ class Bot
      */
     private function resolveCallback(CallbackQuery $callback): Telegram
     {
-        $this->setCallbacks('storage/callbacks.json');
         return $this->handleCallback($callback);
     }
 }
