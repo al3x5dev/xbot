@@ -18,7 +18,7 @@ abstract class Conversation
     public function say(
         string $message,
         string $conversation,
-        string $next = null
+        ?string $next = null
     ): Telegram {
         $this->bot->startConversation($conversation, $next);
         return $this->bot->reply($message);
