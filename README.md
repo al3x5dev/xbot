@@ -22,6 +22,7 @@
 ## Documentation
 
 - [Installation and configuration](https://github.com/alexsandrov16/xbot/blob/main/doc/install.md)
+- [Installation and configuration](https://github.com/alexsandrov16/xbot/blob/main/doc/install.md)
 
 
 ## Contributions
@@ -41,4 +42,4 @@ If you have any questions or comments, feel free to contact me via [Telegram](ht
 
 ---
 
-Thank you for considering **xBot** for your Telegram bot projects. We're excited to have you on board and hope you enjoy working with this library - together we can build something great!
+Thank you for considering **xBot** for your Telegram bot projects. We're excited to have you on board and hope you enjoy working with this library. Together we can build something great!
