@@ -22,7 +22,7 @@
 ## Documentation
 
 - [Installation and configuration](https://github.com/alexsandrov16/xbot/blob/main/doc/install.md)
-- [Installation and configuration](https://github.com/alexsandrov16/xbot/blob/main/doc/install.md)
+- [Command line interface](https://github.com/alexsandrov16/xbot/blob/main/doc/cli.md)
 
 
 ## Contributions
