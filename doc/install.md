@@ -1,4 +1,4 @@
-## Installation and Configuration
+# Installation and Configuration
 
 
 ## Installation
@@ -57,7 +57,7 @@ php vendor/bin/xbot
 This command will guide you through the installation and initial configuration process. Be sure to follow the instructions that will appear in the console to complete the configuration.
 
 
-#### Obtain the API Key
+### Obtain the API Key
 
 Regardless of the method you choose, you will need to get the API Key of your bot. To do so, follow these steps:
 
@@ -66,7 +66,7 @@ Regardless of the method you choose, you will need to get the API Key of your bo
 - Follow the instructions and at the end you will receive an API token. Copy this token and paste it in the `token` field of your config.php file or in the console when prompted.
 
 
-#### Configure the Webhook
+### Configure the Webhook
 
 In order for your bot to receive updates from Telegram, you will need to set up a webhook. This can be done by running the following command in the terminal:
 
@@ -77,7 +77,7 @@ php vendor/bin/xbot hook:set
 This command will prompt you to enter the URL of your webhook. Make sure that this URL is accessible from the Internet and that it points to your server where the bot is hosted.
 
 
-### Initialize the Bot
+## Initialize the Bot
 
 Once you have configured your config.php file and set up the webhook, you can initialize your bot. Create a `.php` file in the root of your project and add the following code, this will be the starting point of your bot.
 
