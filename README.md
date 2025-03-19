@@ -21,7 +21,7 @@
 
 ## Documentation
 
-- [Installation and configuration]()
+- [Installation and configuration](https://github.com/alexsandrov16/xbot/blob/main/doc/install.md)
 
 
 ## Contributions
