@@ -19,4 +19,18 @@ abstract class Callbacks
      * Ejecuta callback
      */
     abstract public function execute(): Telegram;
+
+    /**
+     * Respuesta de callback
+     */
+    public function answerCallbackQuery() : Telegram
+    {
+        return $this->bot->answerCallbackQuery([
+            'callback_query_id'=>$this->callback->getId()/*
+text 	String 	
+show_alert 	Boolean 	
+url 	String 	
+cache_time Integer */
+        ]);
+    }
 }
