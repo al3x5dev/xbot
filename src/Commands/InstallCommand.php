@@ -9,6 +9,7 @@ use Al3x5\xBot\Commands\Traits\MakeClass;
 use Al3x5\xBot\Events;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
+use Symfony\Component\Console\Output\NullOutput;
 use Symfony\Component\Console\Output\OutputInterface;
 
 /**
@@ -78,8 +79,8 @@ final class InstallCommand extends Command
             $this->updateComposerAutoload(); // Actualizar composer.json y autoload
 
             $output->writeln('<info>Registering commands...</info>');
-            register('bot/Commands', 'commands'); //Registra los comandos
-            register('bot/Callbacks', 'callbacks'); //Registra los comandos
+            // Ejecutar el comando RegisterCommand
+            $this->getApplication()->find('register')->run($input, new NullOutput);
 
             sleep(3);
             $this->clear();
