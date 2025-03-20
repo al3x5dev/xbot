@@ -1,9 +1,9 @@
 # xBot
 
+![Telegram Bot API](https://img.shields.io/badge/Telegram%20Bot%20API-6.9+-blue?style=flat-square)
 ![GitHub Release](https://img.shields.io/github/v/release/alexsandrov16/xbot?include_prereleases&style=flat-square&color=blue)
 ![GitHub code size in bytes](https://img.shields.io/github/languages/code-size/alexsandrov16/http?style=flat-square)
 ![GitHub License](https://img.shields.io/github/license/alexsandrov16/xbot?style=flat-square)
-![Telegram Bot API](https://img.shields.io/badge/Telegram%20Bot%20API-6.9-blue?style=flat-square)
 
 **xBot** is a PHP library designed specifically to simplify the creation and management of Telegram bots. With a focus on ease of use and efficiency, **xBot** lets you focus on what really matters: implementing innovative and custom functionality for your bots.
 
@@ -24,6 +24,7 @@
 
 - [Installation and configuration](https://github.com/alexsandrov16/xbot/blob/main/doc/install.md)
 - [Command line interface](https://github.com/alexsandrov16/xbot/blob/main/doc/cli.md)
+- [Available Methods & Examples](https://github.com/alexsandrov16/xbot/blob/main/doc/example.md)
 
 
 ## Contributions
