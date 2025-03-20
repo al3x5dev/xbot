@@ -28,5 +28,5 @@ abstract class Conversation
     /**
      * Ejecuta la conversacion
      */
-    abstract public function execute(): Telegram;
+    abstract public function execute(): void;
 }

@@ -18,8 +18,11 @@ trait ConversationHandler
             throw new xBotException(sprintf('Unsupported update type: %s', $type));
         }
 
-        $entity = $this->update->__get($type);
-        return $entity->chat->id . $entity->from->id;
+        $entity = match ($type) {
+            'callback_query' => $this->update->__get($type)->getMessage(),
+            'message' => $this->update->__get($type),
+        };
+        return $entity->getChat()->getId() . $entity->getFrom()->getId();
     }
 
     /**
@@ -35,7 +38,7 @@ trait ConversationHandler
     /**
      * Obtiene flujo de la conversacion y lo ejecuta
      */
-    private function getConversation(): mixed
+    private function getConversation(): void
     {
         $expired = Config::get('storage')->isExpired(
             $this->getConversationIdentifier()
@@ -45,8 +48,7 @@ trait ConversationHandler
                 $this->getConversationIdentifier()
             );
 
-            return null;
-           // return $this->executeCommand('/game');
+            return;
         }
         $data = Config::get('storage')->get(
             $this->getConversationIdentifier()
@@ -54,13 +56,13 @@ trait ConversationHandler
 
         $conversation = new $data['conversation']($this);
 
-        return call_user_func([$conversation, $data['next']]);
+        call_user_func([$conversation, $data['next']]);
     }
 
     /**
      * Inicia una conversacion con el usuario
      */
-    public function startConversation(string $obj, string $next = null): void
+    public function startConversation(string $obj, ?string $next = null): void
     {
         Config::get('storage')->set(
             $this->getConversationIdentifier(),

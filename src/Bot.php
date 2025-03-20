@@ -63,11 +63,11 @@ class Bot
     /**
      * Obtiene el objeto Update de Telegram y procesa los mensajes
      */
-    public function run(): Telegram
+    public function run(): void
     {
         $this->getUpdate();
 
-        return match ($this->update->type()) {
+        match ($this->update->type()) {
             'message' => $this->resolveMessage($this->update->getMessage()),
             'callback_query' => $this->resolveCallback($this->update->getCallbackQuery()),
             default => throw new xBotException(
@@ -79,20 +79,21 @@ class Bot
     /**
      * Resuelve mensaje
      */
-    private function resolveMessage(Message $message): Telegram
+    private function resolveMessage(Message $message): void
     {
         if ($message->isCommand()) {
-            return $this->handleCommand($message);
+            $this->handleCommand($message);
+            return;
         }
         //mensage generico 
-        return $this->handleMessage($message);
+        $this->handleMessage($message);
     }
 
     /**
      * Resuelve Callback Query
      */
-    private function resolveCallback(CallbackQuery $callback): Telegram
+    private function resolveCallback(CallbackQuery $callback): void
     {
-        return $this->handleCallback($callback);
+        $this->handleCallback($callback);
     }
 }
