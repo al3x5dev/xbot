@@ -2,7 +2,9 @@
 
 namespace Al3x5\xBot;
 
+use Al3x5\xBot\Entities\Update;
 use Al3x5\xBot\Exceptions\xBotException;
+use Al3x5\xBot\TelegramMethod as Method;
 
 /**
  * Telegram class
@@ -11,44 +13,11 @@ class Telegram
 {
     private ?object $client = null;
     private ?object $response = null;
-    private const METHODS = [
-        //cli commands
-        'getMe',
-        'setWebhook',
-        'deleteWebhook',
-        'getWebhookInfo', 
-        //Informativos
-        'getChatMember', //Usuarios miembros
-        'getChatAdministrators', //Administradores
-        'getChatMembersCount', //Conteo de usuarios
-        'getChat', //Información de chat
-        'getChatHistory', //Historial de chat
-        'getChatMembers', //Lista de usuarios
-
-        'sendDice', //Minijuegos
-
-        'sendMessage',
-        'forwardMessage',
-        'forwardMessages',
-        'copyMessage',
-        'sendPhoto',
-        'sendAudio',
-        'sendDocument',
-        'sendVideo',
-        'sendAnimation',
-        'sendPoll',
-        'sendDice',
-        'sendSticker',
-        'editMessageText',
-
-        'sendChatAction', //Estado
-        'answerCallbackQuery',
-    ];
 
     public function __construct(private string $method, private array $params)
     {
 
-        if ($this->has($method) == false) {
+        if (!Method::tryFrom($method)) {
             throw new xBotException("Method '$method' not found");
         }
 
@@ -81,17 +50,9 @@ class Telegram
     }
 
     /**
-     * Verifica existencia del metodo telegram api
-     */
-    public function has(string $name): bool
-    {
-        return in_array($name, static::METHODS);
-    }
-
-    /**
      * Envia el metodo
      */
-    public function send(): Telegram
+    public function send(): self
     {
         try {
             $this->response = $this->client->post(
@@ -113,6 +74,37 @@ class Telegram
                 ['code' => $e->getCode()],
                 'warning'
             );
+            //return null;
+            throw new xBotException("Failed to send Telegram request: " . $e->getMessage());
         }
+    }
+
+    /**
+     * Obtener respuesta
+     */
+    public function response(): object
+    {
+        $data = json_decode($this->response->getBody(), true);
+        $method=Method::from($this->method);
+
+        if (!$data['ok']) {
+            throw new \RuntimeException("Error: " . $data['description']);
+        }
+
+        $result = $data['result'];
+
+        // Si es una colección, mapear cada elemento a la entidad correspondiente
+        if ($method->isCollection()) {
+            $entityClass = $method->getEntityClass();
+            return array_map(fn($item) => new $entityClass($item), $result);
+        }
+
+        // Si es un tipo primitivo, devolver el valor directamente
+        if ($method->isPrimitive()) {
+            return $result;
+        }
+
+        // Si es una entidad, devolver una instancia de la clase correspondiente
+        return new ($method->getEntityClass())($result);
     }
 }
