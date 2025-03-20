@@ -18,7 +18,7 @@ abstract class Callbacks
     /**
      * Ejecuta callback
      */
-    abstract public function execute(): Telegram;
+    abstract public function execute(): void;
 
     /**
      * Respuesta de callback

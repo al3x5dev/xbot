@@ -54,14 +54,13 @@ trait MakeClass
         namespace $namespace\Commands;
         
         use Al3x5\\xBot\Commands;
-        use Al3x5\\xBot\Telegram;
 
         use Al3x5\\xBot\Attributes\Command;
 
         #[Command('$command')]
         class $name extends Commands
         {
-            public function execute(...\$params): Telegram
+            public function execute(...\$params): void
             {
                 return \$this->bot->reply('$command command executed');
             }
@@ -88,14 +87,13 @@ trait MakeClass
         namespace $namespace\Callbacks;
         
         use Al3x5\\xBot\Callbacks;
-        use Al3x5\\xBot\Telegram;
 
         use Al3x5\\xBot\Attributes\Callback;
 
         #[Callback('$action')]
         class $name extends Callbacks
         {
-            public function execute(): Telegram
+            public function execute(): void
             {
                 return \$this->bot->reply('Callback executed');
             }
@@ -117,11 +115,10 @@ trait MakeClass
         namespace $namespace\Conversations;
         
         use Al3x5\\xBot\Conversation;
-        use Al3x5\\xBot\Telegram;
 
         class $name extends Conversation
         {
-            public function execute(array \$params=[]): Telegram
+            public function execute(array \$params=[]): void
             {
                 return \$this->bot->reply('Conversation executed');
             }
