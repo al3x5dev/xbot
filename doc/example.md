@@ -3,7 +3,7 @@
 
 ## Send a Message
 
-See `sendMessage` [docs](https://core.telegram.org/bots/api#sendMessage) for a list of supported parameters and other info.
+See `sendMessage` [docs](https://core.telegram.org/bots/api#sendmessage) for a list of supported parameters and other info.
 
 ```php
 $response = $bot->sendMessage([
@@ -16,7 +16,7 @@ $response = $bot->sendMessage([
 ## Reply a Message
 
 `Reply` es una abreviacion de `sendMessage` en el que no se especifica el destino del mensaje.
-See `sendMessage` [docs](https://core.telegram.org/bots/api#sendMessage) for a list of supported parameters and other info.
+See `sendMessage` [docs](https://core.telegram.org/bots/api#sendmessage) for a list of supported parameters and other info.
 
 ```php
 $response = $bot->reply('Hello World',[]);
@@ -25,7 +25,7 @@ $response = $bot->reply('Hello World',[]);
 
 ## Forward a Message
 
-See `forwardMessage` [docs](https://core.telegram.org/bots/api#forwardMessage) for a list of supported parameters and other info.
+See `forwardMessage` [docs](https://core.telegram.org/bots/api#forwardmessage) for a list of supported parameters and other info.
 
 ```php
 $response = $bot->forwardMessage([
@@ -38,7 +38,7 @@ $response = $bot->forwardMessage([
 
 ## Send a Photo
 
-See `sendPhoto` [docs](https://core.telegram.org/bots/api#sendPhoto) for a list of supported parameters and other info.
+See `sendPhoto` [docs](https://core.telegram.org/bots/api#sendphoto) for a list of supported parameters and other info.
 
 ```php
 $response = $bot->sendPhoto([
@@ -51,7 +51,7 @@ $response = $bot->sendPhoto([
 
 ## Send a Chat Action
 
-See `sendChatAction` [docs](https://core.telegram.org/bots/api#sendChatAction) for a list of supported actions and other info.
+See `sendChatAction` [docs](https://core.telegram.org/bots/api#sendchataction) for a list of supported actions and other info.
 
 ```php
 $bot->sendChatAction([
@@ -63,7 +63,7 @@ $bot->sendChatAction([
 
 ## Get Updates
 
-See `getUpdates` [docs](https://core.telegram.org/bots/api#getUpdates) for a list of supported parameters and other info.
+See `getUpdates` [docs](https://core.telegram.org/bots/api#getupdates) for a list of supported parameters and other info.
 
 ```php
 $updates = $bot->getUpdates();
