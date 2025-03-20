@@ -7,14 +7,6 @@
 
 **xBot** is a PHP library designed specifically to simplify the creation and management of Telegram bots. With a focus on ease of use and efficiency, **xBot** lets you focus on what really matters: implementing innovative and custom functionality for your bots.
 
-
-## Development Status
-
-> [!CAUTION]
-> Please note that **xBot** is currently in a development stage. This means that you might encounter some bugs or unexpected behaviors. We appreciate your understanding and patience as we work to improve the library.
->
-> We are committed to release a stable version as soon as possible. Your support and *feedback* are essential in this process, and every contribution helps to make **xBot** a more robust and reliable tool.
-
 > [!NOTE]
 > Before you start creating code, you must have created your bot in Telegram.
 > If you don't know how to do it yet, don't worry! [Here's how to do it](https://telegra.ph/Instrucciones-para-crear-y-configurar-un-bot-en-BotFather-03-18).
