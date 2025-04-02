@@ -26,7 +26,7 @@ class Config
             //'async' => $cfg['async'] ?? false,
             'client' => $cfg['client'] ?? new \Mk4U\Http\Client(),
             'storage' => $cfg['storage'] ?? \Mk4U\Cache\CacheFactory::create('file', [
-                'dir' => 'storage',
+                'dir' => 'storage/cache',
                 'ttl' => 600
             ]),
             'webhook' => $cfg['webhook'] ?? self::webhook($cfg['token']),

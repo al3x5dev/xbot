@@ -40,19 +40,13 @@ trait ConversationHandler
      */
     private function getConversation(): void
     {
-        $expired = Config::get('storage')->isExpired(
-            $this->getConversationIdentifier()
-        );
-        if ($expired) {
-            Config::get('storage')->delete(
-                $this->getConversationIdentifier()
-            );
-
-            return;
-        }
         $data = Config::get('storage')->get(
             $this->getConversationIdentifier()
         );
+
+        if (is_null($data)) {
+            return;
+        }
 
         $conversation = new $data['conversation']($this);
 
