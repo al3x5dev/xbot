@@ -48,13 +48,12 @@ final class TelegramCallbackCommand extends Command
             }
         );
 
-        // Verificar si el archivo ya existe
-        if (file_exists(__DIR__ . "/bot/Callbacks/$name")) {
-            $output->writeln("<error>Error: The file already exists at {$name}.php</error>");
-            return Command::FAILURE;
-        }
+        list(
+            $filename,
+            $namespath
+        ) = $this->makeDir($name, '/bot/Callbacks', $output);
 
-        $this->makeCallback($name, $action);
+        $this->makeCallback($filename, $action, $namespath);
         $output->writeln("<info>Telegram callback created successfully.</info>");
         return Command::SUCCESS;
     }
