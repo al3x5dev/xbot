@@ -17,7 +17,7 @@ class Bot
 {
     public const NAME = 'xBot';
 
-    public const VERSION = '1.0';
+    public const VERSION = '2.0.0-RC1';
 
     use CallbackHandler,
         CommandHandler,
