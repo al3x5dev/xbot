@@ -29,7 +29,7 @@ final class TelegramCommandCommand extends Command
         $this->prepare($input, $output);
 
         $name =  !is_null($input->getArgument('name'))
-            ? $input->getArgument('url')
+            ? $input->getArgument('name')
             : $this->style->ask(
                 'What should the Telegram command be named? [Eg. Start]',
                 null,
@@ -43,13 +43,17 @@ final class TelegramCommandCommand extends Command
             return Command::FAILURE;
         }
 
-        // Verificar si el archivo ya existe
-        if (file_exists(__DIR__ . "/bot/Commands/$name")) {
-            $output->writeln("<error>Error: The file already exists at {$name}.php</error>");
-            return Command::FAILURE;
-        }
+        // Normalizar el nombre (ej: "Start" → "/start")
+        $command = '/' . trim(strtolower($name), '/');
 
-        $this->makeTelegramCommand($name, '/'.strtolower($name));
+        list(
+            $filename,
+            $namespath
+        ) = $this->makeDir($command, '/bot/Commands', $output);
+
+        // Generar el archivo (implementa esto en tu trait MakeClass)
+        $this->makeTelegramCommand($filename, $namespath);
+
         $output->writeln("<info>Telegram command created successfully.</info>");
         return Command::SUCCESS;
     }

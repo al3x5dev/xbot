@@ -9,8 +9,8 @@ use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 
 /**
-* TelegramConversation command class
-*/
+ * TelegramConversation command class
+ */
 final class TelegramConversationCommand extends Command
 {
     use Io, MakeClass;
@@ -26,23 +26,22 @@ final class TelegramConversationCommand extends Command
         $this->prepare($input, $output);
 
         $name =  $this->style->ask(
-                'What will you call the new conversation? [Eg. Chat]',
-                null,
-                function ($name): ?string {
-                    if (empty($name)) {
-                        throw new \InvalidArgumentException('You must specify a name for the conversation');
-                    }
-                    return $name;
+            'What will you call the new conversation? [Eg. Chat]',
+            null,
+            function ($name): ?string {
+                if (empty($name)) {
+                    throw new \InvalidArgumentException('You must specify a name for the conversation');
                 }
-            );
+                return $name;
+            }
+        );
 
-        // Verificar si el archivo ya existe
-        if (file_exists(__DIR__ . "/bot/Conversation/$name")) {
-            $output->writeln("<error>Error: The file already exists at {$name}.php</error>");
-            return Command::FAILURE;
-        }
+        list(
+            $filename,
+            $namespath
+        ) = $this->makeDir($name, '/bot/Conversations', $output);
 
-        $this->makeConversation($name, '/'.strtolower($name));
+        $this->makeConversation($filename, $namespath);
         $output->writeln("<info>The new conversational flow has been created successfully.</info>");
         return Command::SUCCESS;
     }
