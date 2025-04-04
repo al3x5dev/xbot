@@ -6,6 +6,8 @@ use Al3x5\xBot\Entities\Message;
 
 trait CommandHandler
 {
+    use ConversationHandler;
+    
     private array $commands;
 
     /**

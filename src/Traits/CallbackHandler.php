@@ -8,6 +8,8 @@ trait CallbackHandler
 {
     private array $callbacks;
 
+    use ConversationHandler;
+
     /**
      * Establece los callbacks
      */

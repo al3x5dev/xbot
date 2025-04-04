@@ -2,14 +2,11 @@
 
 namespace Al3x5\xBot;
 
-use Al3x5\xBot\Entities\CallbackQuery;
-use Al3x5\xBot\Entities\Message;
 use Al3x5\xBot\Entities\Update;
 use Al3x5\xBot\Exceptions\ExceptionHandler;
 use Al3x5\xBot\Exceptions\xBotException;
 use Al3x5\xBot\Traits\CallbackHandler;
 use Al3x5\xBot\Traits\CommandHandler;
-use Al3x5\xBot\Traits\ConversationHandler;
 use Mk4U\Http\Request;
 
 class Bot
@@ -21,8 +18,7 @@ class Bot
     public ?Update $update = null;
 
     use CallbackHandler,
-        CommandHandler,
-        ConversationHandler;
+        CommandHandler;
 
     /**
      * Inicializa el bot
