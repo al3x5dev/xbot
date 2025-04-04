@@ -5,14 +5,22 @@ namespace Al3x5\xBot\Traits;
 use Al3x5\xBot\Config;
 use Al3x5\xBot\Entities\CallbackQuery;
 use Al3x5\xBot\Entities\Message;
-use Al3x5\xBot\Entities\Update;
 use Al3x5\xBot\Telegram;
 
 trait MessageHandler
 {
 
-    public ?Update $update = null;
+    /**
+     * Ejecuta el metodo especificado de la API de Telegram
+     */
+    public function __call($name, $arguments): Telegram
+    {
+        $api = new Telegram($name, $arguments[0] ?? []);
+        return $api->send();
 
+        /*$params = isset($arguments[0]) && is_array($arguments[0]) ? $arguments[0] : [];
+        return (new Telegram($name, $params))->send();*/
+    }
 
     /**
      * Responder mensajes

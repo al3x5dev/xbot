@@ -8,6 +8,8 @@ trait CallbackHandler
 {
     private array $callbacks;
 
+    use ConversationHandler;
+
     /**
      * Establece los callbacks
      */
@@ -23,20 +25,20 @@ trait CallbackHandler
     /**
      * Devuelve callback especifico
      */
-    public function handleCallback(CallbackQuery $callback): void
+    public function handleCallback(): void
     {
         if ($this->isTalking()) {
             $this->getConversation();
             return;
         }
 
-        $action = $callback->getData();
+        $action = $this->getCallbackQuery()->getData();
         // Verifica si existe
         if (!$this->hasCallback($action)) {
             throw new \RuntimeException("Error: Callback '$action' does not exist.");
         }
 
-        (new $this->callbacks[$action]($this,$callback))->execute();
+        (new $this->callbacks[$action]($this->update))->execute();
     }
 
     /**
@@ -45,5 +47,13 @@ trait CallbackHandler
     private function hasCallback(string $name): bool
     {
         return key_exists($name, $this->callbacks);
+    }
+
+    /**
+     * Accede a la entidad CallbackQuery
+     */
+    public function getCallbackQuery(): CallbackQuery
+    {
+        return $this->update->getCallbackQuery();
     }
 }

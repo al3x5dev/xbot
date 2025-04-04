@@ -48,7 +48,7 @@ trait ConversationHandler
             return;
         }
 
-        $conversation = new $data['conversation']($this);
+        $conversation = new $data['conversation']($this->update);
 
         call_user_func([$conversation, $data['next']]);
     }

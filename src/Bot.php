@@ -2,27 +2,23 @@
 
 namespace Al3x5\xBot;
 
-use Al3x5\xBot\Entities\CallbackQuery;
-use Al3x5\xBot\Entities\Message;
 use Al3x5\xBot\Entities\Update;
 use Al3x5\xBot\Exceptions\ExceptionHandler;
 use Al3x5\xBot\Exceptions\xBotException;
 use Al3x5\xBot\Traits\CallbackHandler;
 use Al3x5\xBot\Traits\CommandHandler;
-use Al3x5\xBot\Traits\ConversationHandler;
-use Al3x5\xBot\Traits\MessageHandler;
 use Mk4U\Http\Request;
 
 class Bot
 {
     public const NAME = 'xBot';
 
-    public const VERSION = '1.0';
+    public const VERSION = '2.0.0-RC1';
+
+    public ?Update $update = null;
 
     use CallbackHandler,
-        CommandHandler,
-        ConversationHandler,
-        MessageHandler;
+        CommandHandler;
 
     /**
      * Inicializa el bot
@@ -34,15 +30,6 @@ class Bot
         //
         $this->setCommands('storage/commands.json');
         $this->setCallbacks('storage/callbacks.json');
-    }
-
-    /**
-     * Ejecuta el metodo especificado de la API de Telegram
-     */
-    public function __call($name, $arguments): Telegram
-    {
-        $api = new Telegram($name, $arguments[0] ?? []);
-        return $api->send();
     }
 
     private function getUpdate(): void
@@ -68,8 +55,8 @@ class Bot
         $this->getUpdate();
 
         match ($this->update->type()) {
-            'message' => $this->resolveMessage($this->update->getMessage()),
-            'callback_query' => $this->resolveCallback($this->update->getCallbackQuery()),
+            'message' => $this->resolveMessage(),
+            'callback_query' => $this->resolveCallback(),
             default => throw new xBotException(
                 sprintf('Unsupported update type: %s', $this->update->type())
             )
@@ -79,21 +66,21 @@ class Bot
     /**
      * Resuelve mensaje
      */
-    private function resolveMessage(Message $message): void
+    private function resolveMessage(): void
     {
-        if ($message->isCommand()) {
-            $this->handleCommand($message);
+        if ($this->update->getMessage()->isCommand()) {
+            $this->handleCommand();
             return;
         }
         //mensage generico 
-        $this->handleMessage($message);
+        $this->handleMessage();
     }
 
     /**
      * Resuelve Callback Query
      */
-    private function resolveCallback(CallbackQuery $callback): void
+    private function resolveCallback(): void
     {
-        $this->handleCallback($callback);
+        $this->handleCallback();
     }
 }
