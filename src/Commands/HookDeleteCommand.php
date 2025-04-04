@@ -5,6 +5,7 @@ namespace Al3x5\xBot\Commands;
 use Al3x5\xBot\Bot;
 use Al3x5\xBot\Commands\Traits\ConfigHandler;
 use Al3x5\xBot\Commands\Traits\Io;
+use Al3x5\xBot\Traits\MessageHandler;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
@@ -15,6 +16,7 @@ use Symfony\Component\Console\Output\OutputInterface;
 final class HookDeleteCommand extends Command
 {
     use Io, ConfigHandler;
+    use MessageHandler;
 
     public function configure(): void
     {
@@ -36,7 +38,7 @@ final class HookDeleteCommand extends Command
         $this->runInstall();
 
         try {
-            $data = (new Bot(BOT_CFG))->deleteWebhook();
+            $data = $this->deleteWebhook();
             $this->style->success($data);
             return Command::SUCCESS;
         } catch (\Throwable $th) {

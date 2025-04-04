@@ -53,23 +53,27 @@ trait CommandHandler
     /**
      * Manejador de comandos
      */
-    private function handleCommand(Message $message): void
+    private function handleCommand(): void
     {
         // Eliminar la barra inicial y cualquier mención al bot
-        $text = preg_replace('/^\/([a-zA-Z0-9_]+)(@[\w]+)?/', '$1', $message->getText());
+        $text = preg_replace(
+            '/^\/([a-zA-Z0-9_]+)(@[\w]+)?/',
+            '$1',
+            $this->getMessage()->getText()
+        );
 
         // Separar el comando de los parámetros
         $parts = explode(' ', $text);
         $key = $parts[0]; // El primer elemento es el comando
         $params = array_slice($parts, 1); // El resto son los parámetros
 
-        $this->handle($key, $message, $params);
+        $this->handle($key, $params);
     }
 
     /**
      * Manejador de mensajes
      */
-    private function handleMessage(Message $message): void
+    private function handleMessage(): void
     {
         if ($this->isTalking()) {
             $this->getConversation();
@@ -78,17 +82,16 @@ trait CommandHandler
 
         $this->handle(
             $this->getCommand(
-                $message->getText(),
+                $this->getMessage()->getText(),
                 '/help'
-            ),
-            $message
+            )
         );
     }
 
     /**
      *  Manejador de eventos
      */
-    private function handle(string $key, Message $message, array $params = []): void
+    private function handle(string $key, array $params = []): void
     {
         $className = $this->getCommand("/$key", '/help');
 
@@ -96,7 +99,7 @@ trait CommandHandler
             throw new \RuntimeException("Error: Class '$className' does not exist.");
         }
 
-        $command = new $className($this, $message);
+        $command = new $className($this->update);
         $command->execute(...$params);
     }
 
@@ -105,11 +108,7 @@ trait CommandHandler
      */
     public function executeCommand(string $command): void
     {
-        (new $this->commands[$command](
-            $this,
-            $this->update->getMessage()
-        )
-        )->execute();
+        (new $this->commands[$command]($this->update))->execute();
     }
 
     /**
@@ -119,10 +118,17 @@ trait CommandHandler
     {
         $commands = [];
         foreach ($this->commands as $name => $className) {
-            $command = new $className($this, $this->update->getMessage());
-            $commands[$name] = $command->getDescription();
+            $commands[$name] = (new $className($this->update))->getDescription();
         }
 
         return $commands;
+    }
+
+    /**
+     * Accede a la entidad Message
+     */
+    public function getMessage(): Message
+    {
+        return $this->update->getMessage();
     }
 }

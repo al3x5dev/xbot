@@ -3,16 +3,21 @@
 namespace Al3x5\xBot;
 
 use Al3x5\xBot\Entities\Message;
+use Al3x5\xBot\Entities\Update;
+use Al3x5\xBot\Traits\MessageHandler;
 
 /**
  * Commands class
  */
 abstract class Commands
 {
-    public function __construct(protected Bot $bot, protected Message $message)
+    public ?Message $message;
+    use MessageHandler;
+
+    public function __construct(protected Update $update)
     {
-        $this->bot = $bot;
-        $this->message = $message;
+        $this->update = $update;
+        $this->message = $update->getMessage();
     }
 
     /**

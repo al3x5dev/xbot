@@ -126,9 +126,9 @@ trait MakeClass
         <?php
         namespace $namespace;
         
-        use Al3x5\\xBot\Conversation;
+        use Al3x5\\xBot\Conversations;
 
-        class $class extends Conversation
+        class $class extends Conversations
         {
             public function execute(array \$params=[]): void
             {
