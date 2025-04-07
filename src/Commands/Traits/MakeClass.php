@@ -69,7 +69,7 @@ trait MakeClass
         {
             public function execute(...\$params): void
             {
-                \$this->bot->reply('$command command executed');
+                \$this->reply('$command command executed');
             }
             
             public function getDescription(): string
@@ -106,7 +106,7 @@ trait MakeClass
         {
             public function execute(): void
             {
-                \$this->bot->reply('Callback executed');
+                \$this->reply('Callback executed');
             }
         }
         PHP;
@@ -132,7 +132,7 @@ trait MakeClass
         {
             public function execute(array \$params=[]): void
             {
-                \$this->bot->reply('Conversation executed');
+                \$this->reply('Conversation executed');
             }
         }
         PHP;
