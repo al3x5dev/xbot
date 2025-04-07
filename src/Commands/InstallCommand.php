@@ -178,8 +178,8 @@ final class InstallCommand extends Command
      */
     private function makeCommandClasses(): void
     {
-        $this->makeTelegramCommand('Start', '/start');
-        $this->makeTelegramCommand('Help', '/help');
+        $this->makeTelegramCommand('bot/Commands/Start.php', __DIR__);
+        $this->makeTelegramCommand('bot/Commands/Help.php', __DIR__);
     }
 
     /**

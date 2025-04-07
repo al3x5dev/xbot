@@ -79,7 +79,7 @@ trait MakeClass
         }
         PHP;
 
-        writeContentToFile($namespath.'/'.$file, $content);
+        writeContentToFile($file, $content);
     }
 
     /**
@@ -111,7 +111,7 @@ trait MakeClass
         }
         PHP;
 
-        writeContentToFile($namespath.'/'.$file, $content);
+        writeContentToFile($file, $content);
     }
 
     /**
@@ -137,7 +137,7 @@ trait MakeClass
         }
         PHP;
 
-        writeContentToFile($namespath.'/'.$file, $content);
+        writeContentToFile($file, $content);
     }
 
     /**
