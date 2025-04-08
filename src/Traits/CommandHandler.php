@@ -85,7 +85,7 @@ trait CommandHandler
         $this->handle(
             $this->getCommand(
                 $this->getMessage()->getText(),
-                '/help'
+                '/generic'
             )
         );
     }
@@ -95,7 +95,7 @@ trait CommandHandler
      */
     private function handle(string $key, array $params = []): void
     {
-        $className = $this->getCommand("/$key", '/help');
+        $className = $this->getCommand("/$key", '/generic');
 
         if (!class_exists($className)) {
             throw new \RuntimeException("Error: Class '$className' does not exist.");
