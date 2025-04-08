@@ -21,24 +21,53 @@ abstract class Commands
     }
 
     /**
-     * Devuelve lista de comandos
+     * Obtener todos los comandos
      */
-    public function getCommandsList(): array
+    private function getAll(): array
     {
         $jsonCommands = json_decode(file_get_contents(base('storage/commands.json')), true);
 
         if (!is_array($jsonCommands)) {
-            throw new \RuntimeException("Error: ".json_last_error_msg());
-            
+            throw new \RuntimeException("Error: " . json_last_error_msg());
         }
 
+        return $jsonCommands;
+    }
+
+    /**
+     * Obtener comando
+     */
+    public function get(?string $command = null): array|string
+    {
+        if (!in_array($command, $this->getAll())) {
+            throw new \InvalidArgumentException("Error: Command '$command' does not exist.");
+        }
+
+        return $this->getAll()[$command];
+    }
+
+    /**
+     * Devuelve lista de comandos
+     */
+    public function getCommandsList(): array
+    {
         $commands = [];
 
-        foreach ($jsonCommands as $name => $className) {
+        foreach ($this->getAll() as $name => $className) {
             $commands[$name] = (new $className($this->update))->getDescription();
         }
 
         return $commands;
+    }
+
+    /**
+     * Ejecuta el comando dentro de otro
+     */
+    public function executeCommand(string $command, ...$params): void
+    {
+        $className = $this->get($command);
+
+        (new $className($this->update))->execute(...$params);
     }
 
     /**
