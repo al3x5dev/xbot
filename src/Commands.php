@@ -39,7 +39,7 @@ abstract class Commands
      */
     public function get(?string $command = null): array|string
     {
-        if (!in_array($command, $this->getAll())) {
+        if (!key_exists($command, $this->getAll())) {
             throw new \InvalidArgumentException("Error: Command '$command' does not exist.");
         }
 
