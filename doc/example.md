@@ -19,7 +19,7 @@ $response = $bot->sendMessage([
 
 ## Reply a Message
 
-Reply` is an abbreviation of `sendMessage` in which the message destination is not specified.
+`Reply` is an abbreviation of `sendMessage` in which the message destination is not specified.
 See `sendMessage` [docs](https://github.com/alexsandrov16/xbot/blob/main/doc/example.md#send-a-message).
 
 ```php
