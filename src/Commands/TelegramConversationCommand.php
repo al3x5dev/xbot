@@ -39,7 +39,7 @@ final class TelegramConversationCommand extends Command
         list(
             $filename,
             $namespath
-        ) = $this->makeDir($name, '/bot/Conversations', $output);
+        ) = $this->makeDir(trim($name), 'bot/Conversations', $output);
 
         $this->makeConversation($filename, $namespath);
         $output->writeln("<info>The new conversational flow has been created successfully.</info>");
