@@ -42,7 +42,7 @@ trait MakeClass
         }
         PHP;
 
-        writeContentToFile("src/Commands/{$name}Command.php", $content);
+        writeContentToFile(base("src/Commands/{$name}Command.php"), $content);
     }
 
     /**
@@ -150,8 +150,6 @@ trait MakeClass
      */
     public function makeDir(string $name, string $path, OutputInterface $output): array|int
     {
-        // Definir rutas base
-        $basePath = dirname(__DIR__, 3) . $path;
 
         // Subdirectorios
         $subDirs = explode('/', trim($name, '/'));
@@ -160,12 +158,15 @@ trait MakeClass
         $file = ucfirst(strtolower(array_pop($subDirs) . '.php'));
 
         // Directorio
-        $directory = $basePath . '/' . implode(
-            '/',
-            array_map(
-                fn($n) => ucfirst($n),
-                $subDirs
-            )
+        $directory = trim(
+            getcwd() . DIRECTORY_SEPARATOR . $path . '/' . implode(
+                '/',
+                array_map(
+                    fn ($n) => ucfirst($n),
+                    $subDirs
+                )
+            ),
+            '/'
         );
 
         // Crear directorios si no existen

@@ -27,11 +27,8 @@ class Events
         array $context = [],
         string $level = 'debug'
     ): void {
-
-        $filename = "storage/logs/$file";
-
         $logger = new Logger($name);
-        $stream_handler = new StreamHandler($filename);
+        $stream_handler = new StreamHandler(base("storage/logs/$file"));
 
         if (Config::get('dev') && preg_match('/^dev/', $name)) {
             $stream_handler->setFormatter(new JsonFormatter());

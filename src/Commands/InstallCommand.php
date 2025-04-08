@@ -153,6 +153,7 @@ final class InstallCommand extends Command
                 'name' => '$name',
                 'admins' => [$admins],
                 'dev' => $debug,
+                'abs_path' => __DIR__,
             ];
             PHP;
 
@@ -166,7 +167,7 @@ final class InstallCommand extends Command
     {
         foreach (self::directories as $directory) {
             if (!is_dir($directory)) {
-                if (!mkdir($directory, 0755, true) && !is_dir($directory)) {
+                if (!mkdir($directory, 0775, true) && !is_dir($directory)) {
                     throw new \RuntimeException(sprintf('Directory "%s" was not created', $directory));
                 }
             }
@@ -180,6 +181,7 @@ final class InstallCommand extends Command
     {
         $this->makeTelegramCommand('bot/Commands/Start.php', __DIR__);
         $this->makeTelegramCommand('bot/Commands/Help.php', __DIR__);
+        $this->makeTelegramCommand('bot/Commands/Generic.php', __DIR__);
     }
 
     /**

@@ -38,6 +38,18 @@ if($bot->isAdmin()){
 ```
 
 
+## Get Commands list
+
+`getCommandsList` returns a list of commands that the bot can execute.
+
+```php
+$message = '';
+foreach($bot->getCommandsList() as $command => $description){
+    $message .= "$command: $description\n";
+}
+$bot->reply($message);
+```
+
 ## Forward a Message
 
 See `forwardMessage` [docs](https://core.telegram.org/bots/api#forwardmessage) for a list of supported parameters and other info.
@@ -57,9 +69,9 @@ See `sendPhoto` [docs](https://core.telegram.org/bots/api#sendphoto) for a list 
 
 ```php
 $response = $bot->sendPhoto([
-	'chat_id' => 'CHAT_ID',
-	'photo' => 'path/to/photo.jpg',
-	'caption' => 'Some caption'
+    'chat_id' => 'CHAT_ID',
+    'photo' => 'path/to/photo.jpg',
+    'caption' => 'Some caption'
 ]);
 ```
 
@@ -70,8 +82,8 @@ See `sendChatAction` [docs](https://core.telegram.org/bots/api#sendchataction) f
 
 ```php
 $bot->sendChatAction([
-	'chat_id' => 'CHAT_ID',
-	'action' => 'upload_photo'
+    'chat_id' => 'CHAT_ID',
+    'action' => 'upload_photo'
 ]);
 ```
 

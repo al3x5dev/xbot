@@ -21,7 +21,7 @@ use Al3x5\xBot\Entities\{
  */
 enum TelegramMethod: string
 {
-    // Métodos que devuelven Message
+        // Métodos que devuelven Message
     case sendMessage = 'sendMessage';
     case sendPhoto = 'sendPhoto';
     case sendAudio = 'sendAudio';
@@ -41,21 +41,21 @@ enum TelegramMethod: string
     case forwardMessage = 'forwardMessage';
     case copyMessage = 'copyMessage';
 
-    // Métodos que devuelven User
+        // Métodos que devuelven User
     case getMe = 'getMe';
 
-    // Métodos que devuelven Chat
+        // Métodos que devuelven Chat
     case getChat = 'getChat';
     case leaveChat = 'leaveChat';
     case getChatAdministrators = 'getChatAdministrators';
 
-    // Métodos que devuelven Update[]
+        // Métodos que devuelven Update[]
     case getUpdates = 'getUpdates';
 
-    // Métodos que devuelven File
+        // Métodos que devuelven File
     case getFile = 'getFile';
 
-    // Métodos booleanos
+        // Métodos booleanos
     case answerCallbackQuery = 'answerCallbackQuery';
     case setWebhook = 'setWebhook';
     case deleteWebhook = 'deleteWebhook';
@@ -72,15 +72,15 @@ enum TelegramMethod: string
     case answerShippingQuery = 'answerShippingQuery';
     case answerPreCheckoutQuery = 'answerPreCheckoutQuery';
 
-    // Métodos que devuelven string
+        // Métodos que devuelven string
     case exportChatInviteLink = 'exportChatInviteLink';
     case createChatInviteLink = 'createChatInviteLink';
     case revokeChatInviteLink = 'revokeChatInviteLink';
 
-    // Métodos que devuelven arrays de objetos
+        // Métodos que devuelven arrays de objetos
     case getStickerSet = 'getStickerSet';
 
-    // Métodos de edición
+        // Métodos de edición
     case editMessageText = 'editMessageText';
     case editMessageCaption = 'editMessageCaption';
     case editMessageMedia = 'editMessageMedia';
@@ -88,30 +88,30 @@ enum TelegramMethod: string
     case stopMessageLiveLocation = 'stopMessageLiveLocation';
     case editMessageReplyMarkup = 'editMessageReplyMarkup';
 
-    // Métodos de Inline Mode
+        // Métodos de Inline Mode
     case answerInlineQuery = 'answerInlineQuery';
 
-    // Métodos de webhooks
+        // Métodos de webhooks
     case getWebhookInfo = 'getWebhookInfo';
 
-    // Métodos de stickers
+        // Métodos de stickers
     case setStickerPositionInSet = 'setStickerPositionInSet';
     case deleteStickerFromSet = 'deleteStickerFromSet';
     case uploadStickerFile = 'uploadStickerFile';
     case createNewStickerSet = 'createNewStickerSet';
     case addStickerToSet = 'addStickerToSet';
 
-    // Métodos de comandos
+        // Métodos de comandos
     case setMyCommands = 'setMyCommands';
     case deleteMyCommands = 'deleteMyCommands';
     case getMyCommands = 'getMyCommands';
 
-    // Métodos de reacciones
+        // Métodos de reacciones
     case setMessageReaction = 'setMessageReaction';
 
     public function isCollection(): bool
     {
-        return match($this) {
+        return match ($this) {
             self::getChatAdministrators,
             self::getUpdates => true,
             default => false
@@ -120,7 +120,7 @@ enum TelegramMethod: string
 
     public function isPrimitive(): bool
     {
-        return match($this) {
+        return match ($this) {
             self::answerCallbackQuery,
             self::setWebhook,
             self::deleteWebhook,
@@ -149,7 +149,7 @@ enum TelegramMethod: string
 
     public function getEntityClass(): string
     {
-        return match($this) {
+        return match ($this) {
             // Message
             self::sendMessage,
             self::sendPhoto,
@@ -169,32 +169,32 @@ enum TelegramMethod: string
             self::sendGame,
             self::forwardMessage,
             self::copyMessage => Message::class,
-            
+
             // User
             self::getMe => User::class,
-            
+
             // Chat
             self::getChat => Chat::class,
-            
+
             // Update[]
             self::getUpdates => Update::class,
-            
+
             // File
             self::getFile => File::class,
-            
+
             // WebhookInfo
             self::getWebhookInfo => WebhookInfo::class,
-            
+
             // StickerSet
             self::getStickerSet => Sticker::class,
-            
+
             // ChatMember[]
             self::getChatAdministrators => ChatMember::class,
-            
+
             // InlineQueryResult[]
             self::answerInlineQuery => InlineQueryResult::class,
-            
-            default => throw new \InvalidArgumentException("Tipo no mapeado para: ".$this->value)
+
+            default => throw new \InvalidArgumentException("Type not mapped to: " . $this->value)
         };
     }
 }

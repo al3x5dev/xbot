@@ -36,7 +36,7 @@ if (!function_exists('register')) {
         foreach ($files as $file) {
             if (pathinfo($file, PATHINFO_EXTENSION) === 'php') {
                 $className = pathinfo($file, PATHINFO_FILENAME);
-                $fullClassName = botNamespace()."\\".basename($path)."\\$className";
+                $fullClassName = botNamespace() . "\\" . basename($path) . "\\$className";
 
                 // Verifica si la clase existe
                 if (class_exists($fullClassName)) {
@@ -89,5 +89,15 @@ if (!function_exists('botNamespace')) {
         }
 
         return $sanitizedName;
+    }
+}
+
+if (!function_exists('base')) {
+    /**
+     * Establece directorio base del proyecto
+     */
+    function base(string $path = null): string
+    {
+        return empty($path) ? Config::get('abs_path') : Config::get('abs_path') . DIRECTORY_SEPARATOR . $path;
     }
 }
