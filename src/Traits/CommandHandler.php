@@ -106,14 +106,6 @@ trait CommandHandler
     }
 
     /**
-     * Ejecuta el comando dentro de otro
-     */
-    public function executeCommand(string $command): void
-    {
-        (new $this->commands[$command]($this->update))->execute();
-    }
-
-    /**
      * Accede a la entidad Message
      */
     public function getMessage(): Message
