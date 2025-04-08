@@ -96,7 +96,7 @@ if (!function_exists('base')) {
     /**
      * Establece directorio base del proyecto
      */
-    function base(string $path = null): string
+    function base(?string $path = null): string
     {
         return empty($path) ? Config::get('abs_path') : Config::get('abs_path') . DIRECTORY_SEPARATOR . $path;
     }
