@@ -159,7 +159,7 @@ trait MakeClass
 
         // Directorio
         $directory = trim(
-            getcwd() . DIRECTORY_SEPARATOR . $path . '/' . implode(
+            $path . '/' . implode(
                 '/',
                 array_map(
                     fn ($n) => ucfirst($n),
