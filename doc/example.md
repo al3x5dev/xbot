@@ -1,6 +1,10 @@
 # Available Methods & Examples
 
 
+This library is compatible with telegram bot api [version 6.9](https://core.telegram.org/bots/api-changelog#september-22-2023)
+
+
+
 ## Send a Message
 
 See `sendMessage` [docs](https://core.telegram.org/bots/api#sendmessage) for a list of supported parameters and other info.
@@ -15,11 +19,22 @@ $response = $bot->sendMessage([
 
 ## Reply a Message
 
-`Reply` es una abreviacion de `sendMessage` en el que no se especifica el destino del mensaje.
-See `sendMessage` [docs](https://core.telegram.org/bots/api#sendmessage) for a list of supported parameters and other info.
+Reply` is an abbreviation of `sendMessage` in which the message destination is not specified.
+See `sendMessage` [docs](https://github.com/alexsandrov16/xbot/blob/main/doc/example.md#send-a-message).
 
 ```php
 $response = $bot->reply('Hello World',[]);
+```
+
+
+## Is Admin
+
+`isAdmin` checks if the user is in the list of bot administrators. This list is the one defined in the `admins` configuration parameter.
+
+```php
+if($bot->isAdmin()){
+    $bot->reply('Hello admin');
+}
 ```
 
 
