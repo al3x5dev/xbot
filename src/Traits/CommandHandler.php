@@ -114,19 +114,6 @@ trait CommandHandler
     }
 
     /**
-     * Devuelve lista de comandos
-     */
-    public function getCommandsList(): array
-    {
-        $commands = [];
-        foreach ($this->commands as $name => $className) {
-            $commands[$name] = (new $className($this->update))->getDescription();
-        }
-
-        return $commands;
-    }
-
-    /**
      * Accede a la entidad Message
      */
     public function getMessage(): Message
