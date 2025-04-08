@@ -25,7 +25,7 @@ abstract class Commands
      */
     public function getCommandsList(): array
     {
-        $jsonCommands = json_decode(file_get_contents('storage/commands.json'), true);
+        $jsonCommands = json_decode(file_get_contents(base('storage/commands.json')), true);
 
         if (!is_array($jsonCommands)) {
             throw new \RuntimeException("Error: ".json_last_error_msg());

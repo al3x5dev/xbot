@@ -31,6 +31,7 @@ class Config
             ]),
             'webhook' => $cfg['webhook'] ?? self::webhook($cfg['token']),
             'dev' => $cfg['dev'] ?? false,
+            'abs_path' => $cfg['name'] ?? throw new xBotException('No absolute path has been defined'),
         ];
     }
 

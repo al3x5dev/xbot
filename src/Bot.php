@@ -28,8 +28,8 @@ class Bot
         ExceptionHandler::start();
         Config::init($cfg);
         //
-        $this->setCommands('storage/commands.json');
-        $this->setCallbacks('storage/callbacks.json');
+        $this->setCommands(base('storage/commands.json'));
+        $this->setCallbacks(base('storage/callbacks.json'));
     }
 
     private function getUpdate(): void

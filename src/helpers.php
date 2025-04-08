@@ -91,3 +91,13 @@ if (!function_exists('botNamespace')) {
         return $sanitizedName;
     }
 }
+
+if (!function_exists('base')) {
+    /**
+     * Establece directorio base del proyecto
+     */
+    function base(string $path = null): string
+    {
+        return empty($path) ? Config::get('abs_path') : Config::get('abs_path') . "/$path";
+    }
+}
