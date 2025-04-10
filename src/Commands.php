@@ -37,7 +37,7 @@ abstract class Commands
     /**
      * Obtener comando
      */
-    public function get(?string $command = null): array|string
+    private function get(?string $command = null): array|string
     {
         if (!key_exists($command, $this->getAll())) {
             throw new \InvalidArgumentException("Error: Command '$command' does not exist.");
