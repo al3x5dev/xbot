@@ -13,7 +13,7 @@ class Bot
 {
     public const NAME = 'xBot';
 
-    public const VERSION = '2.0.0-RC1';
+    public const VERSION = '2.0.0';
 
     public ?Update $update = null;
 
