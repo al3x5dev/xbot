@@ -98,7 +98,8 @@ class Message extends Base
             'from' => User::class,
             'chat' => Chat::class,
             'entities' => MessageEntity::class,
-            'dice' => Dice::class
+            'dice' => Dice::class,
+            'sticker' => Sticker::class,
         ];
     }
 

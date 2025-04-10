@@ -16,7 +16,11 @@
 
 - [Installation and configuration](https://github.com/alexsandrov16/xbot/blob/main/doc/install.md)
 - [Command line interface](https://github.com/alexsandrov16/xbot/blob/main/doc/cli.md)
-- [Available Methods & Examples](https://github.com/alexsandrov16/xbot/blob/main/doc/example.md)
+- [Available Methods](https://github.com/alexsandrov16/xbot/blob/main/doc/methods.md)
+- [Command system](https://github.com/alexsandrov16/xbot/blob/main/doc/commands.md)
+- [Callbacks](https://github.com/alexsandrov16/xbot/blob/main/doc/callbacks.md)
+- [Conversation flow](https://github.com/alexsandrov16/xbot/blob/main/doc/conversation.md)
+- [Keyboards](https://github.com/alexsandrov16/xbot/blob/main/doc/keyboards.md)
 
 
 ## Contributions

@@ -62,6 +62,7 @@ final class HookSetCommand extends Command
         try {
             $data = $this->setWebhook([
                 'url' => $url,
+                'drop_pending_updates' => true
             ]);
             $this->style->success($data);
             return Command::SUCCESS;

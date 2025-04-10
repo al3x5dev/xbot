@@ -7,7 +7,7 @@ use Al3x5\xBot\Entities\Message;
 trait CommandHandler
 {
     use ConversationHandler;
-    
+
     private array $commands;
 
     /**
@@ -84,7 +84,7 @@ trait CommandHandler
 
         $this->handle(
             $this->getCommand(
-                $this->getMessage()->getText(),
+                $this->getMessage()->getText() ?? '',
                 '/generic'
             )
         );

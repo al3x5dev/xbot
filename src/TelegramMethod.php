@@ -21,7 +21,7 @@ use Al3x5\xBot\Entities\{
  */
 enum TelegramMethod: string
 {
-        // Métodos que devuelven Message
+    // Métodos que devuelven Message
     case sendMessage = 'sendMessage';
     case sendPhoto = 'sendPhoto';
     case sendAudio = 'sendAudio';
@@ -40,6 +40,7 @@ enum TelegramMethod: string
     case sendGame = 'sendGame';
     case forwardMessage = 'forwardMessage';
     case copyMessage = 'copyMessage';
+    case sendSticker = 'sendSticker';
 
         // Métodos que devuelven User
     case getMe = 'getMe';
@@ -168,7 +169,8 @@ enum TelegramMethod: string
             self::sendInvoice,
             self::sendGame,
             self::forwardMessage,
-            self::copyMessage => Message::class,
+            self::copyMessage,
+            self::sendSticker => Message::class,
 
             // User
             self::getMe => User::class,

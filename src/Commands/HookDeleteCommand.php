@@ -38,12 +38,11 @@ final class HookDeleteCommand extends Command
         $this->runInstall();
 
         try {
-            $data = $this->deleteWebhook();
+            $data = $this->deleteWebhook(['drop_pending_updates' => true]);
             $this->style->success($data);
             return Command::SUCCESS;
         } catch (\Throwable $th) {
             throw new \ErrorException($th->getMessage());
-            
         }
     }
 }
