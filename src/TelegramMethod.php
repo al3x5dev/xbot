@@ -100,6 +100,7 @@ enum TelegramMethod: string
     case uploadStickerFile = 'uploadStickerFile';
     case createNewStickerSet = 'createNewStickerSet';
     case addStickerToSet = 'addStickerToSet';
+    case sendSticker = 'sendStickert';
 
         // Métodos de comandos
     case setMyCommands = 'setMyCommands';
@@ -140,6 +141,7 @@ enum TelegramMethod: string
             self::deleteStickerFromSet,
             self::createNewStickerSet,
             self::addStickerToSet,
+            self::sendSticker,
             self::setMyCommands,
             self::deleteMyCommands,
             self::setMessageReaction => true,
