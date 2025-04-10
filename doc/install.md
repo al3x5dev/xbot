@@ -37,6 +37,8 @@ return [
     'storage' => \Mk4U\CacheFactory::create('file', ['dir' => 'storage/cache', 'ttl' => 300]),
     // activate dev environment (default is false)
     'dev' => true,
+    // sets the base path of the library
+    'abs_path' => __DIR__,
 ];
 ```
 
