@@ -4,7 +4,7 @@ namespace Al3x5\xBot;
 
 use Al3x5\xBot\Entities\Update;
 use Al3x5\xBot\Traits\ConversationHandler;
-use Al3x5\xBot\Traits\MessageHandler;
+use Al3x5\xBot\Traits\Responder;
 
 /**
  * Conversation class
@@ -12,7 +12,7 @@ use Al3x5\xBot\Traits\MessageHandler;
 abstract class Conversations
 {
     use ConversationHandler,
-        MessageHandler;
+        Responder;
 
     public function __construct(protected Update $update)
     {

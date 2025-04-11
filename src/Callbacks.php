@@ -4,7 +4,7 @@ namespace Al3x5\xBot;
 
 use Al3x5\xBot\Entities\CallbackQuery;
 use Al3x5\xBot\Entities\Update;
-use Al3x5\xBot\Traits\MessageHandler;
+use Al3x5\xBot\Traits\Responder;
 
 /**
  * Callbacks class
@@ -13,7 +13,7 @@ abstract class Callbacks
 {
     public ?CallbackQuery $callback;
 
-    use MessageHandler;
+    use Responder;
 
     public function __construct(protected Update $update)
     {

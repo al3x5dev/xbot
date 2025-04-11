@@ -5,7 +5,7 @@ namespace Al3x5\xBot\Commands;
 use Al3x5\xBot\Bot;
 use Al3x5\xBot\Commands\Traits\ConfigHandler;
 use Al3x5\xBot\Commands\Traits\Io;
-use Al3x5\xBot\Traits\MessageHandler;
+use Al3x5\xBot\Traits\Responder;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
@@ -17,7 +17,7 @@ use Symfony\Component\Console\Output\OutputInterface;
 final class HookSetCommand extends Command
 {
     use Io, ConfigHandler;
-    use MessageHandler;
+    use Responder;
 
     public function configure(): void
     {
