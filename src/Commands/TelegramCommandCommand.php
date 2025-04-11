@@ -46,13 +46,11 @@ final class TelegramCommandCommand extends Command
         // Normalizar el nombre (ej: "Start" → "/start")
         //$command = '/' . trim(strtolower($name), '/');
 
-        list(
-            $filename,
-            $namespath
-        ) = $this->makeDir(trim($name), 'bot/Commands', $output);
+
+        $filename = $this->makeDir(trim($name), 'bot/Commands', $output);
 
         // Generar el archivo (implementa esto en tu trait MakeClass)
-        $this->makeTelegramCommand($filename, $namespath);
+        $this->makeTelegramCommand($filename);
 
         $output->writeln("<info>Telegram command created successfully.</info>");
         return Command::SUCCESS;
