@@ -48,12 +48,9 @@ trait MakeClass
     /**
      * Crear comandos de telegram
      */
-    protected function makeTelegramCommand(
-        string $file,
-        string $namespath
-    ): void {
-        $namespace = self::geNamespace($namespath, 'Commands');
-        $class = self::getClassName($file);
+    protected function makeTelegramCommand(string $file): void
+    {
+        list($namespace, $class) = self::getClassName($file);
         $command = '/' . strtolower($class);
         // Crear el contenido de la clase
         $content = <<<PHP
@@ -85,13 +82,10 @@ trait MakeClass
     /**
      * Crear callback de telegram
      */
-    protected function makeCallback(
-        string $file,
-        string $action,
-        string $namespath
-    ): void {
-        $namespace = self::geNamespace($namespath, 'Callbacks');
-        $class = self::getClassName($file);
+    protected function makeCallback(string $file, string $action): void
+    {
+        list($namespace, $class) = self::getClassName($file);
+
         // Crear el contenido de la clase
         $content = <<<PHP
         <?php
@@ -117,10 +111,9 @@ trait MakeClass
     /**
      * Crear conversaciones de telegram
      */
-    protected function makeConversation(string $file, string $namespath): void
+    protected function makeConversation(string $file): void
     {
-        $namespace = self::geNamespace($namespath, 'Conversations');
-        $class = self::getClassName($file);
+        list($namespace, $class) = self::getClassName($file);
         // Crear el contenido de la clase
         $content = <<<PHP
         <?php
@@ -148,7 +141,7 @@ trait MakeClass
      *  - bot/Commands,
      *  - bot/Conversations
      */
-    public function makeDir(string $name, string $path, OutputInterface $output): array|int
+    public function makeDir(string $name, string $path, OutputInterface $output): string|int
     {
 
         // Subdirectorios
@@ -162,7 +155,7 @@ trait MakeClass
             $path . '/' . implode(
                 '/',
                 array_map(
-                    fn ($n) => ucfirst($n),
+                    fn($n) => ucfirst($n),
                     $subDirs
                 )
             ),
@@ -183,36 +176,21 @@ trait MakeClass
             return Command::FAILURE;
         }
 
-        return [$filename, $directory];
-    }
-
-    /**
-     * Obtener namespaces
-     */
-    public static function geNamespace(string $folder, $path): string
-    {
-        return botNamespace() . '\\' . str_replace(
-            '/',
-            '\\',
-            substr(
-                $path,
-                strpos($path, $folder)
-            )
-        );
+        return $filename;
     }
 
     /**
      * Obtener nombre de la clase
      */
-    public static function getClassName(string $file): string
+    public static function getClassName(string $file): array
     {
-        return substr(
-            basename($file),
-            0,
-            strpos(
-                basename($file),
-                '.php'
-            )
-        );
+        return [
+            str_replace(
+                ['bot', '/', '.php'],
+                [botNamespace(), "\\", ''],
+                $file
+            ),
+            pathinfo($file)['filename']
+        ];
     }
 }

@@ -48,12 +48,9 @@ final class TelegramCallbackCommand extends Command
             }
         );
 
-        list(
-            $filename,
-            $namespath
-        ) = $this->makeDir(trim($name), 'bot/Callbacks', $output);
+        $filename = $this->makeDir(trim($name), 'bot/Callbacks', $output);
 
-        $this->makeCallback($filename, $action, $namespath);
+        $this->makeCallback($filename, $action);
         $output->writeln("<info>Telegram callback created successfully.</info>");
         return Command::SUCCESS;
     }
