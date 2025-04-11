@@ -31,31 +31,47 @@ if (!function_exists('register')) {
     {
         $data = [];
 
-        $files = scandir($path);
+        $dir = new RecursiveDirectoryIterator(
+            $path,
+            FilesystemIterator::SKIP_DOTS | FilesystemIterator::UNIX_PATHS
+        );
 
-        foreach ($files as $file) {
-            if (pathinfo($file, PATHINFO_EXTENSION) === 'php') {
-                $className = pathinfo($file, PATHINFO_FILENAME);
-                $fullClassName = botNamespace() . "\\" . basename($path) . "\\$className";
+        foreach ($dir as $file) {
+            // Verifica si es un fichero
+            if ($file->isDir()) {
+                $data = array_merge(
+                    $data,
+                    register($file->getPathname(), $name)
+                );
+            }
+
+            if ($file->isFile() and $file->getExtension() === 'php') {
+                // Obtener clase
+                $class = str_replace(
+                    ['bot', DIRECTORY_SEPARATOR],
+                    [botNamespace(), "\\"],
+                    $file->getPath()
+                ) . "\\" . $file->getBasename(".{$file->getExtension()}");
 
                 // Verifica si la clase existe
-                if (class_exists($fullClassName)) {
-                    $reflection = new ReflectionClass($fullClassName);
+                if (class_exists($class)) {
+                    $reflection = new ReflectionClass($class);
 
                     //Instancia de Commands
-                    if (is_subclass_of($fullClassName, Commands::class)) {
+                    if (is_subclass_of($class, Commands::class)) {
                         $attributes = $reflection->getAttributes(Command::class);
                     }
 
                     //Instancia de Callbacks
-                    if (is_subclass_of($fullClassName, Callbacks::class)) {
+                    if (is_subclass_of($class, Callbacks::class)) {
                         $attributes = $reflection->getAttributes(Callback::class);
                     }
 
+                    //Obtiene Atributos
                     if (!empty($attributes)) {
                         $c_Attribute = $attributes[0]->newInstance();
                         $c_Name = $c_Attribute->getName();
-                        $data[$c_Name] = $fullClassName;
+                        $data[$c_Name] = $class;
                     }
                 }
             }
