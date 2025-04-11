@@ -31,21 +31,17 @@ if (!function_exists('register')) {
     {
         $data = [];
 
-        $dir = new RecursiveDirectoryIterator(
-            $path,
-            FilesystemIterator::SKIP_DOTS | FilesystemIterator::UNIX_PATHS
+        $dir = new RecursiveIteratorIterator(
+            new RecursiveDirectoryIterator(
+                $path,
+                FilesystemIterator::SKIP_DOTS
+                | FilesystemIterator::UNIX_PATHS
+            ),
+            RecursiveIteratorIterator::SELF_FIRST
         );
 
         foreach ($dir as $file) {
-            // Verifica si es un fichero
-            if ($file->isDir()) {
-                $data = array_merge(
-                    $data,
-                    register($file->getPathname(), $name)
-                );
-            }
-
-            if ($file->isFile() and $file->getExtension() === 'php') {
+            if ($file->isFile() && $file->getExtension() === 'php') {
                 // Obtener clase
                 $class = str_replace(
                     ['bot', DIRECTORY_SEPARATOR],

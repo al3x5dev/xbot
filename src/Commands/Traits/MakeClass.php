@@ -185,10 +185,13 @@ trait MakeClass
     public static function getClassName(string $file): array
     {
         return [
-            str_replace(
-                ['bot', '/', '.php'],
-                [botNamespace(), "\\", ''],
-                $file
+            trim(
+                str_replace(
+                    ['bot', '/', pathinfo($file)['basename']],
+                    [botNamespace(), "\\", ''],
+                    $file
+                ),
+                "\\"
             ),
             pathinfo($file)['filename']
         ];
