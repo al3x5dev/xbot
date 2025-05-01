@@ -90,7 +90,7 @@ trait Responder
      */
     public function executeCommand(string $command, ...$params): void
     {
-        if (!key_exists($command, self::$cachedCommands)) {
+        if (!key_exists($command, self::getAllCommands())) {
             throw new \InvalidArgumentException("Error: Command '$command' does not exist.");
         }
 
