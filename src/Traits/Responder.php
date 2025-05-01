@@ -17,7 +17,7 @@ trait Responder
      * 
      * Ejecuta el metodo especificado de la API de Telegram
      */
-    public function __call($name, $arguments): Telegram
+    public function __call($name, $arguments): mixed
     {
         $api = new Telegram($name, $arguments[0] ?? []);
         return $api->send();
@@ -30,7 +30,7 @@ trait Responder
      *    "disable_notification" => true
      * ]);
      */
-    public function reply(string $message, array $params = []): Telegram
+    public function reply(string $message, array $params = []): Message
     {
         if (!$active = $this->getActiveEntity()) {
             throw new \RuntimeException("No active entity found.");

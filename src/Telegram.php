@@ -52,7 +52,7 @@ class Telegram
     /**
      * Envia el metodo
      */
-    public function send(): self
+    public function send(): mixed
     {
         try {
             $this->response = $this->client->post(
@@ -65,7 +65,7 @@ class Telegram
             if ($this->response->getStatusCode() !== 200) {
                 throw new xBotException("Server response error: " . $this->response->getStatusCode());
             }
-            return $this;
+            return $this->response();
         } catch (\ErrorException $e) {
             Events::logger(
                 'TelegramApi',
@@ -82,7 +82,7 @@ class Telegram
     /**
      * Obtener respuesta
      */
-    public function response(): object
+    public function response(): mixed
     {
         $data = json_decode($this->response->getBody(), true);
         $method=Method::from($this->method);
