@@ -3,6 +3,7 @@
 namespace Al3x5\xBot;
 
 use Al3x5\xBot\Entities\CallbackQuery;
+use Al3x5\xBot\Entities\Message;
 use Al3x5\xBot\Entities\Update;
 use Al3x5\xBot\Traits\Responder;
 
@@ -12,6 +13,8 @@ use Al3x5\xBot\Traits\Responder;
 abstract class Callbacks
 {
     public ?CallbackQuery $callback;
+    public ?Message $message;
+
 
     use Responder;
 
@@ -19,24 +22,11 @@ abstract class Callbacks
     {
         $this->update = $update;
         $this->callback = $update->getCallbackQuery();
+        $this->message = $this->callback->getMessage();
     }
 
     /**
      * Ejecuta callback
      */
     abstract public function execute(): void;
-
-    /**
-     * Respuesta de callback
-     */
-    public function answerCallbackQuery(): Telegram
-    {
-        return $this->answerCallbackQuery([
-            'callback_query_id' => $this->callback->getId()/*
-text 	String 	
-show_alert 	Boolean 	
-url 	String 	
-cache_time Integer */
-        ]);
-    }
 }
