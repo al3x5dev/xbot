@@ -5,7 +5,7 @@ namespace Al3x5\xBot\Traits;
 use Al3x5\xBot\Config;
 use Al3x5\xBot\Entities\CallbackQuery;
 use Al3x5\xBot\Entities\Message;
-use Al3x5\xBot\Telegram;
+use Al3x5\xBot\Telegram\ApiClient;
 
 trait Responder
 {
@@ -17,9 +17,9 @@ trait Responder
      * 
      * Ejecuta el metodo especificado de la API de Telegram
      */
-    public function __call($name, $arguments): mixed
+    public function __call($name, $args): mixed
     {
-        $api = new Telegram($name, $arguments[0] ?? []);
+        $api = new ApiClient($name, $args[0] ?? []);
         return $api->send();
     }
 
