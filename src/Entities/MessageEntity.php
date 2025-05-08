@@ -3,22 +3,21 @@
 namespace Al3x5\xBot\Entities;
 
 /**
- * MessageEntity class
- * 
- * @property public string $type;
- * @property public int $offset;
- * @property public int $length;
- * @property public string $url;
- * @property public User $user;
- * @property public string $language;
- * @property public string $custom_emoji_id;
+ * MessageEntity Entity
+ * @property string $type;
+ * @property int $offset;
+ * @property int $length;
+ * @property string $url;
+ * @property User $user;
+ * @property string $language;
+ * @property string $custom_emoji_id;
  */
-class MessageEntity extends Base
+class MessageEntity extends EntityBase
 {
-    public function getEntities(): array
+    protected function getEntities(): array
     {
         return [
-            'user' => User::class
+            'user' => User::class,
         ];
     }
 }

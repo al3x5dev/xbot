@@ -3,19 +3,18 @@
 namespace Al3x5\xBot\Entities;
 
 /**
- * Chat class
- * 
- * @property public int $id
- * @property public string $type
- * @property public string $title
- * @property public string $username
- * @property public string $first_name
- * @property public string $last_name
- * @property public bool $is_forum
+ * Chat Entity
+ * @property int $id;
+ * @property string $type;
+ * @property string $title;
+ * @property string $username;
+ * @property string $first_name;
+ * @property string $last_name;
+ * @property bool $is_forum;
  */
-class Chat extends Base
+class Chat extends EntityBase
 {
-    public function getEntities(): array
+    protected function getEntities(): array
     {
         return [];
     }

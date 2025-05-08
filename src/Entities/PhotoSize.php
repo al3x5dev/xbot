@@ -3,17 +3,16 @@
 namespace Al3x5\xBot\Entities;
 
 /**
- * PhotoSize class
- * 
+ * PhotoSize Entity
  * @property string $file_id;
  * @property string $file_unique_id;
  * @property int $width;
  * @property int $height;
  * @property int $file_size;
  */
-class PhotoSize extends Base
+class PhotoSize extends EntityBase
 {
-    public function getEntities(): array
+    protected function getEntities(): array
     {
         return [];
     }

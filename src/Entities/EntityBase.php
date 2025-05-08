@@ -5,7 +5,7 @@ namespace Al3x5\xBot\Entities;
 /**
  * Base Class
  */
-abstract class Base
+abstract class EntityBase
 {
     protected array $entityMap = [];
 
@@ -15,13 +15,13 @@ abstract class Base
     {
         $this->entityMap = $this->getEntities();
 
-        $this->resolve($data);
+        $this->resolveEntity($data);
     }
 
     /**
      * Resuelve las entidades y propiedades devueltas en la api de telegram
      */
-    protected function resolve(array $data): void
+    protected function resolveEntity(array $data): void
     {
         foreach ($data as $key => $value) {
             if (key_exists($key, $this->getEntities())) {
@@ -35,7 +35,7 @@ abstract class Base
                 }
             } else {
                 if (is_array($value)) {
-                    $this->resolve($value);
+                    $this->resolveEntity($value);
                 } else {
                     $this->__set($key, $value);
                 }
@@ -70,7 +70,7 @@ abstract class Base
     /**
      * Verificar si una propiedad existe.
      */
-    public function __isset(string $name): bool
+    public function hasProperty(string $name): bool
     {
         return isset($this->propertys[$name]);
     }
