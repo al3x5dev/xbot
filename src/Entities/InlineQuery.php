@@ -3,21 +3,21 @@
 namespace Al3x5\xBot\Entities;
 
 /**
- * InlineQuery class
- * 
- * @property public string $id
- * @property public User $from
- * @property public string $query
- * @property public string $offset
- * @property public string $chat_type
- * @property public Location $location
+ * InlineQuery Entity
+ * @property string $id;
+ * @property User $from;
+ * @property string $query;
+ * @property string $offset;
+ * @property string $chat_type;
+ * @property Location $location;
  */
-class InlineQuery extends Base
+class InlineQuery extends EntityBase
 {
-    public function getEntities(): array
+    protected function getEntities(): array
     {
         return [
-            'from' => User::class
+            'from' => User::class,
+            'location' => Location::class,
         ];
     }
 }

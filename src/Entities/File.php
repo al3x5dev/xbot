@@ -3,16 +3,15 @@
 namespace Al3x5\xBot\Entities;
 
 /**
- * File class
- * 
+ * File Entity
  * @property string $file_id;
  * @property string $file_unique_id;
  * @property int $file_size;
  * @property string $file_path;
  */
-class File extends Base
+class File extends EntityBase
 {
-    public function getEntities(): array
+    protected function getEntities(): array
     {
         return [];
     }

@@ -3,23 +3,22 @@
 namespace Al3x5\xBot\Entities;
 
 /**
- * User class
- * 
- * @property public int $id
- * @property public bool $is_bot
- * @property public string $first_name
- * @property public string $last_name
- * @property public string $username
- * @property public string $language_code
- * @property public bool $is_premium
- * @property public bool $added_to_attachment_menu
- * @property public bool $can_join_groups
- * @property public bool $can_read_all_group_messages
- * @property public bool $supports_inline_queries
- * @property public bool $can_connect_to_business
- * @property public bool $has_main_web_app
+ * User Entity
+ * @property int $id;
+ * @property bool $is_bot;
+ * @property string $first_name;
+ * @property string $last_name;
+ * @property string $username;
+ * @property string $language_code;
+ * @property bool $is_premium;
+ * @property bool $added_to_attachment_menu;
+ * @property bool $can_join_groups;
+ * @property bool $can_read_all_group_messages;
+ * @property bool $supports_inline_queries;
+ * @property bool $can_connect_to_business;
+ * @property bool $has_main_web_app;
  */
-class User extends Base
+class User extends EntityBase
 {
     protected function getEntities(): array
     {

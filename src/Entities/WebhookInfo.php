@@ -3,20 +3,20 @@
 namespace Al3x5\xBot\Entities;
 
 /**
- * WebhookInfo class
- * 
+ * WebhookInfo Entity
  * @property string $url;
  * @property bool $has_custom_certificate;
  * @property int $pending_update_count;
- * @property string|null $ip_address;
- * @property int|null $last_error_date;
- * @property string|null $last_error_message;
- * @property int|null $max_connections;
- * @property string[]|null $allowed_updates;
+ * @property string $ip_address;
+ * @property int $last_error_date;
+ * @property string $last_error_message;
+ * @property int $last_synchronization_error_date;
+ * @property int $max_connections;
+ * @property array $allowed_updates;
  */
-class WebhookInfo extends Base
+class WebhookInfo extends EntityBase
 {
-    public function getEntities(): array
+    protected function getEntities(): array
     {
         return [];
     }

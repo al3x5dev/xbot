@@ -3,14 +3,13 @@
 namespace Al3x5\xBot\Entities;
 
 /**
- * Dice class
- * 
- * @property public string $emoji
- * @property public int $value
+ * Dice Entity
+ * @property string $emoji;
+ * @property int $value;
  */
-class Dice extends Base
+class Dice extends EntityBase
 {
-    public function getEntities(): array
+    protected function getEntities(): array
     {
         return [];
     }

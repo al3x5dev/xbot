@@ -3,35 +3,24 @@
 namespace Al3x5\xBot\Entities;
 
 /**
- * ChatMember class
- * 
- * @property User $user;
- * @property string $status;
- * @property string|null $custom_title;
- * @property bool|null $is_anonymous;
- * @property int|null $until_date;
- * @property bool|null $can_be_edited;
- * @property bool|null $can_post_messages;
- * @property bool|null $can_edit_messages;
- * @property bool|null $can_delete_messages;
- * @property bool|null $can_restrict_members;
- * @property bool|null $can_promote_members;
- * @property bool|null $can_change_info;
- * @property bool|null $can_invite_users;
- * @property bool|null $can_pin_messages;
- * @property bool|null $is_member;
- * @property bool|null $can_send_messages;
- * @property bool|null $can_send_media_messages;
- * @property bool|null $can_send_polls;
- * @property bool|null $can_send_other_messages;
- * @property bool|null $can_add_web_page_previews;
+ * ChatMember Entity
  */
-class ChatMember extends Base
+class ChatMember extends EntityBase
 {
-    public function getEntities(): array
+    protected function getEntities(): array
     {
-        return [
-            'user' => User::class,
-        ];
+        return [];
+    }
+
+    public function resolve(): ChatMemberOwner|ChatMemberAdministrator|ChatMemberMember|ChatMemberRestricted|ChatMemberLeft|ChatMemberBanned
+    {
+        return match ($this->propertys['status']) {
+            'creator' => new ChatMemberOwner($this->propertys),
+            'administrator' => new ChatMemberAdministrator($this->propertys),
+            'member' => new ChatMemberMember($this->propertys),
+            'restricted' => new ChatMemberRestricted($this->propertys),
+            'left' => new ChatMemberLeft($this->propertys),
+            'kicked' => new ChatMemberBanned($this->propertys)
+        };
     }
 }

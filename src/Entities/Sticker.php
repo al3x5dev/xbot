@@ -3,8 +3,7 @@
 namespace Al3x5\xBot\Entities;
 
 /**
- * Sticker class
- * 
+ * Sticker Entity
  * @property string $file_id;
  * @property string $file_unique_id;
  * @property string $type;
@@ -17,11 +16,13 @@ namespace Al3x5\xBot\Entities;
  * @property string $set_name;
  * @property File $premium_animation;
  * @property MaskPosition $mask_position;
+ * @property string $custom_emoji_id;
+ * @property bool $needs_repainting;
  * @property int $file_size;
  */
-class Sticker extends Base
+class Sticker extends EntityBase
 {
-    public function getEntities(): array
+    protected function getEntities(): array
     {
         return [
             'thumbnail' => PhotoSize::class,

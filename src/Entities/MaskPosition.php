@@ -3,16 +3,15 @@
 namespace Al3x5\xBot\Entities;
 
 /**
- * MaskPosition class
- * 
+ * MaskPosition Entity
  * @property string $point;
  * @property float $x_shift;
  * @property float $y_shift;
  * @property float $scale;
  */
-class MaskPosition extends Base
+class MaskPosition extends EntityBase
 {
-    public function getEntities(): array
+    protected function getEntities(): array
     {
         return [];
     }

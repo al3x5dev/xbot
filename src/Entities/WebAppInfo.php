@@ -3,13 +3,12 @@
 namespace Al3x5\xBot\Entities;
 
 /**
- * WebAppInfo class
- * 
+ * WebAppInfo Entity
  * @property string $url;
  */
-class WebAppInfo extends Base
+class WebAppInfo extends EntityBase
 {
-    public function getEntities(): array
+    protected function getEntities(): array
     {
         return [];
     }

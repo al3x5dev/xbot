@@ -3,16 +3,29 @@
 namespace Al3x5\xBot\Entities;
 
 /**
- * InputMessageContent class
- * 
- * @property string $message_text;
- * @property string $parse_mode;
- * @property bool $disable_web_page_preview;
+ * InputMessageContent Entity
  */
-class InputMessageContent extends Base
+class InputMessageContent extends EntityBase
 {
-    public function getEntities(): array
+    protected function getEntities(): array
     {
         return [];
+    }
+
+    public function resolve(): InputTextMessageContent|InputLocationMessageContent|InputVenueMessageContent|InputContactMessageContent|InputInvoiceMessageContent
+    {
+        if ($this->hasProperty('message_text')) {
+            return new InputTextMessageContent($this->propertys);
+        }
+        if ($this->hasProperty('title') && $this->hasProperty('address')) {
+            return new InputVenueMessageContent($this->propertys);
+        }
+        if ($this->hasProperty('phone_number')) {
+            return new InputContactMessageContent($this->propertys);
+        }
+        if ($this->hasProperty('title') && $this->hasProperty('playload')) {
+            return new InputInvoiceMessageContent($this->propertys);
+        }
+        return new InputLocationMessageContent($this->propertys);
     }
 }

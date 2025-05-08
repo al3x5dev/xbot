@@ -3,16 +3,15 @@
 namespace Al3x5\xBot\Entities;
 
 /**
- * Location class
- * 
- * @property public float $latitude
- * @property public float $longitude
- * @property public float $horizontal_accuracy
- * @property public int $live_period
- * @property public int $heading
- * @property public int $proximity_alert_radius
+ * Location Entity
+ * @property float $latitude;
+ * @property float $longitude;
+ * @property float $horizontal_accuracy;
+ * @property int $live_period;
+ * @property int $heading;
+ * @property int $proximity_alert_radius;
  */
-class Location extends Base
+class Location extends EntityBase
 {
     protected function getEntities(): array
     {
