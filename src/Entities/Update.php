@@ -65,9 +65,9 @@ class Update extends EntityBase
      */
     public function type(): ?string
     {
-        foreach ($this->getEntities() as $key => $value) {
-            if (isset($this->$key)) {
-                return $key;
+        foreach ($this->getEntities() as $field => $value) {
+            if ($this->hasProperty($field)) {
+                return $field;
             }
         }
         return null;
