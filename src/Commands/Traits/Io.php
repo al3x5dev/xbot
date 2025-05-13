@@ -32,26 +32,20 @@ trait Io
         $this->output->write("\033[2J\033[;H");
     }
 
-     /**
+    /**
      * Muestra en pantalla los datos pasados en un array
      * 
      * Este metodo es muy util con los datos devueltos por hook:info y hook:about
      */
-    protected function displayInfo(string $data) : int
+    protected function displayInfo(array $data): int
     {
-        $lines = explode("\n", $data);
-        foreach ($lines as $line) {
-            // Omitir líneas vacías
-        if (trim($line) === '') {
-            continue;
-        }
-            // Dividir cada línea en clave y valor
-            if (strpos($line, ':') !== false) {
-                list($key, $value) = explode(': ', $line, 2);
-                $array[trim($key)] = trim($value);
+        foreach ($data as $key => $value) {
+            if ($key != 'ok') {
+                if ($value === true) $value = 'yes';
+                if ($value === false) $value = 'no';
+
+                $this->output->writeln("<info>$key</info>: " . trim($value));
             }
-            $this->output->writeln("<info>$key</info>: ".trim($value));
-            //print(Style::color(trim($key), 'green') . ": " . trim($value) . "\n");
         }
         return Command::SUCCESS;
     }

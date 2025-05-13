@@ -40,9 +40,9 @@ final class HookInfoCommand extends Command
 
         try {
             $data = $this->getWebhookInfo();
-            return $this->displayInfo($data);
+            return $this->displayInfo($data->getPropertys());
         } catch (\Throwable $th) {
-            $this->style->note('Trace: ' . $th->getTraceAsString());
+            //$this->style->note('Trace: ' . $th->getTraceAsString());
             throw new \ErrorException($th->getMessage());
         }
     }
