@@ -12,7 +12,6 @@ use Al3x5\xBot\Exceptions\xBotException;
 class ApiClient
 {
     private static ?TelegramFactory $factory = null;
-    //private mixed $response = null;
 
     public function __construct(private string $method, private array $params)
     {
@@ -39,26 +38,6 @@ class ApiClient
         // Validar los parámetros mergeados (no sobrescribir)
         Parameter::validate($this->params, $methodDefinition);
     }
-
-    /*public function __toString()
-    {
-        $body = json_decode($this->response->getBody(), true);
-
-        if (in_array($this->method, ['getMe', 'getWebhookInfo'])) {
-
-            $output = '';
-
-            foreach ($body['result'] as $key => $value) {
-                $output .= "$key: $value" . PHP_EOL;
-            }
-
-            return $output;
-        }
-
-        if (in_array($this->method, ['setWebhook', 'deleteWebhook'])) {
-            return $body['description'] . PHP_EOL;
-        }
-    }*/
 
     /**
      * Envia solicitud
@@ -109,24 +88,15 @@ class ApiClient
             throw new xBotException("API Error: " . ($data['description'] ?? 'Unknown error'));
         }
 
+        if (in_array($this->method, ['deleteWebhook', 'setWebhook'])) {
+            return $data['description'];
+        }
+
         // Determinar tipo de respuesta usando el Factory
-        $result = $data['result'];
         $methodDefinition = self::$factory->getMethod($this->method);
 
-        return $methodDefinition->returnType;
-        /*
-        // Si es una colección, mapear cada elemento a la entidad correspondiente
-        if ($method->isCollection()) {
-            $entityClass = $method->getEntityClass();
-            return array_map(fn($item) => new $entityClass($item), $result);
-        }
+        $entity = $methodDefinition->returnType;
 
-        // Si es un tipo primitivo, devolver el valor directamente
-        if ($method->isPrimitive()) {
-            return $result;
-        }
-
-        // Si es una entidad, devolver una instancia de la clase correspondiente
-        return new ($method->getEntityClass())($result);*/
+        return new $entity($data);
     }
 }

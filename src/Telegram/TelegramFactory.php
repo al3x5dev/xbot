@@ -29,13 +29,14 @@ class TelegramFactory
         $methodData = $this->methods[$methodName];
         $parameters = [];
 
-        foreach ($methodData['fields'] as $field) {
-            $parameters[] = new ParameterDefinition(
-                $field['name'],
-                $this->parseTypes($field['types']),
-                $field['required'],
-                //$field['description']
-            );
+        if (key_exists('fields', $methodData)) {
+            foreach ($methodData['fields'] as $field) {
+                $parameters[] = new ParameterDefinition(
+                    $field['name'],
+                    $this->parseTypes($field['types']),
+                    $field['required'],
+                );
+            }
         }
 
         return new MethodDefinition(
@@ -61,8 +62,15 @@ class TelegramFactory
 
             // Tipos compuestos (ej: "Array of MessageEntity")
             if (str_starts_with($type, 'Array of ')) {
-                $entityType = str_replace('Array of ', '', $type);
-                $class = $this->resolveEntityClass($entityType);
+                $innerType = str_replace('Array of ', '', $type);
+
+                // Si es un tipo primitivo
+                if (isset($primitiveMap[$innerType])) {
+                    return $this->parseTypes([$innerType]);
+                }
+
+                // Si es una entidad personalizada
+                $class = $this->resolveEntityClass($innerType);
                 return "array<$class>";
             }
 
