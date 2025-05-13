@@ -68,6 +68,14 @@ abstract class EntityBase
     }
 
     /**
+     * Obtiene todas laspropiedades dinamicas
+     */
+    public function getPropertys(): array
+    {
+        return $this->propertys ?? [];
+    }
+
+    /**
      * Verificar si una propiedad existe.
      */
     public function hasProperty(string $name): bool
