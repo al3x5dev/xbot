@@ -14,7 +14,7 @@ Conversational flows are the structure and design of how the conversation betwee
 
 ## Creating conversation
 
-**xBot** has an integrated [cli tool](https://github.com/alexsandrov16/xbot/blob/main/doc/cli.md) for managing your bots. Through it, we can create conversation. Just run the following command in your console:
+**xBot** has an integrated [cli tool](https://github.com/alexsandrov16/xbot/blob/main/docs/cli.md) for managing your bots. Through it, we can create conversation. Just run the following command in your console:
 
 ```bash
 php vendor/bin/xbot telegram:conversation
@@ -44,7 +44,7 @@ class Foo extends Conversations
 
 ### Register
 
-[To register your conversations](https://github.com/alexsandrov16/xbot/blob/main/doc/cli.md#2-register), just type in console:
+[To register your conversations](https://github.com/alexsandrov16/xbot/blob/main/docs/cli.md#2-register), just type in console:
 
 ```bash
 php vendor/bin/xbot register

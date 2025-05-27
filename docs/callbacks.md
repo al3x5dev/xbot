@@ -3,11 +3,11 @@
 
 ## What are callbacks?
 
-Callbacks are responses that the bot sends in response to user actions, especially when [inline buttons](https://github.com/alexsandrov16/xbot/blob/main/doc/keyboards.md) are used. When a user clicks on a button, a “callback query” is sent to the bot, which can process that action and respond accordingly.
+Callbacks are responses that the bot sends in response to user actions, especially when [inline buttons](https://github.com/alexsandrov16/xbot/blob/main/docs/keyboards.md) are used. When a user clicks on a button, a “callback query” is sent to the bot, which can process that action and respond accordingly.
 
 ## Creating callbacks
 
-xBot has an integrated [cli tool](https://github.com/alexsandrov16/xbot/blob/main/doc/cli.md) for managing your bots. Through it, we can create callbacks. Just run the following command in your console:
+xBot has an integrated [cli tool](https://github.com/alexsandrov16/xbot/blob/main/docs/cli.md) for managing your bots. Through it, we can create callbacks. Just run the following command in your console:
 
 ```bash
 php vendor/bin/xbot telegram:callback
@@ -40,7 +40,7 @@ class Greetings extends Callbacks
 
 ### Register
 
-[To register your callbacks](https://github.com/alexsandrov16/xbot/blob/main/doc/cli.md#2-register), just type in console:
+[To register your callbacks](https://github.com/alexsandrov16/xbot/blob/main/docs/cli.md#2-register), just type in console:
 
 ```bash
 php vendor/bin/xbot register
