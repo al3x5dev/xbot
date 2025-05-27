@@ -22,7 +22,7 @@ This variant is most commonly used for custom keyboard actions, allowing a more 
 
 ## Create commands
 
-xBot has an integrated [cli tool](https://github.com/alexsandrov16/xbot/blob/main/doc/cli.md) for managing your bots. Through it, we can create custom commands. Just run the following command in your console:
+xBot has an integrated [cli tool](https://github.com/alexsandrov16/xbot/blob/main/docs/cli.md) for managing your bots. Through it, we can create custom commands. Just run the following command in your console:
 
 ```bash
 php vendor/bin/xbot telegram:command
@@ -68,7 +68,7 @@ class Start extends Commands
 
 ### Register
 
-[To register your commands](https://github.com/alexsandrov16/xbot/blob/main/doc/cli.md#2-register), just type in console:
+[To register your commands](https://github.com/alexsandrov16/xbot/blob/main/docs/cli.md#2-register), just type in console:
 
 ```bash
 php vendor/bin/xbot register

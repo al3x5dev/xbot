@@ -14,7 +14,7 @@ This library is compatible with telegram bot api [version 6.9](https://core.tele
 ### Reply a Message
 
 `reply` is an abbreviation of `sendMessage` in which the message destination is not specified.
-See `sendMessage` [docs](https://github.com/alexsandrov16/xbot/blob/main/doc/example.md#send-a-message).
+See `sendMessage` [docs](https://github.com/alexsandrov16/xbot/blob/main/docs/example.md#send-a-message).
 
 ```php
 $response = $bot->reply('Hello World',[]);
