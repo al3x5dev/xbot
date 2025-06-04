@@ -23,6 +23,7 @@ use Al3x5\xBot\Commands\RegisterCommand;
 use Al3x5\xBot\Commands\TelegramCallbackCommand;
 use Al3x5\xBot\Commands\TelegramCommandCommand;
 use Al3x5\xBot\Commands\TelegramConversationCommand;
+use Al3x5\xBot\Commands\UpdateApiCommand;
 use Symfony\Component\Console\Application;
 
 if (defined('BOT_CFG')) {
@@ -40,7 +41,11 @@ $app->add(new HookDeleteCommand());
 $app->add(new HookInfoCommand());
 $app->add(new HookAboutCommand());
 //make
-if (!strpos(__DIR__, 'vendor')) $app->add(new MakeCommandCommand());
+if (!strpos(__DIR__, 'vendor')) {
+    $app->add(new MakeCommandCommand());
+    //update
+    $app->add(new UpdateApiCommand());
+}
 //telegram
 $app->add(new TelegramCommandCommand());
 $app->add(new TelegramCallbackCommand());
