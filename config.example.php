@@ -13,7 +13,7 @@
 
 return [
     // your bot token
-    'token' => '1234567890:ABCDEFGHIJKLMNOPQRSTUVWXYZ',
+    'token' => '123456:ABC-DEF1234ghIkl-zyx57W2v1u123ew11',
     // your bot name without @
     'name' => 'MyBot',
     // list of bot admin id's
