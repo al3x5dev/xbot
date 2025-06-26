@@ -2,6 +2,13 @@
     "name": "al3x5/xbot",
     "description": "telegram bot",
     "type": "library",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "alexsandrov16",
+            "email": "al3x5.dev@gmail.com"
+        }
+    ],
     "require": {
         "php": ">=8.2",
         "mk4u/http": "^1.2",
@@ -9,7 +16,6 @@
         "mk4u/cache": "^0.3",
         "symfony/console": "^7.2"
     },
-    "license": "MIT",
     "autoload": {
         "psr-4": {
             "Al3x5\\xBot\\": "src/"
@@ -18,13 +24,17 @@
             "src/helpers.php"
         ]
     },
-    "authors": [
-        {
-            "name": "alexsandrov16",
-            "email": "al3x5.dev@gmail.com"
-        }
-    ],
     "bin": [
         "xbot"
-    ]
+    ],
+    "archive": {
+        "exclude": [
+            "/.gitignore",
+            "/.gitattributes",
+            "/.github",
+            "/docs"
+        ]
+    },
+    "minimum-stability": "stable",
+    "prefer-stable": true
 }
