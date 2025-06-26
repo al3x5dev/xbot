@@ -11,21 +11,17 @@ use Al3x5\xBot\Exceptions\xBotException;
  */
 class ApiClient
 {
-    private static ?TelegramFactory $factory = null;
+    private static ?MethodsFactory $factory = null;
 
     public function __construct(private string $method, private array $params)
     {
         // Cargar .json e iniciar factory
         if (is_null(self::$factory)) {
-            $jsonFile = '/telegram_methods.json';
+            $jsonFile = '/api.json';
 
-            $json = file_get_contents(
-                file_exists(Config::get('abs_path') . "$jsonFile")
-                    ? Config::get('abs_path') . $jsonFile
-                    : Config::get('abs_path') . "/vendor/al3x5/xbot$jsonFile"
-            );
+            $json = file_get_contents(Config::get('abs_path') . "$jsonFile");
 
-            self::$factory = new TelegramFactory($json);
+            self::$factory = new MethodsFactory($json);
         }
 
         //Obtener metodo y validar parametros
