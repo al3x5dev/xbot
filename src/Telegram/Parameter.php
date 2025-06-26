@@ -41,7 +41,7 @@ class Parameter
     private static function isTypeValid(mixed $value, string $type): bool
     {
         // Manejar arrays de entidades (ej: "array<Entities\MessageEntity>")
-        if (str_starts_with($type, 'array<')) {
+        if (str_starts_with($type, 'Array<')) {
             $entityClass = substr($type, 6, -1);
             return is_array($value) && (count($value) === 0 || $value[0] instanceof $entityClass);
         }
