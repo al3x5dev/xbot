@@ -8,7 +8,7 @@ use Al3x5\xBot\Telegram\Api\ParameterDefinition;
 /**
  * Telegram Methods Factory class
  */
-class TelegramFactory
+class MethodsFactory
 {
     private array $methods;
 
@@ -29,12 +29,12 @@ class TelegramFactory
         $methodData = $this->methods[$methodName];
         $parameters = [];
 
-        if (key_exists('fields', $methodData)) {
-            foreach ($methodData['fields'] as $field) {
+        if (key_exists('parameters', $methodData)) {
+            foreach ($methodData['parameters'] as $param => $value) {
                 $parameters[] = new ParameterDefinition(
-                    $field['name'],
-                    $this->parseTypes($field['types']),
-                    $field['required'],
+                    $param,
+                    $this->parseTypes($value['type']),
+                    $value['required'],
                 );
             }
         }
@@ -61,7 +61,7 @@ class TelegramFactory
             ];
 
             // Tipos compuestos (ej: "Array of MessageEntity")
-            if (str_starts_with($type, 'Array of ')) {
+            /*if (str_starts_with($type, 'Array of ')) {
                 $innerType = str_replace('Array of ', '', $type);
 
                 // Si es un tipo primitivo
@@ -72,7 +72,7 @@ class TelegramFactory
                 // Si es una entidad personalizada
                 $class = $this->resolveEntityClass($innerType);
                 return "array<$class>";
-            }
+            }*/
 
             // Entidades personalizadas (ej: "MessageEntity")
             if (!isset($primitiveMap[$type])) {
