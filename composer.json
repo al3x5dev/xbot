@@ -5,7 +5,7 @@
     "license": "MIT",
     "authors": [
         {
-            "name": "alexsandrov16",
+            "name": "al3x5dev",
             "email": "al3x5.dev@gmail.com"
         }
     ],
@@ -15,6 +15,9 @@
         "monolog/monolog": "^3.6",
         "mk4u/cache": "^0.3",
         "symfony/console": "^7.2"
+    },
+    "require-dev": {
+        "al3x5/xbot-devkit": "^0.1.0"
     },
     "autoload": {
         "psr-4": {
