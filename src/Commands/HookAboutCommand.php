@@ -38,7 +38,7 @@ final class HookAboutCommand extends Command
 
         try {
             $data = $this->getMe();
-            return $this->displayInfo($data->getPropertys());
+            return $this->displayInfo($data->getProperties());
         } catch (\Throwable $th) {
             throw new \ErrorException($th->getMessage());
         }
