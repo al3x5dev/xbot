@@ -5,15 +5,15 @@ namespace Al3x5\xBot\Telegram;
 /**
  * Entity Base Class
  */
-abstract class Entity
+abstract class Entity implements \JsonSerializable
 {
     protected array $entityMap = [];
 
-    protected array $properties;
+    protected array $properties = [];
 
     public function __construct(array $data)
     {
-        $this->entityMap = $this->children();
+        $this->entityMap = $this->setEntities();
 
         $this->resolveEntity($data);
     }
@@ -24,31 +24,38 @@ abstract class Entity
     protected function resolveEntity(array $data): void
     {
         foreach ($data as $key => $value) {
-            if (key_exists($key, $this->entityMap)) {
+            if (isset($this->entityMap[$key])) {
                 $entityClass = $this->entityMap[$key];
+
+                // Caso: Array de entidades (ej: 'photo' => [PhotoSize::class])
                 if (is_array($entityClass) && is_array($value)) {
-                    // Si es un array de entidades, crea un array de objetos
-                    $this->__set($key, array_map(fn($item) => new $entityClass[0]($item), $value));
-                } else {
-                    // Si es una sola entidad, crea un objeto
-                    $this->__set($key, $this->createEntity($key, $value));
+                    $this->properties[$key] = array_map(
+                        fn($item) => new $entityClass[0]($item),
+                        $value
+                    );
                 }
-            } else {
+                // Caso: Entidad individual
                 if (is_array($value)) {
-                    $this->resolveEntity($value);
-                } else {
-                    $this->__set($key, $value);
+                    $this->properties[$key] = $this->createEntity($entityClass, $value);
                 }
+            }
+            // Propiedad no mapeada
+            else {
+                $this->__set($key, $value);
             }
         }
     }
+
 
     /**
      * Instancia entidades hijas
      */
     protected function createEntity(string $class, array $params): Entity
     {
-        return new $this->entityMap[$class]($params);
+        if (!class_exists($class)) {
+            throw new \RuntimeException("Class {$class} not found");
+        }
+        return new $class($params);
     }
 
     /**
@@ -68,11 +75,19 @@ abstract class Entity
     }
 
     /**
-     * Obtiene todas laspropiedades dinamicas
+     * Obtiene todas las propiedades dinamicas
      */
     public function getProperties(): array
     {
         return $this->properties ?? [];
+    }
+
+    /**
+     * Verificar propiedades existentes
+     */
+    public function __isset(string $name): bool
+    {
+        return $this->hasProperty($name);
     }
 
     /**
@@ -94,7 +109,7 @@ abstract class Entity
             $propertyName = $this->camelToSnake(substr($name, 3));
 
             // Si la propiedad existe, devuélvela
-            if (isset($this->properties[$propertyName])) {
+            if ($this->hasProperty($propertyName)) {
                 return $this->properties[$propertyName];
             }
 
@@ -116,4 +131,36 @@ abstract class Entity
      * Declarar Entidades Hijas
      */
     abstract protected function setEntities(): array;
+
+    /**
+     * Serializa propiedades
+     */
+    public function jsonSerialize(): array
+    {
+        return $this->properties;
+    }
+
+    /**
+     * Convierte en json
+     */
+    public function toJson(): string
+    {
+        return json_encode($this);
+    }
+
+    /**
+     * Imprime objeto
+     */
+    public function __toString(): string
+    {
+        return $this->toJson();
+    }
+
+    /**
+     * Debuguear entidad
+     */
+    public function __debugInfo(): array
+    {
+        return $this->properties;
+    }
 }
