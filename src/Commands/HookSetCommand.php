@@ -2,7 +2,6 @@
 
 namespace Al3x5\xBot\Commands;
 
-use Al3x5\xBot\Bot;
 use Al3x5\xBot\Commands\Traits\ConfigHandler;
 use Al3x5\xBot\Commands\Traits\Io;
 use Al3x5\xBot\Traits\Responder;
