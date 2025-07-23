@@ -35,7 +35,7 @@ abstract class Entity implements \JsonSerializable
                     );
                 }
                 // Caso: Entidad individual
-                if (is_array($value)) {
+                elseif (is_array($value)) {
                     $this->properties[$key] = $this->createEntity($entityClass, $value);
                 }
             }
