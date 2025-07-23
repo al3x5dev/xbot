@@ -58,21 +58,21 @@ class MethodsFactory
                 'Integer' => 'int',
                 'Boolean' => 'bool',
                 'Float' => 'float',
+                'True' => 'bool',
+                'False' => 'bool',
             ];
 
-            // Tipos compuestos (ej: "Array of MessageEntity")
-            /*if (str_starts_with($type, 'Array of ')) {
-                $innerType = str_replace('Array of ', '', $type);
+            // Tipos compuestos (ej: "Array<MessageEntity>")
+            if (preg_match('/^Array<(.*)>$/', $type, $matches)) {
+                $innerType = $matches[1];
 
-                // Si es un tipo primitivo
                 if (isset($primitiveMap[$innerType])) {
-                    return $this->parseTypes([$innerType]);
+                    return 'array'; // o "array<{$primitiveMap[$innerType]}>" si deseas más precisión
                 }
 
-                // Si es una entidad personalizada
                 $class = $this->resolveEntityClass($innerType);
                 return "array<$class>";
-            }*/
+            }
 
             // Entidades personalizadas (ej: "MessageEntity")
             if (!isset($primitiveMap[$type])) {
