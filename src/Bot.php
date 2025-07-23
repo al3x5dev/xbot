@@ -53,8 +53,13 @@ class Bot
     public function run(): void
     {
         $this->getUpdate();
+        $updateType = $this->update->type();
 
-        match ($this->update->type()) {
+        if ($updateType === null) {
+            throw new xBotException("Received update with unknown type: " . json_encode($this->update->getProperties()));
+        }
+
+        match ($updateType) {
             'message' => $this->resolveMessage(),
             'callback_query' => $this->resolveCallback(),
             default => throw new xBotException(
