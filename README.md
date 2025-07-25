@@ -1,6 +1,6 @@
 # xBot
 
-![Telegram Bot API](https://img.shields.io/badge/Telegram%20Bot%20API-6.9+-blue?style=flat-square)
+![Telegram Bot API](https://img.shields.io/badge/Telegram%20Bot%20API-9.1-blue?style=flat-square)
 ![GitHub Release](https://img.shields.io/github/v/release/alexsandrov16/xbot?include_prereleases&style=flat-square&color=blue)
 ![GitHub code size in bytes](https://img.shields.io/github/languages/code-size/alexsandrov16/http?style=flat-square)
 ![GitHub License](https://img.shields.io/github/license/alexsandrov16/xbot?style=flat-square)
