@@ -40,6 +40,12 @@ class ApiClient
      */
     public function send(): mixed
     {
+        foreach ($this->params as $key => $value) {
+            if (is_array($value) || is_object($value)) {
+                $this->params[$key] = json_encode($value);
+            }
+        }
+
         try {
             $response = Config::get('client')->post(
                 Config::get('webhook') . $this->method,
