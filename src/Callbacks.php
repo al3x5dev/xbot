@@ -3,7 +3,7 @@
 namespace Al3x5\xBot;
 
 use Al3x5\xBot\Entities\CallbackQuery;
-use Al3x5\xBot\Entities\Message;
+use Al3x5\xBot\Entities\MaybeInaccessibleMessage;
 use Al3x5\xBot\Entities\Update;
 use Al3x5\xBot\Traits\Responder;
 
@@ -13,8 +13,7 @@ use Al3x5\xBot\Traits\Responder;
 abstract class Callbacks
 {
     public ?CallbackQuery $callback;
-    public ?Message $message;
-
+    public ?MaybeInaccessibleMessage $message;
 
     use Responder;
 
