@@ -38,7 +38,7 @@ trait Responder
 
         $chat = match (true) {
             $active instanceof Message => $active->getChat(),
-            $active instanceof CallbackQuery => $active->getMessage()->getChat(),
+            $active instanceof CallbackQuery => $active->getMessage()->resolve()->getChat(),
             default => throw new \RuntimeException("Unsupported entity type."),
         };
 
