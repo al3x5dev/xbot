@@ -14,7 +14,7 @@ class PassportElementError extends Entity
         return [];
     }
 
-        protected function resolve(): Entity
+    public function resolve(): Entity
     {
         return match($this->source) {
             'data' => new PassportElementErrorDataField($this->properties),

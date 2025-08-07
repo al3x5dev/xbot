@@ -14,7 +14,7 @@ class StoryAreaType extends Entity
         return [];
     }
 
-        protected function resolve(): Entity
+    public function resolve(): Entity
     {
         return match($this->type) {
             'location' => new StoryAreaTypeLocation($this->properties),

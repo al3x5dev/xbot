@@ -14,7 +14,7 @@ class InlineQueryResult extends Entity
         return [];
     }
 
-        protected function resolve(): Entity
+    public function resolve(): Entity
     {
         return match($this->type) {
             'article' => new InlineQueryResultArticle($this->properties),

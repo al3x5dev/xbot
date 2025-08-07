@@ -14,7 +14,7 @@ class PaidMedia extends Entity
         return [];
     }
 
-        protected function resolve(): Entity
+    public function resolve(): Entity
     {
         return match($this->type){
             'preview' => new PaidMediaPreview($this->properties),

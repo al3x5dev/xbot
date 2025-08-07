@@ -14,7 +14,7 @@ class ReactionType extends Entity
         return [];
     }
 
-        protected function resolve(): Entity
+    public function resolve(): Entity
     {
         return match($this->type) {
             'emoji' => new ReactionTypeEmoji($this->properties),

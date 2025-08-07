@@ -14,7 +14,7 @@ class InputStoryContent extends Entity
         return [];
     }
 
-        protected function resolve(): Entity
+    public function resolve(): Entity
     {
         return match($this->type) {
             'photo' => new InputStoryContentPhoto($this->properties),
