@@ -6,7 +6,7 @@ use Al3x5\xBot\Entities\Update;
 use Al3x5\xBot\Exceptions\ExceptionHandler;
 use Al3x5\xBot\Exceptions\xBotException;
 use Al3x5\xBot\Traits\CallbackHandler;
-use Al3x5\xBot\Traits\CommandHandler;
+use Al3x5\xBot\Traits\MessageHandler;
 use Mk4U\Http\Request;
 
 class Bot
@@ -18,7 +18,7 @@ class Bot
     public ?Update $update = null;
 
     use CallbackHandler,
-        CommandHandler;
+        MessageHandler;
 
     /**
      * Inicializa el bot
@@ -53,18 +53,16 @@ class Bot
     public function run(): void
     {
         $this->getUpdate();
-        $updateType = $this->update->type();
+        $type = $this->update->type();
 
-        if ($updateType === null) {
+        if ($type === null) {
             throw new xBotException("Received update with unknown type: " . json_encode($this->update->getProperties()));
         }
 
-        match ($updateType) {
+        match ($type) {
             'message' => $this->resolveMessage(),
             'callback_query' => $this->resolveCallback(),
-            default => throw new xBotException(
-                sprintf('Unsupported update type: %s', $this->update->type())
-            )
+            default => $this->resolveHandler($type)
         };
     }
 
@@ -87,5 +85,19 @@ class Bot
     private function resolveCallback(): void
     {
         $this->handleCallback();
+    }
+
+    /**
+     * Resolver Handlers 
+     */
+    private function resolveHandler(string $type): void
+    {
+        $handler = preg_replace_callback('/_([a-z])/', function ($match) {
+            return strtoupper($match[1]);
+        }, $type);
+
+        $class = botNamespace() . '\\Handlers\\' . ucfirst($handler);
+
+        (new $class($this->update))->execute();
     }
 }
