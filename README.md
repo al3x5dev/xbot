@@ -14,15 +14,15 @@
 
 ## Documentation
 
-- [Installation and configuration](https://github.com/al3x5dev/xbot/blob/main/doc/install.md)
-- [Command line interface](https://github.com/al3x5dev/xbot/blob/main/doc/cli.md)
-- [Available Methods](https://github.com/al3x5dev/xbot/blob/main/doc/methods.md)
-- [Command system](https://github.com/al3x5dev/xbot/blob/main/doc/commands.md)
-- [Callbacks](https://github.com/al3x5dev/xbot/blob/main/doc/callbacks.md)
-- [Handlers](https://github.com/al3x5dev/xbot/blob/main/doc/handlers.md)
-- [Conversation flow](https://github.com/al3x5dev/xbot/blob/main/doc/conversation.md)
-- [Keyboards](https://github.com/al3x5dev/xbot/blob/main/doc/keyboards.md)
-- [Mesagge Format](https://github.com/al3x5dev/xbot/blob/main/doc/format.md)
+- [Installation and configuration](https://github.com/al3x5dev/xbot/blob/main/docs/install.md)
+- [Command line interface](https://github.com/al3x5dev/xbot/blob/main/docs/cli.md)
+- [Available Methods](https://github.com/al3x5dev/xbot/blob/main/docs/methods.md)
+- [Command system](https://github.com/al3x5dev/xbot/blob/main/docs/commands.md)
+- [Callbacks](https://github.com/al3x5dev/xbot/blob/main/docs/callbacks.md)
+- [Handlers](https://github.com/al3x5dev/xbot/blob/main/docs/handlers.md)
+- [Conversation flow](https://github.com/al3x5dev/xbot/blob/main/docs/conversation.md)
+- [Keyboards](https://github.com/al3x5dev/xbot/blob/main/docs/keyboards.md)
+- [Mesagge Format](https://github.com/al3x5dev/xbot/blob/main/docs/format.md)
 
 
 ## Contributions
