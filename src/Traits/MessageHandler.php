@@ -4,7 +4,7 @@ namespace Al3x5\xBot\Traits;
 
 use Al3x5\xBot\Entities\Message;
 
-trait CommandHandler
+trait MessageHandler
 {
     use ConversationHandler;
 

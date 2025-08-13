@@ -134,6 +134,31 @@ trait MakeClass
     }
 
     /**
+     * Crear handlers de telegram
+     */
+    protected function makeTelegramHandler(string $file): void
+    {
+        list($namespace, $class) = self::getClassName($file);
+        // Crear el contenido de la clase
+        $content = <<<PHP
+        <?php
+        namespace $namespace;
+        
+        use Al3x5\\xBot\Handlers;
+
+        class $class extends Handlers
+        {
+            public function execute(): void
+            {
+                \$this->reply('handler executed');
+            }
+        }
+        PHP;
+
+        writeContentToFile($file, $content);
+    }
+
+    /**
      * Obtener directorio
      * 
      * Obtiene y crea los subdirectorios para las clases dentro de: 

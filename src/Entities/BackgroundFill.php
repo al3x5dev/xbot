@@ -14,7 +14,7 @@ class BackgroundFill extends Entity
         return [];
     }
 
-        protected function resolve(): Entity
+    public function resolve(): Entity
     {
         return match($this->type) {
             'solid' => new BackgroundFillSolid($this->properties),

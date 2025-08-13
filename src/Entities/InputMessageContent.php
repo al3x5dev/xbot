@@ -14,7 +14,7 @@ class InputMessageContent extends Entity
         return [];
     }
 
-        protected function resolve(): Entity
+    public function resolve(): Entity
     {
         if($this->hasProperty('message_text')){
             return new InputTextMessageContent($this->properties);

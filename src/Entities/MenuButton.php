@@ -14,7 +14,7 @@ class MenuButton extends Entity
         return [];
     }
 
-        protected function resolve(): Entity
+    public function resolve(): Entity
     {
         return match($this->type) {
             'commands' => new MenuButtonCommands($this->properties),

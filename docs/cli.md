@@ -135,3 +135,19 @@ php vendor/bin/xbot telegram:conversation
 > [!TIP]
 > The **xBot CLI** has the flexibility to organize your conversational flows in subfolders within the `bot/Conversation` directory.
 > Just specify in the conversation name when prompted the name of the directory or directories to create as follows `Users/Admin/Create`, this will create the following structure `bot/Conversation/Users/Admin/Create.php`.
+
+
+#### 4.4. `telegram:handler`
+
+**Description**: Create a new custom handler for yu bot.
+
+```bash
+php vendor/bin/xbot telegram:handler
+```
+
+> [!NOTE]
+> Use this command when you want to implement custom handlers for different types of Telegram bot updates.
+
+> [!TIP]
+> The **xBot CLI** allows you to organize handlers into subfolders within the `bot/Handlers` directory.
+> Simply specify the name of the directory or directories to be created in the handler name when prompted, such as `Admin/ChannelPost`. This will create the following structure: `bot/Handler/Admin/ChannelPost.php`.

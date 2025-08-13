@@ -14,7 +14,7 @@ class ChatMember extends Entity
         return [];
     }
 
-        protected function resolve(): Entity
+    public function resolve(): Entity
     {
         return match($this->status) {
             'creator' => new ChatMemberOwner($this->properties),

@@ -14,7 +14,7 @@ class TransactionPartner extends Entity
         return [];
     }
 
-        protected function resolve(): Entity
+    public function resolve(): Entity
     {
         return match($this->type) {
             'user' => new TransactionPartnerUser($this->properties),

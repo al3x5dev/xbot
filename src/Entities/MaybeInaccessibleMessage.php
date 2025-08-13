@@ -14,7 +14,7 @@ class MaybeInaccessibleMessage extends Entity
         return [];
     }
 
-        protected function resolve(): Entity
+    public function resolve(): Entity
     {
         return $this->hasProperty('from') 
             ? new Message($this->properties)

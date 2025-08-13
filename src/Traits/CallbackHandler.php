@@ -27,11 +27,6 @@ trait CallbackHandler
      */
     public function handleCallback(): void
     {
-        if ($this->isTalking()) {
-            $this->getConversation();
-            return;
-        }
-
         $action = $this->getCallbackQuery()->getData();
         // Verifica si existe
         if (!$this->hasCallback($action)) {
@@ -46,7 +41,7 @@ trait CallbackHandler
      */
     private function hasCallback(string $name): bool
     {
-        return key_exists($name, $this->callbacks);
+        return isset($this->callbacks[$name]);
     }
 
     /**

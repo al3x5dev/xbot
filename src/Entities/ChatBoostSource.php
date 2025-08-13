@@ -14,7 +14,7 @@ class ChatBoostSource extends Entity
         return [];
     }
 
-        protected function resolve(): Entity
+    public function resolve(): Entity
     {
         return match($this->source) {
             'premium' => new ChatBoostSourcePremium($this->properties),

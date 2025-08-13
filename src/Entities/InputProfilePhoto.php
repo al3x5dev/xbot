@@ -14,7 +14,7 @@ class InputProfilePhoto extends Entity
         return [];
     }
 
-        protected function resolve(): Entity
+    public function resolve(): Entity
     {
         return match($this->type) {
             'static' => new InputProfilePhotoStatic($this->properties),

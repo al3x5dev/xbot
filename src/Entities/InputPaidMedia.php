@@ -14,7 +14,7 @@ class InputPaidMedia extends Entity
         return [];
     }
 
-        protected function resolve(): Entity
+    public function resolve(): Entity
     {
         return match($this->type) {
             'photo' => new InputPaidMediaPhoto($this->properties),

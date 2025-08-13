@@ -14,7 +14,7 @@ class MessageOrigin extends Entity
         return [];
     }
 
-        protected function resolve(): Entity
+    public function resolve(): Entity
     {
         return match($this->type) {
             'user' => new MessageOriginUser($this->properties),
