@@ -1,134 +1,122 @@
 # FormatHelper
 
-La clase `FormatHelper` proporciona métodos estáticos para aplicar diferentes formatos a textos en mensajes de Telegram. Estos formatos incluyen negritas, cursivas, subrayados, tachados, spoilers, enlaces, menciones de usuario, emojis personalizados, bloques de código y citas. Esta clase es útil para dar formato a los mensajes que se envían a través de un bot de Telegram, mejorando la presentación y la legibilidad de los mismos.
+The `FormatHelper` class provides static methods for applying different formats to text in Telegram messages. These formats include bold, italics, underlines, strikethrough, spoilers, links, user mentions, custom emoji, code blocks, and quotes. This class is useful for formatting messages sent through a Telegram bot, improving their presentation and readability.
 
-## Métodos
+## Methods
 
 ### bold(string $text): string
 
-Formatea el texto proporcionado en negritas.
+Formats the provided text in bold.
 
 ```php
-$this->reply(FormatHelper::bold('Este texto estará en negritas'));
-// Salida: <b>Este texto estará en negritas</b>
+$this->reply(FormatHelper::bold('This text will be bold'));
+// Output: <b>This text will be bold</b>
 ```
-
 
 ### italic(string $text): string
 
-Formatea el texto proporcionado en cursiva.
+Formats the provided text in italics.
 
 ```php
-$this->reply(FormatHelper::italic('Este texto estará en cursiva'));
-// Salida: <i>Este texto estará en cursiva</i>
+$this->reply(FormatHelper::italic('This text will be italic'));
+// Output: <i>This text will be italic</i>
 ```
-
 
 ### underline(string $text): string
 
-Formatea el texto proporcionado subrayado.
+Formats the provided text as underlined.
 
 ```php
-$this->reply(FormatHelper::underline('Este texto estará subrayado'));
-// Salida: <u>Este texto estará subrayado</u>
+$this->reply(FormatHelper::underline('This text will be underlined'));
+// Output: <u>This text will be underlined</u>
 ```
-
 
 ### strikethrough(string $text): string
 
-Formatea el texto proporcionado con un tachado.
+Formats the provided text as a strikethrough.
 
 ```php
-$this->reply(FormatHelper::strikethrough('Este texto estará tachado'));
-// Salida: <s>Este texto estará tachado</s>
+$this->reply(FormatHelper::strikethrough('This text will be strikethrough'));
+// Output: <s>This text will be strikethrough</s>
 ```
-
 
 ### spoiler(string $text): string
 
-Formatea el texto proporcionado como un spoiler.
+Formats the provided text as a spoiler.
 
 ```php
-$this->reply(FormatHelper::spoiler('Este texto será un spoiler'));
-// Salida: <tg-spoiler>Este texto será un spoiler</tg-spoiler>
+$this->reply(FormatHelper::spoiler('This text will be a spoiler'));
+// Output: <tg-spoiler>This text will be a spoiler</tg-spoiler>
 ```
-
 
 ### link(string $text, string $url): string
 
-Formatea el texto proporcionado como un enlace.
+Formats the provided text as a link.
 
 ```php
-$this->reply(FormatHelper::link('Haz clic aquí', 'https://ejemplo.com'));
-// Salida: <a href="https://ejemplo.com">Haz clic aquí</a>
+$this->reply(FormatHelper::link('Click here', 'https://example.com'));
+// Output: <a href="https://example.com">Click here</a>
 ```
-
 
 ### mention(string $text, int $userId): string
 
-Formatea el texto proporcionado como una mención de usuario.
+Formats the provided text as a user mention.
 
 ```php
-$this->reply(FormatHelper::mention('@usuario', 123456789));
-// Salida: <a href="tg://user?id=123456789">@usuario</a>
+$this->reply(FormatHelper::mention('@user', 123456789));
+// Output: <a href="tg://user?id=123456789">@user</a>
 ```
-
 
 ### emoji(string $emoji, string $emojiId): string
 
-Formatea el texto proporcionado como un emoji personalizado.
+Formats the provided text as a custom emoji.
 
 ```php
 $this->reply(FormatHelper::emoji('😊', '1234567890'));
-// Salida: <tg-emoji emoji-id="1234567890">😊</tg-emoji>
+// Output: <tg-emoji emoji-id="1234567890">😊</tg-emoji>
 ```
-
 
 ### inlineCode(string $text): string
 
-Formatea el texto proporcionado como un código en línea.
+Formats the provided text as inline code.
 
 ```php
-$this->reply(FormatHelper::inlineCode('código en línea'));
-// Salida: <code>código en línea</code>
+$this->reply(FormatHelper::inlineCode('inline code'));
+// Output: <code>inline code</code>
 ```
-
 
 ### codeBlock(string $text, string $language = ''): string
 
-Formatea el texto proporcionado como un bloque de código.
+Formats the provided text as a code block.
 
 ```php
-$this->reply(FormatHelper::codeBlock('código en bloque', 'php'));
-// Salida: <pre><code class="language-php">código en bloque</code></pre>
+$this->reply(FormatHelper::codeBlock('block code', 'php'));
+// Output: <pre><code class="language-php">block code</code></pre>
 ```
-
 
 ### blockQuote(string $text): string
 
-Formatea el texto proporcionado como una cita en bloque.
+Formats the provided text as a blockquote.
 
 ```php
-$this->reply(FormatHelper::blockQuote('Esta es una cita en bloque'));
-// Salida: <blockquote>Esta es una cita en bloque</blockquote>
+$this->reply(FormatHelper::blockQuote('This is a blockquote'));
+// Output: <blockquote>This is a blockquote</blockquote>
 ```
-
 
 ### expandableBlockQuote(string $text): string
 
-Formatea el texto proporcionado como una cita en bloque expandible.
+Formats the provided text as an expandable blockquote.
 
 ```php
-$this->reply(FormatHelper::expandableBlockQuote('Esta es una cita en bloque expandible'));
-// Salida: <blockquote expandable>Esta es una cita en bloque expandible</blockquote>
+$this->reply(FormatHelper::expandableBlockQuote('This is an expandable blockquote'));
+// Output: <expandable blockquote>This is an expandable blockquote</blockquote>
 ```
-
 
 ### sanatize(string $text): string
 
-Sanea el texto proporcionado, escapando caracteres especiales HTML.
+Sanitizes the provided text, escaping HTML special characters.
 
 ```php
-$this->reply(FormatHelper::sanatize('<script>alert("Hola")</script>'));
-// Salida: &lt;script&gt;alert(&quot;Hola&quot;)&lt;/script&gt;
+$this->reply(FormatHelper::sanatize('<script>alert("Hello")</script>'));
+// Output: &lt;script&gt;alert(&quot;Hello&quot;)&lt;/script&gt;
 ```
