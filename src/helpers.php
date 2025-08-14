@@ -35,7 +35,7 @@ if (!function_exists('register')) {
             new RecursiveDirectoryIterator(
                 $path,
                 FilesystemIterator::SKIP_DOTS
-                | FilesystemIterator::UNIX_PATHS
+                    | FilesystemIterator::UNIX_PATHS
             ),
             RecursiveIteratorIterator::SELF_FIRST
         );
@@ -111,5 +111,19 @@ if (!function_exists('base')) {
     function base(?string $path = null): string
     {
         return empty($path) ? Config::get('abs_path') : Config::get('abs_path') . DIRECTORY_SEPARATOR . $path;
+    }
+}
+
+if (!function_exists('xConfig')) {
+    /**
+     * Carga la configuracion del bot
+     */
+    function xConfig(): array
+    {
+        $filename = function (int $level = 1): string {
+            return dirname(__DIR__, $level) . '/config.php';
+        };
+
+        return require file_exists($filename()) ? $filename() : $filename(4);
     }
 }

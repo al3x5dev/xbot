@@ -17,9 +17,11 @@ class ApiClient
     {
         // Cargar .json e iniciar factory
         if (is_null(self::$factory)) {
-            $jsonFile = '/api.json';
+            $jsonFile = file_exists(Config::get('abs_path'). '/api.json')
+             ? Config::get('abs_path'). '/api.json' 
+             : Config::get('abs_path'). '/vendor/al3x5/xbot/api.json' ;
 
-            $json = file_get_contents(Config::get('abs_path') . "$jsonFile");
+            $json = file_get_contents($jsonFile);
 
             self::$factory = new MethodsFactory($json);
         }
