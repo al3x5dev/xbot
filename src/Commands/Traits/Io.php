@@ -39,12 +39,9 @@ trait Io
      */
     protected function displayInfo(array $data): int
     {
-        foreach ($data as $key => $value) {
-            if ($key != 'ok') {
-                if ($value === true) $value = 'yes';
-                if ($value === false) $value = 'no';
-
-                $this->output->writeln("<info>$key</info>: " . trim($value));
+        if ($data['ok']) {
+            foreach ($data['result'] as $key => $value) {
+                $this->output->writeln("<info>$key</info>: " . ($value));
             }
         }
         return Command::SUCCESS;
