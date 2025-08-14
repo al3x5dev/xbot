@@ -23,10 +23,10 @@ class Bot
     /**
      * Inicializa el bot
      */
-    public function __construct(array $cfg)
+    public function __construct()
     {
         ExceptionHandler::start();
-        Config::init($cfg);
+        Config::init(xConfig());
         //
         $this->setCommands(base('storage/commands.json'));
         $this->setCallbacks(base('storage/callbacks.json'));
