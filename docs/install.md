@@ -78,6 +78,13 @@ php vendor/bin/xbot hook:set
 
 This command will prompt you to enter the URL of your webhook. Make sure that this URL is accessible from the Internet and that it points to your server where the bot is hosted.
 
+> [!IMPORTANT]
+> On Linux systems, it is important to configure the permissions for the `storage` directory.
+
+```bash
+sudo chown -R www-data:www-data /var/www/html/my_bot/storage
+sudo chmod 775 /var/www/html/my_bot/storage
+```
 
 ## Initialize the Bot
 
@@ -85,8 +92,7 @@ Once you have configured your config.php file and set up the webhook, you can in
 
 ```php
 require_once 'vendor/autoload.php';
-$config = require_once 'config.php';
 
-$xbot = new \Al3x5\xBot\Bot($config);
+$xbot = new \Al3x5\xBot\Bot();
 $xbot->run();
 ```
