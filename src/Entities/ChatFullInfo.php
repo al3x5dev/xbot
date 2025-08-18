@@ -13,6 +13,7 @@ use Al3x5\xBot\Telegram\Entity;
  * @property string $first_name
  * @property string $last_name
  * @property bool $is_forum
+ * @property bool $is_direct_messages
  * @property int $accent_color_id
  * @property int $max_reaction_count
  * @property ChatPhoto $photo
@@ -22,6 +23,7 @@ use Al3x5\xBot\Telegram\Entity;
  * @property BusinessLocation $business_location
  * @property BusinessOpeningHours $business_opening_hours
  * @property Chat $personal_chat
+ * @property Chat $parent_chat
  * @property ReactionType[] $available_reactions
  * @property string $background_custom_emoji_id
  * @property int $profile_accent_color_id
@@ -63,6 +65,7 @@ class ChatFullInfo extends Entity
             'business_location' => BusinessLocation::class,
             'business_opening_hours' => BusinessOpeningHours::class,
             'personal_chat' => Chat::class,
+            'parent_chat' => Chat::class,
             'available_reactions' => [ReactionType::class],
             'pinned_message' => Message::class,
             'permissions' => ChatPermissions::class,

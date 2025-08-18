@@ -12,6 +12,7 @@ use Al3x5\xBot\Telegram\Entity;
  * @property int $upgrade_star_count
  * @property int $total_count
  * @property int $remaining_count
+ * @property Chat $publisher_chat
  */
 class Gift extends Entity
 {
@@ -19,6 +20,7 @@ class Gift extends Entity
     {
         return [
             'sticker' => Sticker::class,
+            'publisher_chat' => Chat::class,
         ];
     }
 }
