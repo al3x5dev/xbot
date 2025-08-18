@@ -83,7 +83,7 @@ This command will prompt you to enter the URL of your webhook. Make sure that th
 
 ```bash
 sudo chown -R www-data:www-data /var/www/html/my_bot/storage
-sudo chmod 775 /var/www/html/my_bot/storage
+sudo chmod -R 775 /var/www/html/my_bot/storage
 ```
 
 ## Initialize the Bot
