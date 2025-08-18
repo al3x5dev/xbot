@@ -1,7 +1,7 @@
 # Available Methods
 
 
-This library is compatible with telegram bot api [version 9.1](https://core.telegram.org/bots/api#july-3-2025).
+This library is compatible with telegram bot api [version 9.2](https://core.telegram.org/bots/api#august-15-2025).
 
 > [!IMPORTANT]
 > In this section, we'll only cover a few available methods; feel free to check out the [Telegram documentation](https://core.telegram.org/bots/api) for more information.
