@@ -8,6 +8,7 @@ use Al3x5\xBot\Telegram\Entity;
  * Message Entity
  * @property int $message_id
  * @property int $message_thread_id
+ * @property DirectMessagesTopic $direct_messages_topic
  * @property User $from
  * @property Chat $sender_chat
  * @property int $sender_boost_count
@@ -22,16 +23,19 @@ use Al3x5\xBot\Telegram\Entity;
  * @property ExternalReplyInfo $external_reply
  * @property TextQuote $quote
  * @property Story $reply_to_story
+ * @property int $reply_to_checklist_task_id
  * @property User $via_bot
  * @property int $edit_date
  * @property bool $has_protected_content
  * @property bool $is_from_offline
+ * @property bool $is_paid_post
  * @property string $media_group_id
  * @property string $author_signature
  * @property int $paid_star_count
  * @property string $text
  * @property MessageEntity[] $entities
  * @property LinkPreviewOptions $link_preview_options
+ * @property SuggestedPostInfo $suggested_post_info
  * @property string $effect_id
  * @property Animation $animation
  * @property Audio $audio
@@ -93,6 +97,11 @@ use Al3x5\xBot\Telegram\Entity;
  * @property GiveawayWinners $giveaway_winners
  * @property GiveawayCompleted $giveaway_completed
  * @property PaidMessagePriceChanged $paid_message_price_changed
+ * @property SuggestedPostApproved $suggested_post_approved
+ * @property SuggestedPostApprovalFailed $suggested_post_approval_failed
+ * @property SuggestedPostDeclined $suggested_post_declined
+ * @property SuggestedPostPaid $suggested_post_paid
+ * @property SuggestedPostRefunded $suggested_post_refunded
  * @property VideoChatScheduled $video_chat_scheduled
  * @property VideoChatStarted $video_chat_started
  * @property VideoChatEnded $video_chat_ended
@@ -105,6 +114,7 @@ class Message extends Entity
     protected function setEntities(): array
     {
         return [
+            'direct_messages_topic' => DirectMessagesTopic::class,
             'from' => User::class,
             'sender_chat' => Chat::class,
             'sender_business_bot' => User::class,
@@ -117,6 +127,7 @@ class Message extends Entity
             'via_bot' => User::class,
             'entities' => [MessageEntity::class],
             'link_preview_options' => LinkPreviewOptions::class,
+            'suggested_post_info' => SuggestedPostInfo::class,
             'animation' => Animation::class,
             'audio' => Audio::class,
             'document' => Document::class,
@@ -166,6 +177,11 @@ class Message extends Entity
             'giveaway_winners' => GiveawayWinners::class,
             'giveaway_completed' => GiveawayCompleted::class,
             'paid_message_price_changed' => PaidMessagePriceChanged::class,
+            'suggested_post_approved' => SuggestedPostApproved::class,
+            'suggested_post_approval_failed' => SuggestedPostApprovalFailed::class,
+            'suggested_post_declined' => SuggestedPostDeclined::class,
+            'suggested_post_paid' => SuggestedPostPaid::class,
+            'suggested_post_refunded' => SuggestedPostRefunded::class,
             'video_chat_scheduled' => VideoChatScheduled::class,
             'video_chat_started' => VideoChatStarted::class,
             'video_chat_ended' => VideoChatEnded::class,

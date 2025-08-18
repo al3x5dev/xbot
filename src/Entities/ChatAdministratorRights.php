@@ -21,6 +21,7 @@ use Al3x5\xBot\Telegram\Entity;
  * @property bool $can_edit_messages
  * @property bool $can_pin_messages
  * @property bool $can_manage_topics
+ * @property bool $can_manage_direct_messages
  */
 class ChatAdministratorRights extends Entity
 {

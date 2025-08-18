@@ -12,6 +12,7 @@ use Al3x5\xBot\Telegram\Entity;
  * @property UniqueGiftModel $model
  * @property UniqueGiftSymbol $symbol
  * @property UniqueGiftBackdrop $backdrop
+ * @property Chat $publisher_chat
  */
 class UniqueGift extends Entity
 {
@@ -21,6 +22,7 @@ class UniqueGift extends Entity
             'model' => UniqueGiftModel::class,
             'symbol' => UniqueGiftSymbol::class,
             'backdrop' => UniqueGiftBackdrop::class,
+            'publisher_chat' => Chat::class,
         ];
     }
 }
