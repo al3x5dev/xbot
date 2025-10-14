@@ -7,18 +7,20 @@ use Al3x5\xBot\Exceptions\ExceptionHandler;
 use Al3x5\xBot\Exceptions\xBotException;
 use Al3x5\xBot\Traits\CallbackHandler;
 use Al3x5\xBot\Traits\MessageHandler;
+use Al3x5\xBot\Traits\Responder;
 use Mk4U\Http\Request;
 
 class Bot
 {
     public const NAME = 'xBot';
 
-    public const VERSION = '2.2.0';
+    public const VERSION = '2.3.0';
 
     public ?Update $update = null;
 
     use CallbackHandler,
-        MessageHandler;
+        MessageHandler,
+        Responder;
 
     /**
      * Inicializa el bot
