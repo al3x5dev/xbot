@@ -152,7 +152,7 @@ final class InstallCommand extends Command
                 'token' => '$token',
                 'name' => '$name',
                 'admins' => [$admins],
-                'dev' => $debug,
+                'debug' => $debug,
                 'abs_path' => __DIR__,
             ];
             PHP;

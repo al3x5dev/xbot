@@ -14,7 +14,7 @@ class Bot
 {
     public const NAME = 'xBot';
 
-    public const VERSION = '2.3.0';
+    public const VERSION = '2.4.0';
 
     public ?Update $update = null;
 
@@ -25,10 +25,10 @@ class Bot
     /**
      * Inicializa el bot
      */
-    public function __construct()
+    public function __construct(array $config)
     {
         ExceptionHandler::start();
-        Config::init(xConfig());
+        Config::init($config ?? xConfig());
         //
         $this->setCommands(base('storage/commands.json'));
         $this->setCallbacks(base('storage/callbacks.json'));

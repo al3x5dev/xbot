@@ -24,13 +24,13 @@ class Config
             'name' => $cfg['name'] ?? '',
             'admins' => $cfg['admins'] ?? [],
             //'async' => $cfg['async'] ?? false,
-            'client' => $cfg['client'] ?? new \Mk4U\Http\Client(),
-            'storage' => $cfg['storage'] ?? \Mk4U\Cache\CacheFactory::create('file', [
+            'http_client' => $cfg['http_client'] ?? new \Mk4U\Http\Client(),
+            'cache' => $cfg['cache'] ?? \Mk4U\Cache\CacheFactory::create('file', [
                 'dir' => 'storage/cache',
                 'ttl' => 600
             ]),
             'webhook' => $cfg['webhook'] ?? self::webhook($cfg['token']),
-            'dev' => $cfg['dev'] ?? false,
+            'debug' => $cfg['debug'] ?? false,
             'abs_path' => $cfg['abs_path'] ?? throw new xBotException('No absolute path has been defined'),
         ];
     }
