@@ -30,7 +30,7 @@ trait ConversationHandler
      */
     private function isTalking(): bool
     {
-        return  Config::get('storage')->has(
+        return  Config::get('cache')->has(
             $this->getConversationIdentifier()
         );
     }
@@ -40,7 +40,7 @@ trait ConversationHandler
      */
     private function getConversation(): void
     {
-        $data = Config::get('storage')->get(
+        $data = Config::get('cache')->get(
             $this->getConversationIdentifier()
         );
 

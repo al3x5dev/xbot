@@ -32,11 +32,11 @@ return [
     // list of bot admin id's
     'admins' => [123456789, 985632147],
     // http client to use (By default \Mk4U\Http\Client is used)
-    'client' => new \Mk4U\Http\Client(),
+    'http_client' => new \Mk4U\Http\Client(),
     // cache handling library used (default is mk4u/cache)
-    'storage' => \Mk4U\CacheFactory::create('file', ['dir' => 'storage/cache', 'ttl' => 300]),
+    'cache' => \Mk4U\CacheFactory::create('file', ['dir' => 'storage/cache', 'ttl' => 300]),
     // activate dev environment (default is false)
-    'dev' => true,
+    'debug' => true,
     // sets the base path of the library
     'abs_path' => __DIR__,
 ];

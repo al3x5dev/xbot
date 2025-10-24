@@ -49,7 +49,7 @@ class ApiClient
         }
 
         try {
-            $response = Config::get('client')->post(
+            $response = Config::get('http_client')->post(
                 Config::get('webhook') . $this->method,
                 [
                     'form_params' => $this->params
