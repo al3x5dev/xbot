@@ -27,8 +27,6 @@ You can create the configuration file manually by following these steps:
 return [
     // your bot token
     'token' => '1234567890:ABCDEFGHIJKLMNOQRSTZ',
-    // your bot name without @
-    'name' => 'MyBot',
     // list of bot admin id's
     'admins' => [123456789, 985632147],
     // http client to use (By default \Mk4U\Http\Client is used)
