@@ -17,7 +17,8 @@
         "symfony/console": "^7.2"
     },
     "require-dev": {
-        "al3x5/xbot-devkit": "^0.2"
+        "al3x5/xbot-devkit": "^0.2",
+        "symfony/var-dumper": "^7.3"
     },
     "autoload": {
         "psr-4": {
