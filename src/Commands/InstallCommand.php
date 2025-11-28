@@ -39,19 +39,6 @@ final class InstallCommand extends Command
         $token = $this->askForToken();
         $this->clear();
 
-        // Solicitar el nombre del bot
-        $name = $this->style->ask(
-            'What is your bot name?',
-            null,
-            function (?string $name): string {
-                if (empty($name)) {
-                    throw new \InvalidArgumentException('You must specify a name for your bot');
-                }
-                return $name;
-            }
-        );
-        $this->clear();
-
         // Solicitar los IDs de los administradores
         $admins = $this->askForAdmins();
         $this->clear();
@@ -64,7 +51,7 @@ final class InstallCommand extends Command
         try {
             // Generar el contenido del archivo de configuración
             $output->writeln('<info>Creating config file...</info>');
-            $this->generateConfigData($token, $name, $admins, $debug);
+            $this->generateConfigData($token, $admins, $debug);
 
             $output->writeln('<info>Creating directories...</info>');
             $this->createDirectories();
@@ -143,14 +130,14 @@ final class InstallCommand extends Command
     /**
      * Archivo de configuracion a generar
      */
-    private function generateConfigData(?string $token, ?string $name, ?string $admins, string $debug): void
+    private function generateConfigData(?string $token, /*?string $name,*/ ?string $admins, string $debug): void
     {
+        //'name' => '$name',
         $file = <<<PHP
             <?php
 
             return [
                 'token' => '$token',
-                'name' => '$name',
                 'admins' => [$admins],
                 'debug' => $debug,
                 'abs_path' => __DIR__,
@@ -202,7 +189,7 @@ final class InstallCommand extends Command
         }
 
         // Agregar o actualizar la sección de psr-4
-        $composerJson['autoload']['psr-4'][botNamespace() . '\\'] = 'bot/';
+        $composerJson['autoload']['psr-4']['Bot\\'] = 'bot/';
 
         // Guardar los cambios en composer.json
         writeContentToFile($composerJsonPath, json_encode($composerJson, JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES) . PHP_EOL);

@@ -45,7 +45,7 @@ if (!function_exists('register')) {
                 // Obtener clase
                 $class = str_replace(
                     ['bot', DIRECTORY_SEPARATOR],
-                    [botNamespace(), "\\"],
+                    ["Bot\\"],
                     $file->getPath()
                 ) . "\\" . $file->getBasename(".{$file->getExtension()}");
 
@@ -75,32 +75,6 @@ if (!function_exists('register')) {
 
         // Guarda los comandos en un archivo JSON
         writeContentToFile("storage/$name.json", json_encode($data, JSON_PRETTY_PRINT));
-    }
-}
-
-if (!function_exists('botNamespace')) {
-    /**
-     * Establece y devuelve el namespace para los archivos dentro de el directorio /bot
-     */
-    function botNamespace(): string
-    {
-        $name = Config::get('name');
-
-        if (empty($name)) {
-            throw new \RuntimeException('Bot name is not set in configuration.');
-        }
-
-        // Sanitizar el nombre del bot
-        $sanitizedName = preg_replace('/[^a-zA-Z0-9_]/', ' ', $name);
-        $sanitizedName = ucwords(strtolower($sanitizedName));
-        $sanitizedName = str_replace(' ', '', $sanitizedName);
-
-        // Validar que el nombre sea válido para un namespace
-        if (!preg_match('/^[a-zA-Z_\x80-\xff][a-zA-Z0-9_\x80-\xff]*$/', $sanitizedName)) {
-            throw new \InvalidArgumentException('Invalid bot name for namespace generation.');
-        }
-
-        return $sanitizedName;
     }
 }
 

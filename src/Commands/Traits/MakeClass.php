@@ -50,12 +50,12 @@ trait MakeClass
      */
     protected function makeTelegramCommand(string $file): void
     {
-        list($namespace, $class) = self::getClassName($file);
+        $class = pathinfo($file)['filename'];
         $command = '/' . strtolower($class);
         // Crear el contenido de la clase
         $content = <<<PHP
         <?php
-        namespace $namespace;
+        namespace Bot\\Commands;
         
         use Al3x5\\xBot\Commands;
 
@@ -84,12 +84,12 @@ trait MakeClass
      */
     protected function makeCallback(string $file, string $action): void
     {
-        list($namespace, $class) = self::getClassName($file);
+        $class = pathinfo($file)['filename'];
 
         // Crear el contenido de la clase
         $content = <<<PHP
         <?php
-        namespace $namespace;
+        namespace Bot\\Callbacks;
         
         use Al3x5\\xBot\Callbacks;
 
@@ -113,11 +113,11 @@ trait MakeClass
      */
     protected function makeConversation(string $file): void
     {
-        list($namespace, $class) = self::getClassName($file);
+        $class = pathinfo($file)['filename'];
         // Crear el contenido de la clase
         $content = <<<PHP
         <?php
-        namespace $namespace;
+        namespace Bot\\Conversations;
         
         use Al3x5\\xBot\Conversations;
 
@@ -138,11 +138,11 @@ trait MakeClass
      */
     protected function makeTelegramHandler(string $file): void
     {
-        list($namespace, $class) = self::getClassName($file);
+        $class = pathinfo($file)['filename'];
         // Crear el contenido de la clase
         $content = <<<PHP
         <?php
-        namespace $namespace;
+        namespace Bot\\Handlers;
         
         use Al3x5\\xBot\Handlers;
 
@@ -202,23 +202,5 @@ trait MakeClass
         }
 
         return $filename;
-    }
-
-    /**
-     * Obtener nombre de la clase
-     */
-    public static function getClassName(string $file): array
-    {
-        return [
-            trim(
-                str_replace(
-                    ['bot', '/', pathinfo($file)['basename']],
-                    [botNamespace(), "\\", ''],
-                    $file
-                ),
-                "\\"
-            ),
-            pathinfo($file)['filename']
-        ];
     }
 }
