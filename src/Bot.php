@@ -14,7 +14,7 @@ class Bot
 {
     public const NAME = 'xBot';
 
-    public const VERSION = '2.4.1';
+    public const VERSION = '2.4.2';
 
     public ?Update $update = null;
 
@@ -42,7 +42,7 @@ class Bot
             throw new xBotException("Update empty! The webhook should not be called manually, only by Telegram.");
         }
 
-        if (Config::get('dev')) {
+        if (Config::get('debug')) {
             Events::logger('development', 'update.log', json_encode($data));
         }
 
@@ -98,7 +98,7 @@ class Bot
             return strtoupper($match[1]);
         }, $type);
 
-        $class = botNamespace() . '\\Handlers\\' . ucfirst($handler);
+        $class = 'Bot\\Handlers\\' . ucfirst($handler);
 
         (new $class($this->update))->execute();
     }

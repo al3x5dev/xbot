@@ -164,7 +164,7 @@ final class InstallCommand extends Command
     /**
      * Crea comandos del bot
      */
-    private function makeCommandClasses(): void
+    public function makeCommandClasses(): void
     {
         $this->makeTelegramCommand('bot/Commands/Start.php', __DIR__);
         $this->makeTelegramCommand('bot/Commands/Help.php', __DIR__);
@@ -174,7 +174,7 @@ final class InstallCommand extends Command
     /**
      * Actualizar composer
      */
-    private function updateComposerAutoload(): void
+    public function updateComposerAutoload(): void
     {
         $composerJsonPath = 'composer.json';
 
