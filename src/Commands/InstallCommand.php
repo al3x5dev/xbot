@@ -150,7 +150,7 @@ final class InstallCommand extends Command
     /**
      * Crea directorios
      */
-    private function createDirectories(): void
+    public function createDirectories(): void
     {
         foreach (self::directories as $directory) {
             if (!is_dir($directory)) {
