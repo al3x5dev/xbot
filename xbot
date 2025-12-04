@@ -54,7 +54,7 @@ $app->add(new TelegramHandlerCommand());
 if (
     !file_exists(InstallCommand::configFile()) &&
     !file_exists('artisan')
-    ) {
+) {
     $app->setDefaultCommand('install');
 }
 
