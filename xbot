@@ -11,10 +11,6 @@ if (file_exists('vendor/autoload.php')) {
 if (file_exists('config.php')) {
     $cfg = require 'config.php';
 }
-if (file_exists('artisan')) {
-        $cfg = require 'config/xbot.php';
-
-}
 
 use Al3x5\xBot\Bot;
 use Al3x5\xBot\Commands\HookAboutCommand;
@@ -58,7 +54,7 @@ $app->add(new TelegramHandlerCommand());
 if (
     !file_exists(InstallCommand::configFile()) &&
     !file_exists('artisan')
-    ) {
+) {
     $app->setDefaultCommand('install');
 }
 
