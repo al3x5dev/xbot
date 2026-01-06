@@ -77,6 +77,7 @@ use Al3x5\xBot\Telegram\Entity;
  * @property ChatShared $chat_shared
  * @property GiftInfo $gift
  * @property UniqueGiftInfo $unique_gift
+ * @property GiftInfo $gift_upgrade_sent
  * @property string $connected_website
  * @property WriteAccessAllowed $write_access_allowed
  * @property PassportData $passport_data
@@ -158,6 +159,7 @@ class Message extends Entity
             'chat_shared' => ChatShared::class,
             'gift' => GiftInfo::class,
             'unique_gift' => UniqueGiftInfo::class,
+            'gift_upgrade_sent' => GiftInfo::class,
             'write_access_allowed' => WriteAccessAllowed::class,
             'passport_data' => PassportData::class,
             'proximity_alert_triggered' => ProximityAlertTriggered::class,

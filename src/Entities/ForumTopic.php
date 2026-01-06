@@ -10,6 +10,7 @@ use Al3x5\xBot\Telegram\Entity;
  * @property string $name
  * @property int $icon_color
  * @property string $icon_custom_emoji_id
+ * @property bool $is_name_implicit
  */
 class ForumTopic extends Entity
 {
