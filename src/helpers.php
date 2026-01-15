@@ -101,3 +101,26 @@ if (!function_exists('xConfig')) {
         return require file_exists($filename()) ? $filename() : $filename(4);
     }
 }
+
+if (!function_exists('classValidator')) {
+    /**
+     * Valida que una clase exista y sea del tipo esperado.
+     *
+     * @param string $class Nombre completo de la clase a validar
+     * @param string $baseClass Clase padre o interfaz esperada
+     * @param string|null $context Contexto opcional para el mensaje de error (ej. 'Middleware', 'Conversation')
+     * @throws \RuntimeException Si la clase no existe o no extiende/implementa $baseClass
+     */
+    function classValidator(string $class, string $baseClass, ?string $context = null): void
+    {
+        $ctx = $context ? "[$context] " : '';
+
+        if (!class_exists($class)) {
+            throw new \RuntimeException("{$ctx}$class not found.");
+        }
+
+        if (!is_subclass_of($class, $baseClass)) {
+            throw new \RuntimeException("{$ctx}$class must extend or implement $baseClass.");
+        }
+    }
+}
