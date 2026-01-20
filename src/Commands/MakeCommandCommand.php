@@ -39,8 +39,7 @@ final class MakeCommandCommand extends Command
 
         if ($name == '') {
             throw new \InvalidArgumentException("The name cannot be empty.");
-            #$output->writeln("<error>Error: The name cannot be empty.</error>");
-            #return Command::FAILURE;
+            return Command::FAILURE;
         }
 
         // Usar una expresión regular para separar las palabras
