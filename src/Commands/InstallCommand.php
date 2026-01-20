@@ -59,6 +59,11 @@ final class InstallCommand extends Command
             $output->writeln('<info>Loading bot configuration...</info>');
             self::load(self::configFile());
 
+             // Crear los middleware 
+            $output->writeln('<info>Creating middlewares...</info>');
+            $this->mwConfig();
+            $this->loggerMiddleware();
+
             $output->writeln('<info>Creating command classes...</info>');
             $this->makeCommandClasses(); // Crear las clases Start y Help
 
@@ -196,5 +201,77 @@ final class InstallCommand extends Command
 
         // Ejecutar el comando para actualizar el autoload
         shell_exec('composer dump-autoload');
+    }
+
+    /**
+     * Crea archivos de configuracion para middleware
+     */
+    private function mwConfig()
+    {
+        $content = <<<PHP
+        <?php
+
+        use Bot\Middlewares\UpdateLoggerMiddleware;
+
+        return [
+            // Middleware global (se aplica a TODOS los tipos de updates)
+            'global' => [
+                UpdateLoggerMiddleware::class
+            ],
+
+            // Middleware por TIPO de update
+            'types' => [
+                'message' => [
+
+                ],
+                'command' => [
+
+                ],
+                'callback_query' => [
+
+                ],
+                'inline_query' => [
+
+                ],
+            ],
+
+            // Middleware por COMANDO específico (sin /)
+            'commands' => [
+
+            ],
+        ];
+        PHP;
+
+        writeContentToFile(self::mwFile(), $content);
+    }
+
+        /**
+     * Crea archivos de configuracion para middleware
+     */
+    private function loggerMiddleware()
+    {
+        $content = <<<PHP
+        <?php
+        
+        namespace Bot\Middlewares;
+
+        use Al3x5\\xBot\Config;
+        use Al3x5\\xBot\Events;
+        use Al3x5\\xBot\Middlewares;
+
+        class UpdateLoggerMiddleware extends Middlewares
+        {
+            public function handle(\Closure \$next)
+            {
+                if (Config::get('debug')) {
+                    Events::logger('development', 'update.log', json_encode(\$this->update));
+                }
+
+                return \$next();
+            }
+        }
+        PHP;
+
+        writeContentToFile(self::mwFile('Middlewares/UpdateLoggerMiddleware.php'), $content);
     }
 }
