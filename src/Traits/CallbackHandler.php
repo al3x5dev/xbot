@@ -2,6 +2,7 @@
 
 namespace Al3x5\xBot\Traits;
 
+use Al3x5\xBot\Callbacks;
 use Al3x5\xBot\Entities\CallbackQuery;
 
 trait CallbackHandler
@@ -32,6 +33,12 @@ trait CallbackHandler
         if (!$this->hasCallback($action)) {
             throw new \RuntimeException("Error: Callback '$action' does not exist.");
         }
+
+        classValidator(
+            $this->callbacks[$action],
+            Callbacks::class,
+            'Callback'
+        );
 
         (new $this->callbacks[$action]($this->update))->execute();
     }
