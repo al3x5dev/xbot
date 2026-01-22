@@ -33,8 +33,8 @@ abstract class Callbacks
     /**
      * Obtener Message Entity
      */
-    public function getMessage() : Message|InaccessibleMessage
+    public function message() : Message|InaccessibleMessage
     {
-        return $this->callback->getMessage()->resolve();
+        return $this->message->resolve();
     }
 }
