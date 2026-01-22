@@ -3,10 +3,13 @@
 namespace Al3x5\xBot\Traits;
 
 use Al3x5\xBot\Config;
+use Al3x5\xBot\Conversations;
 use Al3x5\xBot\Exceptions\xBotException;
 
 trait ConversationHandler
 {
+    use BotActions;
+
     /**
      * Obtiene el identificador de la conversacion
      */
@@ -22,7 +25,7 @@ trait ConversationHandler
             'callback_query' => $this->update->__get($type)->getMessage(),
             'message' => $this->update->__get($type),
         };
-        return $entity->getChat()->getId() . $entity->getFrom()->getId();
+        return "{$entity->getChat()->getId()}:{$entity->getFrom()->getId()}";
     }
 
     /**
@@ -36,35 +39,57 @@ trait ConversationHandler
     }
 
     /**
+     * Obtener datos de cache
+     */
+    protected function getData(?string $key = null, mixed $default = null): mixed
+    {
+        $data = Config::get('cache')->get($this->getConversationIdentifier(), []);
+
+        // Si no hay data, devolvemos el valor por defecto o array vacío
+        if (!is_array($data)) {
+            $data = [];
+        }
+
+        if ($key === null) {
+            return $data;
+        }
+
+        return $data[$key] ?? $default;
+    }
+
+    /**
      * Obtiene flujo de la conversacion y lo ejecuta
      */
     private function getConversation(): void
     {
-        $data = Config::get('cache')->get(
-            $this->getConversationIdentifier()
-        );
+        $text = $this->update->getMessage()->getText();
 
-        if (is_null($data)) {
+        if (is_null($this->getData())) return;
+
+        if (
+            !empty($this->getData('end'))
+            && in_array(mb_strtolower($text), $this->getData('end'), true)
+        ) {
+            $this->stopConversation();
+            
+            // ejecuta comando
+            if ($this->update->getMessage()->isCommand()) {
+                $this->executeCommand($this->update->getMessage()->getText());
+            }
+
             return;
         }
 
-        $conversation = new $data['conversation']($this->update);
+        $class = $this->getData('conversation');
 
-        call_user_func([$conversation, $data['next']]);
-    }
-
-    /**
-     * Inicia una conversacion con el usuario
-     */
-    public function startConversation(string $obj, ?string $next = null): void
-    {
-        Config::get('storage')->set(
-            $this->getConversationIdentifier(),
-            [
-                'conversation' => $obj,
-                'next' => $next ?? 'execute'
-            ]
+        classValidator(
+            $class,
+            Conversations::class,
+            'Conversation'
         );
+
+        $conversation = new $class($this->update);
+        call_user_func([$conversation, $this->getData('step')]);
     }
 
     /**
@@ -72,7 +97,7 @@ trait ConversationHandler
      */
     public function stopConversation(): void
     {
-        Config::get('storage')->delete(
+        Config::get('cache')->delete(
             $this->getConversationIdentifier()
         );
     }

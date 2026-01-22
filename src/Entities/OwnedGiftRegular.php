@@ -19,6 +19,8 @@ use Al3x5\xBot\Telegram\Entity;
  * @property bool $was_refunded
  * @property int $convert_star_count
  * @property int $prepaid_upgrade_star_count
+ * @property bool $is_upgrade_separate
+ * @property int $unique_gift_number
  */
 class OwnedGiftRegular extends Entity
 {

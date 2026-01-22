@@ -2,7 +2,9 @@
 
 namespace Al3x5\xBot\Traits;
 
+use Al3x5\xBot\Commands;
 use Al3x5\xBot\Entities\Message;
+use Al3x5\xBot\Exceptions\xBotException;
 
 trait MessageHandler
 {
@@ -16,7 +18,7 @@ trait MessageHandler
     public function setCommands(string $filename): void
     {
         if (!file_exists($filename)) {
-            throw new \RuntimeException("Error: '$filename' file does not exist.");
+            throw new xBotException("Error: '$filename' file does not exist.");
         }
 
         $this->commands = json_decode(file_get_contents($filename), true);
@@ -38,7 +40,7 @@ trait MessageHandler
 
         // Verifica si existe o no /help 
         if (!$this->hasCommand($default)) {
-            throw new \RuntimeException("Error: Command '$default' does not exist.");
+            throw new xBotException("Error: Command '$default' does not exist.");
         }
 
         return $this->commands[$default];
@@ -66,10 +68,11 @@ trait MessageHandler
 
         // Separar el comando de los parámetros
         $parts = explode(' ', $text);
-        $key = $parts[0]; // El primer elemento es el comando
-        $params = array_slice($parts, 1); // El resto son los parámetros
 
-        $this->handle($key, $params);
+        $this->handle(
+            $parts[0],
+            array_slice($parts, 1)
+        );
     }
 
     /**
@@ -77,11 +80,6 @@ trait MessageHandler
      */
     private function handleMessage(): void
     {
-        if ($this->isTalking()) {
-            $this->getConversation();
-            return;
-        }
-
         $this->handle(
             $this->getCommand(
                 $this->getMessage()->getText() ?? '',
@@ -93,16 +91,15 @@ trait MessageHandler
     /**
      *  Manejador de eventos
      */
-    private function handle(string $key, array $params = []): void
+    private function handle(string $key, array $args = []): void
     {
         $className = $this->getCommand("/$key", '/generic');
 
-        if (!class_exists($className)) {
-            throw new \RuntimeException("Error: Class '$className' does not exist.");
-        }
+        classValidator($className, Commands::class, 'Command');
 
         $command = new $className($this->update);
-        $command->execute(...$params);
+        $command->setArgs($args);
+        $command->execute();
     }
 
     /**

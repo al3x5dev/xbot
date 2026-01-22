@@ -7,20 +7,22 @@ use Al3x5\xBot\Exceptions\ExceptionHandler;
 use Al3x5\xBot\Exceptions\xBotException;
 use Al3x5\xBot\Traits\CallbackHandler;
 use Al3x5\xBot\Traits\MessageHandler;
-use Al3x5\xBot\Traits\Responder;
+use Al3x5\xBot\Traits\MiddlewareHandler;
+use Al3x5\xBot\Traits\BotActions;
 use Mk4U\Http\Request;
 
 class Bot
 {
     public const NAME = 'xBot';
 
-    public const VERSION = '2.5.1';
+    public const VERSION = '3.0.0';
 
     public ?Update $update = null;
 
     use CallbackHandler,
         MessageHandler,
-        Responder;
+        MiddlewareHandler,
+        BotActions;
 
     /**
      * Inicializa el bot
@@ -30,6 +32,7 @@ class Bot
         ExceptionHandler::start();
         Config::init($config ?: xConfig());
         //
+        $this->setMiddleware(base('bot/middleware.php'));
         $this->setCommands(base('storage/commands.json'));
         $this->setCallbacks(base('storage/callbacks.json'));
     }
@@ -41,12 +44,25 @@ class Bot
         if (empty($data)) {
             throw new xBotException("Update empty! The webhook should not be called manually, only by Telegram.");
         }
-
-        if (Config::get('debug')) {
-            Events::logger('development', 'update.log', json_encode($data));
-        }
-
         $this->update = new Update($data);
+    }
+
+    /**
+     * Obtener tipo de manejador para la actualizacion entrante
+     */
+    private function getHandler(string $type): callable
+    {
+        return match ($type) {
+            'message' => function () {
+                $this->resolveMessage();
+            },
+            'callback_query' => function () {
+                $this->resolveCallback();
+            },
+            default => function () use ($type) {
+                $this->resolveHandler($type);
+            }
+        };
     }
 
     /**
@@ -61,11 +77,26 @@ class Bot
             throw new xBotException("Received update with unknown type: " . json_encode($this->update->getProperties()));
         }
 
-        match ($type) {
-            'message' => $this->resolveMessage(),
-            'callback_query' => $this->resolveCallback(),
-            default => $this->resolveHandler($type)
-        };
+        // Determinar si es un comando y extraer el nombre del comando
+        $command = null;
+        if ($type === 'message' && $this->update->getMessage()->isCommand()) {
+            preg_match(
+                '/^\/([a-zA-Z0-9_]+)/',
+                $this->update->getMessage()->getText(),
+                $matches
+            );
+            //$command = substr($matches[1],0,1) ?? null;
+            $command = $matches[1] ?? null;
+        }
+
+        // Obtener el handler final basado en el tipo
+        $handler = $this->getHandler($type);
+
+        // Obtener los middleware para este tipo y comando
+        $middlewares = $this->getMiddlewareFor($type, $command);
+
+        // Ejecutar el pipeline
+        $this->executePipeline($middlewares, $handler);
     }
 
     /**
@@ -73,6 +104,11 @@ class Bot
      */
     private function resolveMessage(): void
     {
+        if ($this->isTalking()) {
+            $this->getConversation();
+            return;
+        }
+
         if ($this->update->getMessage()->isCommand()) {
             $this->handleCommand();
             return;

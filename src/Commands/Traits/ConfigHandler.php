@@ -25,6 +25,17 @@ trait ConfigHandler
     }
 
     /**
+     * Retorna ubicacion del archivos middlewares
+     */
+    public static function mwFile(?string $path=null): string
+    {
+        if(empty($path)){
+            return getcwd() . DIRECTORY_SEPARATOR . 'bot/middleware.php';
+        }
+        return getcwd().DIRECTORY_SEPARATOR . "bot/$path";
+    }
+
+    /**
      * Ejecuta comando install en caso de no encontrar el archivo config.php
      */
     protected function runInstall(): int

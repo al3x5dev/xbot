@@ -7,7 +7,7 @@ use Al3x5\xBot\Entities\CallbackQuery;
 use Al3x5\xBot\Entities\Message;
 use Al3x5\xBot\Telegram\ApiClient;
 
-trait Responder
+trait BotActions
 {
 
     protected static array $cachedCommands = [];

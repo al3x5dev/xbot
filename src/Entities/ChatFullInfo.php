@@ -53,6 +53,9 @@ use Al3x5\xBot\Telegram\Entity;
  * @property string $custom_emoji_sticker_set_name
  * @property int $linked_chat_id
  * @property ChatLocation $location
+ * @property UserRating $rating
+ * @property UniqueGiftColors $unique_gift_colors
+ * @property int $paid_message_star_count
  */
 class ChatFullInfo extends Entity
 {
@@ -71,6 +74,8 @@ class ChatFullInfo extends Entity
             'permissions' => ChatPermissions::class,
             'accepted_gift_types' => AcceptedGiftTypes::class,
             'location' => ChatLocation::class,
+            'rating' => UserRating::class,
+            'unique_gift_colors' => UniqueGiftColors::class,
         ];
     }
 }

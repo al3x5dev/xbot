@@ -24,6 +24,7 @@ use Al3x5\xBot\Commands\TelegramCallbackCommand;
 use Al3x5\xBot\Commands\TelegramCommandCommand;
 use Al3x5\xBot\Commands\TelegramConversationCommand;
 use Al3x5\xBot\Commands\TelegramHandlerCommand;
+use Al3x5\xBot\Commands\TelegramMiddlewareCommand;
 use Symfony\Component\Console\Application;
 
 if (!empty($cfg)) {
@@ -49,6 +50,7 @@ $app->add(new TelegramCommandCommand());
 $app->add(new TelegramCallbackCommand());
 $app->add(new TelegramConversationCommand());
 $app->add(new TelegramHandlerCommand());
+$app->add(new TelegramMiddlewareCommand());
 
 
 if (

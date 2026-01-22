@@ -50,7 +50,9 @@ trait MakeClass
      */
     protected function makeTelegramCommand(string $file): void
     {
-        $class = pathinfo($file)['filename'];
+        $class = $this->studly(
+            pathinfo($file)['filename']
+        );
         $command = '/' . strtolower($class);
         // Crear el contenido de la clase
         $content = <<<PHP
@@ -64,12 +66,12 @@ trait MakeClass
         #[Command('$command')]
         class $class extends Commands
         {
-            public function execute(...\$params): void
+            public function execute(): void
             {
                 \$this->reply('$command command executed');
             }
             
-            public function getDescription(): string
+            public static function description(): string
             {
                 return 'Command description';
             }
@@ -84,7 +86,9 @@ trait MakeClass
      */
     protected function makeCallback(string $file, string $action): void
     {
-        $class = pathinfo($file)['filename'];
+        $class = $this->studly(
+            pathinfo($file)['filename']
+        );
 
         // Crear el contenido de la clase
         $content = <<<PHP
@@ -113,7 +117,9 @@ trait MakeClass
      */
     protected function makeConversation(string $file): void
     {
-        $class = pathinfo($file)['filename'];
+        $class = $this->studly(
+            pathinfo($file)['filename']
+        );
         // Crear el contenido de la clase
         $content = <<<PHP
         <?php
@@ -123,7 +129,7 @@ trait MakeClass
 
         class $class extends Conversations
         {
-            public function execute(array \$params=[]): void
+            public function start(): void
             {
                 \$this->reply('Conversation executed');
             }
@@ -138,7 +144,9 @@ trait MakeClass
      */
     protected function makeTelegramHandler(string $file): void
     {
-        $class = pathinfo($file)['filename'];
+        $class = $this->studly(
+            pathinfo($file)['filename']
+        );
         // Crear el contenido de la clase
         $content = <<<PHP
         <?php
@@ -150,7 +158,35 @@ trait MakeClass
         {
             public function execute(): void
             {
-                \$this->reply('handler executed');
+                //
+            }
+        }
+        PHP;
+
+        writeContentToFile($file, $content);
+    }
+
+    /**
+     * Crear middleware
+     */
+    protected function makeTelegramMiddleware(string $file): void
+    {
+        $class = $this->studly(
+            pathinfo($file)['filename']
+        );
+        // Crear el contenido de la clase
+        $content = <<<PHP
+        <?php
+        namespace Bot\\Middlewares;
+        
+        use Al3x5\\xBot\Middlewares;
+
+        class $class extends Middlewares
+        {
+            public function handle(\Closure \$next)
+            {
+                \$this->reply('Middleware in execution');
+                return \$next();
             }
         }
         PHP;
@@ -173,7 +209,9 @@ trait MakeClass
         $subDirs = explode('/', trim($name, '/'));
 
         // Fichero
-        $file = ucfirst(strtolower(array_pop($subDirs) . '.php'));
+        $rawClass = array_pop($subDirs);
+        $file = $this->studly($rawClass) . '.php';
+
 
         // Directorio
         $directory = trim(
@@ -202,5 +240,15 @@ trait MakeClass
         }
 
         return $filename;
+    }
+
+    /**
+     * Normaliza
+     */
+    protected function studly(string $value): string
+    {
+        $value = str_replace(['-', '_'], ' ', $value);
+        $value = ucwords($value);
+        return str_replace(' ', '', $value);
     }
 }

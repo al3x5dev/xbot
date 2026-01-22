@@ -10,6 +10,7 @@ use Al3x5\xBot\Telegram\Entity;
  * @property bool $limited_gifts
  * @property bool $unique_gifts
  * @property bool $premium_subscription
+ * @property bool $gifts_from_channels
  */
 class AcceptedGiftTypes extends Entity
 {

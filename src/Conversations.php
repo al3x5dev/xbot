@@ -4,15 +4,17 @@ namespace Al3x5\xBot;
 
 use Al3x5\xBot\Entities\Update;
 use Al3x5\xBot\Traits\ConversationHandler;
-use Al3x5\xBot\Traits\Responder;
+use Al3x5\xBot\Traits\BotActions;
 
 /**
  * Conversation class
  */
 abstract class Conversations
 {
+    protected array $end = [];
+
     use ConversationHandler,
-        Responder;
+        BotActions;
 
     public function __construct(protected Update $update)
     {
@@ -20,20 +22,46 @@ abstract class Conversations
     }
 
     /**
-     * Establece nueva conversacion
+     * Inicia una conversacion con el usuario
      */
-    public function say(
-        string $message,
-        string $conversation,
-        ?string $next = null
-    ): Telegram {
-        $this->startConversation($conversation, $next);
-        return $this->reply($message);
-        //return $this;
+    protected function setStep(string $step): void
+    {
+        Config::get('cache')->set(
+            $this->getConversationIdentifier(),
+            [
+                'conversation' => static::class,
+                'step' => $step,
+                'end' => $this->getData('end', $this->end)
+            ]
+        );
     }
 
     /**
-     * Ejecuta la conversacion
+     * Palabras para cancelar
      */
-    abstract public function execute(array $params = []): void;
+    protected function end(string ...$words): void
+    {
+        $this->end = array_map('mb_strtolower', $words);
+    }
+
+    /**
+     * Establece nueva conversacion
+     */
+    public function ask(
+        string $message,
+        string $step
+    ) {
+        $this->reply($message);
+        $this->setStep($step);
+    }
+
+    /**
+     * Inicia la conversación
+     */
+    abstract public function start(): void;
+
+    /**
+     * Mensaje de error ante fallas
+     */
+    public function fallback(): void {}
 }
