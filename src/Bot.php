@@ -15,7 +15,7 @@ class Bot
 {
     public const NAME = 'xBot';
 
-    public const VERSION = '2.6.0';
+    public const VERSION = '3.0.0';
 
     public ?Update $update = null;
 
@@ -104,6 +104,11 @@ class Bot
      */
     private function resolveMessage(): void
     {
+        if ($this->isTalking()) {
+            $this->getConversation();
+            return;
+        }
+
         if ($this->update->getMessage()->isCommand()) {
             $this->handleCommand();
             return;

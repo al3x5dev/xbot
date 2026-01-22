@@ -80,11 +80,6 @@ trait MessageHandler
      */
     private function handleMessage(): void
     {
-        if ($this->isTalking()) {
-            $this->getConversation();
-            return;
-        }
-
         $this->handle(
             $this->getCommand(
                 $this->getMessage()->getText() ?? '',

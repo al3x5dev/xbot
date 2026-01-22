@@ -129,7 +129,7 @@ trait MakeClass
 
         class $class extends Conversations
         {
-            public function execute(array \$params=[]): void
+            public function start(): void
             {
                 \$this->reply('Conversation executed');
             }
