@@ -3,14 +3,14 @@
 namespace Al3x5\xBot;
 
 use Al3x5\xBot\Entities\Update;
-use Al3x5\xBot\Traits\Responder;
+use Al3x5\xBot\Traits\BotActions;
 
 /**
  * Handlers class
  */
 abstract class Handlers
 {
-    use Responder;
+    use BotActions;
 
     public function __construct(protected Update $update)
     {

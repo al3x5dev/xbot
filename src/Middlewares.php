@@ -3,7 +3,7 @@
 namespace Al3x5\xBot;
 
 use Al3x5\xBot\Entities\Update;
-use Al3x5\xBot\Traits\Responder;
+use Al3x5\xBot\Traits\BotActions;
 
 /**
  * Middleware class
@@ -11,7 +11,7 @@ use Al3x5\xBot\Traits\Responder;
 abstract class Middlewares
 {
     protected Update $update;
-    use Responder;
+    use BotActions;
 
     public function __construct(Update $update)
     {

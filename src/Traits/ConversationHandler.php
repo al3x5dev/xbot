@@ -8,7 +8,7 @@ use Al3x5\xBot\Exceptions\xBotException;
 
 trait ConversationHandler
 {
-    use Responder;
+    use BotActions;
 
     /**
      * Obtiene el identificador de la conversacion

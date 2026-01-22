@@ -8,7 +8,7 @@ use Al3x5\xBot\Exceptions\xBotException;
 use Al3x5\xBot\Traits\CallbackHandler;
 use Al3x5\xBot\Traits\MessageHandler;
 use Al3x5\xBot\Traits\MiddlewareHandler;
-use Al3x5\xBot\Traits\Responder;
+use Al3x5\xBot\Traits\BotActions;
 use Mk4U\Http\Request;
 
 class Bot
@@ -22,7 +22,7 @@ class Bot
     use CallbackHandler,
         MessageHandler,
         MiddlewareHandler,
-        Responder;
+        BotActions;
 
     /**
      * Inicializa el bot

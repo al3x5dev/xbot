@@ -7,7 +7,7 @@ use Al3x5\xBot\Entities\InaccessibleMessage;
 use Al3x5\xBot\Entities\MaybeInaccessibleMessage;
 use Al3x5\xBot\Entities\Message;
 use Al3x5\xBot\Entities\Update;
-use Al3x5\xBot\Traits\Responder;
+use Al3x5\xBot\Traits\BotActions;
 
 /**
  * Callbacks class
@@ -17,7 +17,7 @@ abstract class Callbacks
     public ?CallbackQuery $callback;
     public ?MaybeInaccessibleMessage $message;
 
-    use Responder;
+    use BotActions;
 
     public function __construct(protected Update $update)
     {
