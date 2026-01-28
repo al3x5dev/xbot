@@ -135,6 +135,8 @@ class Bot
         }, $type);
 
         $class = 'Bot\\Handlers\\' . ucfirst($handler);
+        classValidator($class, Handlers::class, 'Handler');
+
 
         (new $class($this->update))->execute();
     }
