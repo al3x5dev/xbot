@@ -51,7 +51,7 @@ class FormatHelper
      */
     public static function link(string $text, string $url): string
     {
-        $text = self::sanatize($text, 'link');
+        $text = self::sanitize($text, 'link');
         return "<a href=\"$url\">$text</a>";
     }
 
@@ -68,7 +68,7 @@ class FormatHelper
      */
     public static function emoji(string $emoji, string $emojiId): string
     {
-        self::sanatize($emoji);
+        self::sanitize($emoji);
         return "<tg-emoji emoji-id=\"$emojiId\">$emoji</tg-emoji>";
     }
 
@@ -77,7 +77,7 @@ class FormatHelper
      */
     public static function inlineCode(string $text): string
     {
-        $text = self::sanatize($text);
+        $text = self::sanitize($text);
         return "<code>$text</code>";
     }
 
@@ -86,7 +86,7 @@ class FormatHelper
      */
     public static function codeBlock(string $text, string $language = ''): string
     {
-        $text = self::sanatize($text);
+        $text = self::sanitize($text);
         return $language
             ? "<pre><code class=\"language-$language\">$text</code></pre>"
             : "<pre>$text</pre>";
@@ -111,7 +111,7 @@ class FormatHelper
     /**
      * Sanear texto
      */
-    public static function sanatize(string $text): string
+    private static function sanitize(string $text): string
     {
         return htmlspecialchars($text, ENT_QUOTES, 'UTF-8');
     }
