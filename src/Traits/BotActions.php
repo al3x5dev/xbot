@@ -7,7 +7,7 @@ use Al3x5\xBot\Entities\CallbackQuery;
 use Al3x5\xBot\Entities\Message;
 use Al3x5\xBot\Telegram\ApiClient;
 
-trait BotActions
+trait BotActions 
 {
 
     protected static array $cachedCommands = [];
@@ -89,12 +89,14 @@ trait BotActions
     /**
      * Ejecuta el comando dentro de otro
      */
-    public function executeCommand(string $command, ...$params): void
+    public function executeCommand(string $command, array $args=[]): void
     {
-        if (!key_exists($command, self::getAllCommands())) {
+        if (!key_exists($command, $this->getAllCommands())) {
             throw new \InvalidArgumentException("Error: Command '$command' does not exist.");
         }
 
-        (new self::$cachedCommands[$command]($this->update))->execute(...$params);
+        $cmd = new self::$cachedCommands[$command]($this->update);
+        if (!empty($args)) $cmd->setArgs($args);
+        $cmd->execute();
     }
 }

@@ -74,7 +74,7 @@ if (!function_exists('register')) {
         }
 
         // Guarda los comandos en un archivo JSON
-        writeContentToFile("storage/$name.json", json_encode($data, JSON_PRETTY_PRINT));
+        writeContentToFile(base("storage/$name.json"), json_encode($data, JSON_PRETTY_PRINT));
     }
 }
 

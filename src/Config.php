@@ -57,9 +57,9 @@ class Config
     public static function set(string $name, mixed $value): void
     {
         if (!self::has($name)) {
-            self::$cfg[$name] = $value;
+            throw new xBotException("Parameter not found: $name");
         }
-        throw new xBotException("Parameter not found: $name");
+        self::$cfg[$name] = $value;
     }
 
     /**
