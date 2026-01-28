@@ -12,6 +12,7 @@ use Monolog\Logger;
  */
 class Events
 {
+    private static array $loggers = [];
     /**
      * Crea un archivo de registro
      * 
@@ -27,18 +28,26 @@ class Events
         array $context = [],
         string $level = 'debug'
     ): void {
-        $logger = new Logger($name);
-        $stream_handler = new StreamHandler(base("storage/logs/$file"));
+        $key = "$name:$file";
 
-        if (Config::get('dev') && preg_match('/^dev/', $name)) {
-            $stream_handler->setFormatter(new JsonFormatter());
+        if (!isset(self::$loggers[$key])) {
+
+            $log = new Logger($name);
+            $stream_handler = new StreamHandler(base("storage/logs/$file"));
+
+            if (Config::get('debug') && preg_match('/^dev/', $name)) {
+                $stream_handler->setFormatter(new JsonFormatter());
+            }
+
+            //Establece el Nivel de Prioridad
+            $level = self::level($level);
+
+            $log->pushHandler($stream_handler);
+
+            //Almacenar en logger proiedad
+            self::$loggers[$key] = $log;
         }
-
-        //Establece el Nivel de Prioridad
-        $level = self::level($level);
-
-        $logger->pushHandler($stream_handler);
-        $logger->$level($message, $context);
+        self::$loggers[$key]->$level($message, $context);
     }
 
     /**
