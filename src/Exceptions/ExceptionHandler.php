@@ -54,6 +54,8 @@ class ExceptionHandler
             ],
             'error',
         );
+        //detiene todo
+        exit(1);
     }
 
     /**
@@ -62,8 +64,8 @@ class ExceptionHandler
     public function errorHandler(
         int $severity,
         string $message,
-        string $file = null,
-        int $line = null
+        ?string $file = null,
+        ?int $line = null
     ): void {
         if (!(error_reporting() & $severity)) {
             return;
