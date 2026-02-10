@@ -24,6 +24,7 @@
 - [Keyboards](https://github.com/al3x5dev/xbot/blob/main/docs/keyboards.md)
 - [Mesagge Format](https://github.com/al3x5dev/xbot/blob/main/docs/format.md)
 - [Events Logger](https://github.com/al3x5dev/xbot/blob/main/docs/logger.md)
+- [Middlewares](https://github.com/al3x5dev/xbot/blob/main/docs/middlewares.md)
 
 
 ## Contributions
