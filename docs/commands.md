@@ -28,42 +28,55 @@ xBot has an integrated [cli tool](https://github.com/alexsandrov16/xbot/blob/mai
 php vendor/bin/xbot telegram:command
 ```
 
-This will create your new command inside the bot/Commands folder in the root directory of your project.
+This will generate a new command class inside the `bot/Commands` folder in the project root.
 
 
 ### Basic example
 
-Here is a basic command structure for you to understand how to write a simple command class.
-
 ```php
-namespace MyBotCommands;
+namespace MyBot\Commands;
 
-use Al3x5xBotCommands;
-
-use Al3x5Bottributes command;
+use Al3x5\xBot\Commands;
+use Al3x5\xBot\Attributes\Command;
 
 #[Command('/start')]
 class Start extends Commands
 {
-    public function execute(...$params): void
+    public function execute(): void
     {
-        $this->reply('Hey, there! Welcome to our bot!');
+        $this->reply('Hey there! Welcome to our bot!');
     }
-    
-    public function getDescription(): string
+
+    public static function description(): string
     {
         return 'Start Command to get you started';
     }
 }
 ```
 
+### Working with arguments
+
+Commands in xBot now have built-in argument handling:
+
+```php
+$this->setArgs(['arg1', 'arg2']); // Set arguments
+
+$first = $this->arg(0);            // Get first argument
+$all   = $this->args();            // Get all arguments
+$three = $this->args(3);           // Get first 3 arguments, filling missing with null
+```
+
+* `setArgs(array $args)` → Assigns arguments to the command.
+* `arg(int $index, $default = null)` → Returns a single argument.
+* `args(?int $count = null)` → Returns all arguments or a fixed number of arguments.
+
 
 #### Required properties and method:
 
-- All commands extend from the abstract class `Al3x5BotCommands` so they inherit from it the properties `$message` and `$update`, both properties represent the entities `Al3x5BotEntitiesMessage` and `Al3x5BotEntitiesUpdate` respectively.
-- Each command is passed the `Command` attribute which represents the name of the command. This is used to identify the command when the user sends a message to the bot. In this case, the name is set to `start`, so the command will be activated when the user sends `/start`.
-- The `execute()` method is the heart of the command and defines the action to be executed when the command is triggered. In this case, it simply sends a welcome message to the user when the /start command is issued.
-- The `getDescription()` method returns a string that provides a brief description of the command's purpose, typically used to get the description of each available command.
+* All commands extend `Al3x5\xBot\Commands`, inheriting `$message` and `$update`.
+* Commands are marked with the `#[Command('name')]` attribute.
+* `execute()` defines the action when the command is triggered.
+* `description()`: string is now static and provides the command’s description.
 
 
 ### Register
