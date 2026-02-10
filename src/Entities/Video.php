@@ -14,6 +14,7 @@ use Al3x5\xBot\Telegram\Entity;
  * @property PhotoSize $thumbnail
  * @property PhotoSize[] $cover
  * @property int $start_timestamp
+ * @property VideoQuality[] $qualities
  * @property string $file_name
  * @property string $mime_type
  * @property int $file_size
@@ -25,6 +26,7 @@ class Video extends Entity
         return [
             'thumbnail' => PhotoSize::class,
             'cover' => [PhotoSize::class],
+            'qualities' => [VideoQuality::class],
         ];
     }
 }

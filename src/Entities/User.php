@@ -20,6 +20,7 @@ use Al3x5\xBot\Telegram\Entity;
  * @property bool $can_connect_to_business
  * @property bool $has_main_web_app
  * @property bool $has_topics_enabled
+ * @property bool $allows_users_to_create_topics
  */
 class User extends Entity
 {

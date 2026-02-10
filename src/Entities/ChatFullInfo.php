@@ -54,6 +54,7 @@ use Al3x5\xBot\Telegram\Entity;
  * @property int $linked_chat_id
  * @property ChatLocation $location
  * @property UserRating $rating
+ * @property Audio $first_profile_audio
  * @property UniqueGiftColors $unique_gift_colors
  * @property int $paid_message_star_count
  */
@@ -75,6 +76,7 @@ class ChatFullInfo extends Entity
             'accepted_gift_types' => AcceptedGiftTypes::class,
             'location' => ChatLocation::class,
             'rating' => UserRating::class,
+            'first_profile_audio' => Audio::class,
             'unique_gift_colors' => UniqueGiftColors::class,
         ];
     }

@@ -14,6 +14,7 @@ use Al3x5\xBot\Telegram\Entity;
  * @property UniqueGiftSymbol $symbol
  * @property UniqueGiftBackdrop $backdrop
  * @property bool $is_premium
+ * @property bool $is_burned
  * @property bool $is_from_blockchain
  * @property UniqueGiftColors $colors
  * @property Chat $publisher_chat

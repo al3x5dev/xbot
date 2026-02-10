@@ -7,6 +7,8 @@ use Al3x5\xBot\Telegram\Entity;
 /**
  * KeyboardButton Entity
  * @property string $text
+ * @property string $icon_custom_emoji_id
+ * @property string $style
  * @property KeyboardButtonRequestUsers $request_users
  * @property KeyboardButtonRequestChat $request_chat
  * @property bool $request_contact

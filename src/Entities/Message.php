@@ -60,6 +60,8 @@ use Al3x5\xBot\Telegram\Entity;
  * @property Location $location
  * @property User[] $new_chat_members
  * @property User $left_chat_member
+ * @property ChatOwnerLeft $chat_owner_left
+ * @property ChatOwnerChanged $chat_owner_changed
  * @property string $new_chat_title
  * @property PhotoSize[] $new_chat_photo
  * @property bool $delete_chat_photo
@@ -149,6 +151,8 @@ class Message extends Entity
             'location' => Location::class,
             'new_chat_members' => [User::class],
             'left_chat_member' => User::class,
+            'chat_owner_left' => ChatOwnerLeft::class,
+            'chat_owner_changed' => ChatOwnerChanged::class,
             'new_chat_photo' => [PhotoSize::class],
             'message_auto_delete_timer_changed' => MessageAutoDeleteTimerChanged::class,
             'pinned_message' => MaybeInaccessibleMessage::class,
