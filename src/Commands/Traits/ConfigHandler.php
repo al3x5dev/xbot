@@ -14,6 +14,7 @@ trait ConfigHandler
         'bot/Callbacks',
         'bot/Commands',
         'bot/Conversations',
+        'bot/Middlewares',
     ];
 
     /**
