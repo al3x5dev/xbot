@@ -37,9 +37,13 @@ final class HookDeleteCommand extends Command
         //Revisar si config.php existe
         $this->runInstall();
 
+        $data = $this->deleteWebhook(['drop_pending_updates' => true]);
         try {
-            $data = $this->deleteWebhook(['drop_pending_updates' => true]);
-            $this->style->success($data);
+            if (!$data) {
+                throw new \Exception("Error: the webhook was not removed.");
+                
+            }
+            $this->style->success('Webhook was deleted');
             return Command::SUCCESS;
         } catch (\Throwable $th) {
             throw new \ErrorException($th->getMessage());
