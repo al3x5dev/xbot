@@ -3,7 +3,6 @@
 namespace Al3x5\xBot\Telegram;
 
 use Al3x5\xBot\Config;
-use Al3x5\xBot\Entities\InputFile;
 use Al3x5\xBot\Events;
 use Al3x5\xBot\Exceptions\xBotException;
 
@@ -46,7 +45,7 @@ class ApiClient
         $hasFile = false;
         // Detectar si hay InputFile
         foreach ($this->params as $value) {
-            if ($value instanceof InputFile) {
+            if ($value instanceof \Al3x5\xBot\Entities\InputFile) {
                 $hasFile = true;
                 break;
             }
@@ -142,15 +141,13 @@ class ApiClient
             throw new xBotException("API Error: " . ($data['description'] ?? 'Unknown error'));
         }
 
-        if (in_array($this->method, ['deleteWebhook', 'setWebhook'])) {
-            return $data['description'];
-        }
-
         // Determinar tipo de respuesta usando el Factory
         $methodDefinition = self::$factory->getMethod($this->method);
 
         $entity = $methodDefinition->returnType;
 
-        return new $entity($data);
+        return class_exists($entity)
+            ? new $entity($data)
+            : $data['result'];
     }
 }
