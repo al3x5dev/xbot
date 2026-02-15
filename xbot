@@ -34,24 +34,23 @@ if (!empty($cfg)) {
 $app = new Application(Bot::NAME, 'v' . Bot::VERSION);
 
 // ... register commands
-$app->add(new InstallCommand());
-$app->add(new RegisterCommand());
+$app->addCommand(new InstallCommand());
+$app->addCommand(new RegisterCommand());
 //webhook
-$app->add(new HookSetCommand());
-$app->add(new HookDeleteCommand());
-$app->add(new HookInfoCommand());
-$app->add(new HookAboutCommand());
+$app->addCommand(new HookSetCommand());
+$app->addCommand(new HookDeleteCommand());
+$app->addCommand(new HookInfoCommand());
+$app->addCommand(new HookAboutCommand());
 //make
 if (!strpos(__DIR__, 'vendor')) {
-    $app->add(new MakeCommandCommand());
+    $app->addCommand(new MakeCommandCommand());
 }
 //telegram
-$app->add(new TelegramCommandCommand());
-$app->add(new TelegramCallbackCommand());
-$app->add(new TelegramConversationCommand());
-$app->add(new TelegramHandlerCommand());
-$app->add(new TelegramMiddlewareCommand());
-
+$app->addCommand(new TelegramCommandCommand());
+$app->addCommand(new TelegramCallbackCommand());
+$app->addCommand(new TelegramConversationCommand());
+$app->addCommand(new TelegramHandlerCommand());
+$app->addCommand(new TelegramMiddlewareCommand());
 
 if (
     !file_exists(InstallCommand::configFile()) &&
