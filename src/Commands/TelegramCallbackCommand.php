@@ -2,9 +2,11 @@
 
 namespace Al3x5\xBot\Commands;
 
+use Al3x5\xBot\Commands\Traits\AskForClass;
 use Al3x5\xBot\Commands\Traits\Io;
 use Al3x5\xBot\Commands\Traits\MakeClass;
 use Symfony\Component\Console\Command\Command;
+use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 
@@ -13,7 +15,7 @@ use Symfony\Component\Console\Output\OutputInterface;
  */
 final class TelegramCallbackCommand extends Command
 {
-    use Io, MakeClass;
+    use Io, AskForClass, MakeClass;
     public function configure(): void
     {
         $this
@@ -24,7 +26,7 @@ final class TelegramCallbackCommand extends Command
 
     public function execute(InputInterface $input, OutputInterface $output): int
     {
-        $this->prepare($input, $output);
+        /*$this->prepare($input, $output);
 
         $name = $this->style->ask(
             'What should the Telegram callback be named? [Eg. Option]',
@@ -52,6 +54,29 @@ final class TelegramCallbackCommand extends Command
 
         $this->makeCallback($filename, $action);
         $output->writeln("<info>Telegram callback created successfully.</info>");
+        return Command::SUCCESS;*/
+
+        $this->prepare($input, $output);
+
+        $name = $this->askForClassName(
+            null,
+            'Callback class name (supports subdirs: Games/Dice)'
+        );
+
+        $action = $this->askForClassName(
+            null,
+            'Callback action name (e.g. play, join, confirm)'
+        );
+
+        $data = $this->makeDir($name, 'bot/Callbacks', $output);
+
+        if (empty($data)) {
+            $this->style->error('Callback creation failed.');
+            return Command::FAILURE;
+        }
+
+        $this->makeCallback($data, $action);
+        $output->writeln("<info>Telegram callback [{$data['filename']}] created successfully.</info>");
         return Command::SUCCESS;
     }
 }

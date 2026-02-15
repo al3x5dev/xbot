@@ -2,6 +2,7 @@
 
 namespace Al3x5\xBot\Commands;
 
+use Al3x5\xBot\Commands\Traits\AskForClass;
 use Al3x5\xBot\Commands\Traits\Io;
 use Al3x5\xBot\Commands\Traits\MakeClass;
 use Symfony\Component\Console\Command\Command;
@@ -14,7 +15,7 @@ use Symfony\Component\Console\Output\OutputInterface;
  */
 final class TelegramMiddlewareCommand extends Command
 {
-    use Io, MakeClass;
+    use Io, AskForClass, MakeClass;
     public function configure(): void
     {
         $this
@@ -24,7 +25,7 @@ final class TelegramMiddlewareCommand extends Command
             ->addArgument(
                 'name',
                 InputArgument::OPTIONAL,
-                'The middleware class name (e.g. AuthMiddleware)'
+                'The middleware class name'
             );
     }
 
@@ -32,29 +33,30 @@ final class TelegramMiddlewareCommand extends Command
     {
         $this->prepare($input, $output);
 
-        $name = $input->getArgument('name')
-            ?? $this->style->ask(
-                'Middleware class name',
-                null,
-                fn($value) => trim((string) $value)
-            );
+        $name = $this->askForClassName(
+            $input->getArgument('name'),
+            'Middleware name (e.g. auth or auth/user)'
+        );
 
-        if (!$name) {
-            $output->writeln('<error>Error: Middleware name cannot be empty.</error>');
-            return Command::FAILURE;
-        }
-
-        if (!preg_match('/^[A-Z][A-Za-z0-9]+Middleware$/', $name)) {
+        if (!str_ends_with($name, 'Middleware')) {
             $name .= '-middleware';
         }
 
+        $output->writeln($name);
+
         // Crear directorio y archivo
-        $filename = $this->makeDir($name, 'bot/Middlewares', $output);
+        $data = $this->makeDir($name, 'bot/Middlewares', $output);
+
+        if (empty($data)) {
+            $this->style->error('Middleware creation failed.');
+            return Command::FAILURE;
+        }
+
 
         // Generar clase
-        $this->makeTelegramMiddleware($filename, $name);
+        $this->makeTelegramMiddleware($data);
 
-        $output->writeln("<info>Middleware [$name] created successfully.</info>");
+        $output->writeln("<info>Middleware [{$data['filename']}] created successfully.</info>");
 
         return Command::SUCCESS;
     }

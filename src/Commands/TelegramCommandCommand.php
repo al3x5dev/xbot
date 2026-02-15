@@ -2,6 +2,7 @@
 
 namespace Al3x5\xBot\Commands;
 
+use Al3x5\xBot\Commands\Traits\AskForClass;
 use Al3x5\xBot\Commands\Traits\Io;
 use Al3x5\xBot\Commands\Traits\MakeClass;
 use Symfony\Component\Console\Command\Command;
@@ -14,7 +15,7 @@ use Symfony\Component\Console\Output\OutputInterface;
  */
 final class TelegramCommandCommand extends Command
 {
-    use Io, MakeClass;
+    use Io, AskForClass, MakeClass;
     public function configure(): void
     {
         $this
@@ -28,31 +29,21 @@ final class TelegramCommandCommand extends Command
     {
         $this->prepare($input, $output);
 
-        $name =  !is_null($input->getArgument('name'))
-            ? $input->getArgument('name')
-            : $this->style->ask(
-                'What should the Telegram command be named? [Eg. Start]',
-                null,
-                function ($name): ?string {
-                    return (empty($name)) ? '' : $name;
-                }
-            );
+        $name = $this->askForClassName(
+            $input->getArgument('name'),
+            'What should the Telegram command be named? [Eg. Start] (supports subdirs: Admin/User/Ban)'
+        );
 
-        if ($name == '') {
-            $output->writeln("<error>Error: The name cannot be empty.</error>");
+        $data = $this->makeDir($name, 'bot/Commands', $output);
+
+        if (empty($data)) {
+            $this->style->error('Command creation failed.');
             return Command::FAILURE;
         }
 
-        // Normalizar el nombre (ej: "Start" → "/start")
-        //$command = '/' . trim(strtolower($name), '/');
+        $this->makeTelegramCommand($data);
 
-
-        $filename = $this->makeDir(trim($name), 'bot/Commands', $output);
-
-        // Generar el archivo (implementa esto en tu trait MakeClass)
-        $this->makeTelegramCommand($filename);
-
-        $output->writeln("<info>Telegram command created successfully.</info>");
+        $output->writeln("<info>Telegram command [{$data['filename']}] created successfully.</info>");
         return Command::SUCCESS;
     }
 }

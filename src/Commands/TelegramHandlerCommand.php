@@ -2,6 +2,7 @@
 
 namespace Al3x5\xBot\Commands;
 
+use Al3x5\xBot\Commands\Traits\AskForClass;
 use Al3x5\xBot\Commands\Traits\Io;
 use Al3x5\xBot\Commands\Traits\MakeClass;
 use Symfony\Component\Console\Command\Command;
@@ -14,7 +15,7 @@ use Symfony\Component\Console\Output\OutputInterface;
  */
 final class TelegramHandlerCommand extends Command
 {
-    use Io, MakeClass;
+    use Io, AskForClass, MakeClass;
     public function configure(): void
     {
         $this
@@ -29,27 +30,22 @@ final class TelegramHandlerCommand extends Command
     {
         $this->prepare($input, $output);
 
-        $name =  !is_null($input->getArgument('name'))
-            ? $input->getArgument('name')
-            : $this->style->ask(
-                "What should Telegram's update handler be called? [e.g., ChannelPost]",
-                null,
-                function ($name): ?string {
-                    return (empty($name)) ? '' : $name;
-                }
-            );
+        $name = $this->askForClassName(
+            $input->getArgument('name'),
+            "What should Telegram's update handler be called? [e.g., ChannelPost]"
+        );
 
-        if ($name == '') {
-            $output->writeln("<error>Error: The name cannot be empty.</error>");
+        $data = $this->makeDir($name, 'bot/Handlers', $output);
+
+        if (empty($data)) {
+            $this->style->error('Handler creation failed.');
             return Command::FAILURE;
         }
 
-        $filename = $this->makeDir($name, 'bot/Handlers', $output);
-
         // Generar el archivo 
-        $this->makeTelegramHandler($filename);
+        $this->makeTelegramHandler($data);
 
-        $output->writeln("<info>Telegram handler created successfully.</info>");
+        $output->writeln("<info>Handler [{$data['filename']}] created successfully.</info>");
         return Command::SUCCESS;
     }
 }

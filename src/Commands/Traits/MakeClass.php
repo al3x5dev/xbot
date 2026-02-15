@@ -48,16 +48,14 @@ trait MakeClass
     /**
      * Crear comandos de telegram
      */
-    protected function makeTelegramCommand(string $file): void
+    protected function makeTelegramCommand(array $data): void
     {
-        $class = $this->studly(
-            pathinfo($file)['filename']
-        );
+        $class = $data['class'];
         $command = '/' . strtolower($class);
         // Crear el contenido de la clase
         $content = <<<PHP
         <?php
-        namespace Bot\\Commands;
+        namespace {$data['namespace']};
         
         use Al3x5\\xBot\Commands;
 
@@ -68,7 +66,7 @@ trait MakeClass
         {
             public function execute(): void
             {
-                \$this->reply('$command command executed');
+                \$this->reply("Command $command executed.");
             }
             
             public static function description(): string
@@ -78,120 +76,107 @@ trait MakeClass
         }
         PHP;
 
-        writeContentToFile($file, $content);
+        writeContentToFile($data['filename'], $content);
     }
 
     /**
      * Crear callback de telegram
      */
-    protected function makeCallback(string $file, string $action): void
+    protected function makeCallback(array $data, string $action): void
     {
-        $class = $this->studly(
-            pathinfo($file)['filename']
-        );
-
         // Crear el contenido de la clase
         $content = <<<PHP
         <?php
-        namespace Bot\\Callbacks;
+        namespace {$data['namespace']};
         
         use Al3x5\\xBot\Callbacks;
 
         use Al3x5\\xBot\Attributes\Callback;
 
         #[Callback('$action')]
-        class $class extends Callbacks
+        class {$data['class']} extends Callbacks
         {
             public function execute(): void
             {
-                \$this->reply('Callback executed');
+                \$this->reply("Callback handled.");
             }
         }
         PHP;
 
-        writeContentToFile($file, $content);
+        writeContentToFile($data['filename'], $content);
     }
 
     /**
      * Crear conversaciones de telegram
      */
-    protected function makeConversation(string $file): void
+    protected function makeConversation(array $data): void
     {
-        $class = $this->studly(
-            pathinfo($file)['filename']
-        );
         // Crear el contenido de la clase
         $content = <<<PHP
         <?php
-        namespace Bot\\Conversations;
+        namespace {$data['namespace']};
         
         use Al3x5\\xBot\Conversations;
 
-        class $class extends Conversations
+        class {$data['class']} extends Conversations
         {
             public function start(): void
             {
-                \$this->reply('Conversation executed');
+                // \$this->reply('Ask the user something to begin the conversation.');
             }
         }
         PHP;
 
-        writeContentToFile($file, $content);
+        writeContentToFile($data['filename'], $content);
     }
 
     /**
      * Crear handlers de telegram
      */
-    protected function makeTelegramHandler(string $file): void
+    protected function makeTelegramHandler(array $data): void
     {
-        $class = $this->studly(
-            pathinfo($file)['filename']
-        );
         // Crear el contenido de la clase
-        $content = <<<PHP
+       $content = <<<PHP
         <?php
-        namespace Bot\\Handlers;
+        namespace {$data['namespace']};
         
         use Al3x5\\xBot\Handlers;
 
-        class $class extends Handlers
+        class {$data['class']} extends Handlers
         {
             public function execute(): void
             {
-                //
+                // Update handling logic
             }
         }
         PHP;
 
-        writeContentToFile($file, $content);
+        writeContentToFile($data['filename'], $content);
     }
 
     /**
      * Crear middleware
      */
-    protected function makeTelegramMiddleware(string $file): void
+    protected function makeTelegramMiddleware(array $data): void
     {
-        $class = $this->studly(
-            pathinfo($file)['filename']
-        );
         // Crear el contenido de la clase
         $content = <<<PHP
         <?php
-        namespace Bot\\Middlewares;
+        namespace {$data['namespace']};
         
         use Al3x5\\xBot\Middlewares;
 
-        class $class extends Middlewares
+        class {$data['class']} extends Middlewares
         {
             public function handle(\Closure \$next)
             {
-                \$this->reply('Middleware in execution');
+                // Middleware logic goes here
                 return \$next();
             }
         }
         PHP;
 
-        writeContentToFile($file, $content);
+        writeContentToFile($data['filename'], $content);
     }
 
     /**
@@ -202,44 +187,57 @@ trait MakeClass
      *  - bot/Commands,
      *  - bot/Conversations
      */
-    public function makeDir(string $name, string $path, OutputInterface $output): string|int
-    {
+    public function makeDir(
+        string $name,
+        string $path,
+        OutputInterface $output
+    ): array|int {
 
-        // Subdirectorios
+        // Sanitizar
+        $name = preg_replace('/[^A-Za-z0-9\/_-]/', '', $name);
+
         $subDirs = explode('/', trim($name, '/'));
 
-        // Fichero
         $rawClass = array_pop($subDirs);
-        $file = $this->studly($rawClass) . '.php';
+        $class = $this->studly($rawClass);
+        $file = $class . '.php';
 
+        // Crear directorio físico
+        $directory = rtrim($path, '/');
 
-        // Directorio
-        $directory = trim(
-            $path . '/' . implode(
+        if (!empty($subDirs)) {
+            $directory .= '/' . implode(
                 '/',
-                array_map(
-                    fn($n) => ucfirst($n),
-                    $subDirs
-                )
-            ),
-            '/'
-        );
+                array_map(fn($n) => ucfirst($n), $subDirs)
+            );
+        }
 
-        // Crear directorios si no existen
-        if (!file_exists($directory)) {
+        if (!is_dir($directory)) {
             mkdir($directory, 0775, true);
         }
 
-        // Ruta completa del archivo
         $filename = $directory . '/' . $file;
 
-        // Verificar si el archivo ya existe
         if (file_exists($filename)) {
-            $output->writeln("<error>Error: The file already exists at $filename</error>");
+            $output->writeln("<error>File already exists: $filename</error>");
             return Command::FAILURE;
         }
 
-        return $filename;
+        // Construir namespace dinámico
+        $baseNamespace = str_replace('/', '\\', ucfirst($path));
+
+        if (!empty($subDirs)) {
+            $baseNamespace .= '\\' . implode(
+                '\\',
+                array_map(fn($n) => ucfirst($n), $subDirs)
+            );
+        }
+
+        return [
+            'filename'  => $filename,
+            'class'     => $class,
+            'namespace' => $baseNamespace
+        ];
     }
 
     /**
