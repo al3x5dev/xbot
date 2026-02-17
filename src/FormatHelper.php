@@ -2,8 +2,6 @@
 
 namespace Al3x5\xBot;
 
-use Al3x5\xBot\Config;
-
 class FormatHelper
 {
     /**
