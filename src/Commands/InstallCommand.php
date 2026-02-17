@@ -59,7 +59,7 @@ final class InstallCommand extends Command
             $output->writeln('<info>Loading bot configuration...</info>');
             self::load(self::configFile());
 
-             // Crear los middleware 
+            // Crear los middleware 
             $output->writeln('<info>Creating middlewares...</info>');
             $this->mwConfig();
             $this->loggerMiddleware();
@@ -171,9 +171,17 @@ final class InstallCommand extends Command
      */
     public function makeCommandClasses(): void
     {
-        $this->makeTelegramCommand('bot/Commands/Start.php', __DIR__);
+        $defaultClass = ['Start', 'Help', 'Generic'];
+        foreach ($defaultClass as $class) {
+            $this->makeTelegramCommand([
+                'filename'  => getcwd()."/bot/Commands/$class.php",
+                'class'     => $class,
+                'namespace' => "Bot\\Commands"
+            ]);
+        }
+        /*$this->makeTelegramCommand('bot/Commands/Start.php', __DIR__);
         $this->makeTelegramCommand('bot/Commands/Help.php', __DIR__);
-        $this->makeTelegramCommand('bot/Commands/Generic.php', __DIR__);
+        $this->makeTelegramCommand('bot/Commands/Generic.php', __DIR__);*/
     }
 
     /**
@@ -245,7 +253,7 @@ final class InstallCommand extends Command
         writeContentToFile(self::mwFile(), $content);
     }
 
-        /**
+    /**
      * Crea archivos de configuracion para middleware
      */
     private function loggerMiddleware()
