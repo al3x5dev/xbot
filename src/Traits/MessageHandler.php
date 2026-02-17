@@ -59,18 +59,18 @@ trait MessageHandler
      */
     private function handleCommand(): void
     {
-        // Eliminar la barra inicial y cualquier mención al bot
-        $text = preg_replace(
-            '/^\/([a-zA-Z0-9_]+)(@[\w]+)?/',
+        // Separar el comando de los parámetros
+        $parts = explode(' ', $this->getMessage()->getText());
+
+        // Eliminar cualquier mención al bot
+        $command = preg_replace(
+            '/@[a-zA-Z0-9_-]+/',
             '$1',
-            $this->getMessage()->getText()
+            $parts[0]
         );
 
-        // Separar el comando de los parámetros
-        $parts = explode(' ', $text);
-
         $this->handle(
-            $this->getCommand("/$parts[0]",'/generic'),
+            $this->getCommand($command, '/generic'),
             array_slice($parts, 1)
         );
     }
@@ -82,7 +82,7 @@ trait MessageHandler
     {
         $this->handle(
             $this->getCommand(
-                trim($this->getMessage()->getText(),'\\') ?? '',
+                trim($this->getMessage()->getText(), '\\') ?? '',
                 '/generic'
             )
         );
