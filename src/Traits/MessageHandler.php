@@ -70,7 +70,7 @@ trait MessageHandler
         $parts = explode(' ', $text);
 
         $this->handle(
-            $parts[0],
+            $this->getCommand("/$parts[0]",'/generic'),
             array_slice($parts, 1)
         );
     }
@@ -82,7 +82,7 @@ trait MessageHandler
     {
         $this->handle(
             $this->getCommand(
-                $this->getMessage()->getText() ?? '',
+                trim($this->getMessage()->getText(),'\\') ?? '',
                 '/generic'
             )
         );
@@ -91,10 +91,8 @@ trait MessageHandler
     /**
      *  Manejador de eventos
      */
-    private function handle(string $key, array $args = []): void
+    private function handle(string $className, array $args = []): void
     {
-        $className = $this->getCommand("/$key", '/generic');
-
         classValidator($className, Commands::class, 'Command');
 
         $command = new $className($this->update);
