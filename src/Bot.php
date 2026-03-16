@@ -2,7 +2,7 @@
 
 namespace Al3x5\xBot;
 
-use Al3x5\xBot\Entities\Update;
+use Al3x5\xBot\Telegram\Entities\Update;
 use Al3x5\xBot\Exceptions\ExceptionHandler;
 use Al3x5\xBot\Exceptions\xBotException;
 use Al3x5\xBot\Traits\CallbackHandler;
@@ -15,7 +15,7 @@ class Bot
 {
     public const NAME = 'xBot';
 
-    public const VERSION = '3.1.0';
+    public const VERSION = '4.0.0';
 
     public ?Update $update = null;
 
