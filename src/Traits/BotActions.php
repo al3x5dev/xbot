@@ -3,25 +3,15 @@
 namespace Al3x5\xBot\Traits;
 
 use Al3x5\xBot\Config;
-use Al3x5\xBot\Entities\CallbackQuery;
-use Al3x5\xBot\Entities\Message;
-use Al3x5\xBot\Telegram\ApiClient;
+use Al3x5\xBot\Telegram\Entities\CallbackQuery;
+use Al3x5\xBot\Telegram\Entities\Message;
+use Al3x5\xBot\Telegram\Methods;
 
-trait BotActions 
+trait BotActions
 {
+    use Methods;
 
     protected static array $cachedCommands = [];
-
-    /**
-     * Métodos de Respuesta e Interacción
-     * 
-     * Ejecuta el metodo especificado de la API de Telegram
-     */
-    public function __call($name, $args): mixed
-    {
-        $api = new ApiClient($name, $args[0] ?? []);
-        return $api->send();
-    }
 
     /**
      * Responder mensajes
@@ -43,15 +33,7 @@ trait BotActions
             //throw new \RuntimeException("Unsupported entity type."),
         };
 
-        return $this->sendMessage(
-            array_merge(
-                [
-                    'chat_id' => $chat->getId(),
-                    'text' => $message,
-                ],
-                $params
-            )
-        );
+        return $this->sendMessage(chat_id: $chat->getId(), text: $message);
     }
 
     /**
@@ -89,7 +71,7 @@ trait BotActions
     /**
      * Ejecuta el comando dentro de otro
      */
-    public function executeCommand(string $command, array $args=[]): void
+    public function executeCommand(string $command, array $args = []): void
     {
         if (!key_exists($command, $this->getAllCommands())) {
             throw new \InvalidArgumentException("Error: Command '$command' does not exist.");

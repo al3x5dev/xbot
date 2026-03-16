@@ -2,7 +2,7 @@
 
 namespace Al3x5\xBot;
 
-use Al3x5\xBot\Entities\Update;
+use Al3x5\xBot\Telegram\Entities\Update;
 use Al3x5\xBot\Traits\ConversationHandler;
 use Al3x5\xBot\Traits\BotActions;
 

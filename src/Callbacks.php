@@ -2,11 +2,11 @@
 
 namespace Al3x5\xBot;
 
-use Al3x5\xBot\Entities\CallbackQuery;
-use Al3x5\xBot\Entities\InaccessibleMessage;
-use Al3x5\xBot\Entities\MaybeInaccessibleMessage;
-use Al3x5\xBot\Entities\Message;
-use Al3x5\xBot\Entities\Update;
+use Al3x5\xBot\Telegram\Entities\CallbackQuery;
+use Al3x5\xBot\Telegram\Entities\InaccessibleMessage;
+use Al3x5\xBot\Telegram\Entities\MaybeInaccessibleMessage;
+use Al3x5\xBot\Telegram\Entities\Message;
+use Al3x5\xBot\Telegram\Entities\Update;
 use Al3x5\xBot\Traits\BotActions;
 
 /**

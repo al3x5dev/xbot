@@ -58,10 +58,7 @@ final class HookSetCommand extends Command
             throw new \InvalidArgumentException("The URL you provided is not valid. Please check and try again.");
         }
 
-        $data = $this->setWebhook([
-            'url' => $url,
-            'drop_pending_updates' => true
-        ]);
+        $data = $this->setWebhook($url,drop_pending_updates:true);
         try {
             if (!$data) {
                 throw new \Exception("Error: the webhook could not be configured");

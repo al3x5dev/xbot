@@ -3,7 +3,7 @@
 namespace Al3x5\xBot\Traits;
 
 use Al3x5\xBot\Commands;
-use Al3x5\xBot\Entities\Message;
+use Al3x5\xBot\Telegram\Entities\Message;
 use Al3x5\xBot\Exceptions\xBotException;
 
 trait MessageHandler

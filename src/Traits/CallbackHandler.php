@@ -3,7 +3,7 @@
 namespace Al3x5\xBot\Traits;
 
 use Al3x5\xBot\Callbacks;
-use Al3x5\xBot\Entities\CallbackQuery;
+use Al3x5\xBot\Telegram\Entities\CallbackQuery;
 
 trait CallbackHandler
 {
