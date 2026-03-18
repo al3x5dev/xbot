@@ -13,4 +13,13 @@ class InputStoryContent extends Entity
     {
         return [];
     }
+
+    public function resolve(): Entity
+    {
+        return match($this->type) {
+            'photo' => new InputStoryContentPhoto($this->properties),
+            'video' => new InputStoryContentVideo($this->properties),
+            default => throw new \InvalidArgumentException('Unknown InputStoryContent type: ' . $this->type),
+        };
+    }
 }

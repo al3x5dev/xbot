@@ -13,4 +13,13 @@ class InputProfilePhoto extends Entity
     {
         return [];
     }
+
+    public function resolve(): Entity
+    {
+        return match($this->type) {
+            'static' => new InputProfilePhotoStatic($this->properties),
+            'animated' => new InputProfilePhotoAnimated($this->properties),
+            default => throw new \InvalidArgumentException('Unknown InputProfilePhoto type: ' . $this->type),
+        };
+    }
 }

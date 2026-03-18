@@ -13,4 +13,14 @@ class PaidMedia extends Entity
     {
         return [];
     }
+
+    public function resolve(): Entity
+    {
+        return match($this->type){
+            'preview' => new PaidMediaPreview($this->properties),
+            'photo' => new PaidMediaPhoto($this->properties),
+            'video' => new PaidMediaVideo($this->properties),
+            default => throw new \InvalidArgumentException('Unknown PaidMedia type: ' . $this->type),
+        };
+    }
 }

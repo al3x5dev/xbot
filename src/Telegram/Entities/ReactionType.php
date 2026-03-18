@@ -13,4 +13,14 @@ class ReactionType extends Entity
     {
         return [];
     }
+
+    public function resolve(): Entity
+    {
+        return match($this->type) {
+            'emoji' => new ReactionTypeEmoji($this->properties),
+            'custom_emoji' => new ReactionTypeCustomEmoji($this->properties),
+            'paid' => new ReactionTypePaid($this->properties),
+            default => throw new \InvalidArgumentException('Unknown ReactionType type: ' . $this->type),
+        };
+    }
 }

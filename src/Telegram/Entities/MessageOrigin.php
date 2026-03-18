@@ -13,4 +13,15 @@ class MessageOrigin extends Entity
     {
         return [];
     }
+
+    public function resolve(): Entity
+    {
+        return match($this->type) {
+            'user' => new MessageOriginUser($this->properties),
+            'hidden_user' => new MessageOriginHiddenUser($this->properties),
+            'chat' => new MessageOriginChat($this->properties),
+            'channel' => new MessageOriginChannel($this->properties),
+            default => throw new \InvalidArgumentException('Unknown MessageOrigin type: ' . $this->type),
+        };
+    }
 }

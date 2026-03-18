@@ -13,4 +13,17 @@ class ChatMember extends Entity
     {
         return [];
     }
+
+    public function resolve(): Entity
+    {
+        return match($this->status) {
+            'creator' => new ChatMemberOwner($this->properties),
+            'administrator' => new ChatMemberAdministrator($this->properties),
+            'member' => new ChatMemberMember($this->properties),
+            'restricted' => new ChatMemberRestricted($this->properties),
+            'left' => new ChatMemberLeft($this->properties),
+            'kicked' => new ChatMemberBanned($this->properties),
+            default => throw new \InvalidArgumentException('Unknown ChatMember status: ' . $this->status),
+        };
+    }
 }

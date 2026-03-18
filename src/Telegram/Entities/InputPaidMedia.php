@@ -13,4 +13,13 @@ class InputPaidMedia extends Entity
     {
         return [];
     }
+
+    public function resolve(): Entity
+    {
+        return match($this->type) {
+            'photo' => new InputPaidMediaPhoto($this->properties),
+            'video' => new InputPaidMediaVideo($this->properties),
+            default => throw new \InvalidArgumentException('Unknown InputPaidMedia type: ' . $this->type),
+        };
+    }
 }

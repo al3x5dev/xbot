@@ -13,4 +13,14 @@ class ChatBoostSource extends Entity
     {
         return [];
     }
+
+    public function resolve(): Entity
+    {
+        return match($this->source) {
+            'premium' => new ChatBoostSourcePremium($this->properties),
+            'gift_code' => new ChatBoostSourceGiftCode($this->properties),
+            'giveaway' => new ChatBoostSourceGiveaway($this->properties),
+            default => throw new \InvalidArgumentException('Unknown ChatBoostSource source: ' . $this->source),
+        };
+    }
 }

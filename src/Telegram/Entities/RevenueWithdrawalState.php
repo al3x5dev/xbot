@@ -13,4 +13,14 @@ class RevenueWithdrawalState extends Entity
     {
         return [];
     }
+
+    public function resolve(): Entity
+    {
+        return match($this->type) {
+            'pending' => new RevenueWithdrawalStatePending($this->properties),
+            'succeeded' => new RevenueWithdrawalStateSucceeded($this->properties),
+            'failed' => new RevenueWithdrawalStateFailed($this->properties),
+            default => throw new \InvalidArgumentException('Unknown RevenueWithdrawalState type: ' . $this->type),
+        };
+    }
 }

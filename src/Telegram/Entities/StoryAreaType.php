@@ -13,4 +13,16 @@ class StoryAreaType extends Entity
     {
         return [];
     }
+
+    public function resolve(): Entity
+    {
+        return match($this->type) {
+            'location' => new StoryAreaTypeLocation($this->properties),
+            'suggested_reaction' => new StoryAreaTypeSuggestedReaction($this->properties),
+            'link' => new StoryAreaTypeLink($this->properties),
+            'weather' => new StoryAreaTypeWeather($this->properties),
+            'unique_gift' => new StoryAreaTypeUniqueGift($this->properties),
+            default => throw new \InvalidArgumentException('Unknown StoryAreaType type: ' . $this->type),
+        };
+    }
 }

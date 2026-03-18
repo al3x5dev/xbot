@@ -13,4 +13,14 @@ class MenuButton extends Entity
     {
         return [];
     }
+
+    public function resolve(): Entity
+    {
+        return match($this->type) {
+            'commands' => new MenuButtonCommands($this->properties),
+            'web_app' => new MenuButtonWebApp($this->properties),
+            'default' => new MenuButtonDefault($this->properties),
+            default => throw new \InvalidArgumentException('Unknown MenuButton type: ' . $this->type),
+        };
+    }
 }

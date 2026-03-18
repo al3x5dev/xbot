@@ -13,4 +13,14 @@ class BackgroundFill extends Entity
     {
         return [];
     }
+
+    public function resolve(): Entity
+    {
+        return match($this->type) {
+            'solid' => new BackgroundFillSolid($this->properties),
+            'gradient' => new BackgroundFillGradient($this->properties),
+            'freeform_gradient' => new BackgroundFillFreeformGradient($this->properties),
+            default => throw new \InvalidArgumentException('Unknown BackgroundFill type: ' . $this->type),
+        };
+    }
 }
