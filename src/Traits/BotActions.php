@@ -33,7 +33,10 @@ trait BotActions
             //throw new \RuntimeException("Unsupported entity type."),
         };
 
-        return $this->sendMessage(chat_id: $chat->getId(), text: $message);
+        return $this->sender('sendMessage', array_merge([
+            'chat_id' => $chat->getId(),
+            'text' => $message,
+        ], $params));
     }
 
     /**

@@ -1,13 +1,11 @@
 <?php
 
-namespace Al3x5\xBot\Telegram\Keyboards;
+namespace Al3x5\xBot\Telegram\Factorys;
 
-use Al3x5\xBot\Entities\ForceReply;
-use Al3x5\xBot\Entities\ReplyKeyboardRemove;
-use Al3x5\xBot\Telegram\Keyboards\Builder\InlineKeyboard;
-use Al3x5\xBot\Telegram\Keyboards\Builder\ReplyKeyboard;
+use Al3x5\xBot\Telegram\Entities\ForceReply;
+use Al3x5\xBot\Telegram\Entities\ReplyKeyboardRemove;
 
-class KeyboardFactory
+class Keyboard
 {
     public static function inline(): InlineKeyboard
     {

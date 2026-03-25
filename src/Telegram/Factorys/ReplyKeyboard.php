@@ -1,29 +1,16 @@
 <?php
 
-namespace Al3x5\xBot\Telegram\Keyboards\Builder;
+namespace Al3x5\xBot\Telegram\Factorys;
 
-use Al3x5\xBot\Entities\ReplyKeyboardMarkup;
+use Al3x5\xBot\Telegram\Entities\ReplyKeyboardMarkup;
+use Al3x5\xBot\Telegram\Factorys\Keyboard\AddRowTrait;
 
 class ReplyKeyboard
 {
     private array $rows = [];
     private array $options = [];
 
-    public function row(array $buttons): self
-    {
-        // Verifica de que cada botón esté construido
-        $builtButtons = array_map(function($button) {
-            return $button instanceof ReplyButton ? $button->build() : $button;
-        }, $buttons);
-
-        $this->rows[] = $builtButtons;
-        return $this;
-    }
-
-    public function addRow(array $buttons): self
-    {
-        return $this->row($buttons);
-    }
+    use AddRowTrait;
 
     public function persistent(bool $value = true): self
     {
@@ -59,10 +46,5 @@ class ReplyKeyboard
     {
         $data = ['keyboard' => $this->rows] + $this->options;
         return new ReplyKeyboardMarkup($data);
-    }
-
-    public static function button(string $text): ReplyButton
-    {
-        return new ReplyButton($text);
     }
 }

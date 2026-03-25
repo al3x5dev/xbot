@@ -1,15 +1,16 @@
 <?php
 
-namespace Al3x5\xBot\Telegram\Keyboards\Builder;
+namespace Al3x5\xBot\Telegram\Factorys;
 
-use Al3x5\xBot\Entities\CallbackGame;
-use Al3x5\xBot\Entities\CopyTextButton;
-use Al3x5\xBot\Entities\InlineKeyboardButton;
-use Al3x5\xBot\Entities\LoginUrl;
-use Al3x5\xBot\Entities\SwitchInlineQueryChosenChat;
-use Al3x5\xBot\Entities\WebAppInfo;
+use Al3x5\xBot\Telegram\Entities\CallbackGame;
+use Al3x5\xBot\Telegram\Entities\CopyTextButton;
+use Al3x5\xBot\Telegram\Entities\InlineKeyboardButton;
+use Al3x5\xBot\Telegram\Entities\LoginUrl;
+use Al3x5\xBot\Telegram\Entities\SwitchInlineQueryChosenChat;
+use Al3x5\xBot\Telegram\Entities\WebAppInfo;
+use Al3x5\xBot\Telegram\Factorys\Keyboard\ButtonInterface;
 
-class InlineButton
+class InlineButton implements ButtonInterface
 {
     private ?string $text;
     private array $options = [];
@@ -17,6 +18,11 @@ class InlineButton
     public function __construct(string $text)
     {
         $this->text = $text;
+    }
+
+    public static function make(string $text): static
+    {
+        return new static($text);
     }
 
     public function url(string $url): self

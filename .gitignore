@@ -7,3 +7,5 @@ composer.lock
 bot/
 callbacks.json
 commands.json
+/.phpunit.cache
+/tests

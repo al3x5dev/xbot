@@ -18,11 +18,14 @@
     },
     "require-dev": {
         "al3x5/xbot-devkit": ">0.2",
-        "symfony/var-dumper": "^7.3"
+        "symfony/var-dumper": "^7.3",
+        "phpunit/phpunit": "^11.0"
     },
     "autoload": {
         "psr-4": {
-            "Al3x5\\xBot\\": "src/"
+            "Al3x5\\xBot\\": "src/",
+            "Bot\\": "bot/"
+
         },
         "files": [
             "src/helpers.php"

@@ -1,14 +1,15 @@
 <?php
 
-namespace Al3x5\xBot\Telegram\Keyboards\Builder;
+namespace Al3x5\xBot\Telegram\Factorys;
 
-use Al3x5\xBot\Entities\KeyboardButton;
-use Al3x5\xBot\Entities\KeyboardButtonPollType;
-use Al3x5\xBot\Entities\KeyboardButtonRequestChat;
-use Al3x5\xBot\Entities\KeyboardButtonRequestUsers;
-use Al3x5\xBot\Entities\WebAppInfo;
+use Al3x5\xBot\Telegram\Entities\KeyboardButton;
+use Al3x5\xBot\Telegram\Entities\KeyboardButtonPollType;
+use Al3x5\xBot\Telegram\Entities\KeyboardButtonRequestChat;
+use Al3x5\xBot\Telegram\Entities\KeyboardButtonRequestUsers;
+use Al3x5\xBot\Telegram\Entities\WebAppInfo;
+use Al3x5\xBot\Telegram\Factorys\Keyboard\ButtonInterface;
 
-class ReplyButton
+class ReplyButton implements ButtonInterface
 {
     private string $text;
     private array $options = [];
@@ -16,6 +17,11 @@ class ReplyButton
     public function __construct(string $text)
     {
         $this->text = $text;
+    }
+
+    public static function make(string $text):self
+    {
+        return new self($text);
     }
 
     public function requestUsers(KeyboardButtonRequestUsers $request): self
