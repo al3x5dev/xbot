@@ -37,7 +37,7 @@ php vendor/bin/xbot register
 
 > [!NOTE]
 > This command must be run every time you create a new command or callback.
-> Be sure to run it after you have created or modified your commands or callbaks.
+> Be sure to run it after you have created or modified your commands or callbacks.
 
 
 ### 3. `hook`
@@ -101,8 +101,8 @@ php vendor/bin/xbot telegram:callback
 > Run this command when you need to handle user interactions via buttons in your messages.
 
 > [!TIP]
-> The **xBot CLI** has the flexibility to organize your callback in subfolders within the `bot/Callback` directory.
-> Just specify in the callback name when prompted the name of the directory or directories to create as follows `Users/Admin`, this will create the following structure `bot/Callback/Users/Admin.php`.
+> The **xBot CLI** has the flexibility to organize your callback in subfolders within the `bot/Callbacks` directory.
+> Just specify in the callback name when prompted the name of the directory or directories to create as follows `Users/Admin`, this will create the following structure `bot/Callbacks/Users/Admin.php`.
 
 
 #### 4.2. `telegram:command`
@@ -133,13 +133,13 @@ php vendor/bin/xbot telegram:conversation
 > Use this command when you want to implement a more complex conversation flow in your bot, allowing users to interact more dynamically.
 
 > [!TIP]
-> The **xBot CLI** has the flexibility to organize your conversational flows in subfolders within the `bot/Conversation` directory.
-> Just specify in the conversation name when prompted the name of the directory or directories to create as follows `Users/Admin/Create`, this will create the following structure `bot/Conversation/Users/Admin/Create.php`.
+> The **xBot CLI** has the flexibility to organize your conversational flows in subfolders within the `bot/Conversations` directory.
+> Just specify in the conversation name when prompted the name of the directory or directories to create as follows `Users/Admin/Create`, this will create the following structure `bot/Conversations/Users/Admin/Create.php`.
 
 
 #### 4.4. `telegram:handler`
 
-**Description**: Create a new custom handler for yu bot.
+**Description**: Create a new custom handler for your bot.
 
 ```bash
 php vendor/bin/xbot telegram:handler
@@ -150,4 +150,20 @@ php vendor/bin/xbot telegram:handler
 
 > [!TIP]
 > The **xBot CLI** allows you to organize handlers into subfolders within the `bot/Handlers` directory.
-> Simply specify the name of the directory or directories to be created in the handler name when prompted, such as `Admin/ChannelPost`. This will create the following structure: `bot/Handler/Admin/ChannelPost.php`.
+> Simply specify the name of the directory or directories to be created in the handler name when prompted, such as `Admin/ChannelPost`. This will create the following structure: `bot/Handlers/Admin/ChannelPost.php`.
+
+
+#### 4.5. `telegram:middleware`
+
+**Description**: Create a new middleware for your bot.
+
+```bash
+php vendor/bin/xbot telegram:middleware
+```
+
+> [!NOTE]
+> Use this command when you want to add middleware for processing updates before they reach handlers.
+
+> [!TIP]
+> The **xBot CLI** allows you to organize middleware into subfolders within the `bot/Middlewares` directory.
+> Simply specify the name of the directory or directories to be created in the middleware name when prompted, such as `User/Auth/AccessMiddleware`. This will create: `bot/Middlewares/User/Auth/AccessMiddleware.php`.

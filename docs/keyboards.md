@@ -15,11 +15,10 @@ Creates an inline keyboard that appears next to the message.
 Each button can have actions such as opening a URL, sending callback data, etc.
 
 ```php
+use Al3x5\xBot\Telegram\Factorys\InlineKeyboard;
+use Al3x5\xBot\Telegram\Factorys\Keyboard;
 
-use Al3x5\xBot\Telegram\Keyboards\Builder\InlineKeyboard;
-use Al3x5\xBot\Telegram\Keyboards\KeyboardFactory;
-
-$keyboard =  KeyboardFactory::inline()
+$keyboard =  Keyboard::inline()
             ->row([
                 InlineKeyboard::button('🎮 Games')->callback('game')
             ])
@@ -31,6 +30,10 @@ $keyboard =  KeyboardFactory::inline()
             ])
             ->build();
 ```
+
+> [!NOTE]
+> The keyboard classes have been moved from `Keyboards\Builder` to `Factorys` namespace.
+> Use `Keyboard::inline()` or `Keyboard::reply()` instead of `KeyboardFactory`.
 
 
 ### row(array $buttons): self
@@ -139,19 +142,19 @@ This static method creates a new instance of `ReplyKeyboard`, which is used to b
 
 
 ```php
+use Al3x5\xBot\Telegram\Factorys\ReplyKeyboard;
+use Al3x5\xBot\Telegram\Factorys\Keyboard;
 
-use Al3x5\xBot\Telegram\Keyboards\Builder\ReplyKeyboard;
-use Al3x5\xBot\Telegram\Keyboards\KeyboardFactory;
-
-$keyboard = KeyboardFactory::reply()->row([
-            ReplyKeyboard::button('📞 Contact')->requestContact()
-        ])
-        ->row([
-            ReplyKeyboard::button('📍 Location')->requestLocation(),
-        ])
-        ->resize()
-        ->oneTime()
-        ->build();
+$keyboard = Keyboard::reply()
+            ->row([
+                ReplyKeyboard::button('📞 Contact')->requestContact()
+            ])
+            ->row([
+                ReplyKeyboard::button('📍 Location')->requestLocation(),
+            ])
+            ->resize()
+            ->oneTime()
+            ->build();
 ```
 ### Methods
 
@@ -274,8 +277,7 @@ This static method creates a new instance of `ForceReply`, which is used to forc
 - `$placeholder`: A text string to use as a placeholder in the input field. Defaults to an empty string.
 
 ```php
+use Al3x5\xBot\Telegram\Factorys\Keyboard;
 
-use Al3x5\xBot\Telegram\Keyboards\KeyboardFactory;
-
-$keyboard = KeyboardFactory::forceReply(true, 'Hello xBot');
+$keyboard = Keyboard::forceReply(true, 'Hello xBot');
 ```

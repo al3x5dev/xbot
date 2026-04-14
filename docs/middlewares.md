@@ -1,6 +1,6 @@
 # Middlewares
 
-## what is a middleware
+## What is a middleware
 
 Middlewares are a mechanism that allows you to intercept and control the execution flow of bot updates before they reach their final handler (commands, messages, callbacks, etc.).
 

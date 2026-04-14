@@ -30,6 +30,52 @@ class ChannelPost extends Handlers
 }
 ```
 
+## InlineQuery Handler Example
+
+The InlineQuery handler allows your bot to respond to inline queries. Users can search for content directly in any chat by typing `@yourbot query`.
+
+```php
+namespace Bot\Handlers;
+
+use Al3x5\xBot\Handlers;
+use Al3x5\xBot\Telegram\Entities\InlineQueryResultPhoto;
+use Al3x5\xBot\Telegram\Entities\InlineQueryResultArticle;
+
+class InlineQuery extends Handlers
+{
+    /**
+     * Access Key de Unsplash - REEMPLAZA CON LA TUYA
+     * Obtén una en: https://unsplash.com/developers
+     */
+    private const UNSPLASH_ACCESS_KEY = 'ACCESS_KEY';
+
+    public function execute(): void
+    {
+        $query = $this->update->getInlineQuery();
+        $queryId = $query->getId();
+        $queryText = $query->getQuery() ?? '';
+        $offset = (int) ($query->getOffset() ?? 0);
+
+        $results = $this->searchUnsplash($queryText, $offset);
+        $nextOffset = count($results) >= 10 ? (string) ($offset + 10) : '';
+
+        $this->answerInlineQuery($queryId, $results, 300, false, $nextOffset);
+    }
+
+    private function searchUnsplash(string $query, int $offset): array
+    {
+        // Your search logic here
+        // Returns array of InlineQueryResultPhoto or InlineQueryResultArticle entities
+    }
+}
+```
+
+> [!IMPORTANT]
+> InlineQuery results use **entities** (like `InlineQueryResultPhoto`, `InlineQueryResultArticle`) instead of raw arrays. This provides:
+> - IDE autocomplete
+> - Type safety
+> - Integrated documentation
+
 ## Handler execution flow
 
 xBot routes updates using this resolution logic:
