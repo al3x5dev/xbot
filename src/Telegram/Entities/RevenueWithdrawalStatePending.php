@@ -10,6 +10,7 @@ use Al3x5\xBot\Telegram\Entity;
  */
 class RevenueWithdrawalStatePending extends Entity
 {
+    
     protected function setEntities(): array
     {
         return [];

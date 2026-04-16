@@ -9,11 +9,12 @@ use Al3x5\xBot\Telegram\Entity;
  */
 class InputMessageContent extends Entity
 {
+    
+
     protected function setEntities(): array
     {
         return [];
     }
-
     public function resolve(): Entity
     {
         if($this->hasProperty('message_text')){
@@ -40,4 +41,31 @@ class InputMessageContent extends Entity
         }
         throw new \InvalidArgumentException('Unknown InputMessageContent');
     }
+
+    /**
+     * Factory: creates the correct subclass based on data provided
+     *
+     * @param array $data
+     * @return Entity
+     * | Key | Creates |
+     * |-----|----------|
+     * | message_text | InputTextMessageContent |
+     * | phone_number | InputContactMessageContent |
+     * | payload | InputInvoiceMessageContent |
+     * | latitude + longitude + title | InputVenueMessageContent |
+     * | latitude + longitude | InputLocationMessageContent |
+     * @throws \InvalidArgumentException
+     */
+    public static function create(array $data): Entity
+    {
+        return match(true) {
+            isset($data['message_text']) => new InputTextMessageContent($data),
+            isset($data['phone_number']) => new InputContactMessageContent($data),
+            isset($data['payload']) => new InputInvoiceMessageContent($data),
+            isset($data['latitude'], $data['longitude'], $data['title']) => new InputVenueMessageContent($data),
+            isset($data['latitude'], $data['longitude']) => new InputLocationMessageContent($data),
+            default => throw new \InvalidArgumentException('Unknown InputMessageContent: no valid property found'),
+        };
+    }
+
 }

@@ -30,9 +30,11 @@ use Al3x5\xBot\Telegram\Entity;
  * @property ChatJoinRequest $chat_join_request
  * @property ChatBoostUpdated $chat_boost
  * @property ChatBoostRemoved $removed_chat_boost
+ * @property ManagedBotUpdated $managed_bot
  */
 class Update extends Entity
 {
+    
     protected function setEntities(): array
     {
         return [
@@ -59,9 +61,9 @@ class Update extends Entity
             'chat_join_request' => ChatJoinRequest::class,
             'chat_boost' => ChatBoostUpdated::class,
             'removed_chat_boost' => ChatBoostRemoved::class,
+            'managed_bot' => ManagedBotUpdated::class,
         ];
     }
-
     /**
      * Tipo de Actualizacion
      */
@@ -74,4 +76,5 @@ class Update extends Entity
         }
         return null;
     }
+
 }

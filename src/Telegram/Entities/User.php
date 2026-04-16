@@ -21,9 +21,11 @@ use Al3x5\xBot\Telegram\Entity;
  * @property bool $has_main_web_app
  * @property bool $has_topics_enabled
  * @property bool $allows_users_to_create_topics
+ * @property bool $can_manage_bots
  */
 class User extends Entity
 {
+    
     protected function setEntities(): array
     {
         return [];

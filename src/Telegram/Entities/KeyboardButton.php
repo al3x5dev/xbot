@@ -11,6 +11,7 @@ use Al3x5\xBot\Telegram\Entity;
  * @property string $style
  * @property KeyboardButtonRequestUsers $request_users
  * @property KeyboardButtonRequestChat $request_chat
+ * @property KeyboardButtonRequestManagedBot $request_managed_bot
  * @property bool $request_contact
  * @property bool $request_location
  * @property KeyboardButtonPollType $request_poll
@@ -18,11 +19,13 @@ use Al3x5\xBot\Telegram\Entity;
  */
 class KeyboardButton extends Entity
 {
+    
     protected function setEntities(): array
     {
         return [
             'request_users' => KeyboardButtonRequestUsers::class,
             'request_chat' => KeyboardButtonRequestChat::class,
+            'request_managed_bot' => KeyboardButtonRequestManagedBot::class,
             'request_poll' => KeyboardButtonPollType::class,
             'web_app' => WebAppInfo::class,
         ];

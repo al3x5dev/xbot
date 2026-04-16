@@ -20,6 +20,7 @@ use Al3x5\xBot\Telegram\Entity;
  */
 class InlineQueryResultAudio extends Entity
 {
+    
     protected function setEntities(): array
     {
         return [

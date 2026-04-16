@@ -14,6 +14,7 @@ use Al3x5\xBot\Telegram\Entity;
  */
 class ChatBoostSourceGiveaway extends Entity
 {
+    
     protected function setEntities(): array
     {
         return [

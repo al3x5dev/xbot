@@ -22,6 +22,7 @@ use Al3x5\xBot\Telegram\Entity;
  */
 class InlineKeyboardButton extends Entity
 {
+    
     protected function setEntities(): array
     {
         return [

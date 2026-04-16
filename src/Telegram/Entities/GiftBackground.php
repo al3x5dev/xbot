@@ -12,6 +12,7 @@ use Al3x5\xBot\Telegram\Entity;
  */
 class GiftBackground extends Entity
 {
+    
     protected function setEntities(): array
     {
         return [];

@@ -15,6 +15,7 @@ use Al3x5\xBot\Telegram\Entity;
  */
 class Document extends Entity
 {
+    
     protected function setEntities(): array
     {
         return [

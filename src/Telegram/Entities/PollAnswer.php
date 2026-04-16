@@ -10,9 +10,11 @@ use Al3x5\xBot\Telegram\Entity;
  * @property Chat $voter_chat
  * @property User $user
  * @property array $option_ids
+ * @property array $option_persistent_ids
  */
 class PollAnswer extends Entity
 {
+    
     protected function setEntities(): array
     {
         return [

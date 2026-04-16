@@ -15,20 +15,25 @@ use Al3x5\xBot\Telegram\Entity;
  * @property bool $is_anonymous
  * @property string $type
  * @property bool $allows_multiple_answers
- * @property int $correct_option_id
+ * @property bool $allows_revoting
+ * @property array $correct_option_ids
  * @property string $explanation
  * @property MessageEntity[] $explanation_entities
  * @property int $open_period
  * @property int $close_date
+ * @property string $description
+ * @property MessageEntity[] $description_entities
  */
 class Poll extends Entity
 {
+    
     protected function setEntities(): array
     {
         return [
             'question_entities' => [MessageEntity::class],
             'options' => [PollOption::class],
             'explanation_entities' => [MessageEntity::class],
+            'description_entities' => [MessageEntity::class],
         ];
     }
 }

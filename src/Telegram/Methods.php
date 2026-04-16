@@ -623,13 +623,20 @@ trait Methods
      * @param bool $is_anonymous
      * @param string $type
      * @param bool $allows_multiple_answers
-     * @param int $correct_option_id
+     * @param bool $allows_revoting
+     * @param bool $shuffle_options
+     * @param bool $allow_adding_options
+     * @param bool $hide_results_until_closes
+     * @param array $correct_option_ids
      * @param string $explanation
      * @param string $explanation_parse_mode
      * @param MessageEntity[] $explanation_entities
      * @param int $open_period
      * @param int $close_date
      * @param bool $is_closed
+     * @param string $description
+     * @param string $description_parse_mode
+     * @param MessageEntity[] $description_entities
      * @param bool $disable_notification
      * @param bool $protect_content
      * @param bool $allow_paid_broadcast
@@ -638,7 +645,7 @@ trait Methods
      * @param InlineKeyboardMarkup|ReplyKeyboardMarkup|ReplyKeyboardRemove|ForceReply $reply_markup
      * @return Message
      */
-    public function sendPoll(int|string $chat_id, string $question, array $options, ?string $business_connection_id = null, ?int $message_thread_id = null, ?string $question_parse_mode = null, ?array $question_entities = null, ?bool $is_anonymous = null, ?string $type = null, ?bool $allows_multiple_answers = null, ?int $correct_option_id = null, ?string $explanation = null, ?string $explanation_parse_mode = null, ?array $explanation_entities = null, ?int $open_period = null, ?int $close_date = null, ?bool $is_closed = null, ?bool $disable_notification = null, ?bool $protect_content = null, ?bool $allow_paid_broadcast = null, ?string $message_effect_id = null, ?ReplyParameters $reply_parameters = null, InlineKeyboardMarkup|ReplyKeyboardMarkup|ReplyKeyboardRemove|ForceReply|null $reply_markup = null): Message
+    public function sendPoll(int|string $chat_id, string $question, array $options, ?string $business_connection_id = null, ?int $message_thread_id = null, ?string $question_parse_mode = null, ?array $question_entities = null, ?bool $is_anonymous = null, ?string $type = null, ?bool $allows_multiple_answers = null, ?bool $allows_revoting = null, ?bool $shuffle_options = null, ?bool $allow_adding_options = null, ?bool $hide_results_until_closes = null, ?array $correct_option_ids = null, ?string $explanation = null, ?string $explanation_parse_mode = null, ?array $explanation_entities = null, ?int $open_period = null, ?int $close_date = null, ?bool $is_closed = null, ?string $description = null, ?string $description_parse_mode = null, ?array $description_entities = null, ?bool $disable_notification = null, ?bool $protect_content = null, ?bool $allow_paid_broadcast = null, ?string $message_effect_id = null, ?ReplyParameters $reply_parameters = null, InlineKeyboardMarkup|ReplyKeyboardMarkup|ReplyKeyboardRemove|ForceReply|null $reply_markup = null): Message
     {
         $args = get_defined_vars();
         unset($args['this']);
@@ -1432,6 +1439,30 @@ trait Methods
     }
 
     /**
+     * Use this method to get the token of a managed bot. Returns the token as String on success.
+     * @param int $user_id
+     * @return string
+     */
+    public function getManagedBotToken(int $user_id): string
+    {
+        $args = get_defined_vars();
+        unset($args['this']);
+        return $this->sender(__FUNCTION__, $args);
+    }
+
+    /**
+     * Use this method to revoke the current token of a managed bot and generate a new one. Returns the new token as String on success.
+     * @param int $user_id
+     * @return string
+     */
+    public function replaceManagedBotToken(int $user_id): string
+    {
+        $args = get_defined_vars();
+        unset($args['this']);
+        return $this->sender(__FUNCTION__, $args);
+    }
+
+    /**
      * Use this method to change the list of the bot's commands. See this manual for more details about bot commands. Returns True on success.
      * @param BotCommand[] $commands
      * @param BotCommandScope $scope
@@ -2024,6 +2055,49 @@ trait Methods
     }
 
     /**
+     * Use this method to set the result of an interaction with a Web App and send a corresponding message on behalf of the user to the chat from which the query originated. On success, a SentWebAppMessage object is returned.
+     * @param string $web_app_query_id
+     * @param InlineQueryResult $result
+     * @return SentWebAppMessage
+     */
+    public function answerWebAppQuery(string $web_app_query_id, InlineQueryResult $result): SentWebAppMessage
+    {
+        $args = get_defined_vars();
+        unset($args['this']);
+        return $this->sender(__FUNCTION__, $args);
+    }
+
+    /**
+     * Stores a message that can be sent by a user of a Mini App. Returns a PreparedInlineMessage object.
+     * @param int $user_id
+     * @param InlineQueryResult $result
+     * @param bool $allow_user_chats
+     * @param bool $allow_bot_chats
+     * @param bool $allow_group_chats
+     * @param bool $allow_channel_chats
+     * @return PreparedInlineMessage
+     */
+    public function savePreparedInlineMessage(int $user_id, InlineQueryResult $result, ?bool $allow_user_chats = null, ?bool $allow_bot_chats = null, ?bool $allow_group_chats = null, ?bool $allow_channel_chats = null): PreparedInlineMessage
+    {
+        $args = get_defined_vars();
+        unset($args['this']);
+        return $this->sender(__FUNCTION__, $args);
+    }
+
+    /**
+     * Stores a keyboard button that can be used by a user within a Mini App. Returns a PreparedKeyboardButton object.
+     * @param int $user_id
+     * @param KeyboardButton $button
+     * @return PreparedKeyboardButton
+     */
+    public function savePreparedKeyboardButton(int $user_id, KeyboardButton $button): PreparedKeyboardButton
+    {
+        $args = get_defined_vars();
+        unset($args['this']);
+        return $this->sender(__FUNCTION__, $args);
+    }
+
+    /**
      * Use this method to edit text and game messages. On success, if the edited message is not an inline message, the edited Message is returned, otherwise True is returned. Note that business messages that were not sent by the bot and do not contain an inline keyboard can only be edited within 48 hours from the time they were sent.
      * @param string $business_connection_id
      * @param int|string $chat_id
@@ -2455,36 +2529,6 @@ trait Methods
      * @return bool
      */
     public function answerInlineQuery(string $inline_query_id, array $results, ?int $cache_time = null, ?bool $is_personal = null, ?string $next_offset = null, ?InlineQueryResultsButton $button = null): bool
-    {
-        $args = get_defined_vars();
-        unset($args['this']);
-        return $this->sender(__FUNCTION__, $args);
-    }
-
-    /**
-     * Use this method to set the result of an interaction with a Web App and send a corresponding message on behalf of the user to the chat from which the query originated. On success, a SentWebAppMessage object is returned.
-     * @param string $web_app_query_id
-     * @param InlineQueryResult $result
-     * @return SentWebAppMessage
-     */
-    public function answerWebAppQuery(string $web_app_query_id, InlineQueryResult $result): SentWebAppMessage
-    {
-        $args = get_defined_vars();
-        unset($args['this']);
-        return $this->sender(__FUNCTION__, $args);
-    }
-
-    /**
-     * Stores a message that can be sent by a user of a Mini App. Returns a PreparedInlineMessage object.
-     * @param int $user_id
-     * @param InlineQueryResult $result
-     * @param bool $allow_user_chats
-     * @param bool $allow_bot_chats
-     * @param bool $allow_group_chats
-     * @param bool $allow_channel_chats
-     * @return PreparedInlineMessage
-     */
-    public function savePreparedInlineMessage(int $user_id, InlineQueryResult $result, ?bool $allow_user_chats = null, ?bool $allow_bot_chats = null, ?bool $allow_group_chats = null, ?bool $allow_channel_chats = null): PreparedInlineMessage
     {
         $args = get_defined_vars();
         unset($args['this']);

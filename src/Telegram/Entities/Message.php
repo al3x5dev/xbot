@@ -25,6 +25,7 @@ use Al3x5\xBot\Telegram\Entity;
  * @property TextQuote $quote
  * @property Story $reply_to_story
  * @property int $reply_to_checklist_task_id
+ * @property string $reply_to_poll_option_id
  * @property User $via_bot
  * @property int $edit_date
  * @property bool $has_protected_content
@@ -100,7 +101,10 @@ use Al3x5\xBot\Telegram\Entity;
  * @property Giveaway $giveaway
  * @property GiveawayWinners $giveaway_winners
  * @property GiveawayCompleted $giveaway_completed
+ * @property ManagedBotCreated $managed_bot_created
  * @property PaidMessagePriceChanged $paid_message_price_changed
+ * @property PollOptionAdded $poll_option_added
+ * @property PollOptionDeleted $poll_option_deleted
  * @property SuggestedPostApproved $suggested_post_approved
  * @property SuggestedPostApprovalFailed $suggested_post_approval_failed
  * @property SuggestedPostDeclined $suggested_post_declined
@@ -115,6 +119,7 @@ use Al3x5\xBot\Telegram\Entity;
  */
 class Message extends Entity
 {
+    
     protected function setEntities(): array
     {
         return [
@@ -183,7 +188,10 @@ class Message extends Entity
             'giveaway' => Giveaway::class,
             'giveaway_winners' => GiveawayWinners::class,
             'giveaway_completed' => GiveawayCompleted::class,
+            'managed_bot_created' => ManagedBotCreated::class,
             'paid_message_price_changed' => PaidMessagePriceChanged::class,
+            'poll_option_added' => PollOptionAdded::class,
+            'poll_option_deleted' => PollOptionDeleted::class,
             'suggested_post_approved' => SuggestedPostApproved::class,
             'suggested_post_approval_failed' => SuggestedPostApprovalFailed::class,
             'suggested_post_declined' => SuggestedPostDeclined::class,
@@ -197,7 +205,6 @@ class Message extends Entity
             'reply_markup' => InlineKeyboardMarkup::class,
         ];
     }
-
     public function isCommand(): bool
     {
         if ($this->hasProperty('entities')) {
@@ -209,4 +216,5 @@ class Message extends Entity
         }
         return false;
     }
+
 }

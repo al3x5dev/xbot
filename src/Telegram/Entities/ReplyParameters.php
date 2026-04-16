@@ -14,9 +14,11 @@ use Al3x5\xBot\Telegram\Entity;
  * @property MessageEntity[] $quote_entities
  * @property int $quote_position
  * @property int $checklist_task_id
+ * @property string $poll_option_id
  */
 class ReplyParameters extends Entity
 {
+    
     protected function setEntities(): array
     {
         return [
