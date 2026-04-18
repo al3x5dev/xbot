@@ -4,6 +4,7 @@ namespace Al3x5\xBot\Commands;
 
 use Al3x5\xBot\Commands\Traits\ConfigHandler;
 use Al3x5\xBot\Commands\Traits\Io;
+use Al3x5\xBot\Config;
 use Al3x5\xBot\Traits\BotActions;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputArgument;
@@ -58,7 +59,11 @@ final class HookSetCommand extends Command
             throw new \InvalidArgumentException("The URL you provided is not valid. Please check and try again.");
         }
 
-        $data = $this->setWebhook($url,drop_pending_updates:true);
+        $data = $this->setWebhook(
+            $url,
+            drop_pending_updates:true,
+            secret_token:Config::get('secret')
+            );
         try {
             if (!$data) {
                 throw new \Exception("Error: the webhook could not be configured");

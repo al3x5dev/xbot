@@ -10,6 +10,8 @@ use Al3x5\xBot\Traits\MessageHandler;
 use Al3x5\xBot\Traits\MiddlewareHandler;
 use Al3x5\xBot\Traits\BotActions;
 use Mk4U\Http\Request;
+use Mk4U\Http\Response;
+use Mk4U\Http\Status;
 
 class Bot
 {
@@ -39,7 +41,21 @@ class Bot
 
     private function getUpdate(): void
     {
-        $data = (Request::create())->jsonData(true);
+        $request = Request::create();
+
+        if (!empty(Config::get('secret'))) {
+            $header = $request->getHeaderLine('X-Telegram-Bot-Api-Secret-Token') ?? '';
+
+            if (!hash_equals(Config::get('secret', ''), $header)) {
+                echo Response::json(
+                    ['message' => 'unauthorized resource'],
+                    Status::Forbidden
+                );
+                exit();
+            }
+        }
+
+        $data = $request->jsonData(true);
 
         if (empty($data)) {
             throw new xBotException("Update empty! The webhook should not be called manually, only by Telegram.");

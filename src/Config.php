@@ -21,7 +21,7 @@ class Config
 
         self::$cfg = [
             'token' => self::validateToken($cfg['token']),
-            'name' => $cfg['name'] ?? '',
+            'secret' => $cfg['secret'] ?? null,
             'admins' => $cfg['admins'] ?? [],
             //'async' => $cfg['async'] ?? false,
             'http_client' => $cfg['http_client'] ?? new \Mk4U\Http\Client(),

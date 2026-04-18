@@ -39,6 +39,15 @@ final class InstallCommand extends Command
         $token = $this->askForToken();
         $this->clear();
 
+        // Solicitar token secreto para encabezado http
+        $secretToken = $this->style->confirm('Do you want to secure your webhook with a secret token? ' .
+            '(Recommended: Yes - Adds an extra layer of security to prevent unauthorized calls)');
+
+        if ($secretToken) {
+            $secret = $this->askForSecretToken();
+            $this->clear();
+        }
+
         // Solicitar los IDs de los administradores
         $admins = $this->askForAdmins();
         $this->clear();
@@ -51,7 +60,7 @@ final class InstallCommand extends Command
         try {
             // Generar el contenido del archivo de configuración
             $output->writeln('<info>Creating config file...</info>');
-            $this->generateConfigData($token, $admins, $debug);
+            $this->generateConfigData($token, $secret ?? null, $admins, $debug);
 
             $output->writeln('<info>Creating directories...</info>');
             $this->createDirectories();
@@ -109,6 +118,26 @@ final class InstallCommand extends Command
     }
 
     /**
+     * Obtener token secreto para encabezados http
+     */
+    private function askForSecretToken(): string
+    {
+        return $this->style->ask(
+            'Enter a secure token for webhook verification.',
+            null,
+            function (?string $secret): string {
+                // Mínimo 16 caracteres, solo caracteres seguros
+                if (!preg_match('/^[A-Za-z0-9_-]+$/', $secret)) {
+                    throw new \InvalidArgumentException(
+                        'Secret token must contain letters and numbers.'
+                    );
+                }
+                return $secret;
+            }
+        );
+    }
+
+    /**
      * Obtiene el id de telegram de los admins
      */
     private function askForAdmins(): string
@@ -135,14 +164,15 @@ final class InstallCommand extends Command
     /**
      * Archivo de configuracion a generar
      */
-    private function generateConfigData(?string $token, /*?string $name,*/ ?string $admins, string $debug): void
+    private function generateConfigData(?string $token, ?string $secret, ?string $admins, string $debug): void
     {
-        //'name' => '$name',
+        $secretHash = !empty($secret) ? md5($secret) : null;
+        $newSecret = !empty($secret) ? "\n    'secret' => '$secretHash'," : '';
         $file = <<<PHP
             <?php
 
             return [
-                'token' => '$token',
+                'token' => '$token',$newSecret
                 'admins' => [$admins],
                 'debug' => $debug,
                 'abs_path' => __DIR__,
@@ -174,7 +204,7 @@ final class InstallCommand extends Command
         $defaultClass = ['Start', 'Help', 'Generic'];
         foreach ($defaultClass as $class) {
             $this->makeTelegramCommand([
-                'filename'  => getcwd()."/bot/Commands/$class.php",
+                'filename'  => getcwd() . "/bot/Commands/$class.php",
                 'class'     => $class,
                 'namespace' => "Bot\\Commands"
             ]);
