@@ -1,14 +1,28 @@
 {
     "name": "al3x5/xbot",
-    "description": "telegram bot",
+    "description": "Build powerful Telegram bots with ease",
     "type": "library",
     "license": "MIT",
+    "keywords": [
+        "telegram",
+        "bot",
+        "telegram-bot",
+        "telegram-api",
+        "webhook",
+        "framework"
+    ],
+    "homepage": "https://github.com/al3x5dev/xbot",
     "authors": [
         {
             "name": "al3x5dev",
-            "email": "al3x5.dev@gmail.com"
+            "email": "al3x5.dev@gmail.com",
+            "homepage": "https://t.me/al3x5dev"
         }
     ],
+    "support": {
+        "issues": "https://github.com/al3x5dev/xbot/issues",
+        "source": "https://github.com/al3x5dev/xbot"
+    },
     "require": {
         "php": ">=8.2",
         "mk4u/http": "^1.2",
@@ -39,7 +53,9 @@
             "/.gitignore",
             "/.gitattributes",
             "/.github",
-            "/docs"
+            "/docs",
+            "/phpunit.xml",
+            "/tests"
         ]
     },
     "minimum-stability": "stable",
