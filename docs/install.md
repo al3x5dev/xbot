@@ -25,8 +25,12 @@ You can create the configuration file manually by following these steps:
 
 ```php
 return [
-    // your bot token
+    // your bot token (required)
     'token' => '1234567890:ABCDEFGHIJKLMNOQRSTZ',
+    // webhook secret token (optional but recommended)
+    // This adds an extra layer of security to your webhook
+    // Telegram will send this token in the X-Telegram-Bot-Api-Secret-Token header
+    'secret' => 'your_secret_token_here',
     // list of bot admin id's
     'admins' => [123456789, 985632147],
     // http client to use (By default \Mk4U\Http\Client is used)
@@ -71,10 +75,22 @@ Regardless of the method you choose, you will need to get the API Key of your bo
 In order for your bot to receive updates from Telegram, you will need to set up a webhook. This can be done by running the following command in the terminal:
 
 ```bash
-php vendor/bin/xbot hook:set
+php vendor/bin/xbot hook:set https://your-domain.com/webhook
 ```
 
 This command will prompt you to enter the URL of your webhook. Make sure that this URL is accessible from the Internet and that it points to your server where the bot is hosted.
+
+> [!IMPORTANT]
+> When you set the webhook, xBot automatically includes your secret token if configured. Telegram will use this token in the `X-Telegram-Bot-Api-Secret-Token` header with every request.
+
+#### Webhook Security
+
+xBot validates the `X-Telegram-Bot-Api-Secret-Token` header on every incoming request. If you configured a `secret` in your `config.php`, the bot will reject any request that doesn't include the correct token.
+
+To disable webhook security, simply remove or set to `null` the `secret` key in your configuration file.
+
+> [!NOTE]
+> The webhook URL must use HTTPS. Telegram requires a valid SSL certificate.
 
 > [!IMPORTANT]
 > On Linux systems, it is important to configure the permissions for the `storage` directory.
@@ -84,7 +100,15 @@ sudo chown -R www-data:www-data /var/www/html/my_bot/storage
 sudo chmod -R 775 /var/www/html/my_bot/storage
 ```
 
-## Initialize the Bot
+### Verify Installation
+
+After installation, you can verify your bot is working by running:
+
+```bash
+php vendor/bin/xbot hook:about
+```
+
+This will display information about your bot including the username and whether the webhook is properly configured.
 
 Once you have configured your config.php file and set up the webhook, you can initialize your bot. Create a `.php` file in the root of your project and add the following code, this will be the starting point of your bot.
 

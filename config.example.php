@@ -12,10 +12,12 @@
  */
 
 return [
-    // your bot token
+    // your bot token (required)
     'token' => '123456:ABC-DEF1234ghIkl-zyx57W2v1u123ew11',
-    // secret token
-    'secret' => 'MySecretToken',
+    // webhook secret token (optional but recommended)
+    // This adds an extra layer of security to your webhook
+    // Telegram will send this token in the X-Telegram-Bot-Api-Secret-Token header
+    'secret' => 'your_secret_token_here',
     // list of bot admin id's
     'admins' => [123456789, 985632147],
     // http client to use (By default \Mk4U\Http\Client is used)

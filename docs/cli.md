@@ -23,6 +23,15 @@ php vendor/bin/xbot install
 
 Run this command to create the configuration file without having to do it manually. Follow the instructions in the console to complete the configuration.
 
+The installation process will prompt you for:
+
+1. **Bot Token** - Your Telegram bot token from @BotFather
+2. **Secret Token** - Optional (recommended) - A secure token for webhook verification
+   - This adds an extra layer of security to prevent unauthorized webhook calls
+   - Telegram will send this token in the `X-Telegram-Bot-Api-Secret-Token` header
+3. **Admin IDs** - Comma-separated list of Telegram user IDs with admin privileges
+4. **Debug Mode** - Whether to enable development mode
+
 > [!NOTE]
 > In case you have a clean installation of **xBot** this command is automatically triggered by entering `php vendor/bin/xbot` in the console.
 
@@ -68,11 +77,20 @@ php vendor/bin/xbot hook:info
 **Description**: Sets the webhook for the Telegram bot.
 
 ```bash
+php vendor/bin/xbot hook:set https://your-domain.com/webhook
+```
+
+Or without arguments to be prompted:
+
+```bash
 php vendor/bin/xbot hook:set
 ```
 
 > [!NOTE]
 > The URL of your webhook must be accessible from the Internet and use `HTTPS`.
+
+> [!IMPORTANT]
+> When setting the webhook, xBot automatically includes your `secret` token (if configured in `config.php`) in the `secret_token` parameter. Telegram will then send this token with every request in the `X-Telegram-Bot-Api-Secret-Token` header, and xBot will validate it automatically.
 
 
 #### 3.4. `hook:delete`
