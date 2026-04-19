@@ -42,12 +42,18 @@ if (!function_exists('register')) {
 
         foreach ($dir as $file) {
             if ($file->isFile() && $file->getExtension() === 'php') {
-                // Obtener clase
-                $class = str_replace(
-                    ['bot', DIRECTORY_SEPARATOR],
-                    ["Bot\\"],
-                    $file->getPath()
-                ) . "\\" . $file->getBasename(".{$file->getExtension()}");
+                // Usar getPathname() que devuelve la ruta completa del archivo
+                $fullPath = $file->getPathname();
+                
+                // Extraer la parte relativa después de 'bot/'
+                $relativePath = str_replace('bot/', '', $fullPath);
+                // Quitar extensión .php
+                $relativePath = str_replace('.php', '', $relativePath);
+
+                // Convertir a namespace
+                // Ejemplo: Commands/Start → Bot\Commands\Start
+                //         Commands/Foo/Baz → Bot\Commands\Foo\Baz
+                $class = 'Bot\\' . str_replace('/', '\\', $relativePath);
 
                 // Verifica si la clase existe
                 if (class_exists($class)) {
