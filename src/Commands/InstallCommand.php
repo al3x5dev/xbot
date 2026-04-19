@@ -45,8 +45,8 @@ final class InstallCommand extends Command
 
         if ($secretToken) {
             $secret = $this->askForSecretToken();
-            $this->clear();
         }
+        $this->clear();
 
         // Solicitar los IDs de los administradores
         $admins = $this->askForAdmins();
