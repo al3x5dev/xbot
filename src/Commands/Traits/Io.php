@@ -39,11 +39,10 @@ trait Io
      */
     protected function displayInfo(array $data): int
     {
-        if ($data['ok']) {
-            foreach ($data['result'] as $key => $value) {
-                $this->output->writeln("<info>$key</info>: " . ($value));
-            }
+        foreach ($data as $key => $value) {
+            $this->output->writeln("<info>$key</info>: " . ($value));
         }
+
         return Command::SUCCESS;
     }
 }
