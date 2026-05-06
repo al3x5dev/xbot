@@ -77,4 +77,39 @@ class Update extends Entity
         return null;
     }
 
+    /**
+     * Obtener ID desde FROM sin importar tipo
+    */
+    public function fromId(): ?int
+    {
+        $type = $this->type();
+            if ($type === null) {
+            return null;
+        }
+    
+        $entity = $this->$type ?? null;
+    
+        if ($entity === null || !$entity->hasProperty('from')) {
+            return null;
+        }
+    
+        return $entity->from->id ?? null;
+    }
+
+    public function chatId(): int|string|null
+    {
+        $type = $this->type();
+        if ($type === null) {
+            return null;
+        }
+    
+        $entity = $this->$type ?? null;
+    
+        if ($entity === null || !$entity->hasProperty('chat')) {
+            return null;
+        }
+    
+        return $entity->chat->id ?? null;
+    }
+
 }
