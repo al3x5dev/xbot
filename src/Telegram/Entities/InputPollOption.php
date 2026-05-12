@@ -9,6 +9,7 @@ use Al3x5\xBot\Telegram\Entity;
  * @property string $text
  * @property string $text_parse_mode
  * @property MessageEntity[] $text_entities
+ * @property InputPollOptionMedia $media
  */
 class InputPollOption extends Entity
 {
@@ -17,6 +18,7 @@ class InputPollOption extends Entity
     {
         return [
             'text_entities' => [MessageEntity::class],
+            'media' => InputPollOptionMedia::class,
         ];
     }
 }

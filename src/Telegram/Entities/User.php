@@ -16,6 +16,7 @@ use Al3x5\xBot\Telegram\Entity;
  * @property bool $added_to_attachment_menu
  * @property bool $can_join_groups
  * @property bool $can_read_all_group_messages
+ * @property bool $supports_guest_queries
  * @property bool $supports_inline_queries
  * @property bool $can_connect_to_business
  * @property bool $has_main_web_app

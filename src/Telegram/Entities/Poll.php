@@ -16,13 +16,17 @@ use Al3x5\xBot\Telegram\Entity;
  * @property string $type
  * @property bool $allows_multiple_answers
  * @property bool $allows_revoting
+ * @property bool $members_only
+ * @property array $country_codes
  * @property array $correct_option_ids
  * @property string $explanation
  * @property MessageEntity[] $explanation_entities
+ * @property PollMedia $explanation_media
  * @property int $open_period
  * @property int $close_date
  * @property string $description
  * @property MessageEntity[] $description_entities
+ * @property PollMedia $media
  */
 class Poll extends Entity
 {
@@ -33,7 +37,9 @@ class Poll extends Entity
             'question_entities' => [MessageEntity::class],
             'options' => [PollOption::class],
             'explanation_entities' => [MessageEntity::class],
+            'explanation_media' => PollMedia::class,
             'description_entities' => [MessageEntity::class],
+            'media' => PollMedia::class,
         ];
     }
 }

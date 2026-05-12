@@ -15,6 +15,7 @@ use Al3x5\xBot\Telegram\Entity;
  * @property Message $business_message
  * @property Message $edited_business_message
  * @property BusinessMessagesDeleted $deleted_business_messages
+ * @property Message $guest_message
  * @property MessageReactionUpdated $message_reaction
  * @property MessageReactionCountUpdated $message_reaction_count
  * @property InlineQuery $inline_query
@@ -46,6 +47,7 @@ class Update extends Entity
             'business_message' => Message::class,
             'edited_business_message' => Message::class,
             'deleted_business_messages' => BusinessMessagesDeleted::class,
+            'guest_message' => Message::class,
             'message_reaction' => MessageReactionUpdated::class,
             'message_reaction_count' => MessageReactionCountUpdated::class,
             'inline_query' => InlineQuery::class,

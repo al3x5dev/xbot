@@ -15,6 +15,7 @@ use Al3x5\xBot\Telegram\Entity;
  * @property User $sender_business_bot
  * @property string $sender_tag
  * @property int $date
+ * @property string $guest_query_id
  * @property string $business_connection_id
  * @property Chat $chat
  * @property MessageOrigin $forward_origin
@@ -27,6 +28,8 @@ use Al3x5\xBot\Telegram\Entity;
  * @property int $reply_to_checklist_task_id
  * @property string $reply_to_poll_option_id
  * @property User $via_bot
+ * @property User $guest_bot_caller_user
+ * @property Chat $guest_bot_caller_chat
  * @property int $edit_date
  * @property bool $has_protected_content
  * @property bool $is_from_offline
@@ -42,6 +45,7 @@ use Al3x5\xBot\Telegram\Entity;
  * @property Animation $animation
  * @property Audio $audio
  * @property Document $document
+ * @property LivePhoto $live_photo
  * @property PaidMediaInfo $paid_media
  * @property PhotoSize[] $photo
  * @property Sticker $sticker
@@ -134,12 +138,15 @@ class Message extends Entity
             'quote' => TextQuote::class,
             'reply_to_story' => Story::class,
             'via_bot' => User::class,
+            'guest_bot_caller_user' => User::class,
+            'guest_bot_caller_chat' => Chat::class,
             'entities' => [MessageEntity::class],
             'link_preview_options' => LinkPreviewOptions::class,
             'suggested_post_info' => SuggestedPostInfo::class,
             'animation' => Animation::class,
             'audio' => Audio::class,
             'document' => Document::class,
+            'live_photo' => LivePhoto::class,
             'paid_media' => PaidMediaInfo::class,
             'photo' => [PhotoSize::class],
             'sticker' => Sticker::class,

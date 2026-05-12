@@ -300,6 +300,35 @@ trait Methods
     }
 
     /**
+     * Use this method to send live photos. On success, the sent Message is returned.
+     * @param string $business_connection_id
+     * @param int|string $chat_id
+     * @param int $message_thread_id
+     * @param int $direct_messages_topic_id
+     * @param InputFile|string $live_photo
+     * @param InputFile|string $photo
+     * @param string $caption
+     * @param string $parse_mode
+     * @param MessageEntity[] $caption_entities
+     * @param bool $show_caption_above_media
+     * @param bool $has_spoiler
+     * @param bool $disable_notification
+     * @param bool $protect_content
+     * @param bool $allow_paid_broadcast
+     * @param string $message_effect_id
+     * @param SuggestedPostParameters $suggested_post_parameters
+     * @param ReplyParameters $reply_parameters
+     * @param InlineKeyboardMarkup|ReplyKeyboardMarkup|ReplyKeyboardRemove|ForceReply $reply_markup
+     * @return Message
+     */
+    public function sendLivePhoto(int|string $chat_id, InputFile|string $live_photo, InputFile|string $photo, ?string $business_connection_id = null, ?int $message_thread_id = null, ?int $direct_messages_topic_id = null, ?string $caption = null, ?string $parse_mode = null, ?array $caption_entities = null, ?bool $show_caption_above_media = null, ?bool $has_spoiler = null, ?bool $disable_notification = null, ?bool $protect_content = null, ?bool $allow_paid_broadcast = null, ?string $message_effect_id = null, ?SuggestedPostParameters $suggested_post_parameters = null, ?ReplyParameters $reply_parameters = null, InlineKeyboardMarkup|ReplyKeyboardMarkup|ReplyKeyboardRemove|ForceReply|null $reply_markup = null): Message
+    {
+        $args = get_defined_vars();
+        unset($args['this']);
+        return $this->sender(__FUNCTION__, $args);
+    }
+
+    /**
      * Use this method to send audio files, if you want Telegram clients to display them in the music player. Your audio must be in the .MP3 or .M4A format. On success, the sent Message is returned. Bots can currently send audio files of up to 50 MB in size, this limit may be changed in the future.
      * For sending voice messages, use the sendVoice method instead.
      * @param string $business_connection_id
@@ -507,12 +536,12 @@ trait Methods
     }
 
     /**
-     * Use this method to send a group of photos, videos, documents or audios as an album. Documents and audio files can be only grouped in an album with messages of the same type. On success, an array of Message objects that were sent is returned.
+     * Use this method to send a group of photos, live photos, videos, documents or audios as an album. Documents and audio files can be only grouped in an album with messages of the same type. On success, an array of Message objects that were sent is returned.
      * @param string $business_connection_id
      * @param int|string $chat_id
      * @param int $message_thread_id
      * @param int $direct_messages_topic_id
-     * @param InputMediaAudio[]|InputMediaDocument[]|InputMediaPhoto[]|InputMediaVideo[] $media
+     * @param InputMediaAudio[]|InputMediaDocument[]|InputMediaLivePhoto[]|InputMediaPhoto[]|InputMediaVideo[] $media
      * @param bool $disable_notification
      * @param bool $protect_content
      * @param bool $allow_paid_broadcast
@@ -627,16 +656,20 @@ trait Methods
      * @param bool $shuffle_options
      * @param bool $allow_adding_options
      * @param bool $hide_results_until_closes
+     * @param bool $members_only
+     * @param array $country_codes
      * @param array $correct_option_ids
      * @param string $explanation
      * @param string $explanation_parse_mode
      * @param MessageEntity[] $explanation_entities
+     * @param InputPollMedia $explanation_media
      * @param int $open_period
      * @param int $close_date
      * @param bool $is_closed
      * @param string $description
      * @param string $description_parse_mode
      * @param MessageEntity[] $description_entities
+     * @param InputPollMedia $media
      * @param bool $disable_notification
      * @param bool $protect_content
      * @param bool $allow_paid_broadcast
@@ -645,7 +678,7 @@ trait Methods
      * @param InlineKeyboardMarkup|ReplyKeyboardMarkup|ReplyKeyboardRemove|ForceReply $reply_markup
      * @return Message
      */
-    public function sendPoll(int|string $chat_id, string $question, array $options, ?string $business_connection_id = null, ?int $message_thread_id = null, ?string $question_parse_mode = null, ?array $question_entities = null, ?bool $is_anonymous = null, ?string $type = null, ?bool $allows_multiple_answers = null, ?bool $allows_revoting = null, ?bool $shuffle_options = null, ?bool $allow_adding_options = null, ?bool $hide_results_until_closes = null, ?array $correct_option_ids = null, ?string $explanation = null, ?string $explanation_parse_mode = null, ?array $explanation_entities = null, ?int $open_period = null, ?int $close_date = null, ?bool $is_closed = null, ?string $description = null, ?string $description_parse_mode = null, ?array $description_entities = null, ?bool $disable_notification = null, ?bool $protect_content = null, ?bool $allow_paid_broadcast = null, ?string $message_effect_id = null, ?ReplyParameters $reply_parameters = null, InlineKeyboardMarkup|ReplyKeyboardMarkup|ReplyKeyboardRemove|ForceReply|null $reply_markup = null): Message
+    public function sendPoll(int|string $chat_id, string $question, array $options, ?string $business_connection_id = null, ?int $message_thread_id = null, ?string $question_parse_mode = null, ?array $question_entities = null, ?bool $is_anonymous = null, ?string $type = null, ?bool $allows_multiple_answers = null, ?bool $allows_revoting = null, ?bool $shuffle_options = null, ?bool $allow_adding_options = null, ?bool $hide_results_until_closes = null, ?bool $members_only = null, ?array $country_codes = null, ?array $correct_option_ids = null, ?string $explanation = null, ?string $explanation_parse_mode = null, ?array $explanation_entities = null, ?InputPollMedia $explanation_media = null, ?int $open_period = null, ?int $close_date = null, ?bool $is_closed = null, ?string $description = null, ?string $description_parse_mode = null, ?array $description_entities = null, ?InputPollMedia $media = null, ?bool $disable_notification = null, ?bool $protect_content = null, ?bool $allow_paid_broadcast = null, ?string $message_effect_id = null, ?ReplyParameters $reply_parameters = null, InlineKeyboardMarkup|ReplyKeyboardMarkup|ReplyKeyboardRemove|ForceReply|null $reply_markup = null): Message
     {
         $args = get_defined_vars();
         unset($args['this']);
@@ -655,7 +688,7 @@ trait Methods
     /**
      * Use this method to send a checklist on behalf of a connected business account. On success, the sent Message is returned.
      * @param string $business_connection_id
-     * @param int $chat_id
+     * @param int|string $chat_id
      * @param InputChecklist $checklist
      * @param bool $disable_notification
      * @param bool $protect_content
@@ -664,7 +697,7 @@ trait Methods
      * @param InlineKeyboardMarkup $reply_markup
      * @return Message
      */
-    public function sendChecklist(string $business_connection_id, int $chat_id, InputChecklist $checklist, ?bool $disable_notification = null, ?bool $protect_content = null, ?string $message_effect_id = null, ?ReplyParameters $reply_parameters = null, ?InlineKeyboardMarkup $reply_markup = null): Message
+    public function sendChecklist(string $business_connection_id, int|string $chat_id, InputChecklist $checklist, ?bool $disable_notification = null, ?bool $protect_content = null, ?string $message_effect_id = null, ?ReplyParameters $reply_parameters = null, ?InlineKeyboardMarkup $reply_markup = null): Message
     {
         $args = get_defined_vars();
         unset($args['this']);
@@ -695,7 +728,7 @@ trait Methods
     }
 
     /**
-     * Use this method to stream a partial message to a user while the message is being generated. Returns True on success.
+     * Use this method to stream a partial message to a user while the message is being generated. Note that the streamed draft is ephemeral and acts as a temporary 30-second preview - once the output is finalized, you must call sendMessage with the complete message to persist it in the user's chat. Returns True on success.
      * @param int $chat_id
      * @param int $message_thread_id
      * @param int $draft_id
@@ -704,7 +737,7 @@ trait Methods
      * @param MessageEntity[] $entities
      * @return bool
      */
-    public function sendMessageDraft(int $chat_id, int $draft_id, string $text, ?int $message_thread_id = null, ?string $parse_mode = null, ?array $entities = null): bool
+    public function sendMessageDraft(int $chat_id, int $draft_id, ?int $message_thread_id = null, ?string $text = null, ?string $parse_mode = null, ?array $entities = null): bool
     {
         $args = get_defined_vars();
         unset($args['this']);
@@ -1170,11 +1203,12 @@ trait Methods
     }
 
     /**
-     * Use this method to get a list of administrators in a chat, which aren't bots. Returns an Array of ChatMember objects.
+     * Use this method to get a list of administrators in a chat. Returns an Array of ChatMember objects.
      * @param int|string $chat_id
+     * @param bool $return_bots
      * @return ChatMember[]
      */
-    public function getChatAdministrators(int|string $chat_id): array
+    public function getChatAdministrators(int|string $chat_id, ?bool $return_bots = null): array
     {
         $args = get_defined_vars();
         unset($args['this']);
@@ -1200,6 +1234,19 @@ trait Methods
      * @return ChatMember
      */
     public function getChatMember(int|string $chat_id, int $user_id): ChatMember
+    {
+        $args = get_defined_vars();
+        unset($args['this']);
+        return $this->sender(__FUNCTION__, $args);
+    }
+
+    /**
+     * Use this method to get the last messages from the personal chat (i.e., the chat currently added to their profile) of a given user. On success, an array of Message objects is returned.
+     * @param int $user_id
+     * @param int $limit
+     * @return Message[]
+     */
+    public function getUserPersonalChatMessages(int $user_id, int $limit): array
     {
         $args = get_defined_vars();
         unset($args['this']);
@@ -1414,6 +1461,19 @@ trait Methods
     }
 
     /**
+     * Use this method to reply to a received guest message. On success, a SentGuestMessage object is returned.
+     * @param string $guest_query_id
+     * @param InlineQueryResult $result
+     * @return SentGuestMessage
+     */
+    public function answerGuestQuery(string $guest_query_id, InlineQueryResult $result): SentGuestMessage
+    {
+        $args = get_defined_vars();
+        unset($args['this']);
+        return $this->sender(__FUNCTION__, $args);
+    }
+
+    /**
      * Use this method to get the list of boosts added to a chat by a user. Requires administrator rights in the chat. Returns a UserChatBoosts object.
      * @param int|string $chat_id
      * @param int $user_id
@@ -1456,6 +1516,32 @@ trait Methods
      * @return string
      */
     public function replaceManagedBotToken(int $user_id): string
+    {
+        $args = get_defined_vars();
+        unset($args['this']);
+        return $this->sender(__FUNCTION__, $args);
+    }
+
+    /**
+     * Use this method to get the access settings of a managed bot. Returns a BotAccessSettings object on success.
+     * @param int $user_id
+     * @return BotAccessSettings
+     */
+    public function getManagedBotAccessSettings(int $user_id): BotAccessSettings
+    {
+        $args = get_defined_vars();
+        unset($args['this']);
+        return $this->sender(__FUNCTION__, $args);
+    }
+
+    /**
+     * Use this method to change the access settings of a managed bot. Returns True on success.
+     * @param int $user_id
+     * @param bool $is_access_restricted
+     * @param array $added_user_ids
+     * @return bool
+     */
+    public function setManagedBotAccessSettings(int $user_id, bool $is_access_restricted, ?array $added_user_ids = null): bool
     {
         $args = get_defined_vars();
         unset($args['this']);
@@ -2138,7 +2224,7 @@ trait Methods
     }
 
     /**
-     * Use this method to edit animation, audio, document, photo, or video messages, or to add media to text messages. If a message is part of a message album, then it can be edited only to an audio for audio albums, only to a document for document albums and to a photo or a video otherwise. When an inline message is edited, a new file can't be uploaded; use a previously uploaded file via its file_id or specify a URL. On success, if the edited message is not an inline message, the edited Message is returned, otherwise True is returned. Note that business messages that were not sent by the bot and do not contain an inline keyboard can only be edited within 48 hours from the time they were sent.
+     * Use this method to edit animation, audio, document, live photo, photo, or video messages, or to add media to text messages. If a message is part of a message album, then it can be edited only to an audio for audio albums, only to a document for document albums and to a photo, a live photo, or a video otherwise. When an inline message is edited, a new file can't be uploaded; use a previously uploaded file via its file_id or specify a URL. On success, if the edited message is not an inline message, the edited Message is returned, otherwise True is returned. Note that business messages that were not sent by the bot and do not contain an inline keyboard can only be edited within 48 hours from the time they were sent.
      * @param string $business_connection_id
      * @param int|string $chat_id
      * @param int $message_id
@@ -2195,13 +2281,13 @@ trait Methods
     /**
      * Use this method to edit a checklist on behalf of a connected business account. On success, the edited Message is returned.
      * @param string $business_connection_id
-     * @param int $chat_id
+     * @param int|string $chat_id
      * @param int $message_id
      * @param InputChecklist $checklist
      * @param InlineKeyboardMarkup $reply_markup
      * @return Message
      */
-    public function editMessageChecklist(string $business_connection_id, int $chat_id, int $message_id, InputChecklist $checklist, ?InlineKeyboardMarkup $reply_markup = null): Message
+    public function editMessageChecklist(string $business_connection_id, int|string $chat_id, int $message_id, InputChecklist $checklist, ?InlineKeyboardMarkup $reply_markup = null): Message
     {
         $args = get_defined_vars();
         unset($args['this']);
@@ -2287,6 +2373,35 @@ trait Methods
      * @return bool
      */
     public function deleteMessages(int|string $chat_id, array $message_ids): bool
+    {
+        $args = get_defined_vars();
+        unset($args['this']);
+        return $this->sender(__FUNCTION__, $args);
+    }
+
+    /**
+     * Use this method to remove a reaction from a message in a group or a supergroup chat. The bot must have the 'can_delete_messages' administrator right in the chat. Returns True on success.
+     * @param int|string $chat_id
+     * @param int $message_id
+     * @param int $user_id
+     * @param int $actor_chat_id
+     * @return bool
+     */
+    public function deleteMessageReaction(int|string $chat_id, int $message_id, ?int $user_id = null, ?int $actor_chat_id = null): bool
+    {
+        $args = get_defined_vars();
+        unset($args['this']);
+        return $this->sender(__FUNCTION__, $args);
+    }
+
+    /**
+     * Use this method to remove up to 10000 recent reactions in a group or a supergroup chat added by a given user or chat. The bot must have the 'can_delete_messages' administrator right in the chat. Returns True on success.
+     * @param int|string $chat_id
+     * @param int $user_id
+     * @param int $actor_chat_id
+     * @return bool
+     */
+    public function deleteAllMessageReactions(int|string $chat_id, ?int $user_id = null, ?int $actor_chat_id = null): bool
     {
         $args = get_defined_vars();
         unset($args['this']);
@@ -2707,7 +2822,7 @@ trait Methods
     /**
      * Use this method to send a game. On success, the sent Message is returned.
      * @param string $business_connection_id
-     * @param int $chat_id
+     * @param int|string $chat_id
      * @param int $message_thread_id
      * @param string $game_short_name
      * @param bool $disable_notification
@@ -2718,7 +2833,7 @@ trait Methods
      * @param InlineKeyboardMarkup $reply_markup
      * @return Message
      */
-    public function sendGame(int $chat_id, string $game_short_name, ?string $business_connection_id = null, ?int $message_thread_id = null, ?bool $disable_notification = null, ?bool $protect_content = null, ?bool $allow_paid_broadcast = null, ?string $message_effect_id = null, ?ReplyParameters $reply_parameters = null, ?InlineKeyboardMarkup $reply_markup = null): Message
+    public function sendGame(int|string $chat_id, string $game_short_name, ?string $business_connection_id = null, ?int $message_thread_id = null, ?bool $disable_notification = null, ?bool $protect_content = null, ?bool $allow_paid_broadcast = null, ?string $message_effect_id = null, ?ReplyParameters $reply_parameters = null, ?InlineKeyboardMarkup $reply_markup = null): Message
     {
         $args = get_defined_vars();
         unset($args['this']);

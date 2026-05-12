@@ -20,6 +20,7 @@ use Al3x5\xBot\Telegram\Entity;
  * @property bool $can_send_polls
  * @property bool $can_send_other_messages
  * @property bool $can_add_web_page_previews
+ * @property bool $can_react_to_messages
  * @property bool $can_edit_tag
  * @property bool $can_change_info
  * @property bool $can_invite_users

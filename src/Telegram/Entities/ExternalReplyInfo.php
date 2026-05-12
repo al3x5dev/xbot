@@ -13,6 +13,7 @@ use Al3x5\xBot\Telegram\Entity;
  * @property Animation $animation
  * @property Audio $audio
  * @property Document $document
+ * @property LivePhoto $live_photo
  * @property PaidMediaInfo $paid_media
  * @property PhotoSize[] $photo
  * @property Sticker $sticker
@@ -44,6 +45,7 @@ class ExternalReplyInfo extends Entity
             'animation' => Animation::class,
             'audio' => Audio::class,
             'document' => Document::class,
+            'live_photo' => LivePhoto::class,
             'paid_media' => PaidMediaInfo::class,
             'photo' => [PhotoSize::class],
             'sticker' => Sticker::class,

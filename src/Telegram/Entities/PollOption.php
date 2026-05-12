@@ -9,6 +9,7 @@ use Al3x5\xBot\Telegram\Entity;
  * @property string $persistent_id
  * @property string $text
  * @property MessageEntity[] $text_entities
+ * @property PollMedia $media
  * @property int $voter_count
  * @property User $added_by_user
  * @property Chat $added_by_chat
@@ -21,6 +22,7 @@ class PollOption extends Entity
     {
         return [
             'text_entities' => [MessageEntity::class],
+            'media' => PollMedia::class,
             'added_by_user' => User::class,
             'added_by_chat' => Chat::class,
         ];

@@ -45,7 +45,7 @@ trait BotActions
     public function isAdmin(): bool
     {
         return in_array(
-            $this->getActiveEntity()->getFrom()->getId(),
+            $this->getActiveEntity()->getFrom()->getId() ?? null,
             Config::get('admins'),
             true
         );
