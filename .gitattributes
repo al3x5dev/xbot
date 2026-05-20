@@ -1,0 +1,7 @@
+# Prevent these directories from being exported in the distribution archive
+/docs export-ignore
+/tests export-ignore
+/.github export-ignore
+/phpunit.xml export-ignore
+/.gitignore export-ignore
+/.gitattributes export-ignore

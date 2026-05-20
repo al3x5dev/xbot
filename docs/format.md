@@ -94,6 +94,22 @@ $this->reply(FormatHelper::codeBlock('block code', 'php'));
 // Output: <pre><code class="language-php">block code</code></pre>
 ```
 
+### time(int $unix, string $format = ''): string
+
+Formats a Unix timestamp for display. Supports multiple format options:
+
+- `w`: Day of the week in the user's language
+- `d`: Short date format (e.g., "17.03.22")
+- `D`: Long date format (e.g., "17 de marzo de 2022")
+- `t`: Short time format (e.g., "22:45")
+- `T`: Long time format (e.g., "22:45:00")
+- `r`: Relative time from current moment
+
+```php
+$this->reply(FormatHelper::time(1710691200, 't'));
+// Output: <tg-time unix="1710691200" format="t">fecha</tg-time>
+```
+
 ### blockQuote(string $text): string
 
 Formats the provided text as a blockquote.
@@ -109,14 +125,5 @@ Formats the provided text as an expandable blockquote.
 
 ```php
 $this->reply(FormatHelper::expandableBlockQuote('This is an expandable blockquote'));
-// Output: <expandable blockquote>This is an expandable blockquote</blockquote>
-```
-
-### sanatize(string $text): string
-
-Sanitizes the provided text, escaping HTML special characters.
-
-```php
-$this->reply(FormatHelper::sanatize('<script>alert("Hello")</script>'));
-// Output: &lt;script&gt;alert(&quot;Hello&quot;)&lt;/script&gt;
+// Output: <blockquote expandable>This is an expandable blockquote</blockquote>
 ```
