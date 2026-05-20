@@ -15,20 +15,20 @@ Creates an inline keyboard that appears next to the message.
 Each button can have actions such as opening a URL, sending callback data, etc.
 
 ```php
-use Al3x5\xBot\Telegram\Factorys\InlineKeyboard;
+use Al3x5\xBot\Telegram\Factorys\InlineButton;
 use Al3x5\xBot\Telegram\Factorys\Keyboard;
 
-$keyboard =  Keyboard::inline()
-            ->row([
-                InlineKeyboard::button('🎮 Games')->callback('game')
-            ])
-            ->row([
-                InlineKeyboard::button('💎 Membership')->callback('gift')
-            ])
-            ->row([
-                InlineKeyboard::button('👥 Community')->callback('groups')
-            ])
-            ->build();
+$keyboard = Keyboard::inline()
+    ->row([
+        InlineButton::make('🎮 Games')->callback('game')
+    ])
+    ->row([
+        InlineButton::make('💎 Membership')->callback('gift')
+    ])
+    ->row([
+        InlineButton::make('👥 Community')->callback('groups')
+    ])
+    ->build();
 ```
 
 > [!NOTE]
@@ -54,12 +54,15 @@ Alias for the `row` method.
 
 Builds the inline keyboard and returns an instance of `InlineKeyboardMarkup`.
 
-### button(string $text): InlineButton
+### make(string $text): InlineButton
 
 Static method that creates a new inline button with the provided text.
 
 **Parameters:**
 - `$text` (string): The button's text.
+
+> [!NOTE]
+> Also puedes usar `new InlineButton('text')` directamente.
 
 #### InlineButton::url(string $url): self
 
@@ -131,6 +134,20 @@ Sets whether the button should be used to make a payment.
 **Parameters:**
 - `$value` (bool): If `true`, the button will be used to make a payment. The default is `true`.
 
+#### InlineButton::emoji(string $iconCustomEmojiId): self
+
+Sets a custom emoji to be shown on the button.
+
+**Parameters:**
+- `$iconCustomEmojiId` (string): Custom emoji ID.
+
+#### InlineButton::style(string $style): self
+
+Sets the button style.
+
+**Parameters:**
+- `$style` (string): Style options - `danger` (red), `success` (green), `primary` (blue).
+
 #### InlineButton::build(): InlineKeyboardButton
 
 Builds the inline button and returns an instance of `InlineKeyboardButton`.
@@ -142,19 +159,19 @@ This static method creates a new instance of `ReplyKeyboard`, which is used to b
 
 
 ```php
-use Al3x5\xBot\Telegram\Factorys\ReplyKeyboard;
+use Al3x5\xBot\Telegram\Factorys\ReplyButton;
 use Al3x5\xBot\Telegram\Factorys\Keyboard;
 
 $keyboard = Keyboard::reply()
-            ->row([
-                ReplyKeyboard::button('📞 Contact')->requestContact()
-            ])
-            ->row([
-                ReplyKeyboard::button('📍 Location')->requestLocation(),
-            ])
-            ->resize()
-            ->oneTime()
-            ->build();
+    ->row([
+        ReplyButton::make('📞 Contact')->requestContact()
+    ])
+    ->row([
+        ReplyButton::make('📍 Location')->requestLocation()
+    ])
+    ->resize()
+    ->oneTime()
+    ->build();
 ```
 ### Methods
 
@@ -211,12 +228,15 @@ Sets whether the keyboard should be selective.
 
 Builds the keyboard and returns a ReplyKeyboardMarkup instance.
 
-### button(string $text): ReplyButton
+### make(string $text): ReplyButton
 
 Static method that creates a new reply button with the provided text.
 
 **Parameters:**
 - `$text` (string): The button's text.
+
+> [!NOTE]
+> También puedes usar `new ReplyButton('text')` directamente.
 
 #### ReplyButton::requestUsers(KeyboardButtonRequestUsers $request): self
 
@@ -266,7 +286,7 @@ Sets the web application information for the button.
 This static method creates a new instance of `ReplyKeyboardRemove`, which is used to remove the current reply keyboard in Telegram. The method returns a `ReplyKeyboardRemove` instance with the `remove_keyboard` option set to `true`.
 
 ```php
-$keyboard = \Al3x5\xBot\Keyboard:::remove();
+$keyboard = Keyboard::remove();
 ```
 
 
