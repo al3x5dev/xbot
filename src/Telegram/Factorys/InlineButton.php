@@ -9,11 +9,14 @@ use Al3x5\xBot\Telegram\Entities\LoginUrl;
 use Al3x5\xBot\Telegram\Entities\SwitchInlineQueryChosenChat;
 use Al3x5\xBot\Telegram\Entities\WebAppInfo;
 use Al3x5\xBot\Telegram\Factorys\Keyboard\ButtonInterface;
+use Al3x5\xBot\Telegram\Factorys\Keyboard\StyleTrait;
 
 class InlineButton implements ButtonInterface
 {
     private ?string $text;
     private array $options = [];
+
+    use StyleTrait;
 
     public function __construct(string $text)
     {

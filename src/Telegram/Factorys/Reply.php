@@ -5,7 +5,7 @@ namespace Al3x5\xBot\Telegram\Factorys;
 use Al3x5\xBot\Telegram\Entities\ReplyKeyboardMarkup;
 use Al3x5\xBot\Telegram\Factorys\Keyboard\AddRowTrait;
 
-class ReplyKeyboard
+class Reply
 {
     private array $rows = [];
     private array $options = [];

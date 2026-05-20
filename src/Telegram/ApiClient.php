@@ -36,9 +36,11 @@ class ApiClient
      */
     public function __construct(private string $method, private array $params)
     {
-        // Forzamos parse_mode a HTML por defecto, pero permitimos que el usuario lo sobrescriba
-        // El array_merge asegura que los valores del usuario sobrescriban el parse_mode por defecto
-        $this->params = array_merge(['parse_mode' => 'HTML'], $params);
+        // parse_mode a HTML por defecto
+         $defaultParseMode = Config::get('parse_mode', 'HTML');
+         // El array_merge asegura que los valores del usuario sobrescriban el parse_mode por defecto
+
+        $this->params = array_merge($params, ['parse_mode' => $defaultParseMode]);
         $this->method = $method;
     }
 

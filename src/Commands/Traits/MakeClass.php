@@ -220,7 +220,7 @@ trait MakeClass
 
         if (file_exists($filename)) {
             $output->writeln("<error>File already exists: $filename</error>");
-            return Command::FAILURE;
+            return 0;
         }
 
         // Construir namespace dinámico

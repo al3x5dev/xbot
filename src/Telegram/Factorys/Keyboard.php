@@ -7,14 +7,14 @@ use Al3x5\xBot\Telegram\Entities\ReplyKeyboardRemove;
 
 class Keyboard
 {
-    public static function inline(): InlineKeyboard
+    public static function inline(): Inline
     {
-        return new InlineKeyboard();
+        return new Inline();
     }
 
-    public static function reply(): ReplyKeyboard
+    public static function reply(): Reply
     {
-        return new ReplyKeyboard();
+        return new Reply();
     }
 
     public static function remove(): ReplyKeyboardRemove

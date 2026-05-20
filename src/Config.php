@@ -30,6 +30,7 @@ class Config
                 'ttl' => 600
             ]),
             'webhook' => $cfg['webhook'] ?? self::webhook($cfg['token']),
+            'parse_mode' => $cfg['parse_mode'] ?? 'HTML',
             'debug' => $cfg['debug'] ?? false,
             'abs_path' => $cfg['abs_path'] ?? throw new xBotException('No absolute path has been defined'),
         ];
