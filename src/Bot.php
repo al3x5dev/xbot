@@ -17,7 +17,7 @@ class Bot
 {
     public const NAME = 'xBot';
 
-    public const VERSION = '4.2.1';
+    public const VERSION = '4.3.0';
 
     public ?Update $update = null;
 

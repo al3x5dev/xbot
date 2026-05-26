@@ -8,6 +8,13 @@ use PHPUnit\Framework\TestCase;
 
 class ConfigTest extends TestCase
 {
+    public static function setUpBeforeClass(): void
+    {
+        if (!is_dir('storage/cache')) {
+            mkdir('storage/cache', 0777, true);
+        }
+    }
+
     protected function setUp(): void
     {
         parent::setUp();

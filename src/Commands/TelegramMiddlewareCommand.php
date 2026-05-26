@@ -34,8 +34,8 @@ final class TelegramMiddlewareCommand extends Command
         $this->prepare($input, $output);
 
         $name = $this->askForClassName(
-            $input->getArgument('name'),
-            'Middleware name (e.g. auth or auth/user)'
+            'Middleware name (e.g. auth or auth/user)',
+            $input->getArgument('name')
         );
 
         if (!str_ends_with($name, 'Middleware')) {

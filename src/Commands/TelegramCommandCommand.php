@@ -30,8 +30,8 @@ final class TelegramCommandCommand extends Command
         $this->prepare($input, $output);
 
         $name = $this->askForClassName(
-            $input->getArgument('name'),
-            'What should the Telegram command be named? [Eg. Start] (supports subdirs: Admin/User/Ban)'
+            'What should the Telegram command be named? [Eg. Start] (supports subdirs: Admin/User/Ban)',
+            $input->getArgument('name')
         );
 
         $data = $this->makeDir($name, 'bot/Commands', $output);

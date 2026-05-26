@@ -40,7 +40,7 @@ class ApiClient
          $defaultParseMode = Config::get('parse_mode', 'HTML');
          // El array_merge asegura que los valores del usuario sobrescriban el parse_mode por defecto
 
-        $this->params = array_merge($params, ['parse_mode' => $defaultParseMode]);
+        $this->params = array_merge(['parse_mode' => $defaultParseMode], $params);
         $this->method = $method;
     }
 

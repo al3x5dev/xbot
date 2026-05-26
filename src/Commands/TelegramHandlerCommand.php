@@ -31,8 +31,8 @@ final class TelegramHandlerCommand extends Command
         $this->prepare($input, $output);
 
         $name = $this->askForClassName(
-            $input->getArgument('name'),
-            "What should Telegram's update handler be called? [e.g., ChannelPost]"
+            "What should Telegram's update handler be called? [e.g., ChannelPost]",
+            $input->getArgument('name')
         );
 
         $data = $this->makeDir($name, 'bot/Handlers', $output);

@@ -40,8 +40,8 @@ final class TelegramConversationCommand extends Command
         );*/
 
         $name = $this->askForClassName(
-            $input->getArgument('name'),
-            'What will you call the new conversation? [Eg. Chat] (supports subdirs: Admin/User/Delete)'
+            'What will you call the new conversation? [Eg. Chat] (supports subdirs: Admin/User/Delete)',
+            $input->getArgument('name')
         );
 
         $data = $this->makeDir(trim($name), 'bot/Conversations', $output);

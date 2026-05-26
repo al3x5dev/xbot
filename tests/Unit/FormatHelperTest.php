@@ -2,11 +2,27 @@
 
 namespace Al3x5\xBot\Tests\Unit;
 
+use Al3x5\xBot\Config;
 use Al3x5\xBot\FormatHelper;
 use PHPUnit\Framework\TestCase;
 
 class FormatHelperTest extends TestCase
 {
+    public static function setUpBeforeClass(): void
+    {
+        $reflection = new \ReflectionClass(Config::class);
+        $prop = $reflection->getProperty('init');
+        $prop->setAccessible(true);
+        $prop->setValue(null, null);
+        $cfg = $reflection->getProperty('cfg');
+        $cfg->setAccessible(true);
+        $cfg->setValue(null, [
+            'token' => '123456789:ABCdefGHI_jklMNOpqRSTUvWxyz',
+            'abs_path' => '/test',
+            'parse_mode' => 'HTML'
+        ]);
+    }
+
     public function testBold(): void
     {
         $result = FormatHelper::bold('Hello');

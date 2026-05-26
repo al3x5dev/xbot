@@ -59,13 +59,13 @@ final class TelegramCallbackCommand extends Command
         $this->prepare($input, $output);
 
         $name = $this->askForClassName(
-            null,
-            'Callback class name (supports subdirs: Games/Dice)'
+            'Callback class name (supports subdirs: Games/Dice)',
+            null
         );
 
         $action = $this->askForClassName(
-            null,
-            'Callback action name (e.g. play, join, confirm)'
+            'Callback action name (e.g. play, join, confirm)',
+            null
         );
 
         $data = $this->makeDir($name, 'bot/Callbacks', $output);

@@ -19,14 +19,14 @@ class KeyboardTest extends TestCase
     {
         $keyboard = Keyboard::inline();
         
-        $this->assertInstanceOf(\Al3x5\xBot\Telegram\Factorys\InlineKeyboard::class, $keyboard);
+        $this->assertInstanceOf(\Al3x5\xBot\Telegram\Factorys\Inline::class, $keyboard);
     }
 
     public function testReplyReturnsReplyKeyboardInstance(): void
     {
         $keyboard = Keyboard::reply();
         
-        $this->assertInstanceOf(\Al3x5\xBot\Telegram\Factorys\ReplyKeyboard::class, $keyboard);
+        $this->assertInstanceOf(\Al3x5\xBot\Telegram\Factorys\Reply::class, $keyboard);
     }
 
     public function testRemoveReturnsReplyKeyboardRemove(): void

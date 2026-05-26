@@ -29,7 +29,7 @@ class HelpersTest extends TestCase
     public function testBaseFunctionReturnsPath(): void
     {
         $result = base('storage');
-        $this->assertEquals('/test/path/storage', $result);
+        $this->assertEquals('/test/path' . DIRECTORY_SEPARATOR . 'storage', $result);
     }
 
     public function testBaseFunctionReturnsAbsPathWhenNoArgument(): void

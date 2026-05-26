@@ -21,11 +21,13 @@ trait MessageHandler
             throw new xBotException("Error: '$filename' file does not exist.");
         }
 
-        $this->commands = json_decode(file_get_contents($filename), true);
+        $data = json_decode(file_get_contents($filename), true);
 
         if (json_last_error() !== JSON_ERROR_NONE) {
             throw new \RuntimeException("Error: Invalid JSON in '$filename'.");
         }
+
+        $this->commands = $data;
     }
 
     /**

@@ -7,8 +7,8 @@ use Symfony\Component\Console\Command\Command;
 trait AskForClass
 {
     protected function askForClassName(
-        ?string $value = null,
         string $question,
+        ?string $value = null,
         bool $required = true
     ): string {
         if ($value !== null && trim($value) !== '') {
