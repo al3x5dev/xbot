@@ -244,7 +244,7 @@ final class InstallCommand extends Command
     /**
      * Crea archivos de configuracion para middleware
      */
-    private function mwConfig()
+    public function mwConfig()
     {
         $content = <<<PHP
         <?php
@@ -286,7 +286,7 @@ final class InstallCommand extends Command
     /**
      * Crea archivos de configuracion para middleware
      */
-    private function loggerMiddleware()
+    public function loggerMiddleware()
     {
         $content = <<<PHP
         <?php
