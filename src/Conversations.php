@@ -59,9 +59,4 @@ abstract class Conversations
      * Inicia la conversación
      */
     abstract public function start(): void;
-
-    /**
-     * Mensaje de error ante fallas
-     */
-    public function fallback(): void {}
 }

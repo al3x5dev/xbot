@@ -80,24 +80,6 @@ public function start(): void
 }
 ```
 
-#### `fallback(): void`
-
-Optional method executed when an error occurs during the conversation flow.
-
-This method can be used to:
-- Notify the user about a failure
-- Recover gracefully
-- Log errors or reset state
-
-##### Example:
-
-```php
-public function fallback(): void
-{
-    $this->reply('Something went wrong, please try again.');
-}
-```
-
 ### Example: Simple multi-step conversation
 
 ```php
@@ -107,11 +89,6 @@ use Al3x5\xBot\Conversations;
 
 class Hello extends Conversations
 {
-    public function fallback(): void
-    {
-        $this->reply('Something went wrong');
-    }
-
     public function start(): void
     {
         // Cancel words or commands

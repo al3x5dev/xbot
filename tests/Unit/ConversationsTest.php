@@ -76,14 +76,6 @@ class ConversationsTest extends TestCase
         $this->assertTrue($reflection->hasMethod('start'));
         $this->assertTrue($reflection->getMethod('start')->isAbstract());
     }
-
-    public function testFallbackMethodExists(): void
-    {
-        $reflection = new \ReflectionClass(Conversations::class);
-        
-        $this->assertTrue($reflection->hasMethod('fallback'));
-    }
-
     public function testEndMethodSetsEndWords(): void
     {
         $conversation = new TestConversation($this->update);
