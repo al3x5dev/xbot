@@ -2,6 +2,8 @@
 
 namespace Al3x5\xBot\Telegram;
 
+use Al3x5\xBot\Exceptions\xBotException;
+
 /**
  * Entity Base Class
  * 
@@ -86,13 +88,9 @@ abstract class Entity implements \JsonSerializable
     protected function createEntity(string $class, array $params): object
     {
         if (!class_exists($class)) {
-            // Fallback: crear stdClass si la clase no existe
-            // Esto evita errores cuando hay entidades nuevas en la API que aún no tenemos mapeadas
-            $obj = new \stdClass();
-            foreach ($params as $key => $value) {
-                $obj->$key = $value;
-            }
-            return $obj;
+            throw new xBotException(
+                sprintf('Entity class "%s" not found.', $class)
+            );
         }
         return new $class($params);
     }
