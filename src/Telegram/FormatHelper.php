@@ -1,6 +1,8 @@
 <?php
 
-namespace Al3x5\xBot;
+namespace Al3x5\xBot\Telegram;
+
+use Al3x5\xBot\Config;
 
 class FormatHelper
 {

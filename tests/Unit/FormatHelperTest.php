@@ -3,7 +3,7 @@
 namespace Al3x5\xBot\Tests\Unit;
 
 use Al3x5\xBot\Config;
-use Al3x5\xBot\FormatHelper;
+use Al3x5\xBot\Telegram\FormatHelper;
 use PHPUnit\Framework\TestCase;
 
 class FormatHelperTest extends TestCase
