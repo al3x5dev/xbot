@@ -36,12 +36,14 @@ class ApiClient
      */
     public function __construct(private string $method, private array $params)
     {
-        // parse_mode a HTML por defecto
-         $defaultParseMode = Config::get('parse_mode', 'HTML');
-         // El array_merge asegura que los valores del usuario sobrescriban el parse_mode por defecto
+        // Asignar parse por defecto cuando el metodo no lo define
+        if (empty($params['parse_mode'])) {
 
-        $this->params = array_merge(['parse_mode' => $defaultParseMode], $params);
-        $this->method = $method;
+            $this->params = array_merge(
+                $params,
+                ['parse_mode' => Config::get('parse_mode', 'HTML')]
+            );
+        }
     }
 
     /**
@@ -57,7 +59,7 @@ class ApiClient
     {
         // 1. Detectar si hay algún objeto InputFile en los parámetros
         $hasFile = false;
-        
+
         foreach ($this->params as $value) {
             if ($value instanceof InputFile) {
                 $hasFile = true;
@@ -81,7 +83,6 @@ class ApiClient
 
             // 4. Procesar y retornar la respuesta
             return $this->processResponse($response);
-
         } catch (\Exception $e) {
             // Loguear el error con el rastro completo para depuración técnica
             Events::logger(
@@ -251,17 +252,17 @@ class ApiClient
     {
         $types = [];
         $reflection = new \ReflectionClass($this);
-        
+
         // Obtener solo los métodos públicos definidos en esta clase (no los del trait)
         foreach ($reflection->getMethods(\ReflectionMethod::IS_PUBLIC) as $method) {
             // Saltar métodos heredados de traits
             if ($method->getDeclaringClass()->getName() !== self::class) {
                 continue;
             }
-            
+
             // Obtener tipo de retorno
             $returnType = $method->getReturnType();
-            
+
             // Solo guardar tipos no built-in (clases)
             // ReflectionUnionType no tiene isBuiltin(), solo ReflectionNamedType
             if ($returnType instanceof \ReflectionNamedType && !$returnType->isBuiltin()) {
