@@ -53,7 +53,7 @@ All of them are combined into a single execution pipeline.
 Every middleware must extend:
 
 ```php
-Al3x5\xBot\Middlewares
+Al3x5\xBot\Telegram\Actions\Middlewares
 ```
 
 This base class provides:
@@ -70,7 +70,7 @@ A middleware is a simple class with a single required method: `handle()`.
 ```php
 namespace Bot\Middlewares;
 
-use Al3x5\xBot\Middlewares;
+use Al3x5\xBot\Telegram\Actions\Middlewares;
 
 class ExampleMiddleware extends Middlewares
 {
@@ -210,8 +210,8 @@ Example:
 
 namespace Bot\Middlewares;
 
-use Al3x5\xBot\FormatHelper;
-use Al3x5\xBot\Middlewares;
+use Al3x5\xBot\Telegram\FormatHelper;
+use Al3x5\xBot\Telegram\Actions\Middlewares;
 
 class AdminMiddleware extends Middlewares
 {

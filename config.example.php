@@ -24,7 +24,7 @@ return [
     'http_client' => new \Mk4U\Http\Client(),
     // cache handling library used (default is mk4u/cache)
     'cache' => \Mk4U\Cache\CacheFactory::create('file', ['dir' => 'storage', 'ttl' => 300]),
-    // sets the formatting options (HTML, MarkdownV2, Markdown[this is a legacy mode])
+    // default message parse mode: HTML, MarkdownV2 (default is 'HTML')
     'parse_mode' => 'HTML',
     // activate dev environment (default is false)
     'debug' => true,

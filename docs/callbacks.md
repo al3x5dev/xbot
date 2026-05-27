@@ -23,7 +23,7 @@ Here is an example of a simple callback:
 ```php
 namespace MyBot\Callbacks;
 
-use Al3x5\xBot\Callbacks;
+use Al3x5\xBot\Telegram\Actions\Callbacks;
 use Al3x5\xBot\Attributes\Callback;
 
 #[Callback('hello')]
@@ -43,7 +43,7 @@ class Greetings extends Callbacks
 > [!NOTE]
 > `$this->message()` replaces the old `$this->getMessage()` method.
 > It resolves the `MaybeInaccessibleMessage` or `InaccessibleMessage` automatically.
-> Always extend `Al3x5\xBot\Callbacks`.
+> Always extend `Al3x5\xBot\Telegram\Actions\Callbacks`.
 
 ### Register
 

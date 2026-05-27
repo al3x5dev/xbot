@@ -2,6 +2,16 @@
 
 The `FormatHelper` class provides static methods for applying different formats to text in Telegram messages. These formats include bold, italics, underlines, strikethrough, spoilers, links, user mentions, custom emoji, code blocks, and quotes. This class is useful for formatting messages sent through a Telegram bot, improving their presentation and readability.
 
+> [!WARNING]
+> `FormatHelper` generates the formatting according to the configuration value of `parse_mode` (default is `'HTML'`).
+>
+> If you override `parse_mode` in a method's parameters (e.g., `reply($msg, ['parse_mode' => 'MarkdownV2'])`),
+> the text formatted by `FormatHelper` will *NOT* be automatically adapted—it will continue to use the configuration's formatting.
+>
+> In that case, you are responsible for ensuring that the text format matches the `parse_mode` you are sending.
+>
+> **Using `FormatHelper` is not recommended when the message's `parse_mode` differs from the globally configured one.**
+
 ## Methods
 
 ### bold(string $text): string

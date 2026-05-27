@@ -27,12 +27,12 @@ This will create your new conversation inside the `bot/Conversations` folder in 
 
 Below is a basic example that shows how a conversational flow is implemented in xBot.
 
-Every conversation must extend `Al3x5\xBot\Conversations` and define a `start()` method.
+Every conversation must extend `Al3x5\xBot\Telegram\Actions\Conversations` and define a `start()` method.
 
 ```php
 namespace MyBot\Conversations;
 
-use Al3x5\xBot\Conversations;
+use Al3x5\xBot\Telegram\Actions\Conversations;
 
 class Foo extends Conversations
 {
@@ -85,7 +85,7 @@ public function start(): void
 ```php
 namespace Bot\Conversations;
 
-use Al3x5\xBot\Conversations;
+use Al3x5\xBot\Telegram\Actions\Conversations;
 
 class Hello extends Conversations
 {

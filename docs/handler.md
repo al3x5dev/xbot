@@ -18,7 +18,7 @@ This creates a new handler in `bot/Handlers/`.
 ```php
 namespace MyBot\Handlers;
 
-use Al3x5\xBot\Handlers;
+use Al3x5\xBot\Telegram\Actions\Handlers;
 
 class ChannelPost extends Handlers
 {
@@ -37,7 +37,7 @@ The InlineQuery handler allows your bot to respond to inline queries. Users can 
 ```php
 namespace Bot\Handlers;
 
-use Al3x5\xBot\Handlers;
+use Al3x5\xBot\Telegram\Actions\Handlers;
 use Al3x5\xBot\Telegram\Entities\InlineQueryResultPhoto;
 use Al3x5\xBot\Telegram\Entities\InlineQueryResultArticle;
 

@@ -15,8 +15,8 @@ Creates an inline keyboard that appears next to the message.
 Each button can have actions such as opening a URL, sending callback data, etc.
 
 ```php
-use Al3x5\xBot\Telegram\Factorys\InlineButton;
-use Al3x5\xBot\Telegram\Factorys\Keyboard;
+use Al3x5\xBot\Telegram\Factories\InlineButton;
+use Al3x5\xBot\Telegram\Factories\Keyboard;
 
 $keyboard = Keyboard::inline()
     ->row([
@@ -32,7 +32,7 @@ $keyboard = Keyboard::inline()
 ```
 
 > [!NOTE]
-> The keyboard classes have been moved from `Keyboards\Builder` to `Factorys` namespace.
+> The keyboard classes have been moved from `Keyboards\Builder` to `Factories` namespace.
 > Use `Keyboard::inline()` or `Keyboard::reply()` instead of `KeyboardFactory`.
 
 
@@ -159,8 +159,8 @@ This static method creates a new instance of `ReplyKeyboard`, which is used to b
 
 
 ```php
-use Al3x5\xBot\Telegram\Factorys\ReplyButton;
-use Al3x5\xBot\Telegram\Factorys\Keyboard;
+use Al3x5\xBot\Telegram\Factories\ReplyButton;
+use Al3x5\xBot\Telegram\Factories\Keyboard;
 
 $keyboard = Keyboard::reply()
     ->row([
@@ -290,14 +290,14 @@ $keyboard = Keyboard::remove();
 ```
 
 
-## `KeyboardFactory:::forceReply((bool $selective = false, string $placeholder = ''): ForceReply`
+## `Keyboard::forceReply(bool $selective = false, string $placeholder = ''): ForceReply`
 
 This static method creates a new instance of `ForceReply`, which is used to force a response from the user in Telegram. It accepts two optional parameters:
 - `$selective`: A Boolean value indicating whether the forced response should be selective. Defaults to `false`.
 - `$placeholder`: A text string to use as a placeholder in the input field. Defaults to an empty string.
 
 ```php
-use Al3x5\xBot\Telegram\Factorys\Keyboard;
+use Al3x5\xBot\Telegram\Factories\Keyboard;
 
 $keyboard = Keyboard::forceReply(true, 'Hello xBot');
 ```

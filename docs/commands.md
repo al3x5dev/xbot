@@ -36,7 +36,7 @@ This will generate a new command class inside the `bot/Commands` folder in the p
 ```php
 namespace MyBot\Commands;
 
-use Al3x5\xBot\Commands;
+use Al3x5\xBot\Telegram\Actions\Commands;
 use Al3x5\xBot\Attributes\Command;
 
 #[Command('/start')]
@@ -73,7 +73,7 @@ $three = $this->args(3);           // Get first 3 arguments, filling missing wit
 
 #### Required properties and method:
 
-* All commands extend `Al3x5\xBot\Commands`, inheriting `$message` and `$update`.
+* All commands extend `Al3x5\xBot\Telegram\Actions\Commands`, inheriting `$message` and `$update`.
 * Commands are marked with the `#[Command('name')]` attribute.
 * `execute()` defines the action when the command is triggered.
 * `description()`: string is now static and provides the command’s description.

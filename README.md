@@ -19,10 +19,10 @@
 - [Available Methods](https://github.com/al3x5dev/xbot/blob/main/docs/methods.md)
 - [Command system](https://github.com/al3x5dev/xbot/blob/main/docs/commands.md)
 - [Callbacks](https://github.com/al3x5dev/xbot/blob/main/docs/callbacks.md)
-- [Handler System](https://github.com/al3x5dev/xbot/blob/main/docs/handlers.md)
+- [Handler System](https://github.com/al3x5dev/xbot/blob/main/docs/handler.md)
 - [Conversation flow](https://github.com/al3x5dev/xbot/blob/main/docs/conversation.md)
 - [Keyboards](https://github.com/al3x5dev/xbot/blob/main/docs/keyboards.md)
-- [Mesagge Format](https://github.com/al3x5dev/xbot/blob/main/docs/format.md)
+- [Message Format](https://github.com/al3x5dev/xbot/blob/main/docs/format.md)
 - [Events Logger](https://github.com/al3x5dev/xbot/blob/main/docs/logger.md)
 - [Middlewares](https://github.com/al3x5dev/xbot/blob/main/docs/middlewares.md)
 
