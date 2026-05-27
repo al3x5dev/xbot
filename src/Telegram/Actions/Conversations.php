@@ -1,29 +1,24 @@
 <?php
 
-namespace Al3x5\xBot;
+namespace Al3x5\xBot\Telegram\Actions;
 
+use Al3x5\xBot\Config;
+use Al3x5\xBot\Telegram\Actions\Traits\ConversationHandler;
+use Al3x5\xBot\Telegram\Actions\Traits\MethodsHandler;
 use Al3x5\xBot\Telegram\Entities\Update;
-use Al3x5\xBot\Traits\ConversationHandler;
-use Al3x5\xBot\Traits\BotActions;
 
-/**
- * Conversation class
- */
 abstract class Conversations
 {
     protected array $end = [];
 
     use ConversationHandler,
-        BotActions;
+        MethodsHandler;
 
     public function __construct(protected Update $update)
     {
         $this->update = $update;
     }
 
-    /**
-     * Inicia una conversacion con el usuario
-     */
     protected function setStep(string $step): void
     {
         Config::get('cache')->set(
@@ -36,17 +31,11 @@ abstract class Conversations
         );
     }
 
-    /**
-     * Palabras para cancelar
-     */
     protected function end(string ...$words): void
     {
         $this->end = array_map('mb_strtolower', $words);
     }
 
-    /**
-     * Establece nueva conversacion
-     */
     public function ask(
         string $message,
         string $step
@@ -55,8 +44,5 @@ abstract class Conversations
         $this->setStep($step);
     }
 
-    /**
-     * Inicia la conversación
-     */
     abstract public function start(): void;
 }

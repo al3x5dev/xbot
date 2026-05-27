@@ -5,10 +5,11 @@ namespace Al3x5\xBot;
 use Al3x5\xBot\Telegram\Entities\Update;
 use Al3x5\xBot\Exceptions\ExceptionHandler;
 use Al3x5\xBot\Exceptions\xBotException;
-use Al3x5\xBot\Traits\CallbackHandler;
-use Al3x5\xBot\Traits\MessageHandler;
-use Al3x5\xBot\Traits\MiddlewareHandler;
-use Al3x5\xBot\Traits\BotActions;
+use Al3x5\xBot\Telegram\Actions\Traits\CallbackHandler;
+use Al3x5\xBot\Telegram\Actions\Traits\MessageHandler;
+use Al3x5\xBot\Telegram\Actions\Traits\MiddlewareHandler;
+use Al3x5\xBot\Telegram\Actions\Handlers;
+use Al3x5\xBot\Telegram\Actions\Traits\MethodsHandler;
 use Mk4U\Http\Request;
 use Mk4U\Http\Response;
 use Mk4U\Http\Status;
@@ -17,14 +18,14 @@ class Bot
 {
     public const NAME = 'xBot';
 
-    public const VERSION = '4.3.1';
+    public const VERSION = '4.4.0';
 
     public ?Update $update = null;
 
     use CallbackHandler,
         MessageHandler,
         MiddlewareHandler,
-        BotActions;
+        MethodsHandler;
 
     /**
      * Inicializa el bot

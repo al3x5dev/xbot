@@ -1,25 +1,19 @@
 <?php
 
-namespace Al3x5\xBot;
+namespace Al3x5\xBot\Telegram\Actions;
 
+use Al3x5\xBot\Telegram\Actions\Traits\MethodsHandler;
 use Al3x5\xBot\Telegram\Entities\Update;
-use Al3x5\xBot\Traits\BotActions;
 
-/**
- * Handlers class
- */
 abstract class Handlers
 {
-    use BotActions;
+    use MethodsHandler;
 
     public function __construct(protected Update $update)
     {
         $this->update = $update;
     }
 
-    /**
-     * Ejecuta el manejador
-     */
     abstract public function execute(): void;
 
 }

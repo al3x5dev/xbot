@@ -57,7 +57,7 @@ trait MakeClass
         <?php
         namespace {$data['namespace']};
         
-        use Al3x5\\xBot\Commands;
+        use Al3x5\\xBot\Telegram\Actions\Commands;
 
         use Al3x5\\xBot\Attributes\Command;
 
@@ -89,7 +89,7 @@ trait MakeClass
         <?php
         namespace {$data['namespace']};
         
-        use Al3x5\\xBot\Callbacks;
+        use Al3x5\\xBot\Telegram\Actions\Callbacks;
 
         use Al3x5\\xBot\Attributes\Callback;
 
@@ -116,7 +116,7 @@ trait MakeClass
         <?php
         namespace {$data['namespace']};
         
-        use Al3x5\\xBot\Conversations;
+        use Al3x5\\xBot\Telegram\Actions\Conversations;
 
         class {$data['class']} extends Conversations
         {
@@ -140,7 +140,7 @@ trait MakeClass
         <?php
         namespace {$data['namespace']};
         
-        use Al3x5\\xBot\Handlers;
+        use Al3x5\\xBot\Telegram\Actions\Handlers;
 
         class {$data['class']} extends Handlers
         {
@@ -164,7 +164,7 @@ trait MakeClass
         <?php
         namespace {$data['namespace']};
         
-        use Al3x5\\xBot\Middlewares;
+        use Al3x5\\xBot\Telegram\Actions\Middlewares;
 
         class {$data['class']} extends Middlewares
         {

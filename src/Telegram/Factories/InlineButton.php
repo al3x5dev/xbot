@@ -1,6 +1,6 @@
 <?php
 
-namespace Al3x5\xBot\Telegram\Factorys;
+namespace Al3x5\xBot\Telegram\Factories;
 
 use Al3x5\xBot\Telegram\Entities\CallbackGame;
 use Al3x5\xBot\Telegram\Entities\CopyTextButton;
@@ -8,8 +8,8 @@ use Al3x5\xBot\Telegram\Entities\InlineKeyboardButton;
 use Al3x5\xBot\Telegram\Entities\LoginUrl;
 use Al3x5\xBot\Telegram\Entities\SwitchInlineQueryChosenChat;
 use Al3x5\xBot\Telegram\Entities\WebAppInfo;
-use Al3x5\xBot\Telegram\Factorys\Keyboard\ButtonInterface;
-use Al3x5\xBot\Telegram\Factorys\Keyboard\StyleTrait;
+use Al3x5\xBot\Telegram\Factories\Keyboard\ButtonInterface;
+use Al3x5\xBot\Telegram\Factories\Keyboard\StyleTrait;
 
 class InlineButton implements ButtonInterface
 {

@@ -1,6 +1,6 @@
 <?php
 
-namespace Al3x5\xBot\Telegram\Factorys\Keyboard;
+namespace Al3x5\xBot\Telegram\Factories\Keyboard;
 
 trait StyleTrait{
 
@@ -13,9 +13,9 @@ trait StyleTrait{
     /**
      *  Style of the button.
      * 
-     * “danger” (red),
-     * “success” (green)
-     * “primary” (blue).
+     * "danger" (red),
+     * "success" (green)
+     * "primary" (blue).
      * 
      * If omitted, then an app-specific style is used.
      */

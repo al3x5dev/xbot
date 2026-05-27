@@ -1,28 +1,22 @@
 <?php
 
-namespace Al3x5\xBot;
+namespace Al3x5\xBot\Telegram\Actions;
 
+use Al3x5\xBot\Telegram\Actions\Traits\MethodsHandler;
 use Al3x5\xBot\Telegram\Entities\Message;
 use Al3x5\xBot\Telegram\Entities\Update;
-use Al3x5\xBot\Traits\BotActions;
 
-/**
- * Commands class
- */
 abstract class Commands
 {
     public ?Message $message;
     private array $args = [];
-    use BotActions;
+    use MethodsHandler;
 
     public function __construct(protected Update $update)
     {
         $this->message = $update->getMessage();
     }
 
-    /**
-     * Devuelve lista de comandos
-     */
     protected function getCommandsList(): array
     {
         $commands = [];
@@ -34,25 +28,16 @@ abstract class Commands
         return $commands;
     }
 
-    /**
-     * Establece argumentos
-     */
     final public function setArgs(array $args): void
     {
         $this->args = $args;
     }
 
-    /**
-     * Devuelve un argumento especificado
-     */
     protected function arg(int $index, mixed $default = null): mixed
     {
         return $this->args[$index] ?? $default;
     }
 
-    /**
-     * Devuelve argumentos
-     */
     protected function args(?int $count = null): array
     {
         if ($count === null) {
@@ -67,13 +52,7 @@ abstract class Commands
     }
 
 
-    /**
-     * Ejecuta el comando
-     */
     abstract public function execute(): void;
 
-    /**
-     * Help command
-     */
     abstract public static function description(): string;
 }

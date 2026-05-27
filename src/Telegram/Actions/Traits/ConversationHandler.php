@@ -1,18 +1,15 @@
 <?php
 
-namespace Al3x5\xBot\Traits;
+namespace Al3x5\xBot\Telegram\Actions\Traits;
 
 use Al3x5\xBot\Config;
-use Al3x5\xBot\Conversations;
+use Al3x5\xBot\Telegram\Actions\Conversations;
 use Al3x5\xBot\Exceptions\xBotException;
 
 trait ConversationHandler
 {
-    use BotActions;
+    use MethodsHandler;
 
-    /**
-     * Obtiene el identificador de la conversacion
-     */
     private function getConversationIdentifier(): string
     {
         $type = $this->update->type();
@@ -28,9 +25,6 @@ trait ConversationHandler
         return "{$entity->getChat()->getId()}:{$entity->getFrom()->getId()}";
     }
 
-    /**
-     * Verificar si hay una conversacion pendiente
-     */
     private function isTalking(): bool
     {
         return  Config::get('cache')->has(
@@ -38,14 +32,10 @@ trait ConversationHandler
         );
     }
 
-    /**
-     * Obtener datos de cache
-     */
     protected function getData(?string $key = null, mixed $default = null): mixed
     {
         $data = Config::get('cache')->get($this->getConversationIdentifier(), []);
 
-        // Si no hay data, devolvemos el valor por defecto o array vacío
         if (!is_array($data)) {
             $data = [];
         }
@@ -57,9 +47,6 @@ trait ConversationHandler
         return $data[$key] ?? $default;
     }
 
-    /**
-     * Obtiene flujo de la conversacion y lo ejecuta
-     */
     private function getConversation(): void
     {
         $text = $this->update->getMessage()->getText();
@@ -71,8 +58,7 @@ trait ConversationHandler
             && in_array(mb_strtolower($text), $this->getData('end'), true)
         ) {
             $this->stopConversation();
-            
-            // ejecuta comando
+
             if ($this->update->getMessage()->isCommand()) {
                 $this->executeCommand($this->update->getMessage()->getText());
             }
@@ -92,9 +78,6 @@ trait ConversationHandler
         call_user_func([$conversation, $this->getData('step')]);
     }
 
-    /**
-     * Detiene la conversacion con ese usuario
-     */
     public function stopConversation(): void
     {
         Config::get('cache')->delete(

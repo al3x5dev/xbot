@@ -1,23 +1,20 @@
 <?php
 
-namespace Al3x5\xBot;
+namespace Al3x5\xBot\Telegram\Actions;
 
+use Al3x5\xBot\Telegram\Actions\Traits\MethodsHandler;
 use Al3x5\xBot\Telegram\Entities\CallbackQuery;
 use Al3x5\xBot\Telegram\Entities\InaccessibleMessage;
 use Al3x5\xBot\Telegram\Entities\MaybeInaccessibleMessage;
 use Al3x5\xBot\Telegram\Entities\Message;
 use Al3x5\xBot\Telegram\Entities\Update;
-use Al3x5\xBot\Traits\BotActions;
 
-/**
- * Callbacks class
- */
 abstract class Callbacks
 {
     public ?CallbackQuery $callback;
     public ?MaybeInaccessibleMessage $message;
 
-    use BotActions;
+    use MethodsHandler;
 
     public function __construct(protected Update $update)
     {
@@ -25,14 +22,8 @@ abstract class Callbacks
         $this->message = $this->callback->getMessage();
     }
 
-    /**
-     * Ejecuta callback
-     */
     abstract public function execute(): void;
 
-    /**
-     * Obtener Message Entity
-     */
     public function message() : Message|InaccessibleMessage
     {
         return $this->message->resolve();

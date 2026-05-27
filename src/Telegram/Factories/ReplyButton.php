@@ -1,14 +1,14 @@
 <?php
 
-namespace Al3x5\xBot\Telegram\Factorys;
+namespace Al3x5\xBot\Telegram\Factories;
 
 use Al3x5\xBot\Telegram\Entities\KeyboardButton;
 use Al3x5\xBot\Telegram\Entities\KeyboardButtonPollType;
 use Al3x5\xBot\Telegram\Entities\KeyboardButtonRequestChat;
 use Al3x5\xBot\Telegram\Entities\KeyboardButtonRequestUsers;
 use Al3x5\xBot\Telegram\Entities\WebAppInfo;
-use Al3x5\xBot\Telegram\Factorys\Keyboard\ButtonInterface;
-use Al3x5\xBot\Telegram\Factorys\Keyboard\StyleTrait;
+use Al3x5\xBot\Telegram\Factories\Keyboard\ButtonInterface;
+use Al3x5\xBot\Telegram\Factories\Keyboard\StyleTrait;
 
 class ReplyButton implements ButtonInterface
 {

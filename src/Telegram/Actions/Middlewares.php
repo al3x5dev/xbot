@@ -1,17 +1,14 @@
 <?php
 
-namespace Al3x5\xBot;
+namespace Al3x5\xBot\Telegram\Actions;
 
+use Al3x5\xBot\Telegram\Actions\Traits\MethodsHandler;
 use Al3x5\xBot\Telegram\Entities\Update;
-use Al3x5\xBot\Traits\BotActions;
 
-/**
- * Middleware class
- */
 abstract class Middlewares
 {
     protected Update $update;
-    use BotActions;
+    use MethodsHandler;
 
     public function __construct(Update $update)
     {

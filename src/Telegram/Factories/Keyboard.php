@@ -1,6 +1,6 @@
 <?php
 
-namespace Al3x5\xBot\Telegram\Factorys;
+namespace Al3x5\xBot\Telegram\Factories;
 
 use Al3x5\xBot\Telegram\Entities\ForceReply;
 use Al3x5\xBot\Telegram\Entities\ReplyKeyboardRemove;

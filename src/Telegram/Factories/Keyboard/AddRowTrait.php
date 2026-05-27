@@ -1,6 +1,6 @@
 <?php
 
-namespace Al3x5\xBot\Telegram\Factorys\Keyboard;
+namespace Al3x5\xBot\Telegram\Factories\Keyboard;
 
 trait AddRowTrait{
     public function row(ButtonInterface ...$button): self

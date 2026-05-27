@@ -1,12 +1,9 @@
 <?php
 
-namespace Al3x5\xBot\Traits;
+namespace Al3x5\xBot\Telegram\Actions\Traits;
 
-use Al3x5\xBot\Middlewares;
+use Al3x5\xBot\Telegram\Actions\Middlewares;
 
-/**
- * Middleware
- */
 trait MiddlewareHandler
 {
     private array $middlewares = [];
@@ -21,9 +18,6 @@ trait MiddlewareHandler
         $this->middlewares = require_once($filename);
     }
 
-    /**
-     * Normalizar a array
-     */
     private function normalizeToArray($value): array
     {
         if (is_string($value)) {
@@ -37,19 +31,14 @@ trait MiddlewareHandler
         return [];
     }
 
-    /**
-     * Obtener middleware por grupo
-     */
     private function getMiddlewareFor(string $type, ?string $command = null): array
     {
         $middlewares = [];
 
-        // Middleware globales
         if (isset($this->middlewares['global'])) {
             $middlewares = array_merge($middlewares, $this->middlewares['global']);
         }
 
-        // Middleware por tipos
         if (isset($this->middlewares['types'][$type])) {
             $middlewares = array_merge(
                 $middlewares,
@@ -57,7 +46,6 @@ trait MiddlewareHandler
             );
         }
 
-        // Middleware por comando específico
         if (isset($this->middlewares['commands'][$command])) {
             $middlewares = array_merge(
                 $middlewares,
@@ -70,18 +58,13 @@ trait MiddlewareHandler
         return $middlewares;
     }
 
-    /**
-     * Ejecuta middlewares
-     */
     private function executePipeline(array $middlewares, callable $handler): void
     {
-        // Si no hay middleware, ejecutar el handler directamente
         if (empty($middlewares)) {
             $handler();
             return;
         }
 
-        // Construir el pipeline de adentro hacia afuera
         $pipeline = function () use ($handler) {
             return $handler();
         };
@@ -95,17 +78,14 @@ trait MiddlewareHandler
 
                 $result = $middleware->handle($pipeline);
 
-                // Si retorna false, ABORTAR
                 if ($result === false || is_null($result)) {
                     return false;
                 }
 
-                // Cualquier otro valor, continuar
                 return $result;
             };
         }
 
-        // Ejecutar el pipeline
         $pipeline();
     }
 }

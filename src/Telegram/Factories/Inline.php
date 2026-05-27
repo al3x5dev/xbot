@@ -1,9 +1,9 @@
 <?php
 
-namespace Al3x5\xBot\Telegram\Factorys;
+namespace Al3x5\xBot\Telegram\Factories;
 
 use Al3x5\xBot\Telegram\Entities\InlineKeyboardMarkup;
-use Al3x5\xBot\Telegram\Factorys\Keyboard\AddRowTrait;
+use Al3x5\xBot\Telegram\Factories\Keyboard\AddRowTrait;
 
 class Inline
 {

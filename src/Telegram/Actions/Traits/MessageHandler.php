@@ -1,8 +1,8 @@
 <?php
 
-namespace Al3x5\xBot\Traits;
+namespace Al3x5\xBot\Telegram\Actions\Traits;
 
-use Al3x5\xBot\Commands;
+use Al3x5\xBot\Telegram\Actions\Commands;
 use Al3x5\xBot\Telegram\Entities\Message;
 use Al3x5\xBot\Exceptions\xBotException;
 
@@ -12,9 +12,6 @@ trait MessageHandler
 
     private array $commands;
 
-    /**
-     * Establece los commands
-     */
     public function setCommands(string $filename): void
     {
         if (!file_exists($filename)) {
@@ -30,17 +27,12 @@ trait MessageHandler
         $this->commands = $data;
     }
 
-    /**
-     * Devuelve commands especifico
-     */
     public function getCommand(string $name, ?string $default = null): string
     {
-        // Verificar si el comando existe
         if ($this->hasCommand($name)) {
             return $this->commands[$name];
         }
 
-        // Verifica si existe o no /help 
         if (!$this->hasCommand($default)) {
             throw new xBotException("Error: Command '$default' does not exist.");
         }
@@ -48,23 +40,15 @@ trait MessageHandler
         return $this->commands[$default];
     }
 
-    /**
-     * Verifica si esta definido el comando
-     */
     private function hasCommand(string $name): bool
     {
         return key_exists($name, $this->commands);
     }
 
-    /**
-     * Manejador de comandos
-     */
     private function handleCommand(): void
     {
-        // Separar el comando de los parámetros
         $parts = explode(' ', $this->getMessage()->getText());
 
-        // Eliminar cualquier mención al bot
         $command = preg_replace(
             '/@[a-zA-Z0-9_-]+/',
             '$1',
@@ -77,9 +61,6 @@ trait MessageHandler
         );
     }
 
-    /**
-     * Manejador de mensajes
-     */
     private function handleMessage(): void
     {
         $this->handle(
@@ -90,9 +71,6 @@ trait MessageHandler
         );
     }
 
-    /**
-     *  Manejador de eventos
-     */
     private function handle(string $className, array $args = []): void
     {
         classValidator($className, Commands::class, 'Command');
@@ -102,9 +80,6 @@ trait MessageHandler
         $command->execute();
     }
 
-    /**
-     * Accede a la entidad Message
-     */
     public function getMessage(): Message
     {
         return $this->update->getMessage();

@@ -1,25 +1,18 @@
 <?php
 
-namespace Al3x5\xBot\Traits;
+namespace Al3x5\xBot\Telegram\Actions\Traits;
 
 use Al3x5\xBot\Config;
 use Al3x5\xBot\Telegram\Entities\CallbackQuery;
 use Al3x5\xBot\Telegram\Entities\Message;
 use Al3x5\xBot\Telegram\Methods;
 
-trait BotActions
+trait MethodsHandler
 {
     use Methods;
 
     protected static array $cachedCommands = [];
 
-    /**
-     * Responder mensajes
-     * 
-     * $message->reply("message_text", [
-     *    "disable_notification" => true
-     * ]);
-     */
     public function reply(string $message, array $params = []): Message
     {
         if (!$active = $this->getActiveEntity()) {
@@ -30,7 +23,6 @@ trait BotActions
             $active instanceof Message => $active->getChat(),
             $active instanceof CallbackQuery => $active->getMessage()->resolve()->getChat(),
             default => $active->getChat()
-            //throw new \RuntimeException("Unsupported entity type."),
         };
 
         return $this->sender('sendMessage', array_merge([
@@ -39,9 +31,6 @@ trait BotActions
         ], $params));
     }
 
-    /**
-     * Verifica Si es un usuario con privilegios de administrador
-     */
     public function isAdmin(): bool
     {
         return in_array(
@@ -51,17 +40,11 @@ trait BotActions
         );
     }
 
-    /**
-     * Obtiene entidades de Update
-     */
     public function getActiveEntity(): mixed
     {
         return $this->update->__get($this->update->type());
     }
 
-    /**
-     * Obtener todos los comandos desde el JSON.
-     */
     protected function getAllCommands(): array
     {
         if (empty(self::$cachedCommands)) {
@@ -71,9 +54,6 @@ trait BotActions
         return self::$cachedCommands;
     }
 
-    /**
-     * Ejecuta el comando dentro de otro
-     */
     public function executeCommand(string $command, array $args = []): void
     {
         if (!key_exists($command, $this->getAllCommands())) {
