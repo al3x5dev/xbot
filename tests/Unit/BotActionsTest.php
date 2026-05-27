@@ -68,10 +68,10 @@ class BotActionsTest extends TestCase
         ]);
     }
 
-    public function testBotUsesBotActionsTrait(): void
+    public function testBotUsesMethodsHandlerTrait(): void
     {
         $traits = (new \ReflectionClass(Bot::class))->getTraitNames();
-        $this->assertContains('Al3x5\xBot\Traits\BotActions', $traits);
+        $this->assertContains('Al3x5\xBot\Telegram\Actions\Traits\MethodsHandler', $traits);
     }
 
     public function testGetActiveEntityReturnsMessage(): void

@@ -5,7 +5,7 @@ namespace Al3x5\xBot\Tests\Unit;
 use Al3x5\xBot\Commands\HookSetCommand;
 use Al3x5\xBot\Commands\Traits\Io;
 use Al3x5\xBot\Commands\Traits\ConfigHandler;
-use Al3x5\xBot\Traits\BotActions;
+use Al3x5\xBot\Telegram\Actions\Traits\MethodsHandler;
 use PHPUnit\Framework\TestCase;
 
 class HookSetCommandTest extends TestCase
@@ -46,7 +46,7 @@ class HookSetCommandTest extends TestCase
         $reflection = new \ReflectionClass(HookSetCommand::class);
         
         $traits = $reflection->getTraitNames();
-        $this->assertContains('Al3x5\xBot\Traits\BotActions', $traits);
+        $this->assertContains('Al3x5\xBot\Telegram\Actions\Traits\MethodsHandler', $traits);
     }
 
     public function testHookSetCommandIsFinal(): void

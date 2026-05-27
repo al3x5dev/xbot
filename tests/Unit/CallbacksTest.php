@@ -2,7 +2,7 @@
 
 namespace Al3x5\xBot\Tests\Unit;
 
-use Al3x5\xBot\Callbacks;
+use Al3x5\xBot\Telegram\Actions\Callbacks;
 use Al3x5\xBot\Telegram\Entities\CallbackQuery;
 use Al3x5\xBot\Telegram\Entities\Update;
 use Al3x5\xBot\Telegram\Entities\User;

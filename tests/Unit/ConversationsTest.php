@@ -2,7 +2,7 @@
 
 namespace Al3x5\xBot\Tests\Unit;
 
-use Al3x5\xBot\Conversations;
+use Al3x5\xBot\Telegram\Actions\Conversations;
 use Al3x5\xBot\Telegram\Entities\Update;
 use Al3x5\xBot\Telegram\Entities\User;
 use Al3x5\xBot\Telegram\Entities\Chat;
@@ -116,7 +116,7 @@ class ConversationsTest extends TestCase
         $reflection = new \ReflectionClass(Conversations::class);
         
         $traits = $reflection->getTraitNames();
-        $this->assertContains('Al3x5\xBot\Traits\ConversationHandler', $traits);
+        $this->assertContains('Al3x5\xBot\Telegram\Actions\Traits\ConversationHandler', $traits);
     }
 
     public function testConversationsUsesBotActionsTrait(): void
@@ -124,7 +124,7 @@ class ConversationsTest extends TestCase
         $reflection = new \ReflectionClass(Conversations::class);
         
         $traits = $reflection->getTraitNames();
-        $this->assertContains('Al3x5\xBot\Traits\BotActions', $traits);
+        $this->assertContains('Al3x5\xBot\Telegram\Actions\Traits\MethodsHandler', $traits);
     }
 
     public function testSetStepIsProtectedMethod(): void

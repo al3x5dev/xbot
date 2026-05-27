@@ -51,7 +51,7 @@ class BotTest extends TestCase
         $reflection = new \ReflectionClass(Bot::class);
         $traits = $reflection->getTraitNames();
         
-        $this->assertContains('Al3x5\xBot\Traits\CallbackHandler', $traits);
+        $this->assertContains('Al3x5\xBot\Telegram\Actions\Traits\CallbackHandler', $traits);
     }
 
     public function testBotUsesMessageHandlerTrait(): void
@@ -59,7 +59,7 @@ class BotTest extends TestCase
         $reflection = new \ReflectionClass(Bot::class);
         $traits = $reflection->getTraitNames();
         
-        $this->assertContains('Al3x5\xBot\Traits\MessageHandler', $traits);
+        $this->assertContains('Al3x5\xBot\Telegram\Actions\Traits\MessageHandler', $traits);
     }
 
     public function testBotUsesMiddlewareHandlerTrait(): void
@@ -67,10 +67,10 @@ class BotTest extends TestCase
         $reflection = new \ReflectionClass(Bot::class);
         $traits = $reflection->getTraitNames();
         
-        $this->assertContains('Al3x5\xBot\Traits\MiddlewareHandler', $traits);
+        $this->assertContains('Al3x5\xBot\Telegram\Actions\Traits\MiddlewareHandler', $traits);
     }
 
-    public function testBotUsesBotActionsTrait(): void
+    public function testBotUsesMethodsHandlerTrait(): void
     {
         // Skip - requires config initialization
         $this->assertTrue(true);

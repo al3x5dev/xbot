@@ -4,8 +4,8 @@ namespace Al3x5\xBot\Tests\Unit;
 
 use Al3x5\xBot\Bot;
 use Al3x5\xBot\Config;
-use Al3x5\xBot\Callbacks;
-use Al3x5\xBot\Traits\CallbackHandler;
+use Al3x5\xBot\Telegram\Actions\Callbacks;
+use Al3x5\xBot\Telegram\Actions\Traits\CallbackHandler;
 use Al3x5\xBot\Telegram\Entities\Update;
 use Al3x5\xBot\Telegram\Entities\User;
 use Al3x5\xBot\Telegram\Entities\Chat;
@@ -168,6 +168,6 @@ class CallbackHandlerTest extends TestCase
     public function testCallbackHandlerTraitIsUsedByBot(): void
     {
         $traits = (new \ReflectionClass(Bot::class))->getTraitNames();
-        $this->assertContains('Al3x5\xBot\Traits\CallbackHandler', $traits);
+        $this->assertContains('Al3x5\xBot\Telegram\Actions\Traits\CallbackHandler', $traits);
     }
 }

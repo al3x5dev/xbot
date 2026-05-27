@@ -2,7 +2,7 @@
 
 namespace Al3x5\xBot\Tests\Unit;
 
-use Al3x5\xBot\Commands;
+use Al3x5\xBot\Telegram\Actions\Commands;
 use Al3x5\xBot\Telegram\Entities\Message;
 use Al3x5\xBot\Telegram\Entities\Update;
 use Al3x5\xBot\Telegram\Entities\User;

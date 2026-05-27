@@ -2,7 +2,7 @@
 
 namespace Al3x5\xBot\Tests\Unit;
 
-use Al3x5\xBot\Middlewares;
+use Al3x5\xBot\Telegram\Actions\Middlewares;
 use Al3x5\xBot\Telegram\Entities\Update;
 use Al3x5\xBot\Telegram\Entities\User;
 use Al3x5\xBot\Telegram\Entities\Chat;
@@ -125,7 +125,7 @@ class MiddlewaresTest extends TestCase
         
         // Check that the class uses BotActions trait
         $traits = $reflection->getTraitNames();
-        $this->assertContains('Al3x5\xBot\Traits\BotActions', $traits);
+        $this->assertContains('Al3x5\xBot\Telegram\Actions\Traits\MethodsHandler', $traits);
     }
 
     public function testMiddlewareHasHandleMethod(): void

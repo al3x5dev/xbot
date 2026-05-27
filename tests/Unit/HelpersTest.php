@@ -2,8 +2,8 @@
 
 namespace Al3x5\xBot\Tests\Unit;
 
-use Al3x5\xBot\Commands;
-use Al3x5\xBot\Callbacks;
+use Al3x5\xBot\Telegram\Actions\Commands;
+use Al3x5\xBot\Telegram\Actions\Callbacks;
 use Al3x5\xBot\Config;
 use PHPUnit\Framework\TestCase;
 
@@ -92,7 +92,7 @@ class HelpersTest extends TestCase
         $tempDir = sys_get_temp_dir();
         $tempFile = $tempDir . '/TestCommand.php';
         
-        $code = '<?php class TestCommand extends \Al3x5\xBot\Commands { public function execute(): void {} public static function description(): string { return "test"; } }';
+        $code = '<?php class TestCommand extends \Al3x5\xBot\Telegram\Actions\Commands { public function execute(): void {} public static function description(): string { return "test"; } }';
         file_put_contents($tempFile, $code);
         
         require_once $tempFile;

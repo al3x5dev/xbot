@@ -4,9 +4,9 @@ namespace Al3x5\xBot\Tests\Unit;
 
 use Al3x5\xBot\Bot;
 use Al3x5\xBot\Config;
-use Al3x5\xBot\Commands;
+use Al3x5\xBot\Telegram\Actions\Commands;
 use Al3x5\xBot\Exceptions\xBotException;
-use Al3x5\xBot\Traits\MessageHandler;
+use Al3x5\xBot\Telegram\Actions\Traits\MessageHandler;
 use Al3x5\xBot\Telegram\Entities\Update;
 use Al3x5\xBot\Telegram\Entities\User;
 use Al3x5\xBot\Telegram\Entities\Chat;
@@ -154,6 +154,6 @@ class MessageHandlerTest extends TestCase
     public function testMessageHandlerTraitIsUsedByBot(): void
     {
         $traits = (new \ReflectionClass(Bot::class))->getTraitNames();
-        $this->assertContains('Al3x5\xBot\Traits\MessageHandler', $traits);
+        $this->assertContains('Al3x5\xBot\Telegram\Actions\Traits\MessageHandler', $traits);
     }
 }
