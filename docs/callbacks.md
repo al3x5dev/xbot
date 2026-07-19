@@ -53,3 +53,49 @@ class Greetings extends Callbacks
 php vendor/bin/xbot register
 ```
 This will ensure that all custom callbacks are available for use in the bot.
+
+## Using parameters in callbacks
+
+xBot supports **dynamic callback routing** using the `|` (pipe) separator. This allows you to pass parameters directly in the callback data without registering each variation.
+
+### How it works
+
+When a callback query arrives, the router first tries to match the **exact callback data**. If no exact match is found, it splits the data by `|` and uses the first segment as the action key to find the handler. The second segment (after `|`) is then passed to the handler via `setParam()`.
+
+> Example: `callback_data = "join_game|42"` → routes to the handler registered as `join_game` with param `"42"`.
+
+### Example
+
+**Creating a callback with parameter support:**
+
+```php
+namespace MyBot\Callbacks;
+
+use Al3x5\xBot\Telegram\Actions\Callbacks;
+use Al3x5\xBot\Attributes\Callback;
+
+#[Callback('join_game')]
+class JoinGame extends Callbacks
+{
+    public function execute(): void
+    {
+        $gameId = $this->getParam();
+
+        $this->reply("You joined game #$gameId");
+    }
+}
+```
+
+**Sending the inline button:**
+
+```php
+$button = InlineButton::make('Join Game')
+    ->callback('join_game|42');
+```
+
+The handler receives `42` via `$this->getParam()`.
+
+### Methods
+
+- **`setParam(?string $param): static`** — Sets the callback parameter (returns `$this` for fluent interface).
+- **`getParam(): ?string`** — Returns the callback parameter, or `null` if no parameter was provided.

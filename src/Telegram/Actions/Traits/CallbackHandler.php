@@ -23,18 +23,32 @@ trait CallbackHandler
     public function handleCallback(): void
     {
         $action = $this->getCallbackQuery()->getData();
+        $parts = [];
 
         if (!$this->hasCallback($action)) {
-            throw new \RuntimeException("Error: Callback '$action' does not exist.");
+            $parts = explode('|', $action, 2);
+            $key = $parts[0];
+            if (!$this->hasCallback($key)) {
+                throw new \RuntimeException("Error: Callback '$action' does not exist.");
+            }
+            $handlerClass = $this->callbacks[$key];
+        } else {
+            $handlerClass = $this->callbacks[$action];
         }
 
+        $param = $parts[1] ?? null;
+
         classValidator(
-            $this->callbacks[$action],
+            $handlerClass,
             Callbacks::class,
             'Callback'
         );
 
-        (new $this->callbacks[$action]($this->update))->execute();
+        $handler = new $handlerClass($this->update);
+        if ($param !== null) {
+            $handler->setParam($param);
+        }
+        $handler->execute();
     }
 
     private function hasCallback(string $name): bool

@@ -13,6 +13,8 @@ abstract class Callbacks
 {
     public ?CallbackQuery $callback;
     public ?MaybeInaccessibleMessage $message;
+    protected ?string $callbackParam = null;
+
 
     use MethodsHandler;
 
@@ -24,8 +26,19 @@ abstract class Callbacks
 
     abstract public function execute(): void;
 
-    public function message() : Message|InaccessibleMessage
+    public function message(): Message|InaccessibleMessage
     {
         return $this->message->resolve();
+    }
+
+    public function setParam(?string $param): static
+    {
+        $this->callbackParam = $param;
+        return $this;
+    }
+
+    public function getParam(): ?string
+    {
+        return $this->callbackParam;
     }
 }

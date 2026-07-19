@@ -135,4 +135,37 @@ class CallbacksTest extends TestCase
         
         $this->assertEquals('123456789', $callback->callback->getChatInstance());
     }
+
+    public function testCallbackParamDefaultIsNull(): void
+    {
+        $callback = new TestCallback($this->update);
+
+        $this->assertNull($callback->getParam());
+    }
+
+    public function testSetParamStoresValue(): void
+    {
+        $callback = new TestCallback($this->update);
+        $callback->setParam('game_42');
+
+        $this->assertEquals('game_42', $callback->getParam());
+    }
+
+    public function testSetParamReturnsInstanceForFluentInterface(): void
+    {
+        $callback = new TestCallback($this->update);
+
+        $result = $callback->setParam('test_param');
+
+        $this->assertSame($callback, $result);
+    }
+
+    public function testSetParamAllowsNull(): void
+    {
+        $callback = new TestCallback($this->update);
+        $callback->setParam('some_value');
+        $callback->setParam(null);
+
+        $this->assertNull($callback->getParam());
+    }
 }

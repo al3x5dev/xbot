@@ -38,11 +38,21 @@ class CallbackHandlerTestHelper extends Bot
 
 class TestCallbackHandler extends Callbacks
 {
-    public $executed = false;
+    public static array $instances = [];
 
     public function execute(): void
     {
-        $this->executed = true;
+        static::$instances[] = $this;
+    }
+}
+
+class TestPipeCallbackHandler extends Callbacks
+{
+    public static array $instances = [];
+
+    public function execute(): void
+    {
+        static::$instances[] = $this;
     }
 }
 
@@ -55,6 +65,9 @@ class CallbackHandlerTest extends TestCase
     protected function setUp(): void
     {
         parent::setUp();
+
+        TestCallbackHandler::$instances = [];
+        TestPipeCallbackHandler::$instances = [];
 
         $reflection = new \ReflectionClass(Config::class);
         $prop = $reflection->getProperty('init');
@@ -143,6 +156,83 @@ class CallbackHandlerTest extends TestCase
 
         $this->helper->publicSetCallbacks($this->callbackFile);
         $this->assertTrue(true);
+    }
+
+    public function testHandleCallbackWithExactMatch(): void
+    {
+        file_put_contents($this->callbackFile, json_encode([
+            'test_action' => TestCallbackHandler::class
+        ]));
+
+        $this->helper->publicSetCallbacks($this->callbackFile);
+        $this->helper->publicHandleCallback();
+
+        $this->assertCount(1, TestCallbackHandler::$instances);
+        $this->assertInstanceOf(TestCallbackHandler::class, TestCallbackHandler::$instances[0]);
+    }
+
+    public function testHandleCallbackWithPipeRouting(): void
+    {
+        file_put_contents($this->callbackFile, json_encode([
+            'test_action' => TestPipeCallbackHandler::class
+        ]));
+
+        $cq = $this->update->getCallbackQuery();
+        $cq->data = 'test_action|game_42';
+
+        $this->helper->publicSetCallbacks($this->callbackFile);
+        $this->helper->publicHandleCallback();
+
+        $this->assertCount(1, TestPipeCallbackHandler::$instances);
+        $this->assertEquals('game_42', TestPipeCallbackHandler::$instances[0]->getParam());
+    }
+
+    public function testHandleCallbackWithPipeRoutingNoParam(): void
+    {
+        file_put_contents($this->callbackFile, json_encode([
+            'test_action' => TestPipeCallbackHandler::class
+        ]));
+
+        $cq = $this->update->getCallbackQuery();
+        $cq->data = 'test_action';
+
+        $this->helper->publicSetCallbacks($this->callbackFile);
+        $this->helper->publicHandleCallback();
+
+        $this->assertCount(1, TestPipeCallbackHandler::$instances);
+        $this->assertNull(TestPipeCallbackHandler::$instances[0]->getParam());
+    }
+
+    public function testHandleCallbackWithPipeRoutingFailsWhenPrefixUnknown(): void
+    {
+        file_put_contents($this->callbackFile, json_encode([
+            'test_action' => TestPipeCallbackHandler::class
+        ]));
+
+        $cq = $this->update->getCallbackQuery();
+        $cq->data = 'unknown_action|some_param';
+
+        $this->helper->publicSetCallbacks($this->callbackFile);
+
+        $this->expectException(\RuntimeException::class);
+        $this->expectExceptionMessage('Callback');
+        $this->helper->publicHandleCallback();
+    }
+
+    public function testHandleCallbackWithPipeParamDataNotMapped(): void
+    {
+        file_put_contents($this->callbackFile, json_encode([
+            'other_action' => TestPipeCallbackHandler::class
+        ]));
+
+        $cq = $this->update->getCallbackQuery();
+        $cq->data = 'test_action|game_42';
+
+        $this->helper->publicSetCallbacks($this->callbackFile);
+
+        $this->expectException(\RuntimeException::class);
+        $this->expectExceptionMessage('Callback');
+        $this->helper->publicHandleCallback();
     }
 
     public function testGetCallbackQueryReturnsCallbackQuery(): void
