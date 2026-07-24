@@ -14,6 +14,8 @@ use Al3x5\xBot\Telegram\Entity;
  * @property int $sender_boost_count
  * @property User $sender_business_bot
  * @property string $sender_tag
+ * @property User $receiver_user
+ * @property int $ephemeral_message_id
  * @property int $date
  * @property string $guest_query_id
  * @property string $business_connection_id
@@ -42,6 +44,7 @@ use Al3x5\xBot\Telegram\Entity;
  * @property LinkPreviewOptions $link_preview_options
  * @property SuggestedPostInfo $suggested_post_info
  * @property string $effect_id
+ * @property RichMessage $rich_message
  * @property Animation $animation
  * @property Audio $audio
  * @property Document $document
@@ -94,6 +97,8 @@ use Al3x5\xBot\Telegram\Entity;
  * @property ChatBackground $chat_background_set
  * @property ChecklistTasksDone $checklist_tasks_done
  * @property ChecklistTasksAdded $checklist_tasks_added
+ * @property CommunityChatAdded $community_chat_added
+ * @property CommunityChatRemoved $community_chat_removed
  * @property DirectMessagePriceChanged $direct_message_price_changed
  * @property ForumTopicCreated $forum_topic_created
  * @property ForumTopicEdited $forum_topic_edited
@@ -131,6 +136,7 @@ class Message extends Entity
             'from' => User::class,
             'sender_chat' => Chat::class,
             'sender_business_bot' => User::class,
+            'receiver_user' => User::class,
             'chat' => Chat::class,
             'forward_origin' => MessageOrigin::class,
             'reply_to_message' => Message::class,
@@ -143,6 +149,7 @@ class Message extends Entity
             'entities' => [MessageEntity::class],
             'link_preview_options' => LinkPreviewOptions::class,
             'suggested_post_info' => SuggestedPostInfo::class,
+            'rich_message' => RichMessage::class,
             'animation' => Animation::class,
             'audio' => Audio::class,
             'document' => Document::class,
@@ -184,6 +191,8 @@ class Message extends Entity
             'chat_background_set' => ChatBackground::class,
             'checklist_tasks_done' => ChecklistTasksDone::class,
             'checklist_tasks_added' => ChecklistTasksAdded::class,
+            'community_chat_added' => CommunityChatAdded::class,
+            'community_chat_removed' => CommunityChatRemoved::class,
             'direct_message_price_changed' => DirectMessagePriceChanged::class,
             'forum_topic_created' => ForumTopicCreated::class,
             'forum_topic_edited' => ForumTopicEdited::class,

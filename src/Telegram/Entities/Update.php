@@ -32,6 +32,7 @@ use Al3x5\xBot\Telegram\Entity;
  * @property ChatBoostUpdated $chat_boost
  * @property ChatBoostRemoved $removed_chat_boost
  * @property ManagedBotUpdated $managed_bot
+ * @property BotSubscriptionUpdated $subscription
  */
 class Update extends Entity
 {
@@ -64,6 +65,7 @@ class Update extends Entity
             'chat_boost' => ChatBoostUpdated::class,
             'removed_chat_boost' => ChatBoostRemoved::class,
             'managed_bot' => ManagedBotUpdated::class,
+            'subscription' => BotSubscriptionUpdated::class,
         ];
     }
     /**

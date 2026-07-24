@@ -9,6 +9,7 @@ use Al3x5\xBot\Telegram\Entity;
  * @property Animation $animation
  * @property Audio $audio
  * @property Document $document
+ * @property Link $link
  * @property LivePhoto $live_photo
  * @property Location $location
  * @property PhotoSize[] $photo
@@ -25,6 +26,7 @@ class PollMedia extends Entity
             'animation' => Animation::class,
             'audio' => Audio::class,
             'document' => Document::class,
+            'link' => Link::class,
             'live_photo' => LivePhoto::class,
             'location' => Location::class,
             'photo' => [PhotoSize::class],

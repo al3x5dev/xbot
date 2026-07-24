@@ -5,12 +5,9 @@ namespace Al3x5\xBot\Telegram\Entities;
 use Al3x5\xBot\Telegram\Entity;
 
 /**
- * BotCommand Entity
- * @property string $command
- * @property string $description
- * @property bool $is_ephemeral
+ * CommunityChatRemoved Entity
  */
-class BotCommand extends Entity
+class CommunityChatRemoved extends Entity
 {
     
     protected function setEntities(): array

@@ -23,6 +23,7 @@ use Al3x5\xBot\Telegram\Entity;
  * @property bool $has_topics_enabled
  * @property bool $allows_users_to_create_topics
  * @property bool $can_manage_bots
+ * @property bool $supports_join_request_queries
  */
 class User extends Entity
 {

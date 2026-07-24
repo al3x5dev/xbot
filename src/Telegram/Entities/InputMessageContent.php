@@ -39,6 +39,9 @@ class InputMessageContent extends Entity
         ) {
             return new InputLocationMessageContent($this->properties);
         }
+        if ($this->hasProperty('html') || $this->hasProperty('markdown')) {
+            return new InputRichMessageContent($this->properties);
+        }
         throw new \InvalidArgumentException('Unknown InputMessageContent');
     }
 
@@ -54,6 +57,7 @@ class InputMessageContent extends Entity
      * | payload | InputInvoiceMessageContent |
      * | latitude + longitude + title | InputVenueMessageContent |
      * | latitude + longitude | InputLocationMessageContent |
+     * | html / markdown | InputRichMessageContent |
      * @throws \InvalidArgumentException
      */
     public static function create(array $data): Entity
@@ -64,6 +68,7 @@ class InputMessageContent extends Entity
             isset($data['payload']) => new InputInvoiceMessageContent($data),
             isset($data['latitude'], $data['longitude'], $data['title']) => new InputVenueMessageContent($data),
             isset($data['latitude'], $data['longitude']) => new InputLocationMessageContent($data),
+            isset($data['html']) || isset($data['markdown']) => new InputRichMessageContent($data),
             default => throw new \InvalidArgumentException('Unknown InputMessageContent: no valid property found'),
         };
     }
