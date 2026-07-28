@@ -11,7 +11,7 @@ use Al3x5\xBot\Telegram\Entity;
  * @property string $emoji
  * @property int $background_color
  */
-class StoryAreaTypeWeather extends Entity
+class StoryAreaTypeWeather extends StoryAreaType
 {
     
     protected function setEntities(): array

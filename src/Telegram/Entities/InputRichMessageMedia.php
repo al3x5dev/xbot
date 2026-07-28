@@ -15,7 +15,7 @@ class InputRichMessageMedia extends Entity
     protected function setEntities(): array
     {
         return [
-            'media' => InputMediaAnimation|InputMediaAudio|InputMediaPhoto|InputMediaVideo|InputMediaVoiceNote::class,
+            'media' => InputMediaAnimation::class,
         ];
     }
 }

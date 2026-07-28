@@ -8,7 +8,7 @@ use Al3x5\xBot\Telegram\Entity;
  * InputRichBlockDivider Entity
  * @property string $type
  */
-class InputRichBlockDivider extends Entity
+class InputRichBlockDivider extends InputRichBlock
 {
     
     protected function setEntities(): array

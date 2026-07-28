@@ -12,7 +12,7 @@ use Al3x5\xBot\Telegram\Entity;
  * @property int $message_id
  * @property string $author_signature
  */
-class MessageOriginChannel extends Entity
+class MessageOriginChannel extends MessageOrigin
 {
     
     protected function setEntities(): array

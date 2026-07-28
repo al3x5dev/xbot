@@ -27,7 +27,7 @@ use Al3x5\xBot\Telegram\Entity;
  * @property bool $send_email_to_provider
  * @property bool $is_flexible
  */
-class InputInvoiceMessageContent extends Entity
+class InputInvoiceMessageContent extends InputMessageContent
 {
     
     protected function setEntities(): array

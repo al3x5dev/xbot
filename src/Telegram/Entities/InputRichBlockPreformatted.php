@@ -10,7 +10,7 @@ use Al3x5\xBot\Telegram\Entity;
  * @property RichText $text
  * @property string $language
  */
-class InputRichBlockPreformatted extends Entity
+class InputRichBlockPreformatted extends InputRichBlock
 {
     
     protected function setEntities(): array

@@ -126,7 +126,7 @@ use Al3x5\xBot\Telegram\Entity;
  * @property WebAppData $web_app_data
  * @property InlineKeyboardMarkup $reply_markup
  */
-class Message extends Entity
+class Message extends MaybeInaccessibleMessage
 {
     
     protected function setEntities(): array

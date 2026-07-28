@@ -8,7 +8,7 @@ use Al3x5\xBot\Telegram\Entity;
  * InputRichMessageContent Entity
  * @property InputRichMessage $rich_message
  */
-class InputRichMessageContent extends Entity
+class InputRichMessageContent extends InputMessageContent
 {
     
     protected function setEntities(): array

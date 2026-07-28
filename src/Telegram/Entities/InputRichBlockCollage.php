@@ -10,7 +10,7 @@ use Al3x5\xBot\Telegram\Entity;
  * @property InputRichBlock[] $blocks
  * @property RichBlockCaption $caption
  */
-class InputRichBlockCollage extends Entity
+class InputRichBlockCollage extends InputRichBlock
 {
     
     protected function setEntities(): array

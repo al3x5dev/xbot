@@ -8,7 +8,7 @@ use Al3x5\xBot\Telegram\Entity;
  * BotCommandScopeAllGroupChats Entity
  * @property string $type
  */
-class BotCommandScopeAllGroupChats extends Entity
+class BotCommandScopeAllGroupChats extends BotCommandScope
 {
     
     protected function setEntities(): array

@@ -10,7 +10,7 @@ use Al3x5\xBot\Telegram\Entity;
  * @property RichBlock[] $blocks
  * @property RichText $credit
  */
-class RichBlockBlockQuotation extends Entity
+class RichBlockBlockQuotation extends RichBlock
 {
     
     protected function setEntities(): array

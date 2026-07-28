@@ -8,7 +8,7 @@ use Al3x5\xBot\Telegram\Entity;
  * ReactionTypePaid Entity
  * @property string $type
  */
-class ReactionTypePaid extends Entity
+class ReactionTypePaid extends ReactionType
 {
     
     protected function setEntities(): array

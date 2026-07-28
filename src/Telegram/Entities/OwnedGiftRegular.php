@@ -22,7 +22,7 @@ use Al3x5\xBot\Telegram\Entity;
  * @property bool $is_upgrade_separate
  * @property int $unique_gift_number
  */
-class OwnedGiftRegular extends Entity
+class OwnedGiftRegular extends OwnedGift
 {
     
     protected function setEntities(): array

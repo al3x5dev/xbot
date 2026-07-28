@@ -9,7 +9,7 @@ use Al3x5\xBot\Telegram\Entity;
  * @property string $type
  * @property string $photo
  */
-class InputStoryContentPhoto extends Entity
+class InputStoryContentPhoto extends InputStoryContent
 {
     
     protected function setEntities(): array

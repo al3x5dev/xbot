@@ -11,7 +11,7 @@ use Al3x5\xBot\Telegram\Entity;
  * @property int $height
  * @property int $duration
  */
-class PaidMediaPreview extends Entity
+class PaidMediaPreview extends PaidMedia
 {
     
     protected function setEntities(): array

@@ -9,7 +9,7 @@ use Al3x5\xBot\Telegram\Entity;
  * @property string $type
  * @property int $color
  */
-class BackgroundFillSolid extends Entity
+class BackgroundFillSolid extends BackgroundFill
 {
     
     protected function setEntities(): array

@@ -10,7 +10,7 @@ use Al3x5\xBot\Telegram\Entity;
  * @property int $date
  * @property string $sender_user_name
  */
-class MessageOriginHiddenUser extends Entity
+class MessageOriginHiddenUser extends MessageOrigin
 {
     
     protected function setEntities(): array

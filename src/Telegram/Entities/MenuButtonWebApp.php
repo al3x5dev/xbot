@@ -10,7 +10,7 @@ use Al3x5\xBot\Telegram\Entity;
  * @property string $text
  * @property WebAppInfo $web_app
  */
-class MenuButtonWebApp extends Entity
+class MenuButtonWebApp extends MenuButton
 {
     
     protected function setEntities(): array

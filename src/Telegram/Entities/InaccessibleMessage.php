@@ -10,7 +10,7 @@ use Al3x5\xBot\Telegram\Entity;
  * @property int $message_id
  * @property int $date
  */
-class InaccessibleMessage extends Entity
+class InaccessibleMessage extends MaybeInaccessibleMessage
 {
     
     protected function setEntities(): array

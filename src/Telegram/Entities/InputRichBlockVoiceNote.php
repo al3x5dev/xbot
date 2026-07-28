@@ -10,7 +10,7 @@ use Al3x5\xBot\Telegram\Entity;
  * @property InputMediaVoiceNote $voice_note
  * @property RichBlockCaption $caption
  */
-class InputRichBlockVoiceNote extends Entity
+class InputRichBlockVoiceNote extends InputRichBlock
 {
     
     protected function setEntities(): array

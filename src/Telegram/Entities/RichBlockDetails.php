@@ -11,7 +11,7 @@ use Al3x5\xBot\Telegram\Entity;
  * @property RichBlock[] $blocks
  * @property bool $is_open
  */
-class RichBlockDetails extends Entity
+class RichBlockDetails extends RichBlock
 {
     
     protected function setEntities(): array

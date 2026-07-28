@@ -13,7 +13,7 @@ use Al3x5\xBot\Telegram\Entity;
  * @property int $height
  * @property RichBlockCaption $caption
  */
-class InputRichBlockMap extends Entity
+class InputRichBlockMap extends InputRichBlock
 {
     
     protected function setEntities(): array

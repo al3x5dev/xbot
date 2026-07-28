@@ -9,7 +9,7 @@ use Al3x5\xBot\Telegram\Entity;
  * @property string $type
  * @property string $custom_emoji_id
  */
-class ReactionTypeCustomEmoji extends Entity
+class ReactionTypeCustomEmoji extends ReactionType
 {
     
     protected function setEntities(): array

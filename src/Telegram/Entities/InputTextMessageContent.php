@@ -11,7 +11,7 @@ use Al3x5\xBot\Telegram\Entity;
  * @property MessageEntity[] $entities
  * @property LinkPreviewOptions $link_preview_options
  */
-class InputTextMessageContent extends Entity
+class InputTextMessageContent extends InputMessageContent
 {
     
     protected function setEntities(): array

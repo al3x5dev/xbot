@@ -16,7 +16,7 @@ use Al3x5\xBot\Telegram\Entity;
  * @property string $performer
  * @property string $title
  */
-class InputMediaAudio extends Entity
+class InputMediaAudio extends InputMedia
 {
     
     protected function setEntities(): array

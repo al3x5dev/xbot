@@ -9,7 +9,7 @@ use Al3x5\xBot\Telegram\Entity;
  * @property string $type
  * @property int $request_count
  */
-class TransactionPartnerTelegramApi extends Entity
+class TransactionPartnerTelegramApi extends TransactionPartner
 {
     
     protected function setEntities(): array

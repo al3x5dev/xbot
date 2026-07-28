@@ -18,7 +18,7 @@ use Al3x5\xBot\Telegram\Entity;
  * @property int $thumbnail_width
  * @property int $thumbnail_height
  */
-class InlineQueryResultContact extends Entity
+class InlineQueryResultContact extends InlineQueryResult
 {
     
     protected function setEntities(): array

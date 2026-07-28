@@ -10,7 +10,7 @@ use Al3x5\xBot\Telegram\Entity;
  * @property User $sponsor_user
  * @property int $commission_per_mille
  */
-class TransactionPartnerAffiliateProgram extends Entity
+class TransactionPartnerAffiliateProgram extends TransactionPartner
 {
     
     protected function setEntities(): array

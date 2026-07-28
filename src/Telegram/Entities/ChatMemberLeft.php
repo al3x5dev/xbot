@@ -9,7 +9,7 @@ use Al3x5\xBot\Telegram\Entity;
  * @property string $status
  * @property User $user
  */
-class ChatMemberLeft extends Entity
+class ChatMemberLeft extends ChatMember
 {
     
     protected function setEntities(): array

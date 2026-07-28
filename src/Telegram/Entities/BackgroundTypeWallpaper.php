@@ -12,7 +12,7 @@ use Al3x5\xBot\Telegram\Entity;
  * @property bool $is_blurred
  * @property bool $is_moving
  */
-class BackgroundTypeWallpaper extends Entity
+class BackgroundTypeWallpaper extends BackgroundType
 {
     
     protected function setEntities(): array

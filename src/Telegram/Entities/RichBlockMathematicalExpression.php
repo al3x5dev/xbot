@@ -9,7 +9,7 @@ use Al3x5\xBot\Telegram\Entity;
  * @property string $type
  * @property string $expression
  */
-class RichBlockMathematicalExpression extends Entity
+class RichBlockMathematicalExpression extends RichBlock
 {
     
     protected function setEntities(): array

@@ -11,7 +11,7 @@ use Al3x5\xBot\Telegram\Entity;
  * @property array $file_hashes
  * @property string $message
  */
-class PassportElementErrorTranslationFiles extends Entity
+class PassportElementErrorTranslationFiles extends PassportElementError
 {
     
     protected function setEntities(): array

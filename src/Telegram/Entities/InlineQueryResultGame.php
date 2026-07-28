@@ -11,7 +11,7 @@ use Al3x5\xBot\Telegram\Entity;
  * @property string $game_short_name
  * @property InlineKeyboardMarkup $reply_markup
  */
-class InlineQueryResultGame extends Entity
+class InlineQueryResultGame extends InlineQueryResult
 {
     
     protected function setEntities(): array

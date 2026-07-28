@@ -15,7 +15,7 @@ use Al3x5\xBot\Telegram\Entity;
  * @property string $google_place_id
  * @property string $google_place_type
  */
-class InputVenueMessageContent extends Entity
+class InputVenueMessageContent extends InputMessageContent
 {
     
     protected function setEntities(): array

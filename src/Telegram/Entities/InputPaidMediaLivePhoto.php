@@ -10,7 +10,7 @@ use Al3x5\xBot\Telegram\Entity;
  * @property string $media
  * @property string $photo
  */
-class InputPaidMediaLivePhoto extends Entity
+class InputPaidMediaLivePhoto extends InputPaidMedia
 {
     
     protected function setEntities(): array

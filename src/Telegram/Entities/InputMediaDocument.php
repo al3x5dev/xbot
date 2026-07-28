@@ -14,7 +14,7 @@ use Al3x5\xBot\Telegram\Entity;
  * @property MessageEntity[] $caption_entities
  * @property bool $disable_content_type_detection
  */
-class InputMediaDocument extends Entity
+class InputMediaDocument extends InputMedia
 {
     
     protected function setEntities(): array

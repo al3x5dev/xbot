@@ -16,7 +16,7 @@ use Al3x5\xBot\Telegram\Entity;
  * @property string $google_place_id
  * @property string $google_place_type
  */
-class InputMediaVenue extends Entity
+class InputMediaVenue extends InputPollOptionMedia
 {
     
     protected function setEntities(): array

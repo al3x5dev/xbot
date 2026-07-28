@@ -10,7 +10,7 @@ use Al3x5\xBot\Telegram\Entity;
  * @property RichText $text
  * @property int $size
  */
-class RichBlockSectionHeading extends Entity
+class RichBlockSectionHeading extends RichBlock
 {
     
     protected function setEntities(): array

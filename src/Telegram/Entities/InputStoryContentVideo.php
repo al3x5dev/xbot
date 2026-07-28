@@ -12,7 +12,7 @@ use Al3x5\xBot\Telegram\Entity;
  * @property float $cover_frame_timestamp
  * @property bool $is_animation
  */
-class InputStoryContentVideo extends Entity
+class InputStoryContentVideo extends InputStoryContent
 {
     
     protected function setEntities(): array

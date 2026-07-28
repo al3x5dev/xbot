@@ -16,7 +16,7 @@ use Al3x5\xBot\Telegram\Entity;
  * @property int $transfer_star_count
  * @property int $next_transfer_date
  */
-class OwnedGiftUnique extends Entity
+class OwnedGiftUnique extends OwnedGift
 {
     
     protected function setEntities(): array

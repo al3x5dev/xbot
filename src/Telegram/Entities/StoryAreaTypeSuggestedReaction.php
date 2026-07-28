@@ -11,7 +11,7 @@ use Al3x5\xBot\Telegram\Entity;
  * @property bool $is_dark
  * @property bool $is_flipped
  */
-class StoryAreaTypeSuggestedReaction extends Entity
+class StoryAreaTypeSuggestedReaction extends StoryAreaType
 {
     
     protected function setEntities(): array

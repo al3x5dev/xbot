@@ -9,7 +9,7 @@ use Al3x5\xBot\Telegram\Entity;
  * @property string $type
  * @property string $url
  */
-class InputMediaLink extends Entity
+class InputMediaLink extends InputPollOptionMedia
 {
     
     protected function setEntities(): array

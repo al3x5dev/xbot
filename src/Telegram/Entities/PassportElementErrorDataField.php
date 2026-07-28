@@ -12,7 +12,7 @@ use Al3x5\xBot\Telegram\Entity;
  * @property string $data_hash
  * @property string $message
  */
-class PassportElementErrorDataField extends Entity
+class PassportElementErrorDataField extends PassportElementError
 {
     
     protected function setEntities(): array

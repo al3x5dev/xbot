@@ -12,7 +12,7 @@ use Al3x5\xBot\Telegram\Entity;
  * @property bool $is_striped
  * @property RichText $caption
  */
-class RichBlockTable extends Entity
+class RichBlockTable extends RichBlock
 {
     
     protected function setEntities(): array

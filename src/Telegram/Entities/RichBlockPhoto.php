@@ -11,7 +11,7 @@ use Al3x5\xBot\Telegram\Entity;
  * @property bool $has_spoiler
  * @property RichBlockCaption $caption
  */
-class RichBlockPhoto extends Entity
+class RichBlockPhoto extends RichBlock
 {
     
     protected function setEntities(): array
