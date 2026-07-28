@@ -10,7 +10,7 @@ use Al3x5\xBot\Telegram\Entity;
  * @property RichText $text
  * @property string $anchor_name
  */
-class RichTextAnchorLink extends Entity
+class RichTextAnchorLink extends RichText
 {
     
     protected function setEntities(): array

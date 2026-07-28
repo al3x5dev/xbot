@@ -11,15 +11,15 @@ class RichBlock extends Entity
 {
     
     public const TYPE_PARAGRAPH = 'paragraph';
-    public const TYPE_SECTION_HEADING = 'section_heading';
-    public const TYPE_PREFORMATTED = 'preformatted';
+    public const TYPE_HEADING = 'heading';
+    public const TYPE_PREFORMATTED = 'pre';
     public const TYPE_FOOTER = 'footer';
     public const TYPE_DIVIDER = 'divider';
     public const TYPE_MATHEMATICAL_EXPRESSION = 'mathematical_expression';
     public const TYPE_ANCHOR = 'anchor';
     public const TYPE_LIST = 'list';
-    public const TYPE_BLOCK_QUOTATION = 'block_quotation';
-    public const TYPE_PULL_QUOTATION = 'pull_quotation';
+    public const TYPE_BLOCK_QUOTATION = 'blockquote';
+    public const TYPE_PULL_QUOTATION = 'pullquote';
     public const TYPE_COLLAGE = 'collage';
     public const TYPE_SLIDESHOW = 'slideshow';
     public const TYPE_TABLE = 'table';
@@ -40,15 +40,15 @@ class RichBlock extends Entity
     {
         return match($this->type) {
             'paragraph' => new RichBlockParagraph($this->properties),
-            'section_heading' => new RichBlockSectionHeading($this->properties),
-            'preformatted' => new RichBlockPreformatted($this->properties),
+            'heading' => new RichBlockSectionHeading($this->properties),
+            'pre' => new RichBlockPreformatted($this->properties),
             'footer' => new RichBlockFooter($this->properties),
             'divider' => new RichBlockDivider($this->properties),
             'mathematical_expression' => new RichBlockMathematicalExpression($this->properties),
             'anchor' => new RichBlockAnchor($this->properties),
             'list' => new RichBlockList($this->properties),
-            'block_quotation' => new RichBlockBlockQuotation($this->properties),
-            'pull_quotation' => new RichBlockPullQuotation($this->properties),
+            'blockquote' => new RichBlockBlockQuotation($this->properties),
+            'pullquote' => new RichBlockPullQuotation($this->properties),
             'collage' => new RichBlockCollage($this->properties),
             'slideshow' => new RichBlockSlideshow($this->properties),
             'table' => new RichBlockTable($this->properties),
@@ -75,7 +75,7 @@ class RichBlock extends Entity
     {
         return match($data['type'] ?? null) {
             self::TYPE_PARAGRAPH => new RichBlockParagraph($data),
-            self::TYPE_SECTION_HEADING => new RichBlockSectionHeading($data),
+            self::TYPE_HEADING => new RichBlockSectionHeading($data),
             self::TYPE_PREFORMATTED => new RichBlockPreformatted($data),
             self::TYPE_FOOTER => new RichBlockFooter($data),
             self::TYPE_DIVIDER => new RichBlockDivider($data),

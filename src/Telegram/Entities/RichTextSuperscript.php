@@ -9,7 +9,7 @@ use Al3x5\xBot\Telegram\Entity;
  * @property string $type
  * @property RichText $text
  */
-class RichTextSuperscript extends Entity
+class RichTextSuperscript extends RichText
 {
     
     protected function setEntities(): array

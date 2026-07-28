@@ -11,15 +11,15 @@ class InputRichBlock extends Entity
 {
     
     public const TYPE_PARAGRAPH = 'paragraph';
-    public const TYPE_SECTION_HEADING = 'section_heading';
-    public const TYPE_PREFORMATTED = 'preformatted';
+    public const TYPE_HEADING = 'heading';
+    public const TYPE_PREFORMATTED = 'pre';
     public const TYPE_FOOTER = 'footer';
     public const TYPE_DIVIDER = 'divider';
     public const TYPE_MATHEMATICAL_EXPRESSION = 'mathematical_expression';
     public const TYPE_ANCHOR = 'anchor';
     public const TYPE_LIST = 'list';
-    public const TYPE_BLOCK_QUOTATION = 'block_quotation';
-    public const TYPE_PULL_QUOTATION = 'pull_quotation';
+    public const TYPE_BLOCK_QUOTATION = 'blockquote';
+    public const TYPE_PULL_QUOTATION = 'pullquote';
     public const TYPE_COLLAGE = 'collage';
     public const TYPE_SLIDESHOW = 'slideshow';
     public const TYPE_TABLE = 'table';
@@ -40,15 +40,15 @@ class InputRichBlock extends Entity
     {
         return match($this->type) {
             'paragraph' => new InputRichBlockParagraph($this->properties),
-            'section_heading' => new InputRichBlockSectionHeading($this->properties),
-            'preformatted' => new InputRichBlockPreformatted($this->properties),
+            'heading' => new InputRichBlockSectionHeading($this->properties),
+            'pre' => new InputRichBlockPreformatted($this->properties),
             'footer' => new InputRichBlockFooter($this->properties),
             'divider' => new InputRichBlockDivider($this->properties),
             'mathematical_expression' => new InputRichBlockMathematicalExpression($this->properties),
             'anchor' => new InputRichBlockAnchor($this->properties),
             'list' => new InputRichBlockList($this->properties),
-            'block_quotation' => new InputRichBlockBlockQuotation($this->properties),
-            'pull_quotation' => new InputRichBlockPullQuotation($this->properties),
+            'blockquote' => new InputRichBlockBlockQuotation($this->properties),
+            'pullquote' => new InputRichBlockPullQuotation($this->properties),
             'collage' => new InputRichBlockCollage($this->properties),
             'slideshow' => new InputRichBlockSlideshow($this->properties),
             'table' => new InputRichBlockTable($this->properties),
@@ -75,7 +75,7 @@ class InputRichBlock extends Entity
     {
         return match($data['type'] ?? null) {
             self::TYPE_PARAGRAPH => new InputRichBlockParagraph($data),
-            self::TYPE_SECTION_HEADING => new InputRichBlockSectionHeading($data),
+            self::TYPE_HEADING => new InputRichBlockSectionHeading($data),
             self::TYPE_PREFORMATTED => new InputRichBlockPreformatted($data),
             self::TYPE_FOOTER => new InputRichBlockFooter($data),
             self::TYPE_DIVIDER => new InputRichBlockDivider($data),

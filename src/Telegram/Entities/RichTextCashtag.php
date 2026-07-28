@@ -10,7 +10,7 @@ use Al3x5\xBot\Telegram\Entity;
  * @property RichText $text
  * @property string $cashtag
  */
-class RichTextCashtag extends Entity
+class RichTextCashtag extends RichText
 {
     
     protected function setEntities(): array

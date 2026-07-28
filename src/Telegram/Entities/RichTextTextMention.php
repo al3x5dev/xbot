@@ -10,7 +10,7 @@ use Al3x5\xBot\Telegram\Entity;
  * @property RichText $text
  * @property User $user
  */
-class RichTextTextMention extends Entity
+class RichTextTextMention extends RichText
 {
     
     protected function setEntities(): array

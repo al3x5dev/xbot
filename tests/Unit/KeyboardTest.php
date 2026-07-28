@@ -3,8 +3,8 @@
 namespace Al3x5\xBot\Tests\Unit;
 
 use Al3x5\xBot\Telegram\Factories\Keyboard;
-use Al3x5\xBot\Telegram\Factories\InlineButton;
-use Al3x5\xBot\Telegram\Factories\ReplyButton;
+use Al3x5\xBot\Telegram\Factories\Keyboard\InlineButton;
+use Al3x5\xBot\Telegram\Factories\Keyboard\ReplyButton;
 use Al3x5\xBot\Telegram\Entities\InlineKeyboardMarkup;
 use Al3x5\xBot\Telegram\Entities\ReplyKeyboardMarkup;
 use Al3x5\xBot\Telegram\Entities\ReplyKeyboardRemove;
@@ -19,14 +19,14 @@ class KeyboardTest extends TestCase
     {
         $keyboard = Keyboard::inline();
         
-        $this->assertInstanceOf(\Al3x5\xBot\Telegram\Factories\Inline::class, $keyboard);
+        $this->assertInstanceOf(\Al3x5\xBot\Telegram\Factories\Keyboard\Inline::class, $keyboard);
     }
 
     public function testReplyReturnsReplyKeyboardInstance(): void
     {
         $keyboard = Keyboard::reply();
         
-        $this->assertInstanceOf(\Al3x5\xBot\Telegram\Factories\Reply::class, $keyboard);
+        $this->assertInstanceOf(\Al3x5\xBot\Telegram\Factories\Keyboard\Reply::class, $keyboard);
     }
 
     public function testRemoveReturnsReplyKeyboardRemove(): void

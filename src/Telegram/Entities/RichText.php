@@ -15,7 +15,7 @@ class RichText extends Entity
     public const TYPE_UNDERLINE = 'underline';
     public const TYPE_STRIKETHROUGH = 'strikethrough';
     public const TYPE_SPOILER = 'spoiler';
-    public const TYPE_DATETIME = 'datetime';
+    public const TYPE_DATETIME = 'date_time';
     public const TYPE_TEXT_MENTION = 'text_mention';
     public const TYPE_SUBSCRIPT = 'subscript';
     public const TYPE_SUPERSCRIPT = 'superscript';
@@ -48,7 +48,7 @@ class RichText extends Entity
             'underline' => new RichTextUnderline($this->properties),
             'strikethrough' => new RichTextStrikethrough($this->properties),
             'spoiler' => new RichTextSpoiler($this->properties),
-            'datetime' => new RichTextDateTime($this->properties),
+            'date_time' => new RichTextDateTime($this->properties),
             'text_mention' => new RichTextTextMention($this->properties),
             'subscript' => new RichTextSubscript($this->properties),
             'superscript' => new RichTextSuperscript($this->properties),

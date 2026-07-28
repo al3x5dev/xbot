@@ -1,16 +1,16 @@
-# FormatHelper
+# Text
 
-The `FormatHelper` class provides static methods for applying different formats to text in Telegram messages. These formats include bold, italics, underlines, strikethrough, spoilers, links, user mentions, custom emoji, code blocks, and quotes. This class is useful for formatting messages sent through a Telegram bot, improving their presentation and readability.
+The `Text` class provides static methods for applying different formats to text in Telegram messages. These formats include bold, italics, underlines, strikethrough, spoilers, links, user mentions, custom emoji, code blocks, and quotes. This class is useful for formatting messages sent through a Telegram bot, improving their presentation and readability.
 
 > [!WARNING]
-> `FormatHelper` generates the formatting according to the configuration value of `parse_mode` (default is `'HTML'`).
+> `Text` generates the formatting according to the configuration value of `parse_mode` (default is `'HTML'`).
 >
 > If you override `parse_mode` in a method's parameters (e.g., `reply($msg, ['parse_mode' => 'MarkdownV2'])`),
-> the text formatted by `FormatHelper` will *NOT* be automatically adapted—it will continue to use the configuration's formatting.
+> the text formatted by `Text` will *NOT* be automatically adapted—it will continue to use the configuration's formatting.
 >
 > In that case, you are responsible for ensuring that the text format matches the `parse_mode` you are sending.
 >
-> **Using `FormatHelper` is not recommended when the message's `parse_mode` differs from the globally configured one.**
+> **Using `Text` is not recommended when the message's `parse_mode` differs from the globally configured one.**
 
 ## Methods
 
@@ -19,7 +19,7 @@ The `FormatHelper` class provides static methods for applying different formats 
 Formats the provided text in bold.
 
 ```php
-$this->reply(FormatHelper::bold('This text will be bold'));
+$this->reply(Text::bold('This text will be bold'));
 // Output: <b>This text will be bold</b>
 ```
 
@@ -28,7 +28,7 @@ $this->reply(FormatHelper::bold('This text will be bold'));
 Formats the provided text in italics.
 
 ```php
-$this->reply(FormatHelper::italic('This text will be italic'));
+$this->reply(Text::italic('This text will be italic'));
 // Output: <i>This text will be italic</i>
 ```
 
@@ -37,7 +37,7 @@ $this->reply(FormatHelper::italic('This text will be italic'));
 Formats the provided text as underlined.
 
 ```php
-$this->reply(FormatHelper::underline('This text will be underlined'));
+$this->reply(Text::underline('This text will be underlined'));
 // Output: <u>This text will be underlined</u>
 ```
 
@@ -46,7 +46,7 @@ $this->reply(FormatHelper::underline('This text will be underlined'));
 Formats the provided text as a strikethrough.
 
 ```php
-$this->reply(FormatHelper::strikethrough('This text will be strikethrough'));
+$this->reply(Text::strikethrough('This text will be strikethrough'));
 // Output: <s>This text will be strikethrough</s>
 ```
 
@@ -55,7 +55,7 @@ $this->reply(FormatHelper::strikethrough('This text will be strikethrough'));
 Formats the provided text as a spoiler.
 
 ```php
-$this->reply(FormatHelper::spoiler('This text will be a spoiler'));
+$this->reply(Text::spoiler('This text will be a spoiler'));
 // Output: <tg-spoiler>This text will be a spoiler</tg-spoiler>
 ```
 
@@ -64,7 +64,7 @@ $this->reply(FormatHelper::spoiler('This text will be a spoiler'));
 Formats the provided text as a link.
 
 ```php
-$this->reply(FormatHelper::link('Click here', 'https://example.com'));
+$this->reply(Text::link('Click here', 'https://example.com'));
 // Output: <a href="https://example.com">Click here</a>
 ```
 
@@ -73,7 +73,7 @@ $this->reply(FormatHelper::link('Click here', 'https://example.com'));
 Formats the provided text as a user mention.
 
 ```php
-$this->reply(FormatHelper::mention('@user', 123456789));
+$this->reply(Text::mention('@user', 123456789));
 // Output: <a href="tg://user?id=123456789">@user</a>
 ```
 
@@ -82,7 +82,7 @@ $this->reply(FormatHelper::mention('@user', 123456789));
 Formats the provided text as a custom emoji.
 
 ```php
-$this->reply(FormatHelper::emoji('😊', '1234567890'));
+$this->reply(Text::emoji('😊', '1234567890'));
 // Output: <tg-emoji emoji-id="1234567890">😊</tg-emoji>
 ```
 
@@ -91,7 +91,7 @@ $this->reply(FormatHelper::emoji('😊', '1234567890'));
 Formats the provided text as inline code.
 
 ```php
-$this->reply(FormatHelper::inlineCode('inline code'));
+$this->reply(Text::inlineCode('inline code'));
 // Output: <code>inline code</code>
 ```
 
@@ -100,7 +100,7 @@ $this->reply(FormatHelper::inlineCode('inline code'));
 Formats the provided text as a code block.
 
 ```php
-$this->reply(FormatHelper::codeBlock('block code', 'php'));
+$this->reply(Text::codeBlock('block code', 'php'));
 // Output: <pre><code class="language-php">block code</code></pre>
 ```
 
@@ -116,7 +116,7 @@ Formats a Unix timestamp for display. Supports multiple format options:
 - `r`: Relative time from current moment
 
 ```php
-$this->reply(FormatHelper::time(1710691200, 't'));
+$this->reply(Text::time(1710691200, 't'));
 // Output: <tg-time unix="1710691200" format="t">fecha</tg-time>
 ```
 
@@ -125,7 +125,7 @@ $this->reply(FormatHelper::time(1710691200, 't'));
 Formats the provided text as a blockquote.
 
 ```php
-$this->reply(FormatHelper::blockQuote('This is a blockquote'));
+$this->reply(Text::blockQuote('This is a blockquote'));
 // Output: <blockquote>This is a blockquote</blockquote>
 ```
 
@@ -134,6 +134,6 @@ $this->reply(FormatHelper::blockQuote('This is a blockquote'));
 Formats the provided text as an expandable blockquote.
 
 ```php
-$this->reply(FormatHelper::expandableBlockQuote('This is an expandable blockquote'));
+$this->reply(Text::expandableBlockQuote('This is an expandable blockquote'));
 // Output: <blockquote expandable>This is an expandable blockquote</blockquote>
 ```

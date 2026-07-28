@@ -210,7 +210,7 @@ Example:
 
 namespace Bot\Middlewares;
 
-use Al3x5\xBot\Telegram\FormatHelper;
+use Al3x5\xBot\Telegram\Text;
 use Al3x5\xBot\Telegram\Actions\Middlewares;
 
 class AdminMiddleware extends Middlewares
@@ -220,7 +220,7 @@ class AdminMiddleware extends Middlewares
         if (!$this->isAdmin()) {
             return $this->abort(
                 '🚫 No eres bienvenido aquí ' .
-                FormatHelper::mention(
+                Text::mention(
                     $this->update->message->from->first_name,
                     $this->update->message->from->id
                 )
@@ -229,7 +229,7 @@ class AdminMiddleware extends Middlewares
 
         $this->reply(
             '✅ Bienvenido ' .
-            FormatHelper::mention(
+            Text::mention(
                 $this->update->message->from->first_name,
                 $this->update->message->from->id
             )

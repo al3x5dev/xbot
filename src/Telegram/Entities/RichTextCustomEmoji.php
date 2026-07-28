@@ -10,7 +10,7 @@ use Al3x5\xBot\Telegram\Entity;
  * @property string $custom_emoji_id
  * @property string $alternative_text
  */
-class RichTextCustomEmoji extends Entity
+class RichTextCustomEmoji extends RichText
 {
     
     protected function setEntities(): array

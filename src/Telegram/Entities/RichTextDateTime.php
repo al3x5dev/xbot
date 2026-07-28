@@ -11,7 +11,7 @@ use Al3x5\xBot\Telegram\Entity;
  * @property int $unix_time
  * @property string $date_time_format
  */
-class RichTextDateTime extends Entity
+class RichTextDateTime extends RichText
 {
     
     protected function setEntities(): array
