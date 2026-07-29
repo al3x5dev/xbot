@@ -11,7 +11,7 @@ use Al3x5\xBot\Telegram\Entity;
  * @property float $longitude
  * @property float $horizontal_accuracy
  */
-class InputMediaLocation extends Entity
+class InputMediaLocation extends InputPollOptionMedia
 {
     
     protected function setEntities(): array

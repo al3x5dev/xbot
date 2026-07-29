@@ -11,6 +11,7 @@ class InputPollOptionMedia extends Entity
 {
     
     public const TYPE_ANIMATION = 'animation';
+    public const TYPE_LINK = 'link';
     public const TYPE_LIVE_PHOTO = 'live_photo';
     public const TYPE_LOCATION = 'location';
     public const TYPE_PHOTO = 'photo';
@@ -26,6 +27,7 @@ class InputPollOptionMedia extends Entity
     {
         return match($this->type) {
             'animation' => new InputMediaAnimation($this->properties),
+            'link' => new InputMediaLink($this->properties),
             'live_photo' => new InputMediaLivePhoto($this->properties),
             'location' => new InputMediaLocation($this->properties),
             'photo' => new InputMediaPhoto($this->properties),
@@ -45,6 +47,7 @@ class InputPollOptionMedia extends Entity
      * | type= | Creates |
      * |-------|----------|
      * | animation | InputMediaAnimation |
+     * | link | InputMediaLink |
      * | live_photo | InputMediaLivePhoto |
      * | location | InputMediaLocation |
      * | photo | InputMediaPhoto |
@@ -57,6 +60,7 @@ class InputPollOptionMedia extends Entity
     {
         return match($data['type'] ?? null) {
             self::TYPE_ANIMATION => new InputMediaAnimation($data),
+            self::TYPE_LINK => new InputMediaLink($data),
             self::TYPE_LIVE_PHOTO => new InputMediaLivePhoto($data),
             self::TYPE_LOCATION => new InputMediaLocation($data),
             self::TYPE_PHOTO => new InputMediaPhoto($data),

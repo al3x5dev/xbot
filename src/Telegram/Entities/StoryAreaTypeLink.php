@@ -9,7 +9,7 @@ use Al3x5\xBot\Telegram\Entity;
  * @property string $type
  * @property string $url
  */
-class StoryAreaTypeLink extends Entity
+class StoryAreaTypeLink extends StoryAreaType
 {
     
     protected function setEntities(): array

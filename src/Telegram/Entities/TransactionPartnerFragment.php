@@ -9,7 +9,7 @@ use Al3x5\xBot\Telegram\Entity;
  * @property string $type
  * @property RevenueWithdrawalState $withdrawal_state
  */
-class TransactionPartnerFragment extends Entity
+class TransactionPartnerFragment extends TransactionPartner
 {
     
     protected function setEntities(): array

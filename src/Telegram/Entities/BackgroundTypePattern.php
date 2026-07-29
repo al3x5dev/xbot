@@ -13,7 +13,7 @@ use Al3x5\xBot\Telegram\Entity;
  * @property bool $is_inverted
  * @property bool $is_moving
  */
-class BackgroundTypePattern extends Entity
+class BackgroundTypePattern extends BackgroundType
 {
     
     protected function setEntities(): array

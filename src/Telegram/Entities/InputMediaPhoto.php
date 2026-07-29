@@ -14,7 +14,7 @@ use Al3x5\xBot\Telegram\Entity;
  * @property bool $show_caption_above_media
  * @property bool $has_spoiler
  */
-class InputMediaPhoto extends Entity
+class InputMediaPhoto extends InputMedia
 {
     
     protected function setEntities(): array

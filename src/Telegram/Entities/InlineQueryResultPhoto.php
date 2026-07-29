@@ -21,7 +21,7 @@ use Al3x5\xBot\Telegram\Entity;
  * @property InlineKeyboardMarkup $reply_markup
  * @property InputMessageContent $input_message_content
  */
-class InlineQueryResultPhoto extends Entity
+class InlineQueryResultPhoto extends InlineQueryResult
 {
     
     protected function setEntities(): array

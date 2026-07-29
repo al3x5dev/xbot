@@ -17,7 +17,7 @@ use Al3x5\xBot\Telegram\Entity;
  * @property Gift $gift
  * @property int $premium_subscription_duration
  */
-class TransactionPartnerUser extends Entity
+class TransactionPartnerUser extends TransactionPartner
 {
     
     protected function setEntities(): array

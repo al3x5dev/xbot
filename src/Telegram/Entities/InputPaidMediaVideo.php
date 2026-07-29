@@ -16,7 +16,7 @@ use Al3x5\xBot\Telegram\Entity;
  * @property int $duration
  * @property bool $supports_streaming
  */
-class InputPaidMediaVideo extends Entity
+class InputPaidMediaVideo extends InputPaidMedia
 {
     
     protected function setEntities(): array

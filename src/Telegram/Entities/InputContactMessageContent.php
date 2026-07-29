@@ -11,7 +11,7 @@ use Al3x5\xBot\Telegram\Entity;
  * @property string $last_name
  * @property string $vcard
  */
-class InputContactMessageContent extends Entity
+class InputContactMessageContent extends InputMessageContent
 {
     
     protected function setEntities(): array

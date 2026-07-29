@@ -9,13 +9,11 @@ use Al3x5\xBot\Telegram\Entity;
  * @property string $type
  * @property int|string $chat_id
  */
-class BotCommandScopeChat extends Entity
+class BotCommandScopeChat extends BotCommandScope
 {
     
     protected function setEntities(): array
     {
-        return [
-            'chat_id' => int|string::class,
-        ];
+        return [];
     }
 }

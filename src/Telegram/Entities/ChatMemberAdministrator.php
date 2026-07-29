@@ -28,7 +28,7 @@ use Al3x5\xBot\Telegram\Entity;
  * @property bool $can_manage_tags
  * @property string $custom_title
  */
-class ChatMemberAdministrator extends Entity
+class ChatMemberAdministrator extends ChatMember
 {
     
     protected function setEntities(): array

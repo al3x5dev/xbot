@@ -10,7 +10,7 @@ use Al3x5\xBot\Telegram\Entity;
  * @property int $date
  * @property string $url
  */
-class RevenueWithdrawalStateSucceeded extends Entity
+class RevenueWithdrawalStateSucceeded extends RevenueWithdrawalState
 {
     
     protected function setEntities(): array

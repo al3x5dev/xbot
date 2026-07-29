@@ -12,7 +12,7 @@ use Al3x5\xBot\Telegram\Entity;
  * @property int $prize_star_count
  * @property bool $is_unclaimed
  */
-class ChatBoostSourceGiveaway extends Entity
+class ChatBoostSourceGiveaway extends ChatBoostSource
 {
     
     protected function setEntities(): array

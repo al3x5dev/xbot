@@ -15,7 +15,7 @@ use Al3x5\xBot\Telegram\Entity;
  * @property InlineKeyboardMarkup $reply_markup
  * @property InputMessageContent $input_message_content
  */
-class InlineQueryResultCachedAudio extends Entity
+class InlineQueryResultCachedAudio extends InlineQueryResult
 {
     
     protected function setEntities(): array

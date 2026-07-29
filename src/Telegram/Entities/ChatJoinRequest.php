@@ -12,6 +12,7 @@ use Al3x5\xBot\Telegram\Entity;
  * @property int $date
  * @property string $bio
  * @property ChatInviteLink $invite_link
+ * @property string $query_id
  */
 class ChatJoinRequest extends Entity
 {

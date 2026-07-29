@@ -11,7 +11,7 @@ use Al3x5\xBot\Telegram\Entity;
  * @property int $bottom_color
  * @property int $rotation_angle
  */
-class BackgroundFillGradient extends Entity
+class BackgroundFillGradient extends BackgroundFill
 {
     
     protected function setEntities(): array

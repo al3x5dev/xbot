@@ -15,8 +15,8 @@ Creates an inline keyboard that appears next to the message.
 Each button can have actions such as opening a URL, sending callback data, etc.
 
 ```php
-use Al3x5\xBot\Telegram\Factories\InlineButton;
 use Al3x5\xBot\Telegram\Factories\Keyboard;
+use Al3x5\xBot\Telegram\Factories\Keyboard\InlineButton;
 
 $keyboard = Keyboard::inline()
     ->row([
@@ -159,8 +159,8 @@ This static method creates a new instance of `ReplyKeyboard`, which is used to b
 
 
 ```php
-use Al3x5\xBot\Telegram\Factories\ReplyButton;
 use Al3x5\xBot\Telegram\Factories\Keyboard;
+use Al3x5\xBot\Telegram\Factories\Keyboard\ReplyButton;
 
 $keyboard = Keyboard::reply()
     ->row([

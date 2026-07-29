@@ -11,7 +11,7 @@ use Al3x5\xBot\Telegram\Entity;
  * @property User $user
  * @property int $until_date
  */
-class ChatMemberMember extends Entity
+class ChatMemberMember extends ChatMember
 {
     
     protected function setEntities(): array

@@ -21,7 +21,7 @@ use Al3x5\xBot\Telegram\Entity;
  * @property bool $supports_streaming
  * @property bool $has_spoiler
  */
-class InputMediaVideo extends Entity
+class InputMediaVideo extends InputMedia
 {
     
     protected function setEntities(): array

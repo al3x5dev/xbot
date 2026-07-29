@@ -10,7 +10,7 @@ use Al3x5\xBot\Telegram\Entity;
  * @property Chat $chat
  * @property Gift $gift
  */
-class TransactionPartnerChat extends Entity
+class TransactionPartnerChat extends TransactionPartner
 {
     
     protected function setEntities(): array

@@ -39,7 +39,6 @@
         "psr-4": {
             "Al3x5\\xBot\\": "src/",
             "Bot\\": "bot/"
-
         },
         "files": [
             "src/helpers.php"

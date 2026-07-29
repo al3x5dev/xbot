@@ -10,7 +10,7 @@ use Al3x5\xBot\Telegram\Entity;
  * @property string $media
  * @property string $emoji
  */
-class InputMediaSticker extends Entity
+class InputMediaSticker extends InputPollOptionMedia
 {
     
     protected function setEntities(): array

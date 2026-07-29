@@ -18,7 +18,7 @@ use Al3x5\xBot\Telegram\Entity;
  * @property int $duration
  * @property bool $has_spoiler
  */
-class InputMediaAnimation extends Entity
+class InputMediaAnimation extends InputMedia
 {
     
     protected function setEntities(): array

@@ -8,7 +8,7 @@ use Al3x5\xBot\Telegram\Entity;
  * RevenueWithdrawalStatePending Entity
  * @property string $type
  */
-class RevenueWithdrawalStatePending extends Entity
+class RevenueWithdrawalStatePending extends RevenueWithdrawalState
 {
     
     protected function setEntities(): array

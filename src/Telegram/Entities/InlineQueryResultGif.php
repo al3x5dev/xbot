@@ -22,7 +22,7 @@ use Al3x5\xBot\Telegram\Entity;
  * @property InlineKeyboardMarkup $reply_markup
  * @property InputMessageContent $input_message_content
  */
-class InlineQueryResultGif extends Entity
+class InlineQueryResultGif extends InlineQueryResult
 {
     
     protected function setEntities(): array

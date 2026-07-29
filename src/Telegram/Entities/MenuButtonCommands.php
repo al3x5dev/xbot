@@ -8,7 +8,7 @@ use Al3x5\xBot\Telegram\Entity;
  * MenuButtonCommands Entity
  * @property string $type
  */
-class MenuButtonCommands extends Entity
+class MenuButtonCommands extends MenuButton
 {
     
     protected function setEntities(): array

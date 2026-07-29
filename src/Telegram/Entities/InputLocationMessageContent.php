@@ -13,7 +13,7 @@ use Al3x5\xBot\Telegram\Entity;
  * @property int $heading
  * @property int $proximity_alert_radius
  */
-class InputLocationMessageContent extends Entity
+class InputLocationMessageContent extends InputMessageContent
 {
     
     protected function setEntities(): array

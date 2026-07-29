@@ -12,7 +12,7 @@ use Al3x5\xBot\Telegram\Entity;
  * @property InlineKeyboardMarkup $reply_markup
  * @property InputMessageContent $input_message_content
  */
-class InlineQueryResultCachedSticker extends Entity
+class InlineQueryResultCachedSticker extends InlineQueryResult
 {
     
     protected function setEntities(): array

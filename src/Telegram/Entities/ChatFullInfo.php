@@ -57,6 +57,8 @@ use Al3x5\xBot\Telegram\Entity;
  * @property Audio $first_profile_audio
  * @property UniqueGiftColors $unique_gift_colors
  * @property int $paid_message_star_count
+ * @property User $guard_bot
+ * @property Community $community
  */
 class ChatFullInfo extends Entity
 {
@@ -79,6 +81,8 @@ class ChatFullInfo extends Entity
             'rating' => UserRating::class,
             'first_profile_audio' => Audio::class,
             'unique_gift_colors' => UniqueGiftColors::class,
+            'guard_bot' => User::class,
+            'community' => Community::class,
         ];
     }
 }

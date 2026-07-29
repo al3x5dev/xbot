@@ -9,7 +9,7 @@ use Al3x5\xBot\Telegram\Entity;
  * @property string $type
  * @property string $theme_name
  */
-class BackgroundTypeChatTheme extends Entity
+class BackgroundTypeChatTheme extends BackgroundType
 {
     
     protected function setEntities(): array

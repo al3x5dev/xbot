@@ -28,7 +28,7 @@ use Al3x5\xBot\Telegram\Entity;
  * @property bool $can_manage_topics
  * @property int $until_date
  */
-class ChatMemberRestricted extends Entity
+class ChatMemberRestricted extends ChatMember
 {
     
     protected function setEntities(): array

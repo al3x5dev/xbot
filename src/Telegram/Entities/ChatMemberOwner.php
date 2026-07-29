@@ -11,7 +11,7 @@ use Al3x5\xBot\Telegram\Entity;
  * @property bool $is_anonymous
  * @property string $custom_title
  */
-class ChatMemberOwner extends Entity
+class ChatMemberOwner extends ChatMember
 {
     
     protected function setEntities(): array

@@ -10,7 +10,7 @@ use Al3x5\xBot\Telegram\Entity;
  * @property BackgroundFill $fill
  * @property int $dark_theme_dimming
  */
-class BackgroundTypeFill extends Entity
+class BackgroundTypeFill extends BackgroundType
 {
     
     protected function setEntities(): array

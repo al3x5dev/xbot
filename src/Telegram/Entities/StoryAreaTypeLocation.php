@@ -11,7 +11,7 @@ use Al3x5\xBot\Telegram\Entity;
  * @property float $longitude
  * @property LocationAddress $address
  */
-class StoryAreaTypeLocation extends Entity
+class StoryAreaTypeLocation extends StoryAreaType
 {
     
     protected function setEntities(): array

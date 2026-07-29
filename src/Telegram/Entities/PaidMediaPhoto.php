@@ -9,7 +9,7 @@ use Al3x5\xBot\Telegram\Entity;
  * @property string $type
  * @property PhotoSize[] $photo
  */
-class PaidMediaPhoto extends Entity
+class PaidMediaPhoto extends PaidMedia
 {
     
     protected function setEntities(): array
