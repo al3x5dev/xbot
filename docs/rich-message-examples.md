@@ -1,6 +1,6 @@
 # Rich Message Examples
 
-Complete examples of rich messages using the Telegram Bot API 7.0+ format.
+Complete examples of rich messages using the Telegram Bot API 10.2+ format.
 
 All examples assume you have access to `$this->message->chat->id` from a command context.
 
