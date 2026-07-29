@@ -36,39 +36,43 @@ class Block
 {
     public static function paragraph(string|RichText|array $text): InputRichBlockParagraph
     {
-        return new InputRichBlockParagraph([
+        $block = new InputRichBlockParagraph([
             'type' => InputRichBlock::TYPE_PARAGRAPH,
-            'text' => $text,
         ]);
+        $block->text = $text;
+        return $block;
     }
 
     public static function heading(string|RichText|array $text, int $size = 1): InputRichBlockSectionHeading
     {
-        return new InputRichBlockSectionHeading([
+        $block = new InputRichBlockSectionHeading([
             'type' => InputRichBlock::TYPE_HEADING,
-            'text' => $text,
             'size' => $size,
         ]);
+        $block->text = $text;
+        return $block;
     }
 
     public static function preformatted(string|RichText|array $text, string $language = ''): InputRichBlockPreformatted
     {
         $data = [
             'type' => InputRichBlock::TYPE_PREFORMATTED,
-            'text' => $text,
         ];
         if ($language !== '') {
             $data['language'] = $language;
         }
-        return new InputRichBlockPreformatted($data);
+        $block = new InputRichBlockPreformatted($data);
+        $block->text = $text;
+        return $block;
     }
 
     public static function footer(string|RichText|array $text): InputRichBlockFooter
     {
-        return new InputRichBlockFooter([
+        $block = new InputRichBlockFooter([
             'type' => InputRichBlock::TYPE_FOOTER,
-            'text' => $text,
         ]);
+        $block->text = $text;
+        return $block;
     }
 
     public static function divider(): InputRichBlockDivider
@@ -80,40 +84,41 @@ class Block
 
     public static function thinking(string|RichText|array $text): InputRichBlockThinking
     {
-        return new InputRichBlockThinking([
+        $block = new InputRichBlockThinking([
             'type' => InputRichBlock::TYPE_THINKING,
-            'text' => $text,
         ]);
+        $block->text = $text;
+        return $block;
     }
 
-    public static function blockQuote(array $blocks, string|RichText|null $credit = null): InputRichBlockBlockQuotation
+    public static function blockQuote(array $blocks, string|RichText|array|null $credit = null): InputRichBlockBlockQuotation
     {
-        $data = [
+        $block = new InputRichBlockBlockQuotation([
             'type' => InputRichBlock::TYPE_BLOCK_QUOTATION,
             'blocks' => $blocks,
-        ];
+        ]);
         if ($credit !== null) {
-            $data['credit'] = $credit;
+            $block->credit = $credit;
         }
-        return new InputRichBlockBlockQuotation($data);
+        return $block;
     }
 
-    public static function pullQuote(string|RichText|array $text, string|RichText|null $credit = null): InputRichBlockPullQuotation
+    public static function pullQuote(string|RichText|array $text, string|RichText|array|null $credit = null): InputRichBlockPullQuotation
     {
-        $data = [
+        $block = new InputRichBlockPullQuotation([
             'type' => InputRichBlock::TYPE_PULL_QUOTATION,
-            'text' => $text,
-        ];
+        ]);
+        $block->text = $text;
         if ($credit !== null) {
-            $data['credit'] = $credit;
+            $block->credit = $credit;
         }
-        return new InputRichBlockPullQuotation($data);
+        return $block;
     }
 
     public static function photo(
         string $media,
-        string|RichText|null $caption = null,
-        string|RichText|null $credit = null
+        string|RichText|array|null $caption = null,
+        string|RichText|array|null $credit = null
     ): InputRichBlockPhoto {
         $data = [
             'type' => InputRichBlock::TYPE_PHOTO,
@@ -123,22 +128,22 @@ class Block
             ]),
         ];
         if ($caption !== null || $credit !== null) {
-            $captionData = [];
+            $captionBlock = new RichBlockCaption([]);
             if ($caption !== null) {
-                $captionData['text'] = $caption;
+                $captionBlock->text = $caption;
             }
             if ($credit !== null) {
-                $captionData['credit'] = $credit;
+                $captionBlock->credit = $credit;
             }
-            $data['caption'] = new RichBlockCaption($captionData);
+            $data['caption'] = $captionBlock;
         }
         return new InputRichBlockPhoto($data);
     }
 
     public static function video(
         string $media,
-        string|RichText|null $caption = null,
-        string|RichText|null $credit = null
+        string|RichText|array|null $caption = null,
+        string|RichText|array|null $credit = null
     ): InputRichBlockVideo {
         $data = [
             'type' => InputRichBlock::TYPE_VIDEO,
@@ -148,22 +153,22 @@ class Block
             ]),
         ];
         if ($caption !== null || $credit !== null) {
-            $captionData = [];
+            $captionBlock = new RichBlockCaption([]);
             if ($caption !== null) {
-                $captionData['text'] = $caption;
+                $captionBlock->text = $caption;
             }
             if ($credit !== null) {
-                $captionData['credit'] = $credit;
+                $captionBlock->credit = $credit;
             }
-            $data['caption'] = new RichBlockCaption($captionData);
+            $data['caption'] = $captionBlock;
         }
         return new InputRichBlockVideo($data);
     }
 
     public static function audio(
         string $media,
-        string|RichText|null $caption = null,
-        string|RichText|null $credit = null
+        string|RichText|array|null $caption = null,
+        string|RichText|array|null $credit = null
     ): InputRichBlockAudio {
         $data = [
             'type' => InputRichBlock::TYPE_AUDIO,
@@ -173,22 +178,22 @@ class Block
             ]),
         ];
         if ($caption !== null || $credit !== null) {
-            $captionData = [];
+            $captionBlock = new RichBlockCaption([]);
             if ($caption !== null) {
-                $captionData['text'] = $caption;
+                $captionBlock->text = $caption;
             }
             if ($credit !== null) {
-                $captionData['credit'] = $credit;
+                $captionBlock->credit = $credit;
             }
-            $data['caption'] = new RichBlockCaption($captionData);
+            $data['caption'] = $captionBlock;
         }
         return new InputRichBlockAudio($data);
     }
 
     public static function animation(
         string $media,
-        string|RichText|null $caption = null,
-        string|RichText|null $credit = null
+        string|RichText|array|null $caption = null,
+        string|RichText|array|null $credit = null
     ): InputRichBlockAnimation {
         $data = [
             'type' => InputRichBlock::TYPE_ANIMATION,
@@ -198,22 +203,22 @@ class Block
             ]),
         ];
         if ($caption !== null || $credit !== null) {
-            $captionData = [];
+            $captionBlock = new RichBlockCaption([]);
             if ($caption !== null) {
-                $captionData['text'] = $caption;
+                $captionBlock->text = $caption;
             }
             if ($credit !== null) {
-                $captionData['credit'] = $credit;
+                $captionBlock->credit = $credit;
             }
-            $data['caption'] = new RichBlockCaption($captionData);
+            $data['caption'] = $captionBlock;
         }
         return new InputRichBlockAnimation($data);
     }
 
     public static function voiceNote(
         string $media,
-        string|RichText|null $caption = null,
-        string|RichText|null $credit = null
+        string|RichText|array|null $caption = null,
+        string|RichText|array|null $credit = null
     ): InputRichBlockVoiceNote {
         $data = [
             'type' => InputRichBlock::TYPE_VOICE_NOTE,
@@ -223,14 +228,14 @@ class Block
             ]),
         ];
         if ($caption !== null || $credit !== null) {
-            $captionData = [];
+            $captionBlock = new RichBlockCaption([]);
             if ($caption !== null) {
-                $captionData['text'] = $caption;
+                $captionBlock->text = $caption;
             }
             if ($credit !== null) {
-                $captionData['credit'] = $credit;
+                $captionBlock->credit = $credit;
             }
-            $data['caption'] = new RichBlockCaption($captionData);
+            $data['caption'] = $captionBlock;
         }
         return new InputRichBlockVoiceNote($data);
     }
@@ -265,54 +270,55 @@ class Block
         array $blocks,
         bool $is_open = false
     ): InputRichBlockDetails {
-        return new InputRichBlockDetails([
+        $block = new InputRichBlockDetails([
             'type' => InputRichBlock::TYPE_DETAILS,
-            'summary' => $summary,
             'blocks' => $blocks,
             'is_open' => $is_open,
         ]);
+        $block->summary = $summary;
+        return $block;
     }
 
     public static function collage(
         array $blocks,
-        string|RichText|null $caption = null,
-        string|RichText|null $credit = null
+        string|RichText|array|null $caption = null,
+        string|RichText|array|null $credit = null
     ): InputRichBlockCollage {
         $data = [
             'type' => InputRichBlock::TYPE_COLLAGE,
             'blocks' => $blocks,
         ];
         if ($caption !== null || $credit !== null) {
-            $captionData = [];
+            $captionBlock = new RichBlockCaption([]);
             if ($caption !== null) {
-                $captionData['text'] = $caption;
+                $captionBlock->text = $caption;
             }
             if ($credit !== null) {
-                $captionData['credit'] = $credit;
+                $captionBlock->credit = $credit;
             }
-            $data['caption'] = new RichBlockCaption($captionData);
+            $data['caption'] = $captionBlock;
         }
         return new InputRichBlockCollage($data);
     }
 
     public static function slideshow(
         array $blocks,
-        string|RichText|null $caption = null,
-        string|RichText|null $credit = null
+        string|RichText|array|null $caption = null,
+        string|RichText|array|null $credit = null
     ): InputRichBlockSlideshow {
         $data = [
             'type' => InputRichBlock::TYPE_SLIDESHOW,
             'blocks' => $blocks,
         ];
         if ($caption !== null || $credit !== null) {
-            $captionData = [];
+            $captionBlock = new RichBlockCaption([]);
             if ($caption !== null) {
-                $captionData['text'] = $caption;
+                $captionBlock->text = $caption;
             }
             if ($credit !== null) {
-                $captionData['credit'] = $credit;
+                $captionBlock->credit = $credit;
             }
-            $data['caption'] = new RichBlockCaption($captionData);
+            $data['caption'] = $captionBlock;
         }
         return new InputRichBlockSlideshow($data);
     }
@@ -322,8 +328,8 @@ class Block
         int $zoom = 15,
         int $width = 300,
         int $height = 200,
-        string|RichText|null $caption = null,
-        string|RichText|null $credit = null
+        string|RichText|array|null $caption = null,
+        string|RichText|array|null $credit = null
     ): InputRichBlockMap {
         $data = [
             'type' => InputRichBlock::TYPE_MAP,
@@ -333,14 +339,14 @@ class Block
             'height' => $height,
         ];
         if ($caption !== null || $credit !== null) {
-            $captionData = [];
+            $captionBlock = new RichBlockCaption([]);
             if ($caption !== null) {
-                $captionData['text'] = $caption;
+                $captionBlock->text = $caption;
             }
             if ($credit !== null) {
-                $captionData['credit'] = $credit;
+                $captionBlock->credit = $credit;
             }
-            $data['caption'] = new RichBlockCaption($captionData);
+            $data['caption'] = $captionBlock;
         }
         return new InputRichBlockMap($data);
     }

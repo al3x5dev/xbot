@@ -55,7 +55,7 @@ abstract class Entity implements \JsonSerializable
                 // Caso: Array de entidades (ej: 'photos' => [PhotoSize::class])
                 if (is_array($entityClass) && is_array($value)) {
                     $this->properties[$key] = array_map(
-                        fn($item) => new $entityClass[0]($item),
+                        fn($item) => $item instanceof $entityClass[0] ? $item : new $entityClass[0]($item),
                         $value
                     );
                 }

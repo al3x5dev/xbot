@@ -1,6 +1,6 @@
 # xBot
 
-![Telegram Bot API](https://img.shields.io/badge/Telegram%20Bot%20API-10.0-blue?style=flat-square)
+![Telegram Bot API](https://img.shields.io/badge/Telegram%20Bot%20API-10.2-blue?style=flat-square)
 ![GitHub Release](https://img.shields.io/github/v/release/al3x5dev/xbot?include_prereleases&style=flat-square&color=blue)
 ![GitHub code size in bytes](https://img.shields.io/github/languages/code-size/al3x5dev/http?style=flat-square)
 ![GitHub License](https://img.shields.io/github/license/al3x5dev/xbot?style=flat-square)
@@ -25,6 +25,7 @@
 - [Message Format](https://github.com/al3x5dev/xbot/blob/main/docs/format.md)
 - [Events Logger](https://github.com/al3x5dev/xbot/blob/main/docs/logger.md)
 - [Middlewares](https://github.com/al3x5dev/xbot/blob/main/docs/middlewares.md)
+- [Rich Messages](https://github.com/al3x5dev/xbot/blob/main/docs/rich-message-examples.md)
 
 
 ## Contributions

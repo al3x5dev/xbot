@@ -137,3 +137,279 @@ Formats the provided text as an expandable blockquote.
 $this->reply(Text::expandableBlockQuote('This is an expandable blockquote'));
 // Output: <blockquote expandable>This is an expandable blockquote</blockquote>
 ```
+
+---
+
+## Rich Text Formatting (for RichMessage)
+
+These methods return `RichText` entity objects (not strings) for use inside `RichMessage` blocks and tables. They produce the nested JSON structure required by the Telegram Bot API 7.0+ rich message format.
+
+```php
+use Al3x5\xBot\Telegram\Text;
+
+$bold = Text::richBold('Bold text');
+$italic = Text::richItalic('Italic text');
+```
+
+### richBold(string|RichText $text): RichTextBold
+
+```php
+Block::heading(Text::richBold('Title'));
+```
+
+### richItalic(string|RichText $text): RichTextItalic
+
+```php
+Block::paragraph(Text::richItalic('Intro'));
+```
+
+### richUnderline(string|RichText $text): RichTextUnderline
+
+### richStrikethrough(string|RichText $text): RichTextStrikethrough
+
+### richSpoiler(string|RichText $text): RichTextSpoiler
+
+### richCode(string|RichText $text): RichTextCode
+
+### richUrl(string|RichText $text, string $url): RichTextUrl
+
+Creates a clickable URL with the given text.
+
+### richEmail(string|RichText $text): RichTextEmailAddress
+
+### richPhone(string|RichText $text): RichTextPhoneNumber
+
+### richMention(string|RichText $text, string $username): RichTextMention
+
+Mentions a user by username.
+
+### richTextMention(string|RichText $text, User|int $user): RichTextTextMention
+
+Mentions a user by their user ID.
+
+### richCustomEmoji(string $emoji, string $id): RichTextCustomEmoji
+
+Inserts a custom emoji by its ID.
+
+### richSubscript(string|RichText $text): RichTextSubscript
+
+### richSuperscript(string|RichText $text): RichTextSuperscript
+
+### richMarked(string|RichText $text): RichTextMarked
+
+### richDatetime(int $unix): RichTextDateTime
+
+Formats a Unix timestamp as a time entity.
+
+### richMath(string $expression): RichTextMathematicalExpression
+
+### richAnchor(string $name): RichTextAnchor
+
+Creates an anchor that can be referenced by `richAnchorLink`.
+
+### richAnchorLink(string|RichText $text, string $anchor): RichTextAnchorLink
+
+Creates a link to a previously defined anchor.
+
+### richReference(string|RichText $text, string $reference): RichTextReference
+
+### richReferenceLink(string|RichText $text, string $reference): RichTextReferenceLink
+
+---
+
+## RichMessage Builder
+
+The `RichMessage` builder creates a `sendRichMessage` payload. It supports rich blocks, HTML/Markdown fallbacks, and RTL direction.
+
+```php
+use Al3x5\xBot\Telegram\Factories\RichMessage;
+use Al3x5\xBot\Telegram\Factories\Rich\Block;
+use Al3x5\xBot\Telegram\Text;
+
+$message = RichMessage::make()
+    ->block(Block::heading(Text::richBold('Welcome')))
+    ->block(Block::paragraph(Text::richItalic('This is a rich message')))
+    ->block(Block::divider())
+    ->html('<b>Fallback HTML</b>')
+    ->rtl()
+    ->build();
+
+$this->sendRichMessage($chatId, $message);
+```
+
+### make(): RichMessage
+
+Creates a new builder instance.
+
+### block(Entity $block): self
+
+Adds a block (from `Block::*()` factories).
+
+### html(string $html): self
+
+Sets an HTML fallback for clients that don't support rich messages.
+
+### markdown(string $markdown): self
+
+Sets a Markdown fallback.
+
+### rtl(bool $v = true): self
+
+Enables right-to-left rendering.
+
+### build(): InputRichMessage
+
+Builds the message entity ready for `sendRichMessage`.
+
+---
+
+## Rich\Block Factory
+
+Provides static methods to create all 20 rich block types for use with `RichMessage::block()`.
+
+```php
+use Al3x5\xBot\Telegram\Factories\Rich\Block;
+
+$msg = RichMessage::make()
+    ->block(Block::paragraph('Simple text'))
+    ->block(Block::divider())
+    ->block(Block::table()->header(['Name', 'Value'])->body([['Item', '$10']])->build())
+    ->build();
+```
+
+### paragraph(string|RichText|array $text): InputRichBlockParagraph
+
+A paragraph block with formatted text.
+
+### heading(string|RichText|array $text, int $size = 1): InputRichBlockSectionHeading
+
+A section heading. `$size` ranges from 1 (largest) to 6.
+
+### preformatted(string|RichText|array $text, string $language = ''): InputRichBlockPreformatted
+
+Preformatted/code block. Optionally specify the programming language.
+
+### footer(string|RichText|array $text): InputRichBlockFooter
+
+A footer block.
+
+### divider(): InputRichBlockDivider
+
+A horizontal divider line.
+
+### thinking(string|RichText|array $text): InputRichBlockThinking
+
+Animated thinking/typing indicator block.
+
+### blockQuote(array $blocks, string|RichText|null $credit = null): InputRichBlockBlockQuotation
+
+A block quote containing nested blocks. Optional attribution text.
+
+```php
+Block::blockQuote([Block::paragraph('Quoted text')], '— Source');
+```
+
+### pullQuote(string|RichText|array $text, string|RichText|null $credit = null): InputRichBlockPullQuotation
+
+A pull quote with large stylized text. Optional attribution.
+
+### photo(string $media, string|RichText|null $caption = null, string|RichText|null $credit = null): InputRichBlockPhoto
+
+A photo block. `$media` is the file ID.
+
+### video(string $media, ...): InputRichBlockVideo
+
+### audio(string $media, ...): InputRichBlockAudio
+
+### animation(string $media, ...): InputRichBlockAnimation
+
+### voiceNote(string $media, ...): InputRichBlockVoiceNote
+
+### table(): Table
+
+Returns a `Table` builder instance for constructing table blocks.
+
+### list(array $items): InputRichBlockList
+
+Creates a list block. Each item can be a block or array of blocks.
+
+```php
+Block::list([
+    Block::paragraph('Item 1'),
+    Block::paragraph('Item 2'),
+]);
+```
+
+### details(string|RichText|array $summary, array $blocks, bool $is_open = false): InputRichBlockDetails
+
+A collapsible details/summary block.
+
+### collage(array $blocks, ...): InputRichBlockCollage
+
+A collage of multiple media blocks.
+
+### slideshow(array $blocks, ...): InputRichBlockSlideshow
+
+A slideshow/carousel of blocks.
+
+### map(array $location, int $zoom = 15, int $width = 300, int $height = 200, ...): InputRichBlockMap
+
+Embedded map. `$location` is `['latitude' => float, 'longitude' => float]`.
+
+### math(string $expression): InputRichBlockMathematicalExpression
+
+Renders a mathematical expression using Telegram's rendering engine.
+
+### anchor(string $name): InputRichBlockAnchor
+
+Creates an anchor point that can be linked to via block anchor links.
+
+---
+
+## Rich\Table Builder
+
+The `Table` builder constructs table blocks for use inside `RichMessage`.
+
+```php
+use Al3x5\xBot\Telegram\Factories\Rich\Block;
+use Al3x5\xBot\Telegram\Text;
+
+$table = Block::table()
+    ->header(['Product', 'Price'])
+    ->body([
+        ['Shirt', '$25'],
+        ['Shoes', '$80'],
+    ])
+    ->footer(['Total', '$105'])
+    ->bordered()
+    ->caption(Text::richBold('Order Summary'))
+    ->build();
+```
+
+### header(array $cells): self
+
+Sets the header row. Each cell can be a string, `RichText` object, or array.
+
+### body(array $rows): self
+
+Sets the body rows. Each row is an array of cells.
+
+### footer(array $cells): self
+
+Sets the footer row.
+
+### bordered(bool $v = true): self
+
+Enables table borders.
+
+### striped(bool $v = true): self
+
+Enables alternating row striping.
+
+### caption(string|RichText|array $caption): self
+
+Sets the table caption.
+
+### build(): InputRichBlockTable
+
+Builds the table block entity.

@@ -211,7 +211,10 @@ class Text
 
     public static function richDatetime(int $unix): RichTextDateTime
     {
-        return new RichTextDateTime(['type' => 'datetime', 'unix' => $unix]);
+        return new RichTextDateTime([
+            'type' => RichText::TYPE_DATETIME,
+            'unix_time' => $unix
+        ]);
     }
 
     public static function richMath(string $expression): RichTextMathematicalExpression

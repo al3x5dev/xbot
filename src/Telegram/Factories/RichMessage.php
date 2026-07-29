@@ -42,7 +42,9 @@ class RichMessage
     public function build(): InputRichMessage
     {
         $msg = new InputRichMessage([]);
-        $msg->blocks = $this->blocks;       // ← asigna directo (usa __set)
+        if ($this->blocks !== []) {
+            $msg->blocks = $this->blocks;
+        }
         foreach ($this->options as $k => $v) {
             $msg->{$k} = $v;
         }
