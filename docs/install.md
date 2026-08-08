@@ -26,7 +26,7 @@ You can create the configuration file manually by following these steps:
 ```php
 return [
     // your bot token (required)
-    'token' => '1234567890:ABCDEFGHIJKLMNOQRSTZ',
+    'token' => '110201543:AAHdqTcvCH1vGWJxfSeofSAs0K5PALDsaw',
     // webhook secret token (optional but recommended)
     // This adds an extra layer of security to your webhook
     // Telegram will send this token in the X-Telegram-Bot-Api-Secret-Token header

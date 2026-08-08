@@ -9,7 +9,7 @@
 
 > [!NOTE]
 > Before you start creating code, you must have created your bot in Telegram.
-> If you don't know how to do it yet, don't worry! [Here's how to do it](https://telegra.ph/Instrucciones-para-crear-y-configurar-un-bot-en-BotFather-03-18).
+> If you don't know how to do it yet, don't worry! [Here's how to do it](https://core.telegram.org/bots/features#creating-a-new-bot).
 
 
 ## Documentation

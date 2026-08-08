@@ -13,7 +13,7 @@
 
 return [
     // your bot token (required)
-    'token' => '123456:ABC-DEF1234ghIkl-zyx57W2v1u123ew11',
+    'token' => '110201543:AAHdqTcvCH1vGWJxfSeofSAs0K5PALDsaw',
     // webhook secret token (optional but recommended)
     // This adds an extra layer of security to your webhook
     // Telegram will send this token in the X-Telegram-Bot-Api-Secret-Token header
