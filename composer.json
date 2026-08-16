@@ -47,16 +47,6 @@
     "bin": [
         "xbot"
     ],
-    "archive": {
-        "exclude": [
-            "/.gitignore",
-            "/.gitattributes",
-            "/.github",
-            "/docs",
-            "/phpunit.xml",
-            "/tests"
-        ]
-    },
     "minimum-stability": "stable",
     "prefer-stable": true
 }
