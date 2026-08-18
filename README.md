@@ -1,3 +1,4 @@
+# This library will no longer be supported; please visit [TGram](https://github.com/al3x5dev/tgram) instead.
 # xBot
 
 ![Telegram Bot API](https://img.shields.io/badge/Telegram%20Bot%20API-10.2-blue?style=flat-square)
